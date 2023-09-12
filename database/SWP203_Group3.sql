@@ -73,8 +73,9 @@ FOREIGN KEY (CategoryID) REFERENCES  [Category](CategoryID)
 
 CREATE TABLE ProductImage(
 ProductID INT NOT NULL,
-FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
-ImageUrl VARCHAR(MAX)
+ImageUrl VARCHAR(MAX) UNIQUE,
+PRIMARY KEY(ProductID, ImageUrl),
+FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID)
 )
 
 CREATE TABLE Orders(
