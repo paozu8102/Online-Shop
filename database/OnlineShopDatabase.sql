@@ -76,8 +76,10 @@ foreign key (CategoryID) references [Category](CategoryID)
 )
 Create Table ProductImage(
 ProductID int not null,
+ImageUrl varchar(max) UNIQUE,
+PRIMARY KEY(ProductID, ImageUrl),
 foreign key (ProductID) references [Product](ProductID),
-ImageUrl varchar(max)
+
 )
 create table Orders(
 OrderID int not null primary key,
