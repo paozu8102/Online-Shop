@@ -1,68 +1,121 @@
+
 CREATE TABLE [Role](
-RoleID int Not Null PRIMARY KEY,
-RoleName varchar(50) Not NULL
+RoleID INT NOT NULL PRIMARY KEY,
+RoleName VARCHAR(50) NOT NULL
 
 )
 
-INSERT INTO [Role] (RoleID,RoleName) 
-VALUES (1, 'Admin' ),
-       (2, 'Saler')
-
-Create Table BlogStatus(
-StatusID int Not Null PRIMARY KEY,
-StatusName varchar(20) Not NULL
+CREATE TABLE BlogStatus(
+StatusID INT NOT NULL PRIMARY KEY,
+StatusName VARCHAR(20) NOT NULL
 
 )
 
-Create Table Category(
-CategoryID int Not Null PRIMARY KEY,
-CategoryName varchar(50) Not NULL
+CREATE TABLE Category(
+CategoryID INT NOT NULL PRIMARY KEY,
+CategoryName VARCHAR(50) NOT NULL
 
 )
 
 
-Create Table Account(
-AccountID int IDENTITY(1,1) Not Null PRIMARY KEY,
-Email varchar(50) Not NULL,
-Password varchar(50) Not NULL,
-RoleID int 
+CREATE TABLE Account(
+
+Email VARCHAR(50) NOT NULL PRIMARY KEY,
+Password VARCHAR(50) NOT NULL,
+RoleID INT NOT NULL
 FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
 )
 
-Create Table [User](
-UserID int IDENTITY(1,1) Not Null PRIMARY KEY,
-UserName varchar(50) Not NULL,
-Gender bit Not NULL,
-PhoneNumber varchar(20) Not NULL,
-Address varchar(max) Not NULL,
-Avatar varchar(max) Not NULL,
-AccountID int Not NULL
-FOREIGN KEY (AccountID) REFERENCES Account(AccountID)
+CREATE TABLE [User](
+UserID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+UserName VARCHAR(50) NOT NULL,
+Gender BIT NOT NULL,
+PhoneNumber VARCHAR(20) NOT NULL,
+Address VARCHAR(MAX) NOT NULL,
+Avatar VARCHAR(MAX) NOT NULL,
+Email VARCHAR(50) NOT NULL
+FOREIGN KEY (Email) REFERENCES Account(Email)
 )
 
-Create Table Blog(
-BlogID int IDENTITY(1,1) Not Null PRIMARY KEY,
-Title varchar(max) Not NULL,
-Content varchar(20) Not NULL,
-[Date] date Not NULL,
-UserID int Not NULL,
-StatusID int Not Null,
+CREATE TABLE Blog(
+BlogID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+Title VARCHAR(MAX) NOT NULL,
+Content VARCHAR(20) NOT NULL,
+[Date] DATETIME NOT NULL,
+UserID INT NOT NULL,
+StatusID INT NOT NULL,
 FOREIGN KEY (UserID) REFERENCES [User](UserID),
 FOREIGN KEY (StatusID) REFERENCES BlogStatus(StatusID)
 )
 
-Create Table Product(
-ProductID int IDENTITY(1,1) Not Null PRIMARY KEY,
-ProductName varchar(50) Not NULL,
-Price decimal Not NULL,
-[Description] varchar(max) Not NULL,
-Height decimal Not NULL,
-Width decimal Not NULL,
-Quantity int Not NULL,
-[View] int Not NULL,
-Discount decimal Not NULL,
-UserID int Not NULL,
-StatusID int Not Null,
+CREATE TABLE Product(
+ProductID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+ProductName VARCHAR(50) NOT NULL,
+Price DECIMAL NOT NULL,
+[Description] VARCHAR(MAX) NOT NULL,
+Height DECIMAL NOT NULL,
+Width DECIMAL NOT NULL,
+Quantity INT NOT NULL,
+[View] INT NOT NULL,
+Discount DECIMAL NOT NULL,
+UserID INT NOT NULL,
 FOREIGN KEY (UserID) REFERENCES [User](UserID)
 
+)
+
+CREATE TABLE ProductCategory(
+ProductID INT NOT NULL ,
+CategoryID INT NOT NULL,
+PRIMARY KEY (ProductID, CategoryID),
+FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
+FOREIGN KEY (CategoryID) REFERENCES  [Category](CategoryID)
+)
+
+CREATE TABLE ProductImage(
+ProductID INT NOT NULL,
+FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
+ImageUrl VARCHAR(MAX)
+)
+
+CREATE TABLE Orders(
+OrderID INT NOT NULL PRIMARY KEY,
+UserID INT NOT NULL,
+OrderDate DATETIME NOT NULL,
+FOREIGN KEY (UserID) REFERENCES  [User](UserID)
+)
+
+CREATE TABLE OrderDetail(
+OrderID INT NOT NULL,
+ProductID INT NOT NULL,
+Quantity INT NOT NULL,
+Price DECIMAL,
+PRIMARY KEY(OrderID, ProductID),
+FOREIGN KEY (OrderID) REFERENCES [Orders](OrderID),
+FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
+)
+
+CREATE TABLE Cart(
+CartID INT NOT NULL PRIMARY KEY,
+UserID INT NOT NULL,
+FOREIGN KEY (UserID) REFERENCES  [User](UserID)
+)
+
+CREATE TABLE CartDetail(
+ProductID INT NOT NULL,
+CartID INT NOT NULL,
+Quantity INT NOT NULL,
+PRIMARY KEY(ProductID, CartID, Quantity),
+FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
+FOREIGN KEY (CartID) REFERENCES [Cart](CartID)
+)
+
+CREATE TABLE ProductComment(
+CommentID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+ProductID INT NOT NULL,
+CommentDate DATETIME,
+Content VARCHAR(MAX),
+UserID INT NOT NULL,
+Rate INT NOT NULL,
+FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
+FOREIGN KEY (UserID) REFERENCES [User](UserID)
 )
