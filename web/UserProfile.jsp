@@ -78,9 +78,31 @@
                 margin-right: 1rem;
             }
         </style>
-
+        <%@include file="template/header.jsp" %>
     </head>
+    
     <body>
+        <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
+	          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+              	<a class="dropdown-item" href="shop.jsp">Shop</a>
+              	<a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
+                <a class="dropdown-item" href="product-single.jsp">Single Product</a>
+                <a class="dropdown-item" href="cart.jsp">Cart</a>
+                <a class="dropdown-item" href="checkout.jsp">Checkout</a>
+              </div>
+            </li>
+	          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
+	          <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
+	          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+    <!-- END nav -->
         <div class="container-xl px-4 mt-4">
             <!-- Account page navigation-->
             <nav class="nav nav-borders">
