@@ -42,7 +42,7 @@
                 margin-left: 10px; /* Để tạo khoảng cách giữa các thẻ */
             }
              
-    }
+    
 
         </style>
     </head>
@@ -110,25 +110,45 @@
         </nav>-->
 
        
-            <div class="container">
+            <div style="margin-top: 50px" class="container">
               
-                     <div id="gradeDiv" class="form-group">
-                                            <label>Grade</label>
-                                            <select name="grade" class="form-select" aria-label="Default select example">
-                                                <option value="0">-Select-</option>
-                                                <option value="1">Grade 0</option>
-                                                <option value="2">Grade 1</option>
-                                                <option value="3">Grade 2</option>
-                                                <option value="4">Grade 3</option>
-                                                <option value="5">Grade 4</option>
+                   
+                       
+                    <div style="display: inline-block; margin-left: 10px" id="setting type" class="form-group">
+                                           
+                                            <select name="setting type" >
+                                                <option value="0">All setting types</option>
+                                                <option value="1">Product Category</option>
+                                                <option value="2">Product Type</option>
+                                                
                                             </select>
                                         </div>
-                        <div style="text-align: right; margin-top: 30px;">
+                
+                  <div style="display: inline-block; margin-left: 10px" id="setting type" class="form-group">
+                                           
+                                            <select name="setting type" >
+                                                <option value="0">All setting types</option>
+                                                <option value="1">Product Category</option>
+                                                <option value="2">Product Type</option>
+                                                
+                                            </select>
+                                        </div>
+                  <div style="display: inline-block; margin-left: 10px">
+        <form action="#" class="search-form">
+                <div class="form-group">
+                  <span class="icon ion-ios-search"></span>
+                  <input type="text" class="form-control" placeholder="Type setting name">
+                </div>
+              </form>
+        </div>
+                 <div style="display: inline-block; text-align: right; margin-left: 400px">
                        <a href="#" ><i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20" ">
 </i> Add Setting</a>
                        </div>
-                  
+                
             </div>
+      
+        
        
         <section class="ftco-section ftco-cart">
             <div class="container">
