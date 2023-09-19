@@ -22,7 +22,14 @@ CategoryID INT NOT NULL PRIMARY KEY,
 CategoryName VARCHAR(50) NOT NULL
 
 )
-
+INSERT INTO Category (CategoryID, CategoryName)
+VALUES
+    (1, 'Oil Painting'),
+    (2, 'Watercolor Painting'),
+    (3, 'Pastel Painting'),
+    (4, 'Lacquer Painting'),
+	(5, 'Silk painting'),
+	(6, 'Puzzle painting');
 
 CREATE TABLE Account(
 
@@ -98,21 +105,39 @@ PRIMARY KEY (ProductID, CategoryID),
 FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
 FOREIGN KEY (CategoryID) REFERENCES  [Category](CategoryID)
 )
+CREATE TABLE [Type](
+TypeID INT NOT NULL PRIMARY KEY,
+TypeName VARCHAR(50) NOT NULL
+)
 
+INSERT INTO Type (TypeID, TypeName)
+VALUES
+    (1, 'Landscape Painting'),
+    (2, 'Still Life Painting'),
+	(3, 'Portrait Painting'),
+	(4, 'Political Painting'),
+	(5, 'Humorous Painting'),
+	(6, 'Abstract Painting');
+
+CREATE TABLE ProductType(
+ProductID INT NOT NULL ,
+TypeID INT NOT NULL,
+PRIMARY KEY (ProductID, TypeID),
+FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
+FOREIGN KEY (TypeID) REFERENCES  [Type](TypeID)
+)
 CREATE TABLE ProductImage(
 ProductID INT NOT NULL,
 ImageUrl VARCHAR(255) UNIQUE,
 PRIMARY KEY(ProductID, ImageUrl),
 FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID)
 )
-
 CREATE TABLE Orders(
 OrderID INT NOT NULL PRIMARY KEY,
 UserID INT NOT NULL,
 OrderDate DATETIME NOT NULL,
 FOREIGN KEY (UserID) REFERENCES  [User](UserID)
 )
-
 CREATE TABLE OrderDetail(
 OrderID INT NOT NULL,
 ProductID INT NOT NULL,
@@ -122,22 +147,6 @@ PRIMARY KEY(OrderID, ProductID),
 FOREIGN KEY (OrderID) REFERENCES [Orders](OrderID),
 FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
 )
-
-CREATE TABLE Cart(
-CartID INT NOT NULL PRIMARY KEY,
-UserID INT NOT NULL,
-FOREIGN KEY (UserID) REFERENCES  [User](UserID)
-)
-
-CREATE TABLE CartDetail(
-ProductID INT NOT NULL,
-CartID INT NOT NULL,
-Quantity INT NOT NULL,
-PRIMARY KEY(ProductID, CartID, Quantity),
-FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
-FOREIGN KEY (CartID) REFERENCES [Cart](CartID)
-)
-
 CREATE TABLE ProductComment(
 CommentID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 ProductID INT NOT NULL,

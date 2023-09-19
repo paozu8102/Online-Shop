@@ -127,9 +127,9 @@
                   <div style="display: inline-block; margin-left: 10px" id="setting type" class="form-group">
                                            
                                             <select name="setting type" >
-                                                <option value="0">All setting types</option>
-                                                <option value="1">Product Category</option>
-                                                <option value="2">Product Type</option>
+                                                <option value="0">All Statuses</option>
+                                                <option value="1">Active</option>
+                                                <option value="2">Inactive</option>
                                                 
                                             </select>
                                         </div>
