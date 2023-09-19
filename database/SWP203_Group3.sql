@@ -1,4 +1,4 @@
-﻿create database SWP391_Group3
+﻿CREATE DATABASE SWP391_Group3
 use [SWP391_Group3]
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
@@ -19,17 +19,18 @@ StatusName VARCHAR(20) NOT NULL
 
 CREATE TABLE Category(
 CategoryID INT NOT NULL PRIMARY KEY,
-CategoryName VARCHAR(50) NOT NULL
-
+CategoryName VARCHAR(50) NOT NULL,
+Status BIT NOT NULL,
 )
-INSERT INTO Category (CategoryID, CategoryName)
+
+INSERT INTO Category (CategoryID, CategoryName, Status)
 VALUES
-    (1, 'Oil Painting'),
-    (2, 'Watercolor Painting'),
-    (3, 'Pastel Painting'),
-    (4, 'Lacquer Painting'),
-	(5, 'Silk painting'),
-	(6, 'Puzzle painting');
+    (1, 'Oil Painting', 1),
+    (2, 'Watercolor Painting', 1),
+    (3, 'Pastel Painting', 1),
+    (4, 'Lacquer Painting', 1),
+	(5, 'Silk painting', 1),
+	(6, 'Puzzle painting', 1);
 
 CREATE TABLE Account(
 
@@ -107,17 +108,18 @@ FOREIGN KEY (CategoryID) REFERENCES  [Category](CategoryID)
 )
 CREATE TABLE [Type](
 TypeID INT NOT NULL PRIMARY KEY,
-TypeName VARCHAR(50) NOT NULL
+TypeName VARCHAR(50) NOT NULL,
+Status BIT NOT NULL
 )
 
-INSERT INTO Type (TypeID, TypeName)
+INSERT INTO Type (TypeID, TypeName, Status)
 VALUES
-    (1, 'Landscape Painting'),
-    (2, 'Still Life Painting'),
-	(3, 'Portrait Painting'),
-	(4, 'Political Painting'),
-	(5, 'Humorous Painting'),
-	(6, 'Abstract Painting');
+    (1, 'Landscape Painting', 1),
+    (2, 'Still Life Painting', 1),
+	(3, 'Portrait Painting', 1),
+	(4, 'Political Painting', 1),
+	(5, 'Humorous Painting', 1),
+	(6, 'Abstract Painting', 1);
 
 CREATE TABLE ProductType(
 ProductID INT NOT NULL ,

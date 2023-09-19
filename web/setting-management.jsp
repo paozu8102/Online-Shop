@@ -41,8 +41,8 @@
                 float: right;
                 margin-left: 10px; /* Để tạo khoảng cách giữa các thẻ */
             }
-             
-    
+
+
 
         </style>
     </head>
@@ -98,58 +98,53 @@
             </div>
         </nav>
         <!-- END nav -->
-
-        <!--  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-              <div class="container">
-                  <div class="collapse navbar-collapse" id="ftco-nav">
-                        <ul class="navbar-nav ml-auto">
-                   <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    </ul>
-                      </div>
-              </div>
-        </nav>-->
-
-       
-            <div style="margin-top: 50px" class="container">
-              
-                   
-                       
-                    <div style="display: inline-block; margin-left: 10px" id="setting type" class="form-group">
-                                           
-                                            <select name="setting type" >
-                                                <option value="0">All setting types</option>
-                                                <option value="1">Product Category</option>
-                                                <option value="2">Product Type</option>
-                                                
-                                            </select>
-                                        </div>
-                
-                  <div style="display: inline-block; margin-left: 10px" id="setting type" class="form-group">
-                                           
-                                            <select name="setting type" >
-                                                <option value="0">All Statuses</option>
-                                                <option value="1">Active</option>
-                                                <option value="2">Inactive</option>
-                                                
-                                            </select>
-                                        </div>
-                  <div style="display: inline-block; margin-left: 10px">
-        <form action="#" class="search-form">
-                <div class="form-group">
-                  <span class="icon ion-ios-search"></span>
-                  <input type="text" class="form-control" placeholder="Type setting name">
-                </div>
-              </form>
-        </div>
-                 <div style="display: inline-block; text-align: right; margin-left: 400px">
-                       <a href="#" ><i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20" ">
-</i> Add Setting</a>
-                       </div>
-                
-            </div>
-      
         
+        <div style="margin-top: 50px" class="container">
+
+
+          
+            <div style="display: inline-block; margin-left: 10px" id="setting type" >
+                <form action="settingcontrol" method="post">
+                <select name="setting_type" id="setting_type" >
+                     <option value="">Select setting types</option>
+                    <option value="all">All setting types</option>
+                    <option value="category">Product Category</option>
+                    <option value="type">Product Type</option>
+
+                </select>
+                      </form>
+
+            </div>
+
+            <div style="display: inline-block; margin-left: 10px" id="setting type" class="form-group">
+
+                <select name="setting_status" id="setting_status" >
+                    <option value="all">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+
+                </select>
+            </div>
+            
        
+            <div style="display: inline-block; margin-left: 10px">
+                <form action="#" class="search-form">
+                    <div class="form-group">
+                        <span class="icon ion-ios-search"></span>
+                        <input type="text" class="form-control" placeholder="Type setting name">
+                    </div>
+                </form>
+                </div>
+            
+            <div style="display: inline-block; text-align: right; margin-left: 400px">
+                <a href="#" ><i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20" ">
+                    </i> Add Setting</a>
+            </div>
+
+        </div>
+
+
+
         <section class="ftco-section ftco-cart">
             <div class="container">
                 <div class="row">
@@ -158,65 +153,48 @@
                             <table class="table">
                                 <thead class="thead-primary">
                                     <tr class="text-center">
-                                              <th style="width: 100px;">ID</th>
-            <th style="width: 300px;">Setting Type</th>
-            <th style="width: 300px;">Name</th>
-            <th style="width: 300px;">Status</th>
-            <th style="width: 300px;">Action</th>
-                                              
+                                        <th style="width: 100px;">ID</th>
+                                        <th style="width: 300px;">Setting Type</th>
+                                        <th style="width: 300px;">Name</th>
+                                        <th style="width: 300px;">Status</th>
+                                        <th style="width: 300px;">Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="text-center">
-                                        <td class="price"><span> 1</span></td>
+                                    <c:forEach items="${listC}" var="o">
+                                        <tr class="text-center">
+                                            <td class="price"><span>${o.id}</span></td>
 
-                                        <td class="price">
-                                            Painting Category
-                                            
-                                        </td>
+                                            <td class="price">${o.settingtype}</td>
 
-                                        <td class="price">Tranh son dau</td>
+                                            <td class="price">${o.name}</td>
 
-                                           <td class="price">Active</td>
+                                           <td class="price" style="color: ${o.status == 1 ? 'green' : 'red'}">${o.status == 1 ? 'Active' : 'Inactive'}</td>
 
-                                       <td class="total">
-    <a href="#">
-        <img src="https://media.istockphoto.com/id/1161405325/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-b%C3%BAt-ch%C3%AC-%C4%91%C6%B0%E1%BB%A3c-c%C3%B4-l%E1%BA%ADp-theo-phong-c%C3%A1ch-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=f4xtI6U0w47PmSzYr12a9DflXkhTXr1qFCuJz-GMegk="
-             alt="Mô tả ảnh" width="20" height="20">
-    </a>
-    <a href="#" style="margin-left: 10px; color: black;">Deactive</a>
-</td>
-</tr><!-- END TR-->
 
-                                   <tr class="text-center">
-                                        <td class="price"><span> 1</span></td>
+                                            <td class="total">
+                                                <a href="#">
+                                                    <img src="https://media.istockphoto.com/id/1161405325/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-b%C3%BAt-ch%C3%AC-%C4%91%C6%B0%E1%BB%A3c-c%C3%B4-l%E1%BA%ADp-theo-phong-c%C3%A1ch-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=f4xtI6U0w47PmSzYr12a9DflXkhTXr1qFCuJz-GMegk="
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                <a href="#" style="margin-left: 10px; color: ${o.status == 0 ? 'green' : 'red'}">${o.status == 0 ? 'Active' : 'Deactive'}</a>
+                                            </td>
+                                        </tr><!-- END TR-->
+                                    </c:forEach>
 
-                                        <td class="price">
-                                            Painting Category
-                                            
-                                        </td>
 
-                                        <td class="price">Tranh son dau</td>
 
-                                           <td class="price">Active</td>
-
-                                       <td class="total">
-    <a href="#">
-        <img src="https://media.istockphoto.com/id/1161405325/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-b%C3%BAt-ch%C3%AC-%C4%91%C6%B0%E1%BB%A3c-c%C3%B4-l%E1%BA%ADp-theo-phong-c%C3%A1ch-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=f4xtI6U0w47PmSzYr12a9DflXkhTXr1qFCuJz-GMegk="
-             alt="Mô tả ảnh" width="20" height="20">
-    </a>
-    <a href="#" style="margin-left: 10px; color: black;">Deactive</a>
-</td>
-</tr><!-- END TR-->
-
-                                    
                                 </tbody>
                             </table>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+            
+            
 
         <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
             <div class="container py-4">
@@ -314,6 +292,14 @@
 
         <!-- loader -->
         <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+<script>
+   
+                 document.getElementById("setting_type").onchange = function() {
+                this.form.submit();
+                };
+
+</script>
+
 
 
         <script src="js/jquery.min.js"></script>

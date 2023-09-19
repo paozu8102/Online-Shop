@@ -1,47 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package DBcontext;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
-/**
- *
- * @author toden
- */
+
 public class DBContext {
-
-    public Connection getConnection()throws Exception {        
-        String url = "jdbc:sqlserver://"+serverName+":"+portNumber +
-                ";databaseName="+dbName;//+"; integratedSecurity=true";
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");         
-        return DriverManager.getConnection(url, userID, password);
-//        return DriverManager.getConnection(url);
-    }
-    public DBContext(){
-        
-    }
-    public DBContext(String u, String p){
-        userID = u;
-        password = p;
-    }
-    /*Insert your other code right after this comment*/
-   
-    /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
-    private final String serverName = "localhost";
-    private final String dbName = "SWP391_Group3";
-    private final String portNumber = "1433";
-    private  String userID = "sa";
-    private  String password = "123";
-    
-    public static void main(String[] args){
-        try{
-            new DBContext().getConnection();
-            System.out.println("Ket noi thanh cong");
-        } catch(Exception e){
-            System.out.println("Ket noi that bai"+e.getLocalizedMessage()+" "+e.getMessage());
+    protected Connection connection;
+    public DBContext()
+    {
+        try {
+            // Edit URL , username, password to authenticate with your MS SQL Server
+            String url = "jdbc:sqlserver://localhost:1433;databaseName= SWP391_Group3";
+            String username = "sa";
+            String password = "123";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
         }
     }
 }
