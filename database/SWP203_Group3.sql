@@ -1,9 +1,9 @@
 ﻿create database SWP391_Group3
+
 use [SWP391_Group3]
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
 RoleName VARCHAR(50) NOT NULL
-
 )
 
 INSERT INTO [Role] (RoleID, RoleName)
@@ -14,15 +14,12 @@ VALUES (1,'Admin'),
 CREATE TABLE BlogStatus(
 StatusID INT NOT NULL PRIMARY KEY,
 StatusName VARCHAR(20) NOT NULL
-
 )
 
 CREATE TABLE Category(
 CategoryID INT NOT NULL PRIMARY KEY,
 CategoryName VARCHAR(50) NOT NULL
-
 )
-
 
 CREATE TABLE Account(
 
@@ -98,21 +95,29 @@ PRIMARY KEY (ProductID, CategoryID),
 FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
 FOREIGN KEY (CategoryID) REFERENCES  [Category](CategoryID)
 )
-
+CREATE TABLE [Type](
+TypeID INT NOT NULL PRIMARY KEY,
+TypeName VARCHAR(50) NOT NULL
+)
+CREATE TABLE ProductType(
+ProductID INT NOT NULL ,
+TypeID INT NOT NULL,
+PRIMARY KEY (ProductID, TypeID),
+FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
+FOREIGN KEY (TypeID) REFERENCES  [Type](TypeID)
+)
 CREATE TABLE ProductImage(
 ProductID INT NOT NULL,
 ImageUrl VARCHAR(255) UNIQUE,
 PRIMARY KEY(ProductID, ImageUrl),
 FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID)
 )
-
 CREATE TABLE Orders(
 OrderID INT NOT NULL PRIMARY KEY,
 UserID INT NOT NULL,
 OrderDate DATETIME NOT NULL,
 FOREIGN KEY (UserID) REFERENCES  [User](UserID)
 )
-
 CREATE TABLE OrderDetail(
 OrderID INT NOT NULL,
 ProductID INT NOT NULL,
@@ -122,22 +127,6 @@ PRIMARY KEY(OrderID, ProductID),
 FOREIGN KEY (OrderID) REFERENCES [Orders](OrderID),
 FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
 )
-
-CREATE TABLE Cart(
-CartID INT NOT NULL PRIMARY KEY,
-UserID INT NOT NULL,
-FOREIGN KEY (UserID) REFERENCES  [User](UserID)
-)
-
-CREATE TABLE CartDetail(
-ProductID INT NOT NULL,
-CartID INT NOT NULL,
-Quantity INT NOT NULL,
-PRIMARY KEY(ProductID, CartID, Quantity),
-FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
-FOREIGN KEY (CartID) REFERENCES [Cart](CartID)
-)
-
 CREATE TABLE ProductComment(
 CommentID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 ProductID INT NOT NULL,
@@ -148,4 +137,3 @@ Rate INT NOT NULL,
 FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
 FOREIGN KEY (UserID) REFERENCES [User](UserID)
 )
-
