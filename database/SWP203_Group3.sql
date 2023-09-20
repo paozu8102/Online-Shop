@@ -1,9 +1,9 @@
-﻿create database SWP391_Group3
-
+﻿CREATE DATABASE SWP391_Group3
 use [SWP391_Group3]
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
 RoleName VARCHAR(50) NOT NULL
+
 )
 
 INSERT INTO [Role] (RoleID, RoleName)
@@ -14,12 +14,23 @@ VALUES (1,'Admin'),
 CREATE TABLE BlogStatus(
 StatusID INT NOT NULL PRIMARY KEY,
 StatusName VARCHAR(20) NOT NULL
+
 )
 
 CREATE TABLE Category(
 CategoryID INT NOT NULL PRIMARY KEY,
-CategoryName VARCHAR(50) NOT NULL
+CategoryName VARCHAR(50) NOT NULL,
+Status BIT NOT NULL,
 )
+
+INSERT INTO Category (CategoryID, CategoryName, Status)
+VALUES
+    (1, 'Oil Painting', 1),
+    (2, 'Watercolor Painting', 1),
+    (3, 'Pastel Painting', 1),
+    (4, 'Lacquer Painting', 1),
+	(5, 'Silk painting', 1),
+	(6, 'Puzzle painting', 1);
 
 CREATE TABLE Account(
 
@@ -29,16 +40,17 @@ RoleID INT NOT NULL
 FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
 )
 INSERT INTO Account (Email, Password, RoleID)
-VALUES ('ducle2002@gmail.com','1', 1),
-('thien02@gmail.com','2', 2),
-('long03@gmail.com','3', 2),
-('son04@gmail.com','4', 1),
-('quan05@gmail.com','5', 2),
-('hoang06@gmail.com','6', 1),
-('minh07@gmail.com','7', 2),
-('kkkk08@gmail.com','8', 3),
-('bao09@gmail.com','9', 2),
-('thanh10@gmail.com','10', 1);
+VALUES ('ducle2002@gmail.com','ducle123', 1),
+('thien02@gmail.com','thien123', 2),
+('long03@gmail.com','long1234', 2),
+('son04@gmail.com','son12345', 1),
+('quan05@gmail.com','quan1234', 2),
+('hoang06@gmail.com','hoang123', 1),
+('minh07@gmail.com','minh1234', 2),
+('kkkk08@gmail.com','kkkk1234', 3),
+('bao09@gmail.com','bao12345', 2),
+('thanh10@gmail.com','thanh123', 1);
+
 
 CREATE TABLE [User](
 UserID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -97,8 +109,19 @@ FOREIGN KEY (CategoryID) REFERENCES  [Category](CategoryID)
 )
 CREATE TABLE [Type](
 TypeID INT NOT NULL PRIMARY KEY,
-TypeName VARCHAR(50) NOT NULL
+TypeName VARCHAR(50) NOT NULL,
+Status BIT NOT NULL
 )
+
+INSERT INTO Type (TypeID, TypeName, Status)
+VALUES
+    (1, 'Landscape Painting', 1),
+    (2, 'Still Life Painting', 1),
+	(3, 'Portrait Painting', 1),
+	(4, 'Political Painting', 1),
+	(5, 'Humorous Painting', 1),
+	(6, 'Abstract Painting', 1);
+
 CREATE TABLE ProductType(
 ProductID INT NOT NULL ,
 TypeID INT NOT NULL,
@@ -137,3 +160,4 @@ Rate INT NOT NULL,
 FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
 FOREIGN KEY (UserID) REFERENCES [User](UserID)
 )
+
