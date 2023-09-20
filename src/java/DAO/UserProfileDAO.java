@@ -15,8 +15,12 @@ import java.util.logging.Logger;
  *
  * @author Mai Vu Bao
  */
-public class UserProfileDAO {
-    protected String status="";
+public class UserProfileDAO extends DAO{
+
+    public UserProfileDAO() {
+        super();
+    }
+    
     public void updateAccount() {
 //        try {
 //            
@@ -24,14 +28,15 @@ public class UserProfileDAO {
 //            Logger.getLogger(UserProfileDAO.class.getName()).log(Level.SEVERE, null, ex);
 //        }
     }
-    public Account findAccByEmail(String Email) {
+    public Account findUserByEmail(String emailAddress) throws Exception {
 //        try {
 //            
-//        } catch (Exception e) {
-//            status = "Error at findAccByEmail " + e.getMessage();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(UserProfileDAO.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         return null;
     }
+
     public Account checkAccountExistByEmailPass(String email, String pass) {
 //        try {
 //            
