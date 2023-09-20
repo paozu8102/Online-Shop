@@ -4,10 +4,7 @@
  */
 package model;
 
-/**
- *
- * @author Khanh Manh
- */
+
 public class Account {
     String Email;
     String Password;

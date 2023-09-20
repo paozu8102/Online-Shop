@@ -1,8 +1,4 @@
-<%-- 
-    Document   : forgotPassword
-    Created on : May 27, 2022, 12:14:48 AM
-    Author     : Admin
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

@@ -17,10 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 
-/**
- *
- * @author ADMIN
- */
 public class forgotpasswordController extends HttpServlet {
    
     /**

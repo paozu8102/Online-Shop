@@ -1,13 +1,9 @@
-<%-- 
-    Document   : change-newpassword
-    Created on : May 29, 2022, 10:15:14 PM
-    Author     : Admin
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-    <!--Author: DPV-->
+    
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />

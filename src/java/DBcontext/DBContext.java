@@ -7,10 +7,7 @@ package DBcontext;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/**
- *
- * @author toden
- */
+
 public class DBContext {
 
     public Connection getConnection()throws Exception {        

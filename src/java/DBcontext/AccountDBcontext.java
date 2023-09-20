@@ -11,10 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
 
-/**
- *
- * @author Khanh Manh
- */
+
 public class AccountDBcontext extends DBContext{
 
     public Account findUserByEmail(String emailAddress) throws Exception {
