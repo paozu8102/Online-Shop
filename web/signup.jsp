@@ -36,7 +36,7 @@
 
                         <div class="signup form-peice">
                             <form class="signup-form" action="signup" method="post">
-                            <h3>${error}</h3>
+                                <h3>${error}</h3>
 
                                 <div class="form-group">
                                     <label for="name">Full Name</label>
@@ -68,7 +68,8 @@
                                 </div>
 
                                 <div class="CTA">
-                                    <input type="submit" value="Signup Now" id="submit">
+                                    	<input type="submit" name="signup" id="signup"
+									class="form-submit" value="Register" />
                                     <a href="login.jsp">I have an account</a>
                                 </div>
                             </form>

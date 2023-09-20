@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import DBcontext.DBContext;
 import Model.Account;
 import Model.User;
 import java.sql.PreparedStatement;
@@ -61,36 +62,44 @@ public class DAO extends DBContext {
         return null;
     }
 
-public void insertAccountUser(Account c, User u) {
-    String sqlAccount = "INSERT INTO [dbo].[Account] ([Email], [Password], [RoleID]) VALUES (?, ?, ?)";
-    String sqlUser = "INSERT INTO [dbo].[User] ([UserName], [Gender], [PhoneNumber], [Address], [Avatar], [Email]) VALUES (?, ?, ?, ?, ?, ?)";
-    
-    try {
-        // Thực thi câu truy vấn cho bảng Account
-        PreparedStatement stAccount = getConnection().prepareStatement(sqlAccount);
-        stAccount.setString(1, c.getEmail());
-        stAccount.setString(2, c.getPassword());
-        stAccount.setInt(3, 2);  // Giả sử RoleID là 2
-        stAccount.executeUpdate();
+ public void insertAccount(Account c, User u) {
+        try {
+            String sql = "INSERT INTO [dbo].[Account] ([Email], [Password], [RoleID]) VALUES (?, ?, ?)";
 
-        // Thực thi câu truy vấn cho bảng User
-        PreparedStatement stUser = getConnection().prepareStatement(sqlUser);
-        stUser.setString(1, u.getUserName());
-        stUser.setInt(2, u.getGender());  // Giả sử getGender() trả về giá trị số nguyên
-        stUser.setString(3, u.getPhoneNumber());
-        stUser.setString(4, u.getAddress());
-        stUser.setString(5, u.getAvatar());
-        stUser.setString(6, u.getEmail());
-        stUser.executeUpdate();
-    } catch (SQLException e) {
-        // Xử lý ngoại lệ SQL
-        e.printStackTrace();
-    } catch (Exception e) {
-        // Xử lý các ngoại lệ khác
-        e.printStackTrace();
+            // Thực thi câu truy vấn cho bảng Account
+            PreparedStatement stAccount = getConnection().prepareStatement(sql);
+            stAccount.setString(1, c.getEmail());
+            stAccount.setString(2, c.getPassword());
+            stAccount.setInt(3, 3);
+            stAccount.executeUpdate();
+
+//            String sql1 = "select top 1 Email from Account  order by Email desc";
+//            PreparedStatement st1 = getConnection().prepareStatement(sql1);
+//            ResultSet rs = st1.executeQuery();
+          
+             
+
+                String sql2 = "INSERT INTO [dbo].[User]\n"
+                        + "           ([UserName]\n"
+                        + "           ,[PhoneNumber]\n"
+                        + "           ,[Email])\n"
+                        + "     VALUES\n"
+                        + "           ( ?, ?, ?)";
+                PreparedStatement st2 = getConnection().prepareStatement(sql2);
+                st2.setString(1, u.getUserName());
+
+                st2.setString(2, u.getPhoneNumber());
+
+                st2.setString(3, u.getEmail());
+
+                st2.executeUpdate();
+            
+
+        } catch (SQLException e) {
+        } catch (Exception e) {
+
+        }
     }
-}
-
 
     public Account getAccountByEmail(String email) {
         Account c = null;

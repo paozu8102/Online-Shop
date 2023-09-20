@@ -22,6 +22,11 @@ public class Account {
         this.RoleID = RoleID;
     }
 
+    public Account(String Email, String Password) {
+        this.Email = Email;
+        this.Password = Password;
+    }
+
     public String getEmail() {
         return Email;
     }

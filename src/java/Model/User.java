@@ -30,6 +30,12 @@ public class User {
         this.Email = Email;
     }
 
+    public User(String UserName, String PhoneNumber, String Email) {
+        this.UserName = UserName;
+        this.PhoneNumber = PhoneNumber;
+        this.Email = Email;
+    }
+
     public int getUserID() {
         return UserID;
     }
