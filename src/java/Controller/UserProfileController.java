@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Mai Vu Bao
  */
-@WebServlet(name="UserProfileController", urlPatterns={"/UserProfile"})
+@WebServlet(name="UserProfileController", urlPatterns={"/user-profile"})
 public class UserProfileController extends HttpServlet {
    
     /** 
@@ -55,7 +55,7 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        request.getRequestDispatcher("user-profile.jsp").forward(request, response);
     } 
 
     /** 

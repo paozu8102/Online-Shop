@@ -5,11 +5,13 @@
 
 package Controller;
 
+import DBcontext.DAO;
 import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,8 +21,8 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Acer
  */
-@WebServlet(name="Logout", urlPatterns={"/logout"})
-public class Logout extends HttpServlet {
+@WebServlet(name="LoginController", urlPatterns={"/login"})
+public class LoginController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +39,10 @@ public class Logout extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Logout</title>");  
+            out.println("<title>Servlet Login</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Logout at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet Login at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,12 +59,7 @@ public class Logout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       HttpSession session = request.getSession();
-        Account c = (Account)session.getAttribute("acc");
-        if(c!=null){
-            session.removeAttribute("acc");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
+        response.sendRedirect("login.jsp");
     } 
 
     /** 
@@ -75,7 +72,30 @@ public class Logout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String e = request.getParameter("email");
+        String p = request.getParameter("password");
+        String r=request.getParameter("rem");
+        DAO ad = new DAO();
+        Account c = ad.getAccount(e, p);
+        
+        if (c == null) {
+            request.setAttribute("mess", "Wrong user name or password!");
+            String er = "username: " + e + " and password: " + p + " don't exsited!";
+            request.setAttribute("error", er);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("acc", c);
+            session.setMaxInactiveInterval(1800);
+//            Cookie cr= new Cookie("rem", r);
+//            if(r==null){
+//                cr.setMaxAge(0);
+//            }else{
+//                cr.setMaxAge(24*60*60);
+//            }
+//            response.addCookie(cr);
+            response.sendRedirect("index.jsp");
+        }
     }
 
     /** 
