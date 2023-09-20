@@ -91,5 +91,10 @@ public class User {
     public void setEmail(String Email) {
         this.Email = Email;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "UserID=" + UserID + ", UserName=" + UserName + ", Gender=" + Gender + ", PhoneNumber=" + PhoneNumber + ", Address=" + Address + ", Avatar=" + Avatar + ", Email=" + Email + '}';
+    }
     
 }
