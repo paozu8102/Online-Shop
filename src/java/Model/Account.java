@@ -6,12 +6,12 @@ package Model;
 
 /**
  *
- * @author Acer
+ * @author ADMIN
  */
 public class Account {
-    private String Email;
-    private String Password;
-    private int RoleID;
+    String Email;
+    String Password;
+    int RoleID;
 
     public Account() {
     }
@@ -26,6 +26,7 @@ public class Account {
         this.Email = Email;
         this.Password = Password;
     }
+    
 
     public String getEmail() {
         return Email;
@@ -50,4 +51,5 @@ public class Account {
     public void setRoleID(int RoleID) {
         this.RoleID = RoleID;
     }
+    
 }
