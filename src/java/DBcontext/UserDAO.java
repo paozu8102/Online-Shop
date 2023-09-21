@@ -4,10 +4,13 @@
  */
 package DBcontext;
 
+import Model.Setting;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -57,7 +60,235 @@ public class UserDAO extends DBContext {
         }
         return roleList;
     }
+//get all setting MinhHC
+    public List<Setting> getAllSetting() {
+        List<Setting> list = new ArrayList<>();
+        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status FROM Category\n"
+                + "UNION\n"
+                + "SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status FROM Type";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
 
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4)
+                ));
+            }
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+            
+        }
+
+        return list;
+    }
+
+    //get all Category Setting MinhHC
+    public List<Setting> getAllSettingCat() {
+        List<Setting> list = new ArrayList<>();
+        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status FROM Category";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4)
+                ));
+            }
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+           
+        }
+
+        return list;
+    }
+
+    //get all Type Setting MinhHC
+    public List<Setting> getAllSettingTyp() {
+        List<Setting> list = new ArrayList<>();
+        String sql = "SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status FROM Type";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4)
+                ));
+            }
+        } catch (SQLException e) {
+
+        } catch (Exception ex) {
+            
+        }
+
+        return list;
+    }
+
+    //get all active setting MinhHC
+    public List<Setting> getSettingActive() {
+        List<Setting> list = new ArrayList<>();
+        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status FROM Category Where status =1\n"
+                + "UNION\n"
+                + "SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status FROM Type Where status =1;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4)
+                ));
+            }
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+           
+        }
+
+        return list;
+    }
+
+    //get all inactive setting MinhHC
+    public List<Setting> getSettingInactive() {
+        List<Setting> list = new ArrayList<>();
+        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status FROM Category Where status =0\n"
+                + "UNION\n"
+                + "SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status FROM Type Where status =0;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4)
+                ));
+            }
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+       
+        }
+
+        return list;
+    }
+
+    //Search setting by name MinhHC
+    public List<Setting> searchSettingByName(String txtSearch) {
+        List<Setting> list = new ArrayList<>();
+        String sql = "SELECT *\n"
+                + "FROM (\n"
+                + "    SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type, Status FROM Category \n"
+                + "    UNION\n"
+                + "    SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status FROM Type\n"
+                + ") AS setting \n"
+                + "WHERE Name LIKE ?;";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setString(1, "%" + txtSearch + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4)
+                ));
+            }
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+            
+        }
+
+        return list;
+    }
+
+    //Add Product Category MinhHC
+    public void addsettingCategory(String name) {
+
+        String sql = "INSERT INTO Category (CategoryName, Status) VALUES (?, ?)";
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+
+            st.setString(1, name);
+            st.setInt(2, 1);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+         
+        }
+    }
+
+    //Add Product Type MinhHC
+    public void addsettingType(String name) {
+
+        String sql = "INSERT INTO Type (TypeName, Status) VALUES (?, ?)";
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+
+            st.setString(1, name);
+            st.setInt(2, 1);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    //Change status in table Category MinhHC
+    public void ChangeSettingStatusCat(int id, int newStatus) {
+
+        String sql = "UPDATE Category SET Status = ? WHERE CategoryID = ?";
+
+        // Thay categoryId bằng giá trị thích hợp
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+             st.setInt(1, newStatus);
+        st.setInt(2, id);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+
+        }
+    }
+    
+    //Change status in table Type MinhHC
+    public void ChangeSettingStatusTyp(int id, int newStatus) {
+
+        String sql = "UPDATE Type SET Status = ? WHERE TypeID = ?";
+
+        // Thay categoryId bằng giá trị thích hợp
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+             st.setInt(1, newStatus);
+        st.setInt(2, id);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+
+        }
+    }
     //mehtod to test: ThanhNX
     public static void main(String[] args) {
         ArrayList<User> test = new UserDAO().getTopUser();
