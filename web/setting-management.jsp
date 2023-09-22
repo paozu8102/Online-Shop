@@ -31,8 +31,8 @@
 
         <link rel="stylesheet" href="css/bootstrap-datepicker.css">
         <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/flaticon.css">
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
@@ -184,10 +184,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     <c:forEach items="${listC}" var="o">
-<form action="settingstatus" method="post">
+                                    <form action="settingstatus" method="post">
                                         <tr class="text-center">
-                                    
+
                                         <input type="hidden" name="id" value="${o.id}">
                                         <input type="hidden" name="settingtype" value="${o.settingtype}">
                                         <input type="hidden" name="status" value="${o.status}">
@@ -196,22 +197,26 @@
                                         <td class="price">${o.name}</td>
                                         <td  class="price" style="color: ${o.status == 1 ? 'green' : 'red'}">${o.status == 1 ? 'Active' : 'Inactive'}</td>
                                         <td class="total">
-                                            <a href="#">
+                                            <a href="" data-toggle="modal" data-target="#editSetting" data-id="${o.id}" data-name="${o.name}" data-type="${o.settingtype}" data-status="${o.status}" data-description="${o.description}">
                                                 <img src="https://media.istockphoto.com/id/1161405325/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-b%C3%BAt-ch%C3%AC-%C4%91%C6%B0%E1%BB%A3c-c%C3%B4-l%E1%BA%ADp-theo-phong-c%C3%A1ch-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=f4xtI6U0w47PmSzYr12a9DflXkhTXr1qFCuJz-GMegk="
                                                      alt="Mô tả ảnh" width="20" height="20">
                                             </a>
+
+
                                             <button type="submit" style="background-color: white !important; color: ${o.status == 0 ? 'green' : 'red'} !important;">
                                                 ${o.status == 0 ? 'Active' : 'Deactive'}
                                             </button>
 
 
                                         </td>
-                                    
 
-                                    </tr>
+
+                                        </tr>
+
                                     </form>
 
                                 </c:forEach>
+
 
 
 
@@ -249,7 +254,10 @@
                                     <option value="Type">Product Type</option>
                                     <option value="Category">Product Category</option>
                                 </select>
-
+                                <div class="form-group">
+                                    <label>Description</label>
+                                   <textarea name="description" class="form-control" required></textarea>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -260,6 +268,61 @@
                 </div>
             </div>
         </div>
+
+        <div id="editSetting" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="editsetting" method="post">
+                        <div class="modal-header">						
+                            <h4 class="modal-title">Setting Detail</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">	
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input name="id" type="text" class="form-control" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input name="name" type="text" class="form-control" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Setting Type</label>
+                                <input name="settingtype" type="text" class="form-control" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Status</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="type_edit" id="Active" value="Active" >
+                                    <label class="form-check-label" for="Active">
+                                        Active
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="type_edit" id="Inactive" value="Inactive" >
+                                    <label class="form-check-label" for="Inactive">
+                                        Inactive
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="description" class="form-control" required></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" class="btn btn-success" value="Edit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
         <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
             <div class="container py-4">
                 <div class="row d-flex justify-content-center py-5">
@@ -366,6 +429,30 @@
                 this.form.submit();
             };
         </script>
+        <script>
+            // Sử dụng jQuery để xử lý sự kiện click trên liên kết
+            $('a[data-target="#editSetting"]').click(function () {
+                // Lấy giá trị từ thuộc tính data
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var type = $(this).data('type');
+                var status = $(this).data('status');
+                var description = $(this).data('description');
+                // Đặt giá trị vào các trường input trong form
+                $('#editSetting input[name="id"]').val(id);
+                $('#editSetting input[name="name"]').val(name);
+                $('#editSetting input[name="settingtype"]').val(type);
+                $('#editSetting input[name="description"]').val(description);
+                // Thiết lập giá trị của radio buttons "Active" hoặc "Inactive" dựa trên giá trị của status
+                if (status === 1) {
+                    $('#Active').prop('checked', true);
+                    $('#Inactive').prop('checked', false);
+                } else {
+                    $('#Active').prop('checked', false);
+                    $('#Inactive').prop('checked', true);
+                }
+            });
+        </script>
 
 
 
@@ -386,42 +473,7 @@
         <script src="js/google-map.js"></script>
         <script src="js/main.js"></script>
 
-        <script>
-            $(document).ready(function () {
-
-                var quantitiy = 0;
-                $('.quantity-right-plus').click(function (e) {
-
-                    // Stop acting like a button
-                    e.preventDefault();
-                    // Get the field name
-                    var quantity = parseInt($('#quantity').val());
-
-                    // If is not undefined
-
-                    $('#quantity').val(quantity + 1);
-
-
-                    // Increment
-
-                });
-
-                $('.quantity-left-minus').click(function (e) {
-                    // Stop acting like a button
-                    e.preventDefault();
-                    // Get the field name
-                    var quantity = parseInt($('#quantity').val());
-
-                    // If is not undefined
-
-                    // Increment
-                    if (quantity > 0) {
-                        $('#quantity').val(quantity - 1);
-                    }
-                });
-
-            });
-        </script>
+        
 
     </body>
 </html>

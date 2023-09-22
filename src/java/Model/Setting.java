@@ -13,15 +13,17 @@ public class Setting {
     private String name;
         private String settingtype;
     private int status;
+    private String description;
 
     public Setting() {
     }
 
-    public Setting(int id, String name, String settingtype, int status) {
+    public Setting(int id, String name, String settingtype, int status, String description) {
         this.id = id;
         this.name = name;
         this.settingtype = settingtype;
         this.status = status;
+        this.description = description;
     }
 
     public int getId() {
@@ -56,6 +58,13 @@ public class Setting {
         this.status = status;
     }
 
-    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }
+

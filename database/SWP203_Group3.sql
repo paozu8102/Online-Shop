@@ -1,5 +1,4 @@
 ﻿CREATE DATABASE SWP391_Group3
-go
 use [SWP391_Group3]
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
@@ -19,20 +18,21 @@ StatusName VARCHAR(20) NOT NULL
 )
 
 CREATE TABLE Category(
-CategoryID INT NOT NULL PRIMARY KEY,
+CategoryID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 CategoryName VARCHAR(50) NOT NULL,
 Status BIT NOT NULL,
+Description VARCHAR(Max) NOT NULL
 )
-
-INSERT INTO Category (CategoryID, CategoryName, Status)
+SET IDENTITY_INSERT Category ON;
+INSERT INTO Category (CategoryID, CategoryName, Status, Description)
 VALUES
-    (1, 'Oil Painting', 1),
-    (2, 'Watercolor Painting', 1),
-    (3, 'Pastel Painting', 1),
-    (4, 'Lacquer Painting', 1),
-	(5, 'Silk painting', 1),
-	(6, 'Puzzle painting', 1);
-
+    (1, 'Oil Painting', 1, 'Oil painting is a traditional and widely practiced medium in the world of visual arts. It involves using pigments mixed with a binder, typically linseed oil, to create vivid and durable artworks on a canvas or other suitable surfaces' ),
+    (2, 'Watercolor Painting', 1, 'Watercolor painting is a versatile and captivating medium in the world of visual arts. It involves using water-based pigments to create artworks on paper or other absorbent surfaces'),
+    (3, 'Pastel Painting', 1, 'Pastel painting is a captivating and expressive medium in the world of visual arts. It involves using soft pastels, which are sticks made of pure pigment held together with a minimal amount of binder, to create artworks on various surfaces like paper, cardboard, or specially designed pastel paper.'),
+    (4, 'Lacquer Painting', 1 , 'Lacquer painting is a traditional and intricate art form that involves the use of lacquer, a natural resin obtained from the sap of certain trees, to create highly detailed and decorative artworks'),
+	(5, 'Silk painting', 1, 'Silk painting is a unique and exquisite form of art that involves using silk fabric as a canvas and applying dyes or paints to create colorful and intricate designs. This art form is known for its vibrant colors, flowing lines, and the shimmering quality of silk that adds an extra dimension to the artwork'),
+	(6, 'Puzzle painting', 1, 'Puzzle painting, also known as jigsaw puzzle painting, is a creative and innovative art form that combines traditional painting techniques with the interactivity of jigsaw puzzles. In puzzle paintings, an artwork is painted on multiple wooden or cardboard pieces, each of which is a small section of the larger picture.');
+SET IDENTITY_INSERT Category OFF;
 CREATE TABLE Account(
 
 Email VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -109,20 +109,21 @@ FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
 FOREIGN KEY (CategoryID) REFERENCES  [Category](CategoryID)
 )
 CREATE TABLE [Type](
-TypeID INT NOT NULL PRIMARY KEY,
+TypeID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 TypeName VARCHAR(50) NOT NULL,
-Status BIT NOT NULL
+Status BIT NOT NULL,
+Description VARCHAR(Max) NOT NULL
 )
-
-INSERT INTO Type (TypeID, TypeName, Status)
+SET IDENTITY_INSERT [Type] ON;
+INSERT INTO Type (TypeID, TypeName, Status, Description)
 VALUES
-    (1, 'Landscape Painting', 1),
-    (2, 'Still Life Painting', 1),
-	(3, 'Portrait Painting', 1),
-	(4, 'Political Painting', 1),
-	(5, 'Humorous Painting', 1),
-	(6, 'Abstract Painting', 1);
-
+    (1, 'Landscape Painting', 1, 'Landscape painting is a timeless and beloved genre of visual art that focuses on depicting natural scenery, often showcasing the beauty and grandeur of the natural world'),
+    (2, 'Still Life Painting', 1, 'Still life painting is a genre of visual art that focuses on depicting inanimate objects, typically arranged in a composed and deliberate manner'),
+	(3, 'Portrait Painting', 1, 'Portrait painting is a revered genre of visual art that focuses on the depiction of a person or a group of people, capturing their likeness, personality, and often their emotions'),
+	(4, 'Political Painting', 1, 'Political painting is a genre of visual art that addresses political themes, issues, and commentary through the use of visual imagery and symbolism'),
+	(5, 'Humorous Painting', 1, 'Humorous painting is a delightful genre of visual art that aims to evoke laughter, amusement, or a sense of lightheartedness in viewers through clever and comical imagery'),
+	(6, 'Abstract Painting', 1, 'Abstract painting is a dynamic and expressive genre of visual art that emphasizes the use of shapes, colors, lines, and forms to convey emotions, ideas, and concepts, rather than a direct representation of recognizable objects or scenes');
+	SET IDENTITY_INSERT [Type] OFF;
 CREATE TABLE ProductType(
 ProductID INT NOT NULL ,
 TypeID INT NOT NULL,
