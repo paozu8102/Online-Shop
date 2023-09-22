@@ -14,6 +14,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+
+
+<!-- Include Bootstrap CSS and JavaScript -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
@@ -37,11 +43,8 @@
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
         <style>
-            .right-align {
-                float: right;
-                margin-left: 10px; /* Để tạo khoảng cách giữa các thẻ */
-            }
-
+            
+          
             .search-container input [type=text] {
                 padding: 6px;
                 margin-top: 8px;
@@ -90,7 +93,7 @@
         </div>
         <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
             <div class="container">
-                <a class="navbar-brand" href="index.jsp">Vegefoods</a>
+                <a class="navbar-brand" href="index.html">Vegefoods</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="oi oi-menu"></span> Menu
                 </button>
@@ -101,17 +104,17 @@
                         <li class="nav-item active dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown04">
-                                <a class="dropdown-item" href="shop.jsp">Shop</a>
-                                <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
-                                <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                                <a class="dropdown-item" href="cart.jsp">Cart</a>
-                                <a class="dropdown-item" href="checkout.jsp">Checkout</a>
+                                <a class="dropdown-item" href="shop.html">Shop</a>
+                                <a class="dropdown-item" href="wishlist.html">Wishlist</a>
+                                <a class="dropdown-item" href="product-single.html">Single Product</a>
+                                <a class="dropdown-item" href="cart.html">Cart</a>
+                                <a class="dropdown-item" href="checkout.html">Checkout</a>
                             </div>
                         </li>
-                        <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
-                        <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
-                        <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-                        <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                        <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                        <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
                     </ul>
                 </div>
@@ -158,12 +161,12 @@
                 </form>
             </div>
 
-            <div style="display: inline-block; text-align: right; margin-left: 350px">
-                <a href="#addSetting" data-toggle="modal" ><i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20" ">
-                    </i> Add Setting</a>
-            </div>
-
-        </div>
+           <div style="display: inline-block; text-align: right; margin-left: 350px;">
+    <a href="#addSetting" data-toggle="modal" >
+        <i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20"></i>
+        Add Setting
+    </a>
+</div>
 
 
 
@@ -197,7 +200,7 @@
                                         <td class="price">${o.name}</td>
                                         <td  class="price" style="color: ${o.status == 1 ? 'green' : 'red'}">${o.status == 1 ? 'Active' : 'Inactive'}</td>
                                         <td class="total">
-                                            <a href="" data-toggle="modal" data-target="#editSetting" data-id="${o.id}" data-name="${o.name}" data-type="${o.settingtype}" data-status="${o.status}" data-description="${o.description}">
+                                            <a href="#" data-toggle="modal" data-target="#editSetting" data-id="${o.id}" data-name="${o.name}" data-type="${o.settingtype}" data-status="${o.status}" data-description="${o.description}">
                                                 <img src="https://media.istockphoto.com/id/1161405325/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-b%C3%BAt-ch%C3%AC-%C4%91%C6%B0%E1%BB%A3c-c%C3%B4-l%E1%BA%ADp-theo-phong-c%C3%A1ch-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=f4xtI6U0w47PmSzYr12a9DflXkhTXr1qFCuJz-GMegk="
                                                      alt="Mô tả ảnh" width="20" height="20">
                                             </a>
@@ -217,11 +220,6 @@
 
                                 </c:forEach>
 
-
-
-
-
-
                                 </tbody>
                             </table>
 
@@ -231,7 +229,8 @@
             </div>
         </section>
 
-        <div id="addSetting" class="modal fade">
+    
+        <div id="addSetting" class="modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="addsetting" method="post">
@@ -265,9 +264,11 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
+
 
         <div id="editSetting" class="modal fade">
             <div class="modal-dialog">
@@ -293,13 +294,13 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type_edit" id="Active" value="Active" >
+                                    <input class="form-check-input" type="radio" name="status" id="Active" value="Active" >
                                     <label class="form-check-label" for="Active">
                                         Active
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type_edit" id="Inactive" value="Inactive" >
+                                    <input class="form-check-input" type="radio" name="status" id="Inactive" value="Inactive" >
                                     <label class="form-check-label" for="Inactive">
                                         Inactive
                                     </label>
@@ -442,7 +443,7 @@
                 $('#editSetting input[name="id"]').val(id);
                 $('#editSetting input[name="name"]').val(name);
                 $('#editSetting input[name="settingtype"]').val(type);
-                $('#editSetting input[name="description"]').val(description);
+                $('#editSetting textarea[name="description"]').val(description);
                 // Thiết lập giá trị của radio buttons "Active" hoặc "Inactive" dựa trên giá trị của status
                 if (status === 1) {
                     $('#Active').prop('checked', true);
@@ -453,7 +454,26 @@
                 }
             });
         </script>
+<script>
+// When the modal is shown, add the 'modal-open' class to the body
+$('#editSetting').on('show.bs.modal', function () {
+    $('body').addClass('modal-open');
+});
 
+// When the modal is hidden, remove the 'modal-open' class from the body
+$('#editSetting').on('hidden.bs.modal', function () {
+    $('body').removeClass('modal-open');
+});
+
+$('#addSetting').on('show.bs.modal', function () {
+    $('body').addClass('modal-open');
+});
+
+// When the modal is hidden, remove the 'modal-open' class from the body
+$('#addSetting').on('hidden.bs.modal', function () {
+    $('body').removeClass('modal-open');
+});
+ </script>
 
 
         <script src="js/jquery.min.js"></script>
@@ -473,7 +493,7 @@
         <script src="js/google-map.js"></script>
         <script src="js/main.js"></script>
 
-        
+      
 
     </body>
 </html>

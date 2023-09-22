@@ -294,6 +294,43 @@ public List<Setting> getAllSetting() {
 
         }
     }
+    
+    //Edit setting Type MinhHC
+    public void EditSettingTyp(int id, int status, String description) {
+
+        String sql = "UPDATE Type SET Status = ?, description = ? WHERE TypeID = ?";
+
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+            st.setInt(1, status);
+            st.setString(2, description);
+            st.setInt(3, id);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+
+        }
+    }
+    //Edit setting category MinhHC
+    public void EditSettingCat(int id, int status, String description) {
+
+        String sql = "UPDATE Category SET Status = ?, description = ? WHERE CategoryID = ?";
+
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+            st.setInt(1, status);
+            st.setString(2, description);
+            st.setInt(3, id);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+
+        }
+    }
     //mehtod to test: ThanhNX
     public static void main(String[] args) {
         ArrayList<User> test = new UserDAO().getTopUser();
