@@ -1,8 +1,4 @@
-<%-- 
-    Document   : setting-management
-    Created on : Sep 18, 2023, 9:41:35 PM
-    Author     : admin
---%>
+
 
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,8 +12,8 @@
 
 
 
-<!-- Include Bootstrap CSS and JavaScript -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Include Bootstrap CSS and JavaScript -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
         <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -43,8 +39,8 @@
         <link rel="stylesheet" href="css/icomoon.css">
         <link rel="stylesheet" href="css/style.css">
         <style>
-            
-          
+
+
             .search-container input [type=text] {
                 padding: 6px;
                 margin-top: 8px;
@@ -127,25 +123,25 @@
 
 
             <div style="display: inline-block; margin-left: 10px" id="setting type" >
-                <form action="settingcontrol" method="post">
+                <form action="" method="post">
                     <select name="setting_type" id="setting_type" >
-                        <option value="">Select setting types</option>
-                        <option value="all">All setting types</option>
-                        <option value="category">Product Category</option>
-                        <option value="type">Product Type</option>
-
+                        <option value="">Select Roles</option>
+                        <option value="all">All Roles</option>
+                        <option value="admin">Admin</option>
+                        <option value="seller">Seller</option>
+                        <option value="customer">Customer</option>
                     </select>
                 </form>
 
             </div>
 
             <div style="display: inline-block; margin-left: 10px" id="setting type" class="form-group">
-                <form action="settingcontrol" method="post">
+                <form action="" method="post">
                     <select name="setting_status" id="setting_status" >
                         <option value="">Select Statuses</option>
                         <option value="all">All Statuses</option>
                         <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
+                        <option value="blocked">Blocked</option>
 
                     </select>
                 </form>
@@ -153,7 +149,7 @@
 
 
             <div style="display: inline-block; margin-left: 10px">
-                <form action="searchsetting" method="post" class="search-form">
+                <form action="" method="post" class="search-form">
                     <div class="search-container">
                         <input name="txt" type="text"  placeholder="Search">
                         <button type="submit"><i class="icon-search" style="color: white;"></i></button>
@@ -161,339 +157,211 @@
                 </form>
             </div>
 
-           <div style="display: inline-block; text-align: right; margin-left: 350px;">
-    <a href="#addSetting" data-toggle="modal" >
-        <i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20"></i>
-        Add Setting
-    </a>
-</div>
+            <div style="display: inline-block; text-align: right; margin-left: 380px;">
+                <a href="#addSetting" data-toggle="modal" >
+                    <i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20"></i>
+                    Add Setting
+                </a>
+            </div>
 
 
 
-        <section class="ftco-section ftco-cart">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 ftco-animate">
-                        <div class="cart-list">
-                            <table class="table">
-                                <thead class="thead-primary">
-                                    <tr class="text-center">
-                                        <th style="width: 100px;">ID</th>
-                                        <th style="width: 300px;">Setting Type</th>
-                                        <th style="width: 300px;">Name</th>
-                                        <th style="width: 300px;">Status</th>
-                                        <th style="width: 300px;">Action</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <c:forEach items="${listC}" var="o">
-                                    <form action="settingstatus" method="post">
+            <section class="ftco-section ftco-cart">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 ftco-animate">
+                            <div class="cart-list">
+                                <table class="table">
+                                    <thead class="thead-primary">
                                         <tr class="text-center">
-
-                                        <input type="hidden" name="id" value="${o.id}">
-                                        <input type="hidden" name="settingtype" value="${o.settingtype}">
-                                        <input type="hidden" name="status" value="${o.status}">
-                                        <td class="price"><span>${o.id}</span></td>
-                                        <td  class="price">${o.settingtype}</td>
-                                        <td class="price">${o.name}</td>
-                                        <td  class="price" style="color: ${o.status == 1 ? 'green' : 'red'}">${o.status == 1 ? 'Active' : 'Inactive'}</td>
-                                        <td class="total">
-                                            <a href="#" data-toggle="modal" data-target="#editSetting" data-id="${o.id}" data-name="${o.name}" data-type="${o.settingtype}" data-status="${o.status}" data-description="${o.description}">
-                                                <img src="https://media.istockphoto.com/id/1161405325/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-b%C3%BAt-ch%C3%AC-%C4%91%C6%B0%E1%BB%A3c-c%C3%B4-l%E1%BA%ADp-theo-phong-c%C3%A1ch-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=f4xtI6U0w47PmSzYr12a9DflXkhTXr1qFCuJz-GMegk="
-                                                     alt="Mô tả ảnh" width="20" height="20">
-                                            </a>
-
-
-                                            <button type="submit" style="background-color: white !important; color: ${o.status == 0 ? 'green' : 'red'} !important;">
-                                                ${o.status == 0 ? 'Active' : 'Deactive'}
-                                            </button>
-
-
-                                        </td>
-
+                                            <th style="width: 100px;">ID</th>
+                                            <th style="width: 300px;">Name</th>
+                                            <th style="width: 300px;">Email</th>
+                                            <th style="width: 300px;">Mobile</th>
+                                            <th style="width: 300px;">Role</th>
+                                            <th style="width: 300px;">Status</th>
+                                            <th style="width: 300px;">Action</th>
 
                                         </tr>
+                                    </thead>
+                                    <tbody>
 
-                                    </form>
+                                        <c:forEach items="${listU}" var="o">
 
-                                </c:forEach>
+                                            <tr class="text-center">
 
-                                </tbody>
-                            </table>
 
+
+                                                <td class="price"><span>${o.userID}</span></td>
+                                                <td  class="price">${o.userName}</td>
+                                                <td class="price">${o.email}</td>
+                                                <td class="price">${o.phoneNumber}</td>
+                                                <td class="price">
+                                                    ${o.roleID == 1 ? 'Admin' : (o.roleID == 2 ? 'Artist' : (o.roleID == 3 ? 'Customer' : 'Unknown'))}
+                                                </td>
+
+                                                <td  class="price" style="color: ${o.status == 1 ? 'green' : 'red'}">${o.status == 1 ? 'Active' : 'Blocked'}</td>
+                                                <td class="total">
+                                                    <a href="#" data-toggle="modal" data-target="#editSetting">
+                                                        <img src="https://media.istockphoto.com/id/1161405325/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-b%C3%BAt-ch%C3%AC-%C4%91%C6%B0%E1%BB%A3c-c%C3%B4-l%E1%BA%ADp-theo-phong-c%C3%A1ch-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=f4xtI6U0w47PmSzYr12a9DflXkhTXr1qFCuJz-GMegk="
+                                                             alt="Mô tả ảnh" width="20" height="20">
+                                                    </a>
+
+
+                                                    <button type="submit" style="background-color: white !important; color: ${o.status == 0 ? 'green' : 'red'} !important;">
+                                                        ${o.status == 0 ? 'Active' : 'Block'}
+                                                    </button>
+
+
+                                                </td>
+
+
+                                            </tr>
+
+
+
+                                        </c:forEach>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-    
-        <div id="addSetting" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="addsetting" method="post">
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add Setting</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+
+
+
+            <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+                <div class="container py-4">
+                    <div class="row d-flex justify-content-center py-5">
+                        <div class="col-md-6">
+                            <h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+                            <span>Get e-mail updates about our latest shops and special offers</span>
                         </div>
-                        <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input name="name" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group" >
-
-                                <label>Setting Type</label>
-
-                                <select name="settingtype" class="form-select" aria-label="Default select example" required>
-                                    <option value="">-Select-</option>
-
-                                    <option value="Type">Product Type</option>
-                                    <option value="Category">Product Category</option>
-                                </select>
-                                <div class="form-group">
-                                    <label>Description</label>
-                                   <textarea name="description" class="form-control" required></textarea>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <form action="#" class="subscribe-form">
+                                <div class="form-group d-flex">
+                                    <input type="text" class="form-control" placeholder="Enter email address">
+                                    <input type="submit" value="Subscribe" class="submit px-3">
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-success" value="Add">
-                            </div>
+                            </form>
                         </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-
-        <div id="editSetting" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="editsetting" method="post">
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Setting Detail</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">	
-                            <div class="form-group">
-                                <label>ID</label>
-                                <input name="id" type="text" class="form-control" required readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input name="name" type="text" class="form-control" required readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Setting Type</label>
-                                <input name="settingtype" type="text" class="form-control" required readonly>
-                            </div>
-                            <div class="form-group">
-                                <label>Status</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" id="Active" value="Active" >
-                                    <label class="form-check-label" for="Active">
-                                        Active
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" id="Inactive" value="Inactive" >
-                                    <label class="form-check-label" for="Inactive">
-                                        Inactive
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="description" class="form-control" required></textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-success" value="Edit">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-            <div class="container py-4">
-                <div class="row d-flex justify-content-center py-5">
-                    <div class="col-md-6">
-                        <h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
-                        <span>Get e-mail updates about our latest shops and special offers</span>
-                    </div>
-                    <div class="col-md-6 d-flex align-items-center">
-                        <form action="#" class="subscribe-form">
-                            <div class="form-group d-flex">
-                                <input type="text" class="form-control" placeholder="Enter email address">
-                                <input type="submit" value="Subscribe" class="submit px-3">
-                            </div>
-                        </form>
                     </div>
                 </div>
-            </div>
-        </section>
-        <footer class="ftco-footer ftco-section">
-            <div class="container">
-                <div class="row">
-                    <div class="mouse">
-                        <a href="#" class="mouse-icon">
-                            <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-                        </a>
-                    </div>
-                </div>
-                <div class="row mb-5">
-                    <div class="col-md">
-                        <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2">Vegefoods</h2>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-                            <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                            </ul>
+            </section>
+            <footer class="ftco-footer ftco-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="mouse">
+                            <a href="#" class="mouse-icon">
+                                <div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md">
-                        <div class="ftco-footer-widget mb-4 ml-md-5">
-                            <h2 class="ftco-heading-2">Menu</h2>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="py-2 d-block">Shop</a></li>
-                                <li><a href="#" class="py-2 d-block">About</a></li>
-                                <li><a href="#" class="py-2 d-block">Journal</a></li>
-                                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2">Help</h2>
-                            <div class="d-flex">
-                                <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
-                                    <li><a href="#" class="py-2 d-block">Shipping Information</a></li>
-                                    <li><a href="#" class="py-2 d-block">Returns &amp; Exchange</a></li>
-                                    <li><a href="#" class="py-2 d-block">Terms &amp; Conditions</a></li>
-                                    <li><a href="#" class="py-2 d-block">Privacy Policy</a></li>
+                    <div class="row mb-5">
+                        <div class="col-md">
+                            <div class="ftco-footer-widget mb-4">
+                                <h2 class="ftco-heading-2">Vegefoods</h2>
+                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+                                <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                                    <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                                    <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                                    <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
                                 </ul>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="ftco-footer-widget mb-4 ml-md-5">
+                                <h2 class="ftco-heading-2">Menu</h2>
                                 <ul class="list-unstyled">
-                                    <li><a href="#" class="py-2 d-block">FAQs</a></li>
-                                    <li><a href="#" class="py-2 d-block">Contact</a></li>
+                                    <li><a href="#" class="py-2 d-block">Shop</a></li>
+                                    <li><a href="#" class="py-2 d-block">About</a></li>
+                                    <li><a href="#" class="py-2 d-block">Journal</a></li>
+                                    <li><a href="#" class="py-2 d-block">Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2">Have a Questions?</h2>
-                            <div class="block-23 mb-3">
-                                <ul>
-                                    <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                                    <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                                    <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
-                                </ul>
+                        <div class="col-md-4">
+                            <div class="ftco-footer-widget mb-4">
+                                <h2 class="ftco-heading-2">Help</h2>
+                                <div class="d-flex">
+                                    <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
+                                        <li><a href="#" class="py-2 d-block">Shipping Information</a></li>
+                                        <li><a href="#" class="py-2 d-block">Returns &amp; Exchange</a></li>
+                                        <li><a href="#" class="py-2 d-block">Terms &amp; Conditions</a></li>
+                                        <li><a href="#" class="py-2 d-block">Privacy Policy</a></li>
+                                    </ul>
+                                    <ul class="list-unstyled">
+                                        <li><a href="#" class="py-2 d-block">FAQs</a></li>
+                                        <li><a href="#" class="py-2 d-block">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="ftco-footer-widget mb-4">
+                                <h2 class="ftco-heading-2">Have a Questions?</h2>
+                                <div class="block-23 mb-3">
+                                    <ul>
+                                        <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                                        <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                                        <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
 
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        </p>
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
 
 
 
-        <!-- loader -->
-        <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-        <script>
+            <!-- loader -->
+            <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+            <script>
 
-            document.getElementById("setting_type").onchange = function () {
-                this.form.submit();
-            };
+                document.getElementById("setting_type").onchange = function () {
+                    this.form.submit();
+                };
 
-            document.getElementById("setting_status").onchange = function () {
-                this.form.submit();
-            };
-        </script>
-        <script>
-            // Sử dụng jQuery để xử lý sự kiện click trên liên kết
-            $('a[data-target="#editSetting"]').click(function () {
-                // Lấy giá trị từ thuộc tính data
-                var id = $(this).data('id');
-                var name = $(this).data('name');
-                var type = $(this).data('type');
-                var status = $(this).data('status');
-                var description = $(this).data('description');
-                // Đặt giá trị vào các trường input trong form
-                $('#editSetting input[name="id"]').val(id);
-                $('#editSetting input[name="name"]').val(name);
-                $('#editSetting input[name="settingtype"]').val(type);
-                $('#editSetting textarea[name="description"]').val(description);
-                // Thiết lập giá trị của radio buttons "Active" hoặc "Inactive" dựa trên giá trị của status
-                if (status === 1) {
-                    $('#Active').prop('checked', true);
-                    $('#Inactive').prop('checked', false);
-                } else {
-                    $('#Active').prop('checked', false);
-                    $('#Inactive').prop('checked', true);
-                }
-            });
-        </script>
-<script>
-// When the modal is shown, add the 'modal-open' class to the body
-$('#editSetting').on('show.bs.modal', function () {
-    $('body').addClass('modal-open');
-});
-
-// When the modal is hidden, remove the 'modal-open' class from the body
-$('#editSetting').on('hidden.bs.modal', function () {
-    $('body').removeClass('modal-open');
-});
-
-$('#addSetting').on('show.bs.modal', function () {
-    $('body').addClass('modal-open');
-});
-
-// When the modal is hidden, remove the 'modal-open' class from the body
-$('#addSetting').on('hidden.bs.modal', function () {
-    $('body').removeClass('modal-open');
-});
- </script>
+                document.getElementById("setting_status").onchange = function () {
+                    this.form.submit();
+                };
+            </script>
 
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/jquery-migrate-3.0.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.easing.1.3.js"></script>
-        <script src="js/jquery.waypoints.min.js"></script>
-        <script src="js/jquery.stellar.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/aos.js"></script>
-        <script src="js/jquery.animateNumber.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
-        <script src="js/scrollax.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-        <script src="js/google-map.js"></script>
-        <script src="js/main.js"></script>
 
-      
+            <script src="js/jquery.min.js"></script>
+            <script src="js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/jquery.easing.1.3.js"></script>
+            <script src="js/jquery.waypoints.min.js"></script>
+            <script src="js/jquery.stellar.min.js"></script>
+            <script src="js/owl.carousel.min.js"></script>
+            <script src="js/jquery.magnific-popup.min.js"></script>
+            <script src="js/aos.js"></script>
+            <script src="js/jquery.animateNumber.min.js"></script>
+            <script src="js/bootstrap-datepicker.js"></script>
+            <script src="js/scrollax.min.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+            <script src="js/google-map.js"></script>
+            <script src="js/main.js"></script>
+
+
 
     </body>
 </html>

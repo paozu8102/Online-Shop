@@ -60,7 +60,8 @@ public class UserDAO extends DBContext {
         }
         return roleList;
     }
-public List<Setting> getAllSetting() {
+
+    public List<Setting> getAllSetting() {
         List<Setting> list = new ArrayList<>();
         String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status, Description FROM Category\n"
                 + "UNION\n"
@@ -256,7 +257,7 @@ public List<Setting> getAllSetting() {
 
         }
     }
-    
+
     //Change status in table Category MinhHC
     public void ChangeSettingStatusCat(int id, int newStatus) {
 
@@ -264,8 +265,8 @@ public List<Setting> getAllSetting() {
 
         // Thay categoryId bằng giá trị thích hợp
         try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
-             st.setInt(1, newStatus);
-        st.setInt(2, id);
+            st.setInt(1, newStatus);
+            st.setInt(2, id);
 
             st.executeUpdate();
 
@@ -275,7 +276,7 @@ public List<Setting> getAllSetting() {
 
         }
     }
-    
+
     //Change status in table Type MinhHC
     public void ChangeSettingStatusTyp(int id, int newStatus) {
 
@@ -283,8 +284,8 @@ public List<Setting> getAllSetting() {
 
         // Thay categoryId bằng giá trị thích hợp
         try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
-             st.setInt(1, newStatus);
-        st.setInt(2, id);
+            st.setInt(1, newStatus);
+            st.setInt(2, id);
 
             st.executeUpdate();
 
@@ -294,7 +295,7 @@ public List<Setting> getAllSetting() {
 
         }
     }
-    
+
     //Edit setting Type MinhHC
     public void EditSettingTyp(int id, int status, String description) {
 
@@ -313,6 +314,7 @@ public List<Setting> getAllSetting() {
 
         }
     }
+
     //Edit setting category MinhHC
     public void EditSettingCat(int id, int status, String description) {
 
@@ -331,6 +333,48 @@ public List<Setting> getAllSetting() {
 
         }
     }
+
+    public List<User> getAllUser() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email,\n"
+                + "    A.Status ,\n"
+                + "    A.RoleID\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+        } catch (Exception e) {
+            // Handle other exceptions
+        }
+
+        return list;
+    }
+
     //mehtod to test: ThanhNX
     public static void main(String[] args) {
         ArrayList<User> test = new UserDAO().getTopUser();
@@ -341,5 +385,13 @@ public List<Setting> getAllSetting() {
         for (int i = 0; i < test1.size(); i++) {
             System.out.println(test1.get(i));
         }
+
+        UserDAO c = new UserDAO();
+        List<User> listC = c.getAllUser();
+
+        for (User o : listC) {
+            System.out.println(o);
+        }
+
     }
 }

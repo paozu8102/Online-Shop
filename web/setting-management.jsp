@@ -161,7 +161,7 @@
                 </form>
             </div>
 
-           <div style="display: inline-block; text-align: right; margin-left: 350px;">
+           <div style="display: inline-block; text-align: right; margin-left: 380px;">
     <a href="#addSetting" data-toggle="modal" >
         <i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20"></i>
         Add Setting

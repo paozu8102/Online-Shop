@@ -3,24 +3,32 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/admin/Documents/master/web/blog-single.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/UserDAO.java</file>
-            <file>file:/C:/Users/admin/Documents/master/web/setting-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/UserProfileController.java</file>
-            <file>file:/C:/Users/admin/Documents/master/web/template/header.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master/web/user-profile.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/accountDAO.java</file>
-            <file>file:/C:/Users/admin/Documents/master/web/about.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/ChangeSettingStatus.java</file>
-            <file>file:/C:/Users/admin/Documents/master/src/java/Model/Setting.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/style.scss</file>
+            <file>file:/C:/Users/admin/Documents/master/web/change-newpassword.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/EditSettingController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/UserController.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/SettingControl.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/DBContext.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Model/User.java</file>
-            <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/ProductDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/Product.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/SearchSetting.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/DAO.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/SignUpController.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/AddSetting.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/blog-single.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/web/setting-management.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/web/template/header.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/web/user-profile.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/web/user-management.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/accountDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/HomeController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/about.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/ChangeSettingStatus.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/Setting.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/Account.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/ProductDAO.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/forgotPasswordController.java</file>
         </group>
     </open-files>
