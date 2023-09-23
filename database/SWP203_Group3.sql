@@ -8,7 +8,7 @@ RoleName VARCHAR(50) NOT NULL
 
 INSERT INTO [Role] (RoleID, RoleName)
 VALUES (1,'Admin'),
-(2,'Saler'),
+(2,'Artist'),
 (3,'Customer');
 
 CREATE TABLE BlogStatus(
@@ -37,20 +37,22 @@ CREATE TABLE Account(
 
 Email VARCHAR(50) NOT NULL PRIMARY KEY,
 Password VARCHAR(50) NOT NULL,
+Status BIT NOT NULL,
 RoleID INT NOT NULL
+
 FOREIGN KEY (RoleID) REFERENCES Role(RoleID)
 )
-INSERT INTO Account (Email, Password, RoleID)
-VALUES ('ducle2002@gmail.com','ducle123', 1),
-('thien02@gmail.com','thien123', 2),
-('long03@gmail.com','long1234', 2),
-('son04@gmail.com','son12345', 1),
-('quan05@gmail.com','quan1234', 2),
-('hoang06@gmail.com','hoang123', 1),
-('minh07@gmail.com','minh1234', 2),
-('kkkk08@gmail.com','kkkk1234', 3),
-('bao09@gmail.com','bao12345', 2),
-('thanh10@gmail.com','thanh123', 1);
+INSERT INTO Account (Email, Password, Status, RoleID)
+VALUES ('ducle2002@gmail.com','ducle123',1 ,1),
+('thien02@gmail.com','thien123',1 ,2),
+('long03@gmail.com','long1234',1, 2),
+('son04@gmail.com','son12345',1, 1),
+('quan05@gmail.com','quan1234',1, 2),
+('hoang06@gmail.com','hoang123',1, 1), 
+('minh07@gmail.com','minh1234',1, 2),
+('kkkk08@gmail.com','kkkk1234',1, 3),
+('bao09@gmail.com','bao12345',1, 2),
+('thanh10@gmail.com','thanh123',1, 1);
 
 
 CREATE TABLE [User](
@@ -61,6 +63,7 @@ PhoneNumber VARCHAR(20) NOT NULL,
 Address VARCHAR(MAX) NOT NULL,
 Avatar VARCHAR(MAX) NOT NULL,
 Email VARCHAR(50) NOT NULL
+
 FOREIGN KEY (Email) REFERENCES Account(Email)
 )
 INSERT INTO [User] (UserName, Gender, PhoneNumber, Address, Avatar, Email)

@@ -8,16 +8,17 @@ package Model;
  *
  * @author Acer
  */
-public class User {
+public class User extends Account{
+
     private int UserID;
     private String UserName;
     private int Gender;
     private String PhoneNumber;
     private String Address;
     private String Avatar;
-    private String Email;
-
-    public User() { 
+    
+    
+    public User() {
     }
 
     public User(int UserID, String UserName, int Gender, String PhoneNumber, String Address, String Avatar, String Email) {
@@ -33,7 +34,21 @@ public class User {
     public User(String UserName, String PhoneNumber, String Email) {
         this.UserName = UserName;
         this.PhoneNumber = PhoneNumber;
-        this.Email = Email;
+         this.Email = Email;
+    }
+
+    public User(int UserID, String UserName, int Gender, String PhoneNumber, String Address, String Avatar, String Email, int Status, int RoleID) {
+        this.UserID = UserID;
+        this.UserName = UserName;
+        this.Gender = Gender;
+        this.PhoneNumber = PhoneNumber;
+        this.Address = Address;
+        this.Avatar = Avatar;
+         this.Email = Email;
+         this.Status =Status;
+        this.RoleID =RoleID;
+        
+        
     }
 
     public int getUserID() {
@@ -84,17 +99,14 @@ public class User {
         this.Avatar = Avatar;
     }
 
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String Email) {
-        this.Email = Email;
-    }
-
+    
     @Override
     public String toString() {
-        return "User{" + "UserID=" + UserID + ", UserName=" + UserName + ", Gender=" + Gender + ", PhoneNumber=" + PhoneNumber + ", Address=" + Address + ", Avatar=" + Avatar + ", Email=" + Email + '}';
+        return "User{" + "UserID=" + UserID + ", UserName=" + UserName + ", Gender=" + Gender + ", PhoneNumber=" + PhoneNumber + ", Address=" + Address + ", Avatar=" + Avatar + ", Email=" + Email + ", Status=" + Status + ", RoleID=" + RoleID + '}';
     }
+
+   
+
     
+
 }

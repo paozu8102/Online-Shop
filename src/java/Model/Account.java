@@ -11,9 +11,17 @@ package Model;
 public class Account {
     String Email;
     String Password;
+    int Status;
     int RoleID;
 
     public Account() {
+    }
+
+    public Account(String Email, String Password, int Status, int RoleID) {
+        this.Email = Email;
+        this.Password = Password;
+        this.Status = Status;
+        this.RoleID = RoleID;
     }
 
     public Account(String Email, String Password, int RoleID) {
@@ -50,6 +58,19 @@ public class Account {
 
     public void setRoleID(int RoleID) {
         this.RoleID = RoleID;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int Status) {
+        this.Status = Status;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" + "Email=" + Email + ", Password=" + Password + ", Status=" + Status + ", RoleID=" + RoleID + '}';
     }
     
 }

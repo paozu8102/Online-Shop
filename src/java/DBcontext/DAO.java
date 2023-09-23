@@ -65,20 +65,16 @@ public class DAO extends DBContext {
 
     public void insertAccount(Account c, User u) {
         try {
-            String sql = "INSERT INTO [dbo].[Account] ([Email], [Password], [RoleID]) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO [dbo].[Account] ([Email], [Password], Status , [RoleID]) VALUES (?, ?, ?, ?)";
 
             // Thực thi câu truy vấn cho bảng Account
             PreparedStatement stAccount = getConnection().prepareStatement(sql);
             stAccount.setString(1, c.getEmail());
             stAccount.setString(2, c.getPassword());
-            stAccount.setInt(3, 3);
+            stAccount.setInt(3, 1);
+            stAccount.setInt(4, 3);
             stAccount.executeUpdate();
 
-//            String sql1 = "select top 1 Email from Account  order by Email desc";
-//            PreparedStatement st1 = getConnection().prepareStatement(sql1);
-//            ResultSet rs = st1.executeQuery();
-          
-             
 
                 String sql2 = "INSERT INTO [dbo].[User]\n"
                         + "           ([UserName]\n"
