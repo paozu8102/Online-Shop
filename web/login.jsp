@@ -51,7 +51,8 @@
                                 <div class="form-group form-button">
                                     <input type="submit" name="signin" id="signin"
                                            class="form-submit" value="Log in" />
-                                    <span><a style="text-decoration: none; color: black" href="signup.jsp">Don't have an account ?</a></span>
+                                    <a style="text-decoration: none; color: black" href="signup.jsp">No have an account ?/</a><a style="text-decoration: none; color: black" href="signupforsaler.jsp">Artist</a>
+
                                 </div>
                             </form>
                             <div class="social-login">

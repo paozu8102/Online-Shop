@@ -23,7 +23,7 @@
 			<div class="container">
 				<div class="signup-content">
 					<div class="signup-form">
-						<h2 class="form-title">Sign Up</h2>
+						<h2 class="form-title">Artist Sign Up</h2>
 					
 						<form method="post" action="signup" class="register-form"
 							id="register-form">
@@ -57,7 +57,7 @@
 								<input type="checkbox" name="agree-term" id="agree-term"
 									class="agree-term" /> <label for="agree-term"
 									class="label-agree-term"><span><span></span></span>I
-									agree with all statements <a href="#" class="term-service">Terms
+									agree all statements in <a href="#" class="term-service">Terms
 										of service</a></label>
 							</div>
 							<div class="form-group form-button">
@@ -69,7 +69,7 @@
 					</div>
 					<div class="signup-image">
 						<figure>
-							<img src="images/signup.jpg" alt="sing up image">
+							<img src="images/rose.jpg" alt="sing up image">
 						</figure>
 						
 					</div>
