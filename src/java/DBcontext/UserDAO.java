@@ -4,6 +4,7 @@
  */
 package DBcontext;
 
+import Model.Role;
 import Model.Setting;
 import Model.User;
 import java.sql.PreparedStatement;
@@ -643,26 +644,30 @@ public class UserDAO extends DBContext {
 
         return list;
     }
+public List<Role> getRole() {
+        List<Role> list = new ArrayList<>();
+        String sql = "Select * from [Role]";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Role(
+                        rs.getInt(1),
+                        rs.getString(2)
+                        
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+        } catch (Exception e) {
+            // Handle other exceptions
+        }
 
-    //mehtod to test: ThanhNX
-//    public static void main(String[] args) {
-//        ArrayList<User> test = new UserDAO().getTopUser();
-//        for (int i = 0; i < test.size(); i++) {
-//            System.out.println(test.get(i).toString());
-//        }
-//        ArrayList<String> test1 = new UserDAO().getRoleList(test);
-//        for (int i = 0; i < test1.size(); i++) {
-//            System.out.println(test1.get(i));
-//        }
-//
-//        UserDAO c = new UserDAO();
-//        List<User> listC = c.getAllUser();
-//
-//        for (User o : listC) {
-//            System.out.println(o);
-//        }
-//
-//    }
+        return list;
+    }
+
+
+
     // get user base on userID: Baomv
     public User getUser(int id) {
         String sql = "select * from [user] where UserID = ?";
@@ -729,5 +734,24 @@ public class UserDAO extends DBContext {
             System.out.println("updateImage: " + e.getMessage());
         }
     }
+    
+//    mehtod to test: ThanhNX
+    public static void main(String[] args) {
+        ArrayList<User> test = new UserDAO().getTopUser();
+        for (int i = 0; i < test.size(); i++) {
+            System.out.println(test.get(i).toString());
+        }
+        ArrayList<String> test1 = new UserDAO().getRoleList(test);
+        for (int i = 0; i < test1.size(); i++) {
+            System.out.println(test1.get(i));
+        }
 
+        UserDAO c = new UserDAO();
+        List<User> listC = c.getAllUser();
+
+        for (User o : listC) {
+            System.out.println(o);
+        }
+
+    }
 }

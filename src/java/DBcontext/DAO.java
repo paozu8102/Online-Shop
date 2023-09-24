@@ -97,7 +97,42 @@ public class DAO extends DBContext {
 
         }
     }
+ public void AddUser(Account c, User u) {
+        try {
+            String sql = "INSERT INTO [dbo].[Account] ([Email], [Password], Status , [RoleID]) VALUES (?, ?, ?, ?)";
 
+            // Thực thi câu truy vấn cho bảng Account
+            PreparedStatement stAccount = getConnection().prepareStatement(sql);
+            stAccount.setString(1, c.getEmail());
+            stAccount.setString(2, c.getPassword());
+            stAccount.setInt(3, 1);
+            stAccount.setInt(4, c.getRoleID());
+            stAccount.executeUpdate();
+
+
+                String sql2 = "INSERT INTO [dbo].[User]\n"
+                        + "           ([UserName]\n"
+                        + "           ,[PhoneNumber]\n"
+                        + "           ,[Email])\n"
+                        + "     VALUES\n"
+                        + "           ( ?, ?, ?)";
+                PreparedStatement st2 = getConnection().prepareStatement(sql2);
+                st2.setString(1, u.getUserName());
+
+                st2.setString(2, u.getPhoneNumber());
+
+                st2.setString(3, u.getEmail());
+
+                st2.executeUpdate();
+            
+
+        } catch (SQLException e) {
+        } catch (Exception e) {
+
+        }
+    }
+ 
+ 
     public void insertUser(User u) {
         String sql = "INSERT INTO [dbo].[User]\n"
                 + "           ([UserName]\n"

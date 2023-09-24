@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package Controller;
 
 import DBcontext.accountDAO;
 import Model.Account;
@@ -18,13 +18,12 @@ import jakarta.servlet.http.HttpSession;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author ADMIN
  */
-@WebServlet(name="forgotPasswordController", urlPatterns={"/forgot-password"})
-public class forgotPasswordController extends HttpServlet {
+@WebServlet(name="ForgotPasswordController", urlPatterns={"/forgot-password"})
+public class ForgotPasswordController extends HttpServlet {
    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -126,7 +125,7 @@ public class forgotPasswordController extends HttpServlet {
                         return;
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(forgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (service.equalsIgnoreCase("changePassword")) {
@@ -151,7 +150,7 @@ public class forgotPasswordController extends HttpServlet {
                     request.setAttribute("mess", "Change password successful!");
                     request.getRequestDispatcher("change-newpassword.jsp").forward(request, response);
                 } catch (Exception ex) {
-                    Logger.getLogger(forgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }

@@ -128,20 +128,20 @@
 
 
 
-            <div style="display: inline-block; margin-left: 10px" id="setting type" >
+            <div style="display: inline-block; margin-left: 10px" >
                 <form action="usercontrol" method="post">
                     <select name="user-role" id="user-role" >
                         <option value="">Select Roles</option>
                         <option value="all">All Roles</option>
-                        <option value="admin">Admin</option>
-                        <option value="artist">Artist</option>
-                        <option value="customer">Customer</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Artist">Artist</option>
+                        <option value="Customer">Customer</option>
                     </select>
                 </form>
 
             </div>
 
-            <div style="display: inline-block; margin-left: 10px" id="setting type" class="form-group">
+            <div style="display: inline-block; margin-left: 10px">
                 <form action="usercontrol" method="post">
                     <select name="user-status" id="user-status" >
                         <option value="">Select Statuses</option>
@@ -238,48 +238,95 @@
             </section>
 
 
- <div id="addUser" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="addsetting" method="post">
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add User</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input name="name" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input name="name" type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group" >
-
-                                <label>Setting Type</label>
-
-                                <select name="settingtype" class="form-select" aria-label="Default select example" required>
-                                    <option value="">-Select-</option>
-
-                                    <option value="Type">Product Type</option>
-                                    <option value="Category">Product Category</option>
-                                </select>
-                                <div class="form-group">
-                                    <label>Description</label>
-                                   <textarea name="description" class="form-control" required></textarea>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-success" value="Add">
-                            </div>
-                        </div>
-                    </form>
-
+<div id="addUser" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="adduser" method="post" onsubmit="return validateForm()">
+                <div class="modal-header">						
+                    <h4 class="modal-title">Add User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
-            </div>
+                <div class="modal-body">					
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input name="name" type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input name="email" id="email" type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input name="pass" id="pass" type="password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input name="repass" id="repass" type="password" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Phone number</label>
+                        <input name="phone" type="text" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <select name="role" class="form-select" aria-label="Default select example" required>
+                            <option value="">-Select-</option>
+                            <c:forEach items="${listR}" var="r">
+                                        <option value="${r.id}">${r.name}</option>
+                                    </c:forEach>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit" class="btn btn-success" value="Add">
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
+
+<script>
+function validateForm() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("pass").value;
+    var confirmPassword = document.getElementById("repass").value;
+
+    // Check if email is valid using a simple regular expression
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        alert("Please enter a valid email address.");
+        return false;
+    }
+
+    // Check if the password length is greater than or equal to 8 characters
+    if (password.length < 8) {
+        alert("Password must be at least 8 characters long.");
+        return false;
+    }
+
+    // Check if the password and confirm password match
+    if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return false;
+    }
+
+
+
+    return true; // Form submission will proceed if all checks pass
+}
+</script>
+<script>
+ var emailExists = <%= session.getAttribute("emailExists") %>;
+
+if (emailExists === true) {
+    alert("Email already exists.");
+   
+}
+</script>
+<%-- Include this code in your JSP or HTML page --%>
+
 
 
             <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
