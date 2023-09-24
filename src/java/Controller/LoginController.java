@@ -5,8 +5,8 @@
 
 package Controller;
 
-import DBcontext.DAO;
-import DBcontext.UserDAO;
+import DAO.DAO;
+import DAO.UserDAO;
 import Model.Account;
 import Model.User;
 import java.io.IOException;

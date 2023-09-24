@@ -6,7 +6,7 @@
 package Controller;
 
 
-import DBcontext.UserDAO;
+import DAO.UserDAO;
 import Model.Setting;
 import java.io.IOException;
 import java.io.PrintWriter;
