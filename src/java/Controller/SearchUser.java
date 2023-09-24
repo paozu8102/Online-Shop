@@ -5,6 +5,7 @@
 
 package Controller;
 
+
 import DBcontext.UserDAO;
 import Model.User;
 import java.io.IOException;
@@ -20,8 +21,8 @@ import java.util.List;
  *
  * @author admin
  */
-@WebServlet(name="UserController", urlPatterns={"/usercontrol"})
-public class UserController extends HttpServlet {
+@WebServlet(name="SearchUser", urlPatterns={"/searchuser"})
+public class SearchUser extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +34,13 @@ public class UserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UserDAO c = new UserDAO();
-        List<User> listU = c.getAllUser();
-        request.setAttribute("listU", listU);
+        String txtSearch = request.getParameter("txt");
+        UserDAO dao =new UserDAO();
+        List<User> list = dao.SearchUser(txtSearch);
+        request.setAttribute("listU", list);
         request.getRequestDispatcher("user-management.jsp").forward(request, response);
+        
+       
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,28 +67,7 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         String userrole = request.getParameter("user-role");
-String userstatus = request.getParameter("user-status");
-UserDAO c = new UserDAO();
-List<User> listU = null;
-
-if ("all".equals(userrole) || "all".equals(userstatus)) {
-    listU = c.getAllUser();
-} else if ("admin".equals(userrole)) {
-    listU = c.getAllAdmin();
-} else if ("artist".equals(userrole)) {
-    listU = c.getAllArtist();
-} else if ("customer".equals(userrole)) {
-    listU = c.getAllCustomer();
-} else if ("active".equals(userstatus)) {
-    listU = c.getAllUserActive();
-} else if ("blocked".equals(userstatus)) {
-    listU = c.getAllUserBlocked();
-}
-
-
-request.setAttribute("listU", listU);
-request.getRequestDispatcher("user-management.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /** 

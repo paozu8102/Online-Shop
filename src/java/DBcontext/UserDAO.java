@@ -334,6 +334,7 @@ public class UserDAO extends DBContext {
         }
     }
 
+    //Get all User MinhHC
     public List<User> getAllUser() {
         List<User> list = new ArrayList<>();
         String sql = "SELECT\n"
@@ -352,6 +353,274 @@ public class UserDAO extends DBContext {
                 + "    Account A ON U.Email = A.Email;";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+        } catch (Exception e) {
+            // Handle other exceptions
+        }
+
+        return list;
+    }
+
+    //Get all Admin MinhHC
+    public List<User> getAllAdmin() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email,\n"
+                + "    A.Status,\n"
+                + "    A.RoleID\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email\n"
+                + "WHERE\n"
+                + "    A.RoleID = 1;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+        } catch (Exception e) {
+            // Handle other exceptions
+        }
+
+        return list;
+    }
+//Get all Artist MinhHC
+
+    public List<User> getAllArtist() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email,\n"
+                + "    A.Status,\n"
+                + "    A.RoleID\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email\n"
+                + "WHERE\n"
+                + "    A.RoleID = 2;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+        } catch (Exception e) {
+            // Handle other exceptions
+        }
+
+        return list;
+    }
+//Get all Customer MinhHC
+
+    public List<User> getAllCustomer() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email,\n"
+                + "    A.Status,\n"
+                + "    A.RoleID\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email\n"
+                + "WHERE\n"
+                + "    A.RoleID = 3;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+        } catch (Exception e) {
+            // Handle other exceptions
+        }
+
+        return list;
+    }
+
+    //Get all Customer MinhHC
+    public List<User> getAllUserActive() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email,\n"
+                + "    A.Status,\n"
+                + "    A.RoleID\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email\n"
+                + "WHERE\n"
+                + "    A.Status = 1;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+        } catch (Exception e) {
+            // Handle other exceptions
+        }
+
+        return list;
+    }
+
+    //Get all Customer MinhHC
+    public List<User> getAllUserBlocked() {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email,\n"
+                + "    A.Status,\n"
+                + "    A.RoleID\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email\n"
+                + "WHERE\n"
+                + "    A.Status = 0;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+        } catch (Exception e) {
+            // Handle other exceptions
+        }
+
+        return list;
+    }
+
+    //Get all Customer MinhHC
+    public List<User> SearchUser(String txtSearch) {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email,\n"
+                + "    A.Status,\n"
+                + "    A.RoleID\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email\n"
+                + "WHERE U.UserName LIKE ?\n"
+                + "   OR U.Email LIKE ?\n"
+                + "   OR U.PhoneNumber LIKE ?;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setString(1, "%" + txtSearch + "%");
+            st.setString(2, "%" + txtSearch + "%");
+            st.setString(3, "%" + txtSearch + "%");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 list.add(new User(
@@ -394,4 +663,5 @@ public class UserDAO extends DBContext {
         }
 
     }
+
 }

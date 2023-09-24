@@ -129,12 +129,12 @@
 
 
             <div style="display: inline-block; margin-left: 10px" id="setting type" >
-                <form action="" method="post">
-                    <select name="setting_type" id="setting_type" >
+                <form action="usercontrol" method="post">
+                    <select name="user-role" id="user-role" >
                         <option value="">Select Roles</option>
                         <option value="all">All Roles</option>
                         <option value="admin">Admin</option>
-                        <option value="seller">Seller</option>
+                        <option value="artist">Artist</option>
                         <option value="customer">Customer</option>
                     </select>
                 </form>
@@ -142,8 +142,8 @@
             </div>
 
             <div style="display: inline-block; margin-left: 10px" id="setting type" class="form-group">
-                <form action="" method="post">
-                    <select name="setting_status" id="setting_status" >
+                <form action="usercontrol" method="post">
+                    <select name="user-status" id="user-status" >
                         <option value="">Select Statuses</option>
                         <option value="all">All Statuses</option>
                         <option value="active">Active</option>
@@ -155,7 +155,7 @@
 
 
             <div style="display: inline-block; margin-left: 10px">
-                <form action="" method="post" class="search-form">
+                <form action="searchuser" method="post" class="search-form">
                     <div class="search-container">
                         <input name="txt" type="text"  placeholder="Search">
                         <button type="submit"><i class="icon-search" style="color: white;"></i></button>
@@ -163,10 +163,10 @@
                 </form>
             </div>
 
-            <div style="display: inline-block; text-align: right; margin-left: 380px;">
-                <a href="#addSetting" data-toggle="modal" >
+            <div style="display: inline-block; text-align: right; margin-left: 450px;">
+                <a href="#addUser" data-toggle="modal" >
                     <i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20"></i>
-                    Add Setting
+                    Add User
                 </a>
             </div>
 
@@ -238,7 +238,48 @@
             </section>
 
 
+ <div id="addUser" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="addsetting" method="post">
+                        <div class="modal-header">						
+                            <h4 class="modal-title">Add User</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">					
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input name="name" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input name="name" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group" >
 
+                                <label>Setting Type</label>
+
+                                <select name="settingtype" class="form-select" aria-label="Default select example" required>
+                                    <option value="">-Select-</option>
+
+                                    <option value="Type">Product Type</option>
+                                    <option value="Category">Product Category</option>
+                                </select>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                   <textarea name="description" class="form-control" required></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" class="btn btn-success" value="Add">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
 
 
             <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
@@ -339,11 +380,11 @@
             <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
             <script>
 
-                document.getElementById("setting_type").onchange = function () {
+                document.getElementById("user-role").onchange = function () {
                     this.form.submit();
                 };
 
-                document.getElementById("setting_status").onchange = function () {
+                document.getElementById("user-status").onchange = function () {
                     this.form.submit();
                 };
             </script>

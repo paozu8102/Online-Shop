@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/UserDAO.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/UserProfileController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/signup.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/style.scss</file>
             <file>file:/C:/Users/admin/Documents/master/web/change-newpassword.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/EditSettingController.java</file>
@@ -24,6 +25,7 @@
             <file>file:/C:/Users/admin/Documents/master/web/user-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/accountDAO.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/HomeController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/SearchUser.java</file>
             <file>file:/C:/Users/admin/Documents/master/web/about.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/ChangeSettingStatus.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Model/Setting.java</file>
