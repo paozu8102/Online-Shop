@@ -6,7 +6,9 @@
 package Controller;
 
 import DBcontext.DAO;
+import DBcontext.UserDAO;
 import Model.Account;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -76,8 +78,9 @@ public class LoginController extends HttpServlet {
         String p = request.getParameter("password");
         String r=request.getParameter("rem");
         DAO ad = new DAO();
+        UserDAO ud= new UserDAO();
         Account c = ad.getAccount(e, p);
-        
+        int userID = ud.cusAccountExist(e, p);
         if (c == null) {
             request.setAttribute("mess", "Wrong user name or password!");
             String er = "username: " + e + " and password: " + p + " don't exsited!";
@@ -85,6 +88,8 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession(true);
+            User user = (new UserDAO()).getUser(userID);
+            session.setAttribute("user", user);
             session.setAttribute("acc", c);
             session.setMaxInactiveInterval(1800);
 //            Cookie cr= new Cookie("rem", r);

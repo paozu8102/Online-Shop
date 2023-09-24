@@ -4,9 +4,25 @@
         <servlet-name>ThanhServlet</servlet-name>
         <servlet-class>Controller.HomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserProfileController</servlet-name>
+        <servlet-class>Controller.UserProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadAvatarController</servlet-name>
+        <servlet-class>Controller.UploadAvatarController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ThanhServlet</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileController</servlet-name>
+        <url-pattern>/UserProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadAvatarController</servlet-name>
+        <url-pattern>/changeavatar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

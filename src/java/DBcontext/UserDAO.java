@@ -645,23 +645,89 @@ public class UserDAO extends DBContext {
     }
 
     //mehtod to test: ThanhNX
-    public static void main(String[] args) {
-        ArrayList<User> test = new UserDAO().getTopUser();
-        for (int i = 0; i < test.size(); i++) {
-            System.out.println(test.get(i).toString());
+//    public static void main(String[] args) {
+//        ArrayList<User> test = new UserDAO().getTopUser();
+//        for (int i = 0; i < test.size(); i++) {
+//            System.out.println(test.get(i).toString());
+//        }
+//        ArrayList<String> test1 = new UserDAO().getRoleList(test);
+//        for (int i = 0; i < test1.size(); i++) {
+//            System.out.println(test1.get(i));
+//        }
+//
+//        UserDAO c = new UserDAO();
+//        List<User> listC = c.getAllUser();
+//
+//        for (User o : listC) {
+//            System.out.println(o);
+//        }
+//
+//    }
+    // get user base on userID: Baomv
+    public User getUser(int id) {
+        String sql = "select * from [user] where UserID = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int userID = rs.getInt(1);
+                String username = rs.getString(2);
+                int gender = rs.getBoolean(3)?1:0;
+                String PhoneNumber = rs.getString(4);
+                String Address = rs.getString(5);
+                String Avatar = rs.getString(6);
+                String Email = rs.getString(7);
+                User user = new User(userID, username, gender, PhoneNumber, Address, Avatar, Email);
+                return user;
+            }
+        } catch (Exception e) {
+            System.out.println("getUser: " + e.getMessage());
         }
-        ArrayList<String> test1 = new UserDAO().getRoleList(test);
-        for (int i = 0; i < test1.size(); i++) {
-            System.out.println(test1.get(i));
+        return new User();
+    }
+
+    //get userID base on email and pass: Baomv
+    public int cusAccountExist(String email, String p) {
+        String sql = "SELECT u.UserID "
+                + "FROM [User] AS u "
+                + "INNER JOIN Account AS a ON u.Email = a.Email "
+                + "WHERE a.Email = ? AND a.Password = ?";
+        int userID = 0;
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, p);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                userID = rs.getInt("UserID");
+            }
+        } catch (Exception e) {
+             System.out.println("cusAccountExist: " + e.getMessage());
         }
+        return userID;
+    }
 
-        UserDAO c = new UserDAO();
-        List<User> listC = c.getAllUser();
-
-        for (User o : listC) {
-            System.out.println(o);
+    //update user information: Baomv
+    public void updateUser(User user) {
+        String sql = "update [User] SET [UserName] = ?\n" +
+"      ,[Gender] = ?\n" +
+"      ,[PhoneNumber] = ?\n" +
+"      ,[Address] = ?\n" +
+"      ,[Avatar] = ?\n" +
+"      where userid = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, user.getUserName());
+            ps.setInt(2, user.getGender());
+            ps.setString(3, user.getPhoneNumber());
+            ps.setString(4, user.getAddress());
+            ps.setString(5, user.getAvatar());
+            ps.setString(6, user.getUserID() + "");
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("updateImage: " + e.getMessage());
         }
-
     }
 
 }
