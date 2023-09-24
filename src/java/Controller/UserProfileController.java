@@ -5,10 +5,11 @@
 
 package Controller;
 
+import DBcontext.UserDAO;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,7 +18,6 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Mai Vu Bao
  */
-@WebServlet(name="UserProfileController", urlPatterns={"/user-profile"})
 public class UserProfileController extends HttpServlet {
    
     /** 
@@ -55,6 +55,10 @@ public class UserProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        //hard code 1 user --> login --> user này se la user tren session
+        User user = (new UserDAO()).getUser();
+        //response.getWriter().print(user);
+        request.setAttribute("user", user);
         request.getRequestDispatcher("user-profile.jsp").forward(request, response);
     } 
 
@@ -65,6 +69,7 @@ public class UserProfileController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
