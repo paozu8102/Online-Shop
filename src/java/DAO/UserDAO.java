@@ -670,7 +670,24 @@ public List<Role> getRole() {
         return list;
     }
 
+//Change status in table Type MinhHC
+    public void ChangeUserStatus(String email, int newStatus) {
 
+        String sql = "UPDATE Account SET Status = ? WHERE email = ?";
+
+        // Thay categoryId bằng giá trị thích hợp
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+            st.setInt(1, newStatus);
+            st.setString(2, email);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+
+        }
+    }
 
     // get user base on userID: Baomv
     public User getUser(int id) {

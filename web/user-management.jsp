@@ -1,6 +1,4 @@
 
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -107,12 +105,12 @@
                                 <a class="dropdown-item" href="checkout.jsp">Checkout</a>
                             </div>
                         </li>
-                                               <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="settingcontrol">Manage Category</a>
-              </div>
-            </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                <a class="dropdown-item" href="settingcontrol">Manage Category</a>
+                            </div>
+                        </li>
                         <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
                         <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
                         <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
@@ -193,40 +191,40 @@
                                     <tbody>
 
                                         <c:forEach items="${listU}" var="o">
-
+                                        <form action="userstatus" method="post">
                                             <tr class="text-center">
+                                            <input type="hidden" name="email" value="${o.email}">
+                                            <input type="hidden" name="status" value="${o.status}">
+                                            <td class="price"><span>${o.userID}</span></td>
+                                            <td  class="price">${o.userName}</td>
+                                            <td class="price">${o.email}</td>
+                                            <td class="price">${o.phoneNumber}</td>
+                                            <td class="price">
+                                                ${o.roleID == 1 ? 'Admin' : (o.roleID == 2 ? 'Artist' : (o.roleID == 3 ? 'Customer' : 'Unknown'))}
+                                            </td>
+
+                                            <td  class="price" style="color: ${o.status == 1 ? 'green' : 'red'}">${o.status == 1 ? 'Active' : 'Blocked'}</td>
+                                            <td class="total">
+                                                <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://media.istockphoto.com/id/1161405325/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-b%C3%BAt-ch%C3%AC-%C4%91%C6%B0%E1%BB%A3c-c%C3%B4-l%E1%BA%ADp-theo-phong-c%C3%A1ch-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=f4xtI6U0w47PmSzYr12a9DflXkhTXr1qFCuJz-GMegk="
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
 
 
-
-                                                <td class="price"><span>${o.userID}</span></td>
-                                                <td  class="price">${o.userName}</td>
-                                                <td class="price">${o.email}</td>
-                                                <td class="price">${o.phoneNumber}</td>
-                                                <td class="price">
-                                                    ${o.roleID == 1 ? 'Admin' : (o.roleID == 2 ? 'Artist' : (o.roleID == 3 ? 'Customer' : 'Unknown'))}
-                                                </td>
-
-                                                <td  class="price" style="color: ${o.status == 1 ? 'green' : 'red'}">${o.status == 1 ? 'Active' : 'Blocked'}</td>
-                                                <td class="total">
-                                                    <a href="#" data-toggle="modal" data-target="#editSetting">
-                                                        <img src="https://media.istockphoto.com/id/1161405325/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-b%C3%BAt-ch%C3%AC-%C4%91%C6%B0%E1%BB%A3c-c%C3%B4-l%E1%BA%ADp-theo-phong-c%C3%A1ch-ph%E1%BA%B3ng.jpg?s=612x612&w=0&k=20&c=f4xtI6U0w47PmSzYr12a9DflXkhTXr1qFCuJz-GMegk="
-                                                             alt="Mô tả ảnh" width="20" height="20">
-                                                    </a>
+                                                <button type="submit" style="background-color: white !important; color: ${o.status == 0 ? 'green' : 'red'} !important;">
+                                                    ${o.status == 0 ? 'Active' : 'Block'}
+                                                </button>
 
 
-                                                    <button type="submit" style="background-color: white !important; color: ${o.status == 0 ? 'green' : 'red'} !important;">
-                                                        ${o.status == 0 ? 'Active' : 'Block'}
-                                                    </button>
-
-
-                                                </td>
+                                            </td>
 
 
                                             </tr>
+                                        </form>
 
 
 
-                                        </c:forEach>
+                                    </c:forEach>
 
                                     </tbody>
                                 </table>
@@ -238,37 +236,37 @@
             </section>
 
 
-<div id="addUser" class="modal fade" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="adduser" method="post" onsubmit="return validateForm()">
-                <div class="modal-header">						
-                    <h4 class="modal-title">Add User</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">					
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input name="name" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input name="email" id="email" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input name="pass" id="pass" type="password" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Confirm Password</label>
-                        <input name="repass" id="repass" type="password" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Phone number</label>
-                        <input name="phone" type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
+            <div id="addUser" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="adduser" method="post" onsubmit="return validateForm()">
+                            <div class="modal-header">						
+                                <h4 class="modal-title">Add User</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            <div class="modal-body">					
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input name="name" type="text" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input name="email" id="email" type="text" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input name="pass" id="pass" type="password" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input name="repass" id="repass" type="password" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Phone number</label>
+                                    <input name="phone" type="text" class="form-control" required>
+                                </div>
+                                     <div class="form-group">
                         <label>Role</label>
                         <select name="role" class="form-select" aria-label="Default select example" required>
                             <option value="">-Select-</option>
@@ -277,56 +275,183 @@
                                     </c:forEach>
                         </select>
                     </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="submit" class="btn btn-success" value="Add">
+                                <div class="modal-footer">
+                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                    <input type="submit" class="btn btn-success" value="Add">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
+            </div>
+            <div id="editUser" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="edituser" method="post">
+                            <div class="modal-header">						
+                                <h4 class="modal-title">User Detail</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                            
+                            <div class="modal-body">					
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input name="name" type="text" class="form-control" required readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Avatar</label>
+                                     <img src="" name="avatar" alt="Mô tả ảnh" width="200" height="200" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input name="email" type="text" class="form-control" required readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mobile</label>
+                                    <input name="phone" type="text" class="form-control" required readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <input name="gender" type="text" class="form-control" required readonly>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input name="address" type="text" class="form-control" required readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <input name="role" type="text" class="form-control" required readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="Active" value="Active" >
+                                        <label class="form-check-label" for="Active">
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="Blocked" value="Blocked" >
+                                        <label class="form-check-label" for="Blocked">
+                                            Blocked
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-footer">
+                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                    <input type="submit" class="btn btn-success" value="Edit">
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <script>
+                function validateForm() {
+                    var email = document.getElementById("email").value;
+                    var password = document.getElementById("pass").value;
+                    var confirmPassword = document.getElementById("repass").value;
+
+                    // Check if email is valid using a simple regular expression
+                    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(email)) {
+                        alert("Please enter a valid email address.");
+                        return false;
+                    }
+
+                    // Check if the password length is greater than or equal to 8 characters
+                    if (password.length < 8) {
+                        alert("Password must be at least 8 characters long.");
+                        return false;
+                    }
+
+                    // Check if the password and confirm password match
+                    if (password !== confirmPassword) {
+                        alert("Passwords do not match.");
+                        return false;
+                    }
+
+
+
+                    return true; // Form submission will proceed if all checks pass
+                }
+            </script>
+            <script>
+                var emailExists = <%= session.getAttribute("emailExists") %>;
+
+                if (emailExists === true) {
+                    alert("Email already exists.");
+
+                }
+            </script>
+            <%-- Include this code in your JSP or HTML page --%>
+<script>
+    // Sử dụng jQuery để xử lý sự kiện click trên liên kết
+    $('a[data-target="#editUser"]').click(function () {
+        // Lấy giá trị từ thuộc tính data
+        var email = $(this).data('email');
+        var name = $(this).data('name');
+        var phone = $(this).data('phone');
+        var gender = $(this).data('role'); // Changed 'gender' to 'role' based on data attribute name
+        var address = $(this).data('address');
+        var status = $(this).data('status');
+        var avatar = $(this).data('avatar');
+        var role = $(this).data('role');
+role = (role === 1 ? 'Admin' : (role === 2 ? 'Artist' : (role === 3 ? 'Customer' : 'Unknown')));
+if (gender === 1) {
+    gender = 'Male';
+} else if (gender === 2) {
+    gender = 'Female';
+} else {
+    gender = 'Unknown';
+}
+
+        // Đặt giá trị vào các trường input trong form
+        $('#editUser input[name="email"]').val(email);
+        $('#editUser input[name="name"]').val(name);
+        $('#editUser input[name="phone"]').val(phone);
+        $('#editUser input[name="gender"]').val(gender);
+        $('#editUser input[name="address"]').val(address);
+      $('#editUser img[name="avatar"]').attr('src', avatar);
+        $('#editUser input[name="role"]').val(role); 
+
+        // Thiết lập giá trị của radio buttons "Active" hoặc "Inactive" dựa trên giá trị của status
+        if (status === 1) {
+            $('#Active').prop('checked', true);
+            $('#Blocked').prop('checked', false);
+        } else {
+            $('#Active').prop('checked', false);
+            $('#Blocked').prop('checked', true);
+        }
+    });
+</script>
 
 <script>
-function validateForm() {
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("pass").value;
-    var confirmPassword = document.getElementById("repass").value;
+// When the modal is shown, add the 'modal-open' class to the body
+$('#editUser').on('show.bs.modal', function () {
+    $('body').addClass('modal-open');
+});
 
-    // Check if email is valid using a simple regular expression
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-        alert("Please enter a valid email address.");
-        return false;
-    }
+// When the modal is hidden, remove the 'modal-open' class from the body
+$('#editUser').on('hidden.bs.modal', function () {
+    $('body').removeClass('modal-open');
+});
 
-    // Check if the password length is greater than or equal to 8 characters
-    if (password.length < 8) {
-        alert("Password must be at least 8 characters long.");
-        return false;
-    }
+$('#addUser').on('show.bs.modal', function () {
+    $('body').addClass('modal-open');
+});
 
-    // Check if the password and confirm password match
-    if (password !== confirmPassword) {
-        alert("Passwords do not match.");
-        return false;
-    }
-
-
-
-    return true; // Form submission will proceed if all checks pass
-}
-</script>
-<script>
- var emailExists = <%= session.getAttribute("emailExists") %>;
-
-if (emailExists === true) {
-    alert("Email already exists.");
-   
-}
-</script>
-<%-- Include this code in your JSP or HTML page --%>
-
+// When the modal is hidden, remove the 'modal-open' class from the body
+$('#addUser').on('hidden.bs.modal', function () {
+    $('body').removeClass('modal-open');
+});
+ </script>
 
 
             <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
