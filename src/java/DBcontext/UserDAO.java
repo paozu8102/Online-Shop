@@ -394,6 +394,7 @@ public class UserDAO extends DBContext {
 //        }
 //
 //    }
+    // get user base on userID: Baomv
     public User getUser(int id) {
         String sql = "select * from [user] where UserID = ?";
         try {
@@ -417,6 +418,7 @@ public class UserDAO extends DBContext {
         return new User();
     }
 
+    //get userID base on email and pass: Baomv
     public int cusAccountExist(String email, String p) {
         String sql = "SELECT u.UserID "
                 + "FROM [User] AS u "
@@ -437,6 +439,7 @@ public class UserDAO extends DBContext {
         return userID;
     }
 
+    //update user information: Baomv
     public void updateUser(User user) {
         String sql = "update [User] SET [UserName] = ?\n" +
 "      ,[Gender] = ?\n" +
