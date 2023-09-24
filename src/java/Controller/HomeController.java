@@ -4,8 +4,8 @@
  */
 package Controller;
 
-import DBcontext.ProductDAO;
-import DBcontext.UserDAO;
+import DAO.ProductDAO;
+import DAO.UserDAO;
 import Model.Product;
 import Model.User;
 import jakarta.servlet.ServletException;
