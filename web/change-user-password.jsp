@@ -13,6 +13,28 @@
 
 <!-- Main css -->
 <link rel="stylesheet" href="css2/style.css">
+<style>
+.form-group.form-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.return-link {
+    /* Add your styles for the Return to Home link here */
+    font-size: 14px;
+    text-decoration: none;
+    color: black; /* Adjust text color */
+    border: 2px solid black; /* Add border */
+    padding: 10px 20px; /* Adjust padding as needed to align with the Change button */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+}
+
+.return-link:hover {
+    background-color: black; /* Change background color on hover */
+    color: white; /* Change text color on hover */
+}
+
+</style>
 </head>
 <body>
 
@@ -56,8 +78,8 @@
                                             <div class="d-block mx-4 mb-3 mb-lg-4  text-danger"><b>${mess}</b></div>
 							<div class="form-group form-button">
 								<input type="submit" name="signup" id="signup"
-									class="form-submit" value="Change" />
-                                                                <span><a href="login.jsp"> </a></span>
+									class="return-link" value="Change" />
+                                                               <a href="user-profile.jsp" class="return-link">Cancel</a>
 							</div>
 						</form>
 					</div>
