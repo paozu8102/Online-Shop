@@ -51,7 +51,7 @@
                                 <div class="form-group form-button">
                                     <input type="submit" name="signin" id="signin"
                                            class="form-submit" value="Log in" />
-                                    <a style="text-decoration: none; color: black" href="signup.jsp">No have an account ?/</a><a style="text-decoration: none; color: black" href="signupforsaler.jsp">Artist</a>
+                                    <a style="text-decoration: none; color: black" href="signup.jsp">New account?/</a><a style="text-decoration: none; color: black" href="signupforsaler.jsp">Artist/</a><a style="text-decoration: none; color: black" href="forgotPassword.jsp">Forgot</a>
 
                                 </div>
                             </form>
