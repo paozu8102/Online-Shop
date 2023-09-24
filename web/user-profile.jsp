@@ -103,7 +103,6 @@
               	<a class="dropdown-item" href="settingcontrol">Manage Category</a>
               </div>
             </li>
-                                    <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
                                     <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
                         </c:if>
 	          <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>

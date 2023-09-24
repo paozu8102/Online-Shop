@@ -75,10 +75,9 @@ public class UpdateUserController extends HttpServlet {
         
 
         User user = new User(userId, username, gender, phonenumber, address, imageUrl + imageName, email);
-        
+        request.getSession().setAttribute("user", user);
         (new UserDAO()).updateUser(user);
-        
-        response.sendRedirect("UserProfile");
+        request.getRequestDispatcher("UserProfile").forward(request, response);
     } 
 
     /** 
