@@ -7,6 +7,7 @@ package Controller;
 
 import DAO.accountDAO;
 import Model.Account;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,42 +74,62 @@ public class ChangePasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String user = request.getParameter("user");
+        String user = request.getParameter("email");
         String passOld = request.getParameter("pass");
         String pass = request.getParameter("newPassword");
         String repass = request.getParameter("confirmPassword");
         accountDAO adb = new accountDAO();
         Account account = null;
+                HttpSession session = request.getSession(false);
+        User user2 = (User) session.getAttribute("user");
+        request.setAttribute("user", user2);
+
+        // Check if user is logged in
+        if (user2 == null) {
+            request.setAttribute("mess", "User not logged in.");
+            request.getRequestDispatcher("change-user-password.jsp").forward(request, response);
+            return;
+        }
+
+        // Update user to use the email from the session
+        user = user2.getEmail();
+
         try {
             account = adb.checkAccountExistByUserPass(user, passOld);
         } catch (Exception ex) {
             Logger.getLogger(ChangePasswordController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         if (account == null) {
             request.setAttribute("mess", "Account does not exist or wrong password!");
             request.getRequestDispatcher("change-user-password.jsp").forward(request, response);
             return;
         }
+
         if (pass.length() < 8) {
             request.setAttribute("mess", "New password must be at least 8 characters!");
             request.getRequestDispatcher("change-user-password.jsp").forward(request, response);
             return;
         }
+
         if (!pass.equals(repass)) {
             request.setAttribute("mess", "Password does not match!");
             request.getRequestDispatcher("change-user-password.jsp").forward(request, response);
             return;
         }
-        if (pass.equals(repass)) {
-            try {
-                adb.UpDatePassWord(pass, user);
-            } catch (Exception ex) {
-                Logger.getLogger(ChangePasswordController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        // Passwords match, update the password
+        try {
+            adb.updatePassword(pass, user);
             request.setAttribute("passwordChanged", true);
+            request.getRequestDispatcher("change-user-password.jsp").forward(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(ChangePasswordController.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("mess", "An error occurred while updating the password.");
             request.getRequestDispatcher("change-user-password.jsp").forward(request, response);
         }
     }
+ 
 
     /** 
      * Returns a short description of the servlet.

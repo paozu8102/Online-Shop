@@ -50,7 +50,7 @@
                                                 <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                                 <div class="form-outline flex-fill mb-0">
                                                     <label class="form-label" for="form3Example1c">Enter Email</label>
-                                                    <input type="text" id="form3Example1c" class="form-control" required name="user"/>
+                                                    <input type="text" id="inputEmailAddress" class="form-control" name="email" readonly type="email" placeholder="Enter your email address" value="${user.getEmail()}>
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-row align-items-center mb-4">
