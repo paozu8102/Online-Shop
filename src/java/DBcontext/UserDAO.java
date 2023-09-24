@@ -394,10 +394,11 @@ public class UserDAO extends DBContext {
 //        }
 //
 //    }
-    public User getUser() {
-        String sql = "select * from [user] where UserID = 1";
+    public User getUser(int id) {
+        String sql = "select * from [user] where UserID = ?";
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int userID = rs.getInt(1);
@@ -415,10 +416,27 @@ public class UserDAO extends DBContext {
         }
         return new User();
     }
-    public static void main(String[] args) {
-        System.out.println(new UserDAO().getUser().toString());
+
+    public int cusAccountExist(String email, String p) {
+        String sql = "SELECT u.UserID "
+                + "FROM [User] AS u "
+                + "INNER JOIN Account AS a ON u.Email = a.Email "
+                + "WHERE a.Email = ? AND a.Password = ?";
+        int userID = 0;
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, p);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                userID = rs.getInt("UserID");
+            }
+        } catch (Exception e) {
+             System.out.println("cusAccountExist: " + e.getMessage());
+        }
+        return userID;
     }
-    
+
     public void updateUser(User user) {
         String sql = "update [User] SET [UserName] = ?\n" +
 "      ,[Gender] = ?\n" +

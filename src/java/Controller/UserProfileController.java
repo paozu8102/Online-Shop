@@ -6,6 +6,7 @@
 package Controller;
 
 import DBcontext.UserDAO;
+import Model.Account;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -56,9 +58,10 @@ public class UserProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         //hard code 1 user --> login --> user này se la user tren session
-        User user = (new UserDAO()).getUser();
-        //response.getWriter().print(user);
+        HttpSession session = request.getSession(false);
+    User user = (User) session.getAttribute("user");
         request.setAttribute("user", user);
+//        response.getWriter().print(user);
         request.getRequestDispatcher("user-profile.jsp").forward(request, response);
     } 
 
