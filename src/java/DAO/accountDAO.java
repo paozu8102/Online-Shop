@@ -48,4 +48,41 @@ public class accountDAO extends DBContext{
         }
     }
     
+    //check account exist: Baomv
+    public Account checkAccountExistByUserPass(String email, String password) throws Exception {
+        try {
+            String sql = "SELECT * FROM Account WHERE Email = ? AND Password = ?";
+            PreparedStatement stm = getConnection().prepareStatement(sql);
+            stm.setString(1, email);
+            stm.setString(2, password);
+            ResultSet rs = stm.executeQuery();
+
+            if (rs.next()) {
+                // Account with the provided email and password exists
+                Account account = new Account();
+                account.setEmail(rs.getString("Email"));
+                account.setPassword(rs.getString("Password"));
+                return account;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(accountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+    
+    //update account pass: Baomv
+    public void UpDatePassWord(String pass, String user) throws Exception {
+        try {
+            String sql = "UPDATE [Account]\n"
+                    + "   SET [Password] = ?\n"
+                    + " WHERE [Email] = ?";
+            PreparedStatement stm = getConnection().prepareStatement(sql);
+            stm.setString(1, pass);
+            stm.setString(2, user);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(accountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

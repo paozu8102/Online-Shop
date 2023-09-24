@@ -181,7 +181,7 @@
                         </div>                           
                         <!-- Save changes button-->
                         <button class="btn btn-primary" type="submit">Save changes</button>
-                        <a class="btn btn-primary" href="change-newpassword.jsp">Change Password</a>
+                        <a class="btn btn-primary" href="change-user-password.jsp">Change Password</a>
                     </form>
                 </div>
             </div>
