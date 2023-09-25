@@ -8,7 +8,10 @@ import DBcontext.DBContext;
 import Model.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,7 +40,12 @@ public class ProductDAO extends DBContext {
                 homeProduct.add(new Product(ProductID, ProductName, Price, Description,
                         Height, Width, Quantity, View, Discount, UserID));
             }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
         return homeProduct;
     }
@@ -57,8 +65,13 @@ public class ProductDAO extends DBContext {
                 if(rs.next()){
                     picList.add(rs.getString("ImageUrl"));
                 }
-            } catch (Exception e) {
-            }
+            } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
         }
 
         return picList;

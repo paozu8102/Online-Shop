@@ -32,9 +32,11 @@ public class DAO extends DBContext {
             st.setString(2, c.getPassword());
             st.executeUpdate();
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -55,9 +57,11 @@ public class DAO extends DBContext {
                         rs.getInt("RoleID"));
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
         return null;
     }
@@ -94,8 +98,11 @@ public class DAO extends DBContext {
             
 
         } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
        public void insertAccountArtist(Account c, User u) {
@@ -128,8 +135,11 @@ public class DAO extends DBContext {
             
 
         } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
  public void AddUser(Account c, User u) {
@@ -162,8 +172,11 @@ public class DAO extends DBContext {
             
 
         } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
  
@@ -185,8 +198,11 @@ public class DAO extends DBContext {
             st.setString(3, u.getEmail());
             st.executeUpdate();
         } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -206,7 +222,12 @@ public class DAO extends DBContext {
                         rs.getString(2),
                         rs.getInt(3));
             }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
         return c;
     }
