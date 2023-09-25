@@ -79,7 +79,7 @@
 							<div class="form-group form-button">
 								<input type="submit" name="signup" id="signup"
 									class="return-link" value="Change" />
-                                                               <a href="user-profile.jsp" class="return-link">Cancel</a>
+                                                               <a href="user-profile.jsp" class="return-link">Profile</a>
 							</div>
 						</form>
 					</div>
