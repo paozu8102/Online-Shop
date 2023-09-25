@@ -25,7 +25,7 @@
 					<div class="signup-form">
 						<h2 class="form-title">Artist Sign Up</h2>
 					
-						<form method="post" action="signup" class="register-form"
+						<form method="post" action="signupforartist" class="register-form"
 							id="register-form">
 							<div class="form-group">
 								<label for="name"><i
