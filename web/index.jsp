@@ -34,7 +34,8 @@
 
     <section id="home-section" class="hero">
 		  <div class="home-slider owl-carousel">
-              <div class="slider-item" onclick="goToSlider1()" style="background-image: url('https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/379957160_1005019747406343_5701408785809078671_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=jfzP0wUgP1UAX-iS199&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSaCvGgvYkEX5lvCTiE2lKQoe3sHcTHXUbFdo1r4isixQ&oe=653870B2');">
+              <div class="slider-item" onclick="goToImage('https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/379957160_1005019747406343_5701408785809078671_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=jfzP0wUgP1UAX_b0z-f&_nc_ht=scontent.fhan2-3.fna&oh=03_AdSvbMmN1iWHL33oQe1Qi2rlJFi4MwlB-6Vaj6kISth1eQ&oe=653870B2')" 
+                   style="background-image: url('https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/379957160_1005019747406343_5701408785809078671_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=jfzP0wUgP1UAX-iS199&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSaCvGgvYkEX5lvCTiE2lKQoe3sHcTHXUbFdo1r4isixQ&oe=653870B2');">
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -49,7 +50,8 @@
 	        </div>
 	      </div>
             
-                      <div class="slider-item" onclick="goToSlider2()" style="background-image: url('https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/258266920_325266972344230_7747455939193950549_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=rydus25vqwMAX8xNSuR&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSeclv665FPKdHWDRpV0D5rSwwqNPmblXulFasgog6SUg&oe=65385375');">
+                      <div class="slider-item" onclick="goToImage('https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/258266920_325266972344230_7747455939193950549_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=rydus25vqwMAX9MCCcs&_nc_ht=scontent.fhan2-3.fna&oh=03_AdQqIlZ9ou4PGyjq8PyYDWU8Ih9H4kWvQKy6ep4n4_TOpw&oe=65388BB5')" 
+                           style="background-image: url('https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/258266920_325266972344230_7747455939193950549_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=rydus25vqwMAX8xNSuR&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSeclv665FPKdHWDRpV0D5rSwwqNPmblXulFasgog6SUg&oe=65385375');">
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -64,7 +66,8 @@
 	        </div>
 	      </div>         
             
-                      <div class="slider-item" onclick="goToSlider3()" style="background-image: url('https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/379644678_843064157279424_6910038879225445721_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=DYU5T_h3-UIAX-SxSD7&_nc_oc=AQk9F8E2yX3TylUXQ_qRD-wRPN7VkCSxAPU1ailNVCHyioc-K5KyaXkJUXJ_VWOPGvCcJYdn4nQfbstajUoctcI6&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSUT47b-Feysxi3jdF0HZ8asYFHma95JJrlcR8yJKN9Qg&oe=65385A67');">
+                      <div class="slider-item" onclick="goToImage('https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/379644678_843064157279424_6910038879225445721_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=DYU5T_h3-UIAX-kgCVc&_nc_oc=AQkKZoHPULlRUto-YrB_58iS-45zsaQUk0DYx90eCsxYqJI_suTIJC8n4MSlnwkrH7Q&_nc_ht=scontent.fhan2-3.fna&oh=03_AdQWFavgOW2JLjm0HvDtgDPqwbgZe7_TcxwddLzbEQ96QQ&oe=65385A67')" 
+                           style="background-image: url('https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/379644678_843064157279424_6910038879225445721_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=DYU5T_h3-UIAX-SxSD7&_nc_oc=AQk9F8E2yX3TylUXQ_qRD-wRPN7VkCSxAPU1ailNVCHyioc-K5KyaXkJUXJ_VWOPGvCcJYdn4nQfbstajUoctcI6&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSUT47b-Feysxi3jdF0HZ8asYFHma95JJrlcR8yJKN9Qg&oe=65385A67');">
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -80,29 +83,9 @@
 	    </div>
         
         <script>
-            function goToSlider1() {
-            // Set the URL you want to navigate to
-            var link = "https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/379957160_1005019747406343_5701408785809078671_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=jfzP0wUgP1UAX-iS199&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSaCvGgvYkEX5lvCTiE2lKQoe3sHcTHXUbFdo1r4isixQ&oe=653870B2";
-    
-            // Navigate to the link using JavaScript
+            function goToImage(link) {
             window.location.href = link;
-            }
-            
-            function goToSlider2() {
-            // Set the URL you want to navigate to
-            var link = "https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/258266920_325266972344230_7747455939193950549_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=rydus25vqwMAX8xNSuR&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSeclv665FPKdHWDRpV0D5rSwwqNPmblXulFasgog6SUg&oe=65385375";
-    
-            // Navigate to the link using JavaScript
-            window.location.href = link;
-            }
-            
-            function goToSlider3() {
-            // Set the URL you want to navigate to
-            var link = "https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/379644678_843064157279424_6910038879225445721_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=DYU5T_h3-UIAX-SxSD7&_nc_oc=AQk9F8E2yX3TylUXQ_qRD-wRPN7VkCSxAPU1ailNVCHyioc-K5KyaXkJUXJ_VWOPGvCcJYdn4nQfbstajUoctcI6&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSUT47b-Feysxi3jdF0HZ8asYFHma95JJrlcR8yJKN9Qg&oe=65385A67";
-    
-            // Navigate to the link using JavaScript
-            window.location.href = link;
-}
+            }              
         </script>
     </section>
 
@@ -246,7 +229,7 @@
     	</div>
     </section>
 		
-		<section class="ftco-section img" style="background-image: url(images/deal.jpg);">
+<!--		<section class="ftco-section img" style="background-image: url(images/deal.jpg);">
     	<div class="container">
 				<div class="row justify-content-end">
           <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate">
@@ -264,7 +247,7 @@
           </div>
         </div>   		
     	</div>
-    </section>
+    </section>-->
 
     <section class="ftco-section testimony-section">
       <div class="container">
