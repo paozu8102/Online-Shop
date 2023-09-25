@@ -4,7 +4,6 @@
  */
 package DAO;
 
-
 import Model.Role;
 
 import DBcontext.DBContext;
@@ -16,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -65,7 +66,7 @@ public class UserDAO extends DBContext {
         }
         return roleList;
     }
-
+    //get Setting MinhHC
     public List<Setting> getAllSetting() {
         List<Setting> list = new ArrayList<>();
         String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status, Description FROM Category\n"
@@ -84,9 +85,11 @@ public class UserDAO extends DBContext {
                 ));
             }
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -109,9 +112,11 @@ public class UserDAO extends DBContext {
                 ));
             }
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -134,9 +139,11 @@ public class UserDAO extends DBContext {
                 ));
             }
         } catch (SQLException e) {
-
-        } catch (Exception ex) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -161,9 +168,11 @@ public class UserDAO extends DBContext {
                 ));
             }
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -188,9 +197,11 @@ public class UserDAO extends DBContext {
                 ));
             }
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -221,9 +232,11 @@ public class UserDAO extends DBContext {
                 ));
             }
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -240,9 +253,11 @@ public class UserDAO extends DBContext {
             st.setString(3, description);
             st.executeUpdate();
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -257,9 +272,11 @@ public class UserDAO extends DBContext {
             st.setString(3, description);
             st.executeUpdate();
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -276,9 +293,11 @@ public class UserDAO extends DBContext {
             st.executeUpdate();
 
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -295,9 +314,11 @@ public class UserDAO extends DBContext {
             st.executeUpdate();
 
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -314,9 +335,11 @@ public class UserDAO extends DBContext {
             st.executeUpdate();
 
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -333,9 +356,11 @@ public class UserDAO extends DBContext {
             st.executeUpdate();
 
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -374,8 +399,10 @@ public class UserDAO extends DBContext {
             }
         } catch (SQLException e) {
             // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -418,8 +445,10 @@ public class UserDAO extends DBContext {
             }
         } catch (SQLException e) {
             // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -462,8 +491,10 @@ public class UserDAO extends DBContext {
             }
         } catch (SQLException e) {
             // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -506,8 +537,10 @@ public class UserDAO extends DBContext {
             }
         } catch (SQLException e) {
             // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -550,8 +583,10 @@ public class UserDAO extends DBContext {
             }
         } catch (SQLException e) {
             // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -594,8 +629,10 @@ public class UserDAO extends DBContext {
             }
         } catch (SQLException e) {
             // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -642,13 +679,16 @@ public class UserDAO extends DBContext {
             }
         } catch (SQLException e) {
             // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
     }
-public List<Role> getRole() {
+
+    public List<Role> getRole() {
         List<Role> list = new ArrayList<>();
         String sql = "Select * from [Role]";
         try {
@@ -658,13 +698,14 @@ public List<Role> getRole() {
                 list.add(new Role(
                         rs.getInt(1),
                         rs.getString(2)
-                        
                 ));
             }
         } catch (SQLException e) {
             // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -675,7 +716,7 @@ public List<Role> getRole() {
 
         String sql = "UPDATE Account SET Status = ? WHERE email = ?";
 
-        // Thay categoryId bằng giá trị thích hợp
+        
         try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
             st.setInt(1, newStatus);
             st.setString(2, email);
@@ -683,9 +724,11 @@ public List<Role> getRole() {
             st.executeUpdate();
 
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -699,7 +742,7 @@ public List<Role> getRole() {
             while (rs.next()) {
                 int userID = rs.getInt(1);
                 String username = rs.getString(2);
-                int gender = rs.getBoolean(3)?1:0;
+                int gender = rs.getBoolean(3) ? 1 : 0;
                 String PhoneNumber = rs.getString(4);
                 String Address = rs.getString(5);
                 String Avatar = rs.getString(6);
@@ -729,19 +772,19 @@ public List<Role> getRole() {
                 userID = rs.getInt("UserID");
             }
         } catch (Exception e) {
-             System.out.println("cusAccountExist: " + e.getMessage());
+            System.out.println("cusAccountExist: " + e.getMessage());
         }
         return userID;
     }
 
     //update user information: Baomv
     public void updateUser(User user) {
-        String sql = "update [User] SET [UserName] = ?\n" +
-"      ,[Gender] = ?\n" +
-"      ,[PhoneNumber] = ?\n" +
-"      ,[Address] = ?\n" +
-"      ,[Avatar] = ?\n" +
-"      where userid = ?";
+        String sql = "update [User] SET [UserName] = ?\n"
+                + "      ,[Gender] = ?\n"
+                + "      ,[PhoneNumber] = ?\n"
+                + "      ,[Address] = ?\n"
+                + "      ,[Avatar] = ?\n"
+                + "      where userid = ?";
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
             ps.setString(1, user.getUserName());
@@ -755,7 +798,7 @@ public List<Role> getRole() {
             System.out.println("updateImage: " + e.getMessage());
         }
     }
-    
+
 //    mehtod to test: ThanhNX
     public static void main(String[] args) {
         ArrayList<User> test = new UserDAO().getTopUser();
