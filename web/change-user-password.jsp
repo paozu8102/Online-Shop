@@ -58,12 +58,12 @@
 							<div class="form-group">
 								<label for="pass"><i class="zmdi zmdi-lock"></i></label> <input
                                                                     <input type="password" name="pass" id="password" placeholder="Old Password" class="pass">
-                                                                <span class="error"></span>
+                                                                <span class=""></span>
 							</div>
 							<div class="form-group">
-								<label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                                                <input type="password" name="newPassword" id="passwordCon" placeholder="New Password" class="passConfirm">
-                                                                <span class=""></span>
+								<label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                                                <input type="password" name="newPassword" id="password" placeholder="New Password" class="pass">
+                                                                <span class="error"></span>
 							</div>
                                                                 <div class="form-group">
 								<label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
