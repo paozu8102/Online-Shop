@@ -101,7 +101,7 @@ public class ChangePasswordController extends HttpServlet {
         }
 
         if (account == null) {
-            request.setAttribute("mess", "Account does not exist or wrong password!");
+            request.setAttribute("mess", "No password input yet or wrong password!");
             request.getRequestDispatcher("change-user-password.jsp").forward(request, response);
             return;
         }
