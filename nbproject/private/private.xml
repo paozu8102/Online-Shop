@@ -2,24 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/D:/Project391/web/images/slider2.jpg</file>
-            <file>file:/D:/Project391/web/change-user-password.jsp</file>
-            <file>file:/D:/Project391/web/index.jsp</file>
-            <file>file:/D:/Project391/web/login.jsp</file>
-            <file>file:/D:/Project391/web/user-profile.jsp</file>
-            <file>file:/D:/Project391/src/java/DBcontext/DBContext.java</file>
-            <file>file:/D:/Project391/web/images/slider3.jpg</file>
-            <file>file:/D:/Project391/web/change-newpassword.jsp</file>
-            <file>file:/D:/Project391/web/forgotPassword.jsp</file>
-=======
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/DAO/accountDAO.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/DBcontext/DBContext.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/change-user-password.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/Controller/ChangePasswordController.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/user-profile.jsp</file>
->>>>>>> 7a912c3c584a54227a9f99b4d4b6723c9c898af0
-        </group>
+        <group/>
     </open-files>
 </project-private>

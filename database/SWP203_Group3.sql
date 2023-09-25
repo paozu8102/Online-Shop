@@ -101,8 +101,26 @@ Quantity INT NOT NULL,
 Discount DECIMAL NOT NULL,
 UserID INT NOT NULL,
 FOREIGN KEY (UserID) REFERENCES [User](UserID)
-
 )
+--insert for product
+INSERT INTO [dbo].[Product]
+           ([ProductName]
+           ,[Price]
+           ,[Description]
+           ,[Height]
+           ,[Width]
+           ,[Quantity]
+           ,[View]
+           ,[Discount]
+           ,[UserID])
+VALUES ('Product 1', 100,	'This is Product 1',	1,	1,	1,	0,	0,	10),
+	   ('Product 2', 100,	'This is Product 2',	1,	1,	1,	0,	20,	10),
+	   ('Product 3', 120,	'This is Product 3',	1,	1,	1,	0,	0,	10),
+	   ('Product 4', 150,	'This is Product 4',	1,	1,	1,	0,	0,	10),
+	   ('Product 5', 90,	'This is Product 5',	1,	1,	1,	0,	0,	10),
+	   ('Product 6', 110,	'This is Product 6',	1,	1,	1,	0,	0,	10),
+	   ('Product 7', 100,	'This is Product 7',	1,	1,	1,	0,	30,	10),
+	   ('Product 8', 115,	'This is Product 8',	1,	1,	1,	0,	0,	10)
 
 CREATE TABLE ProductCategory(
 ProductID INT NOT NULL ,
