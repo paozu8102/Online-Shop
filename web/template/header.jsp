@@ -3,7 +3,9 @@
 <%@page import="java.util.ArrayList" %>
 <%@page import="Model.Product" %>
 <!DOCTYPE html>
-<script>
+<html lang="en">
+  <head>
+  <script>
     document.addEventListener("DOMContentLoaded", function (event) {
         var scrollpos = localStorage.getItem('scrollpos');
         if (scrollpos)
@@ -13,8 +15,32 @@
         localStorage.setItem('scrollpos', window.scrollY);
     };
 </script>
-<html lang="en">
-  <head>
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #82AE46;
+  color: white;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 50px;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+</style>
     <title>Palette Joy - Bring art to your home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,6 +69,28 @@
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body class="goto-here">
+      <button onclick="topFunction()" id="myBtn" title="Go to top">&#8679;</button>
+      <script>
+// Get the button
+let mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
 		<div class="py-1 bg-primary">
     	<div class="container">
     		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
