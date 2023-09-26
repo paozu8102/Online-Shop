@@ -80,6 +80,13 @@
                 margin-left: 1rem;
                 margin-right: 1rem;
             }
+            #avatar {
+                border-radius: 50%;
+                width: 10rem;
+                height: 10rem;
+                object-fit: cover;
+            }
+
         </style>
         <%@include file="template/header.jsp" %>
     </head>
@@ -198,20 +205,39 @@
     const avatarImg = document.getElementById('avatar');
     const formData = new FormData();
     const imageUpdateName = document.getElementById('imageName');
+
     // Add a click event listener to the button
     fileButton.addEventListener('click', function () {
         // Trigger a click event on the file input when the button is clicked
         fileInput.click();
     });
+
+    // Function to handle image upload
     function uploadImage() {
         if (fileInput.files.length !== 0) {
             formData.append('imageFile', fileInput.files[0]);
+            
+            // Validate the selected image here
+            const selectedFile = fileInput.files[0];
+            // Check if the selected file is an image (JPG or PNG)
+            if (!/\.(jpg|png)$/i.test(selectedFile.name)) {
+                alert('Please select a valid image file (JPG or PNG).');
+                return;
+            }
+            // Check if the file size is within the allowed limit (5MB)
+            const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+            if (selectedFile.size > maxSize) {
+                alert('The selected image file is too large. Please choose a smaller image.');
+                return;
+            }
+            // Perform the image upload if it passes validation
             fetch(`/SWP391_SE1729_Group3/changeavatar`, {
                 method: 'POST',
-                body: formData});
+                body: formData
+            });
+
             setTimeout(function () {
                 if (formData.get('imageFile').name !== 'undefined') {
-
                     avatarImg.src = `images/avatar/` + formData.get('imageFile').name;
                     imageUpdateName.value = formData.get('imageFile').name;
                     formData.delete('imageFile');
@@ -219,9 +245,9 @@
             }, 2000);
         }
     }
-    
+
     $(document).ready(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
 </body>
