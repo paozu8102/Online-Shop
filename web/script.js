@@ -48,7 +48,9 @@ $(document).ready(function () {
 
         // PassWord
         if ($(this).hasClass('pass')) {
+            //Kiểm tra xem giá trị của mật khẩu có ít hơn 8 ký tự hay không.
             if ($(this).val().length < 8) {
+                //Nếu mật khẩu có ít hơn 8 ký tự, "Please type at least 8 characters" trong lớp .error
                 $(this).siblings('span.error').text('Please type at least 8 charcters').fadeIn().parent('.form-group').addClass('hasError');
                 passwordError = true;
             } else {
@@ -59,9 +61,13 @@ $(document).ready(function () {
 
         // PassWord confirmation
         if ($('.pass').val() !== $('.passConfirm').val()) {
+            ////Đặt "Passwords don't match" trong lớp .error
+            //Hiển thị .error một cách mượt dùng hiệu ứng fadeIn
             $('.passConfirm').siblings('.error').text('Passwords don\'t match').fadeIn().parent('.form-group').addClass('hasError');
             passConfirm = false;
         } else {
+            //Xóa văn bản trong .error (đặt thành rỗng).
+            //Ẩn .error một cách mượt (dùng hiệu ứng fadeOut).
             $('.passConfirm').siblings('.error').text('').fadeOut().parent('.form-group').removeClass('hasError');
             passConfirm = false;
         }
@@ -90,7 +96,7 @@ $(document).ready(function () {
 
     // Form submit
     $('form.signup-form').submit(function (event) {
-        event.preventDefault();
+        event.preventDefault();//Hàm này ngăn chặn hành vi mặc định của form sau khi submit, đảm bảo rằng trang web không bị tải lại khi form được gửi.
 
         if (usernameError == true || emailError == true || passwordError == true || passConfirm == true) {
             $('.name, .email, .pass, .passConfirm').blur();

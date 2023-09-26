@@ -99,7 +99,7 @@ public class LoginController extends HttpServlet {
 //                cr.setMaxAge(24*60*60);
 //            }
 //            response.addCookie(cr);
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("home");
         }
     }
 
