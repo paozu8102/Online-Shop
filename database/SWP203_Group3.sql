@@ -197,3 +197,15 @@ FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
 FOREIGN KEY (UserID) REFERENCES [User](UserID)
 )
 
+--change in the blog table 
+ALTER TABLE Blog
+ADD BlogType INT DEFAULT 0;
+
+--create table comment
+CREATE TABLE Comment(
+	CommentID INT PRIMARY KEY IDENTITY,
+	UserID INT REFERENCES [User](UserID),
+	BlogID INT REFERENCES Blog(BlogID),
+	CommentContent VARCHAR(MAX),
+	CommentDate DATETIME
+);
