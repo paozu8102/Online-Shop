@@ -271,32 +271,98 @@
     				</div>
     			</div>
                 </c:forEach>
-    			
     		</div>
     	</div>
-    </section>
-		
-<!--		<section class="ftco-section img" style="background-image: url(images/deal.jpg);">
-    	<div class="container">
-				<div class="row justify-content-end">
-          <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate">
-          	<span class="subheading">Best Price For You</span>
-            <h2 class="mb-4">Deal of the day</h2>
-            <p>Not only the art, there are love, pain, passion and heart in it</p>
-            <h3><a href="#">Spinach</a></h3>
-            <span class="price">$10 <a href="#">now $5 only</a></span>
-            <div id="timer" class="d-flex mt-5">
-						  <div class="time" id="days"></div>
-						  <div class="time pl-3" id="hours"></div>
-						  <div class="time pl-3" id="minutes"></div>
-						  <div class="time pl-3" id="seconds"></div>
-						</div>
-          </div>
-        </div>   		
-    	</div>
-    </section>-->
+    </section>	
+    <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section ftco-animate text-center" style="margin-top: -50px">
+            <h2 class="mb-4">Posts you might interested in</h2>
+        </div>
+    </div>
+    <div class="grid-container" style="width: 100%">
+        <div class="col-md-12 d-flex ftco-animate grid-item">
+		            <div class="blog-entry align-self-stretch d-md-flex">
+		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_1.jpg');">
+		              </a>
+		              <div class="text d-block pl-md-4">
+		              	<div class="meta mb-3">
+		                  <div><a href="#">July 20, 2019</a></div>
+		                  <div><a href="#">Admin</a></div>
+		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+		                </div>
+		                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+		                <p><a href="blog-single.jsp" class="btn btn-primary py-2 px-3">Read more</a></p>
+		              </div>
+		            </div>
+        </div>
+        <div class="col-md-12 d-flex ftco-animate grid-item">
+		            <div class="blog-entry align-self-stretch d-md-flex">
+		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_1.jpg');">
+		              </a>
+		              <div class="text d-block pl-md-4">
+		              	<div class="meta mb-3">
+		                  <div><a href="#">July 20, 2019</a></div>
+		                  <div><a href="#">Admin</a></div>
+		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+		                </div>
+		                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+		                <p><a href="blog-single.jsp" class="btn btn-primary py-2 px-3">Read more</a></p>
+		              </div>
+		            </div>
+        </div>
+        <div class="col-md-12 d-flex ftco-animate grid-item">
+		            <div class="blog-entry align-self-stretch d-md-flex">
+		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_1.jpg');">
+		              </a>
+		              <div class="text d-block pl-md-4">
+		              	<div class="meta mb-3">
+		                  <div><a href="#">July 20, 2019</a></div>
+		                  <div><a href="#">Admin</a></div>
+		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+		                </div>
+		                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+		                <p><a href="blog-single.jsp" class="btn btn-primary py-2 px-3">Read more</a></p>
+		              </div>
+		            </div>
+        </div>
+        <div class="col-md-12 d-flex ftco-animate grid-item">
+		            <div class="blog-entry align-self-stretch d-md-flex">
+		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_1.jpg');">
+		              </a>
+		              <div class="text d-block pl-md-4">
+		              	<div class="meta mb-3">
+		                  <div><a href="#">July 20, 2019</a></div>
+		                  <div><a href="#">Admin</a></div>
+		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+		                </div>
+		                <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+		                <p><a href="blog-single.jsp" class="btn btn-primary py-2 px-3">Read more</a></p>
+		              </div>
+		            </div>
+        </div>
+    </div>
+    <style>
+        .grid-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Create a 2x2 grid */
+        gap: 20px; /* Adjust the gap between grid items */
+        padding: 20px; /* Add padding around the grid container */
+        }
 
-    <section class="ftco-section testimony-section">
+        .grid-item {
+/*        border: 2px solid greenyellow;*/
+/*        padding: 50px;*/
+/*        border-radius: 50px;*/
+        margin-top: -50px;
+        margin-left: 0%;
+        }
+    </style>
+
+    <section class="ftco-section testimony-section" style="margin-top: -100px">
       <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
@@ -329,9 +395,9 @@
         </div>
       </div>
     </section>
-
     <hr>
 
+    
 <!--		<section class="ftco-section ftco-partner">
     	<div class="container">
     		<div class="row">

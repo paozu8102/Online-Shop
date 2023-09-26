@@ -6,15 +6,31 @@
 <html lang="en">
   <head>
   <script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        var scrollpos = localStorage.getItem('scrollpos');
-        if (scrollpos)
-            window.scrollTo(0, scrollpos);
-    });
-    window.onbeforeunload = function (e) {
-        localStorage.setItem('scrollpos', window.scrollY);
-    };
-</script>
+    //from 11-31: ThanhNX
+    // Function to set the scroll position in session storage
+        function saveScrollPosition() {
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        }
+
+        // Function to retrieve and restore the scroll position
+        function restoreScrollPosition() {
+            var scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition) {
+                window.scrollTo(0, scrollPosition);
+            }
+        }
+
+        // Execute this function when the page is loaded
+        window.addEventListener('load', function() {
+            restoreScrollPosition();
+        });
+
+        // Execute this function when navigating to other pages
+        function navigateToOtherPage() {
+            // Save the current scroll position before navigating
+            saveScrollPosition();
+    
+    </script>
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -71,7 +87,7 @@ body {
   <body class="goto-here">
       <button onclick="topFunction()" id="myBtn" title="Go to top">&#8679;</button>
       <script>
-// Get the button
+//from 91-107 ThanhNX
 let mybutton = document.getElementById("myBtn");
 
 // When the user scrolls down 20px from the top of the document, show the button

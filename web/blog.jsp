@@ -37,10 +37,10 @@
         <div class="row">
           <div class="col-lg-8 ftco-animate">
 						<div class="row">
-							<div class="col-md-12 d-flex ftco-animate">
+			<div class="col-md-12 d-flex ftco-animate">
 		            <div class="blog-entry align-self-stretch d-md-flex">
-		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_1.jpg');">
-		              </a>
+<!--		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_1.jpg');">
+		              </a>-->
 		              <div class="text d-block pl-md-4">
 		              	<div class="meta mb-3">
 		                  <div><a href="#">July 20, 2019</a></div>
@@ -52,7 +52,8 @@
 		                <p><a href="blog-single.jsp" class="btn btn-primary py-2 px-3">Read more</a></p>
 		              </div>
 		            </div>
-		          </div>
+		         </div>
+                                                    
 		          <div class="col-md-12 d-flex ftco-animate">
 		            <div class="blog-entry align-self-stretch d-md-flex">
 		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_2.jpg');">
@@ -69,6 +70,7 @@
 		              </div>
 		            </div>
 		          </div>
+                                                    
 		          <div class="col-md-12 d-flex ftco-animate">
 		            <div class="blog-entry align-self-stretch d-md-flex">
 		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_3.jpg');">
@@ -85,6 +87,7 @@
 		              </div>
 		            </div>
 		          </div>
+                                                    
 		          <div class="col-md-12 d-flex ftco-animate">
 		            <div class="blog-entry align-self-stretch d-md-flex">
 		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_4.jpg');">
@@ -101,6 +104,7 @@
 		              </div>
 		            </div>
 		          </div>
+                                                    
 		          <div class="col-md-12 d-flex ftco-animate">
 		            <div class="blog-entry align-self-stretch d-md-flex">
 		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_5.jpg');">
@@ -117,6 +121,7 @@
 		              </div>
 		            </div>
 		          </div>
+                                                    
 		          <div class="col-md-12 d-flex ftco-animate">
 		            <div class="blog-entry align-self-stretch d-md-flex">
 		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_6.jpg');">
