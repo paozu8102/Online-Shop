@@ -1,3 +1,4 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +46,7 @@
             background-color: whitesmoke;
             text-align: center;
             position: relative;
-            z-index: 1; /* ??m b?o form n?m phía trên ?nh */
+            z-index: 1; /* ??m b?o form n?m phÃ­a trÃªn ?nh */
         }
         h2 {
             color: #333;
@@ -74,7 +75,7 @@
             border-radius: 5px;
             font-size: 18px;
             transition: background-color 0.3s ease;
-            margin-right: 10px; /* Kho?ng cách gi?a nút "Send Email" và "Cancel" */
+            margin-right: 10px; /* Kho?ng cÃ¡ch gi?a nÃºt "Send Email" vÃ  "Cancel" */
         }
         input[type="submit"]:hover {
             background-color: #2980b9;
@@ -98,13 +99,27 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0; /* ?nh n?m phía sau form */
+            z-index: 0; /* ?nh n?m phÃ­a sau form */
         }
         .image-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* ??m b?o hình ?nh không b? méo */
+            object-fit: cover; /* ??m b?o hÃ¬nh ?nh khÃ´ng b? mÃ©o */
         }
+            .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+        display: none;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
     </style>
 </head>
 
@@ -118,9 +133,80 @@
             <label for="email">Enter your email:</label>
             <b>${mess}</b>
             <input type="text" id="email" required="" name="email" value="${emailAddress}"><br><br>
-            <input type="submit" value="Send Email">
+            <input type="submit" value="Send Email" id="sendEmailButton">
             <a href="login.jsp" class="cancel-button">Cancel</a>
         </form>
     </div>
+
+  <script>
+    // Check if a success message should be displayed
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const successMessage = urlParams.get('success');
+
+    if (successMessage === 'true') {
+        // Create a success notification element
+        const successNotification = document.createElement('div');
+        successNotification.textContent = 'Send Mail Successfully! Check your mail!!!!';
+        successNotification.classList.add('success-notification');
+
+        // Find the container to append the success notification
+        const container = document.querySelector('.container');
+        container.appendChild(successNotification);
+        
+        // Automatically remove the success message after a few seconds (e.g., 5 seconds)
+        setTimeout(function() {
+            container.removeChild(successNotification);
+        }, 5000);
+    }
+</script>
+
+<script>
+    // Display a loading spinner when sending an email
+    document.getElementById('sendEmailButton').addEventListener('click', function() {
+        // Create a loader element
+        const loader = document.createElement('div');
+        loader.className = 'loader';
+
+        // Append the loader to the document body
+        document.body.appendChild(loader);
+
+        // Simulate email sending (replace with actual email sending logic)
+        simulateEmailSending();
+    });
+
+    // Function to simulate sending an email
+    function simulateEmailSending() {
+        // Simulate email sending (replace with actual email sending logic)
+        setTimeout(function() {
+            // Remove the loader after email sending is complete
+            const loader = document.querySelector('.loader');
+            if (loader) {
+                loader.remove();
+            }
+            
+            // Display a success message
+            displayNotification('Email sent successfully!');
+
+            // Redirect to a confirmation page or perform other actions
+            redirectToConfirmation();
+        }, 3000); // Simulate a 3-second delay for email sending, replace with actual time
+    }
+
+    // Function to display a notification in a modal
+    function displayNotification(message) {
+        const notificationMessage = document.getElementById('notificationMessage');
+        notificationMessage.textContent = message;
+        $('#notificationModal').modal('show'); // Show the modal
+    }
+
+    // Function to redirect to a confirmation page
+    function redirectToConfirmation() {
+        // Redirect to the confirmation page
+        window.location.href = '#';
+    }
+</script>
+
 </body>
+
 </html>
