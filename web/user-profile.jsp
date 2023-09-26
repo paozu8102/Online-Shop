@@ -16,6 +16,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Include Bootstrap CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
         <style>
             body{
                 margin-top:20px;
@@ -80,37 +83,37 @@
         </style>
         <%@include file="template/header.jsp" %>
     </head>
-<li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
-	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="shop.jsp">Shop</a>
-              	<a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
-                <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                <a class="dropdown-item" href="cart.jsp">Cart</a>
-                <a class="dropdown-item" href="checkout.jsp">Checkout</a>
-              </div>
-            </li>
-	          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-                        <c:if test="${sessionScope.acc==null}"><li class="nav-item active"><a href="login" class="nav-link">Sign In</a></li></c:if>
-                        <c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>
-                             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="usercontrol">Manage User</a>
-              	<a class="dropdown-item" href="settingcontrol">Manage Category</a>
-              </div>
-            </li>
-                                    <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
-                        </c:if>
-	          <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-    <!-- END nav -->
+    <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown04">
+            <a class="dropdown-item" href="shop.jsp">Shop</a>
+            <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
+            <a class="dropdown-item" href="product-single.jsp">Single Product</a>
+            <a class="dropdown-item" href="cart.jsp">Cart</a>
+            <a class="dropdown-item" href="checkout.jsp">Checkout</a>
+        </div>
+    </li>
+    <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
+    <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
+    <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+    <c:if test="${sessionScope.acc==null}"><li class="nav-item active"><a href="login" class="nav-link">Sign In</a></li></c:if>
+    <c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                <a class="dropdown-item" href="usercontrol">Manage User</a>
+                <a class="dropdown-item" href="settingcontrol">Manage Category</a>
+            </div>
+        </li>
+        <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
+        </c:if>
+    <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+</ul>
+</div>
+</div>
+</nav>
+<!-- END nav -->
 <div class="container-xl px-4 mt-4">
     <!-- Account page navigation-->
     <nav class="nav nav-borders">
@@ -128,7 +131,7 @@
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button" id="fileButton">Upload new image</button>
+                    <button class="btn btn-primary" type="button" id="fileButton" data-toggle="tooltip" data-placement="top" title="Upload your image">Upload new image</button>
                     <input type="file" id="fileInput" name="imageFile" onchange="uploadImage()" style="display: none;" />
                 </div>
             </div>
@@ -144,7 +147,7 @@
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Username</label>
-                            <input class="form-control" id="inputUsername" name="username" type="text" placeholder="Enter your username" value="${user.getUserName()}">
+                            <input class="form-control" id="inputUsername" name="username" type="text" oninput="checkLength()" pattern="^(?:[A-Z][a-zA-Z\s]*){1,50}$" required title="Cannot null, Begin word with upper character, length between 0 -50" placeholder="Enter your username" value="${user.getUserName()}">
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
@@ -167,12 +170,12 @@
                         <!-- Form Row        -->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputLastName">Phone Number</label>
-                            <input class="form-control" name="phonenumber" id="inputLastName" type="text" placeholder="Enter your Phone Number" value="${user.getPhoneNumber()}">
+                            <input class="form-control" name="phonenumber" id="inputLastName" type="text" required="" pattern="[0-9]{10}" title="Please enter 10 digits with no spaces." placeholder="Enter your Phone Number" placeholder="Enter your Phone Number" value="${user.getPhoneNumber()}">
                         </div>
                         <!-- Form Group (organization name)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputOrgName">Address</label>
-                            <input class="form-control" name="address" id="inputOrgName" type="text" placeholder="Enter your Address" value="${user.getAddress()}">
+                            <input class="form-control" name="address" id="inputOrgName" required  type="text" placeholder="Enter your Address" value="${user.getAddress()}">
                         </div>
                         <!-- Form Group (email address)-->
                         <div class="mb-3">
@@ -180,8 +183,8 @@
                             <input class="form-control" name="email" id="inputEmailAddress" readonly type="email" placeholder="Enter your email address" value="${user.getEmail()}">
                         </div>                           
                         <!-- Save changes button-->
-                        <button class="btn btn-primary" type="submit">Save changes</button>
-                        <a class="btn btn-primary" href="change-user-password.jsp">Change Password</a>
+                        <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-placement="top" title="Save all">Save changes</button>
+                        <a class="btn btn-primary" href="change-user-password.jsp" data-toggle="tooltip" data-placement="top" title="Change Password">Change Password</a>
                     </form>
                 </div>
             </div>
@@ -208,7 +211,7 @@
                 body: formData});
             setTimeout(function () {
                 if (formData.get('imageFile').name !== 'undefined') {
-                    
+
                     avatarImg.src = `images/avatar/` + formData.get('imageFile').name;
                     imageUpdateName.value = formData.get('imageFile').name;
                     formData.delete('imageFile');
@@ -216,6 +219,10 @@
             }, 2000);
         }
     }
+    
+    $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
 </body>
 </html>
