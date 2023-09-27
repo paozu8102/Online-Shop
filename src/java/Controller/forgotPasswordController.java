@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * @author ADMIN
  */
 @WebServlet(name="ForgotPasswordController", urlPatterns={"/forgot-password"})
-public class ForgotPasswordController extends HttpServlet {
+public class forgotPasswordController extends HttpServlet {
    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -125,7 +125,7 @@ public class ForgotPasswordController extends HttpServlet {
                         return;
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(forgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (service.equalsIgnoreCase("changePassword")) {
@@ -150,7 +150,7 @@ public class ForgotPasswordController extends HttpServlet {
                     request.setAttribute("mess", "Change password successful!");
                     request.getRequestDispatcher("change-newpassword.jsp").forward(request, response);
                 } catch (Exception ex) {
-                    Logger.getLogger(ForgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(forgotPasswordController.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
