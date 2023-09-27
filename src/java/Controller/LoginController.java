@@ -18,6 +18,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -81,7 +83,8 @@ public class LoginController extends HttpServlet {
         UserDAO ud= new UserDAO();
         Account c = ad.getAccount(e, p);
         int userID = ud.cusAccountExist(e, p);
-        if (c == null) {
+        try {
+                   if (c == null) {
             request.setAttribute("mess", "Wrong user name or password!");
             String er = "username: " + e + " and password: " + p + " don't exsited!";
             request.setAttribute("error", er);
@@ -92,14 +95,18 @@ public class LoginController extends HttpServlet {
             session.setAttribute("user", user);
             session.setAttribute("acc", c);
             session.setMaxInactiveInterval(1800);
-//            Cookie cr= new Cookie("rem", r);
-//            if(r==null){
-//                cr.setMaxAge(0);
-//            }else{
-//                cr.setMaxAge(24*60*60);
-//            }
-//            response.addCookie(cr);
+Cookie cookie = new Cookie("rem", r);
+if (r == null || r.isEmpty()) {
+    cookie.setMaxAge(0);
+} else {
+    cookie.setMaxAge(24 * 60 * 60);  // 1 day in seconds
+}
+response.addCookie(cookie);
+
             response.sendRedirect("home");
+        }
+        } catch (Exception ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
 
@@ -111,5 +118,20 @@ public class LoginController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    private boolean checkPass(String pass, String confpass) {
+        if (pass.length() >= 6) {
+            if (pass.equals(confpass)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean checkUserName(String userName){
+        if(userName.length() == 0){
+            System.out.println("You must input email");
+        }else{
+            return true;
+        }
+     return false;
+    }
 }
