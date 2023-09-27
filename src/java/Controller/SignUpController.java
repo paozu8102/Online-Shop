@@ -76,17 +76,22 @@ public class SignUpController extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String cont = request.getParameter("contact");
+        String url = "";
         DAO d = new DAO();
         Account c = d.getAccountByEmail(email);
           Account acc = new Account(email, password);
         User u = new User(name,cont , email);
         if (c != null) {
             String err = "Email exist!";
-            request.setAttribute("error", err);}
+            request.setAttribute("error", err);
+            url = "signup.jsp";
+        }
             else{
                     d.insertAccount(acc, u);
+                       request.setAttribute("sc", "Successfully");
+                       url = "login.jsp";
                     }
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     
 
