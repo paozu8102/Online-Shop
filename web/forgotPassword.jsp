@@ -16,7 +16,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function () {
-            emailjs.init("QQ6aqdQzML6B_pxqM");
+            emailjs.init("EmLaRi-DiE1Jm-sxY");
         })();
     </script>
     <script>
@@ -25,7 +25,7 @@
             link: 'http://localhost:${port}/SWP391_SE1729_Group3/forgot-password?service=changePassword&&email=${emailAddress}&&createTime=${milis}'
         }
 
-        emailjs.send('service_w9tl3fh', 'template_b6skueg', param)
+        emailjs.send('service_ufy9vus', 'template_xte91rb', param)
     </script>
     <style>
         body {
