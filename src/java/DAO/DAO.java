@@ -230,5 +230,86 @@ public class DAO extends DBContext {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
         return c;
+    }public boolean getAccountByUsername(String email) throws SQLException, Exception {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            if (getConnection() != null) {
+                String sql = "SELECT [Email]\n"
+                        + "      ,[Password]\n"
+                        + "      ,[RoleID]\n"
+                        + "  FROM [dbo].[Account]\n"
+                        + "  where Email =?";
+                //3. Create Statement
+                stm = getConnection().prepareStatement(sql);
+                stm.setString(1, email);
+                rs = stm.executeQuery();
+                if (!rs.next()) {
+                    return true;
+                }
+                if (rs.next()) {
+                    return false;
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (getConnection() != null) {
+                getConnection().close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return false;
+    }
+
+    public boolean createAccount(Account a) throws SQLException, Exception {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            if (getConnection() != null) {
+                String sql = "INSERT INTO [dbo].[Account]\n"
+                        + "           ([Email]\n"
+                        + "           ,[Password]\n"
+                        + "           ,[Status]\n"
+                        + "           ,[RoleID])\n"
+                        + "     VALUES\n"
+                        + "           (?,?,1,1)";
+                //3. Create Statement
+                stm = getConnection().prepareStatement(sql);
+                stm.setString(1, a.getEmail());
+                stm.setString(2, a.getPassword());
+                return stm.executeUpdate() > 0;
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (getConnection() != null) {
+                getConnection().close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Account a = new Account("hoangcute@gmail.com", "11111111", 1, 1);
+        DAO d = new DAO();
+        try {
+            System.out.println(d.createAccount(a));
+        } catch (Exception ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
+
+
