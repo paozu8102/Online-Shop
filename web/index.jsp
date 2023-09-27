@@ -86,13 +86,11 @@
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
 	            <div class="col-md-12 ftco-animate text-center">
 	              <h1 class="mb-2">Bring the world of art to you</h1>
 	              <h2 class="subheading mb-4">Not only art, but your satisfy</h2>
 	              <p><a href="#" class="btn btn-primary">View Others</a></p><!--link to shop with this kind of category-->
 	            </div>
-
 	          </div>
 	        </div>
 	      </div>
@@ -127,6 +125,7 @@
 	          </div>
 	        </div>
 	      </div>
+                      
 	    </div>
         
         <script>
@@ -273,7 +272,8 @@
                 </c:forEach>
     		</div>
     	</div>
-    </section>	
+    </section>
+    
     <div class="row justify-content-center mb-5 pb-3">
         <div class="col-md-7 heading-section ftco-animate text-center" style="margin-top: -50px">
             <h2 class="mb-4">Posts you might interested in</h2>
@@ -397,30 +397,7 @@
     </section>
     <hr>
 
-    
-<!--		<section class="ftco-section ftco-partner">
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-1.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-2.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-3.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-4.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-sm ftco-animate">
-    				<a href="#" class="partner"><img src="images/partner-5.png" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    		</div>
-    	</div>
-    </section>-->
-
-		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+    <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
       <div class="container py-4">
         <div class="row d-flex justify-content-center py-5">
           <div class="col-md-6">
