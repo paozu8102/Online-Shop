@@ -232,6 +232,27 @@
                             </div>
                         </div>
                     </div>
+                     <div class="row mt-5">
+                                <div class="col text-center">
+                                    <div class="block-27">
+                                        <ul>
+                                            <c:if test="${tag > 1}">
+                                                <li><a href="usercontrol?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                                    </c:if>
+
+                                            <c:forEach begin="1" end="${endP}" var="i">
+                                                <li class="${tag == i ? 'active' : ''}">
+                                                    <a href="usercontrol?index=${i}">${i}</a>
+                                                </li>
+                                            </c:forEach>
+
+                                            <c:if test="${tag < endP}">
+                                                <li><a href="usercontrol?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                                    </c:if>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                 </div>
             </section>
 

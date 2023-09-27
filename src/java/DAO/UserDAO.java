@@ -66,15 +66,17 @@ public class UserDAO extends DBContext {
         }
         return roleList;
     }
-    //get Setting MinhHC
+    //get all Setting MinhHC
     public List<Setting> getAllSetting() {
         List<Setting> list = new ArrayList<>();
-        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status, Description FROM Category\n"
-                + "UNION\n"
-                + "SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type";
+        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type, Status, Description FROM Category\n"
+                + "    UNION\n"
+                + "    SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type";
+
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             ResultSet rs = st.executeQuery();
+
             while (rs.next()) {
 
                 list.add(new Setting(rs.getInt(1),
@@ -85,15 +87,49 @@ public class UserDAO extends DBContext {
                 ));
             }
         } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+
         } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+
         }
 
         return list;
     }
+//get all Setting MinhHC
+    public List<Setting> getAllSetting(int index) {
+        List<Setting> list = new ArrayList<>();
+      String sql = "SELECT ID, Name, Type, Status, Description\n" +
+                 "FROM (\n" +
+                 "    SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type, Status, Description FROM Category\n" +
+                 "    UNION\n" +
+                 "    SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type\n" +
+                 ") AS CombinedData\n" +
+                 "ORDER BY ID\n" +
+                 "OFFSET ? ROWS\n" +
+                 "FETCH NEXT 9 ROWS ONLY";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+             st.setInt(1, (index - 1) * 9);
+            ResultSet rs = st.executeQuery();
+           
+            while (rs.next()) {
+
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5)
+                ));
+            }
+        } catch (SQLException e) {
+
+        } catch (Exception e) {
+
+        }
+
+        return list;
+    }
+    
+    
 
     //get all Category Setting MinhHC
     public List<Setting> getAllSettingCat() {
@@ -364,8 +400,55 @@ public class UserDAO extends DBContext {
         }
     }
 
+    
+    //get total user MinhHC
+    public int getTotalUser() {
+        String sql = "select count(*) from [User]";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+
+            }
+       } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return 0;
+    }
+    //get total setting minhHC
+    public int getTotalSetting() {
+        String sql = "SELECT COUNT(*) AS TotalCount\n"
+                + "FROM (\n"
+                + "    SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type, Status, Description FROM Category\n"
+                + "    UNION\n"
+                + "    SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type\n"
+                + ") AS CombinedData;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+
+            }
+       } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+        return 0;
+    }
+
+    
     //Get all User MinhHC
-    public List<User> getAllUser() {
+    public List<User> getAllUser(int index) {
         List<User> list = new ArrayList<>();
         String sql = "SELECT\n"
                 + "    U.UserID,\n"
@@ -380,9 +463,12 @@ public class UserDAO extends DBContext {
                 + "FROM\n"
                 + "    [User] U\n"
                 + "INNER JOIN\n"
-                + "    Account A ON U.Email = A.Email;";
+                + "    Account A ON U.Email = A.Email\n"
+                + "ORDER BY UserID OFFSET ? ROWS FETCH NEXT 9 ROWS ONLY";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
+
+            st.setInt(1, (index - 1) * 9);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 list.add(new User(
@@ -407,6 +493,7 @@ public class UserDAO extends DBContext {
 
         return list;
     }
+    
 
     //Get all Admin MinhHC
     public List<User> getAllAdmin() {
@@ -811,7 +898,7 @@ public class UserDAO extends DBContext {
         }
 
         UserDAO c = new UserDAO();
-        List<User> listC = c.getAllUser();
+        List<User> listC = c.getAllUser(1);
 
         for (User o : listC) {
             System.out.println(o);
