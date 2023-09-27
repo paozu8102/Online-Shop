@@ -120,6 +120,11 @@
                         <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
                         <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
                         <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+                        <c:if test="${sessionScope.acc==null}"><li class="nav-item active"><a href="login" class="nav-link">Sign In</a></li></c:if>
+                        <c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>
+                                                                 <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
+                                    <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
+                                                            </c:if>
                         <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
                     </ul>
@@ -232,28 +237,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-5">
-                                <div class="col text-center">
-                                    <div class="block-27">
-                                        <ul>
-                                            <c:if test="${tag > 1}">
-                                                <li><a href="settingcontrol?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
-                                                    </c:if>
-
-                                            <c:forEach begin="1" end="${endP}" var="i">
-                                                <li class="${tag == i ? 'active' : ''}">
-                                                    <a href="settingcontrol?index=${i}">${i}</a>
-                                                </li>
-                                            </c:forEach>
-
-                                            <c:if test="${tag < endP}">
-                                                <li><a href="settingcontrol?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
-                                                    </c:if>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
             </div>
         </section>
 
