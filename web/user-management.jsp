@@ -94,7 +94,7 @@
 
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
                         <li class="nav-item active dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -108,6 +108,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                <a class="dropdown-item" href="usercontrol">Manage User</a>
                                 <a class="dropdown-item" href="settingcontrol">Manage Category</a>
                             </div>
                         </li>
@@ -237,6 +238,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </section>
 

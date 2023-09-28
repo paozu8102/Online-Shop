@@ -86,10 +86,12 @@ public class UserDAO extends DBContext {
                         rs.getString(5)
                 ));
             }
-        } catch (SQLException e) {
-
+       } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
@@ -121,9 +123,11 @@ public class UserDAO extends DBContext {
                 ));
             }
         } catch (SQLException e) {
-
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
-
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 
         return list;
