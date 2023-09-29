@@ -33,18 +33,38 @@ public class UserController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UserDAO c = new UserDAO();
-        List<User> listU = c.getAllUser();
+        String indexPage = request.getParameter("index");
+         if(indexPage == null){
+                      indexPage = "1";
+                      
+                  }
+            int index = Integer.parseInt(indexPage);
+             UserDAO c = new UserDAO();
+             int count = c.getTotalUser();
+            int endPage = count/9;
+            if(count % 9 != 0){
+                endPage++;
+            }
+            
+       
+        List<User> listU = c.getAllUser(index);
         request.setAttribute("listU", listU);
-         List<Role> listR = c.getRole();
-        request.setAttribute("listR", listR);
+        
         HttpSession session = request.getSession();
         Boolean emailExists = (Boolean) session.getAttribute("emailExists");
        
+                    request.setAttribute("endP", endPage);
+                     request.setAttribute("tag", indexPage);
+                      List<Role> listR = c.getRole();
+        request.setAttribute("listR", listR);
         request.getRequestDispatcher("user-management.jsp").forward(request, response);
+        
+        
+ 
+          
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,16 +88,28 @@ public class UserController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+   @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
          String userrole = request.getParameter("user-role");
 String userstatus = request.getParameter("user-status");
-UserDAO c = new UserDAO();
+ String indexPage = request.getParameter("index");
+         if(indexPage == null){
+                      indexPage = "1";
+                      
+                  }
+            int index = Integer.parseInt(indexPage);
+             UserDAO c = new UserDAO();
+             int count = c.getTotalUser();
+            int endPage = count/9;
+            if(count % 9 != 0){
+                endPage++;
+            }
+
 List<User> listU = null;
 
 if ("all".equals(userrole) || "all".equals(userstatus)) {
-    listU = c.getAllUser();
+    listU = c.getAllUser(index);
 } else if ("Admin".equals(userrole)) {
     listU = c.getAllAdmin();
 } else if ("Artist".equals(userrole)) {
@@ -89,7 +121,8 @@ if ("all".equals(userrole) || "all".equals(userstatus)) {
 } else if ("blocked".equals(userstatus)) {
     listU = c.getAllUserBlocked();
 }
-
+request.setAttribute("endP", endPage);
+                     request.setAttribute("tag", index);
 
 request.setAttribute("listU", listU);
 request.getRequestDispatcher("user-management.jsp").forward(request, response);

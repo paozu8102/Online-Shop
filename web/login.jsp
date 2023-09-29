@@ -29,32 +29,90 @@
 
                         <div class="signin-form">
                             <h2 class="form-title">Hello, Welcome to Pallette Joy !</h2>
-                            <form method="post" action="login" class="register-form"
-                                  id="login-form">
-                                <p class="text-danger">${mess}</p>
+                            <form method="post" action="login" class="register-form" id="login-form">
+    <p class="text-danger">${mess}</p>
 
-                                <div class="form-group">
-                                    <label for="username"><i
-                                            class="zmdi zmdi-account material-icons-name"></i></label> <input
-                                        type="text" name="email" id="email"
-                                        placeholder="Your Email" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="password"><i class="zmdi zmdi-lock"></i></label> <input
-                                        type="password" name="password" id="password"
-                                        placeholder="Password" />
-                                </div>
-<!--                                <div style="padding-left: 40px;padding-top: 5px">
-                            <input type="checkbox" ${(cookie.rem.value eq 'ON')?"checked":""}
-                                   name="rem"  value="ON"/>Remember Me<br/>
-                        </div>   -->
-                                <div class="form-group form-button">
-                                    <input type="submit" name="signin" id="signin"
-                                           class="form-submit" value="Log in" />
-                                    <a style="text-decoration: none; color: black" href="signup.jsp">New account?/</a><a style="text-decoration: none; color: black" href="signupforsaler.jsp">Artist/</a><a style="text-decoration: none; color: black" href="forgotPassword.jsp">Forgot</a>
+    <div class="form-group">
+        <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+        <input type="text" name="email" id="email" placeholder="Your Email" />
+    </div>
 
-                                </div>
-                            </form>
+    <div class="form-group">
+        <label for="password"><i class="zmdi zmdi-lock"></i></label>
+        <input type="password" name="password" id="password" placeholder="Password" />
+    </div>
+
+    <div class="form-group">
+        <label><i class="zmdi zmdi-check"></i> Remember Me:</label><br>
+        <input type="radio" id="remember-on" name="rem" value="ON">
+        <label for="remember-on">Yes</label><br>
+        <input type="radio" id="remember-off" name="rem" value="OFF">
+        <label for="remember-off">No</label>
+    </div>
+
+    <div class="form-group form-button">
+        <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+        <a style="text-decoration: none; color: black" href="signup.jsp">New account?</a>
+        <a style="text-decoration: none; color: black" href="signupforsaler.jsp">Artist</a>
+        <a style="text-decoration: none; color: black" href="forgotPassword.jsp">Forgot</a>
+    </div>
+</form>
+
+<script>
+    // L?y giá tr? c?a "Remember Me" t? cookie và ??t vào radio button khi trang t?i l?i
+    window.onload = function() {
+        const rememberOnRadio = document.getElementById('remember-on');
+        const rememberOffRadio = document.getElementById('remember-off');
+
+        const rememberMeValue = getCookie('rem');
+
+        if (rememberMeValue === 'ON') {
+            rememberOnRadio.checked = true;
+        } else if (rememberMeValue === 'OFF') {
+            rememberOffRadio.checked = true;
+        }
+
+        // Thêm x? lý s? ki?n cho radio button
+        const radios = document.querySelectorAll('input[name="rem"]');
+        for (const radio of radios) {
+            radio.addEventListener('change', function() {
+                const selectedValue = document.querySelector('input[name="rem"]:checked').value;
+                setCookie('rem', selectedValue, 30);  // L?u giá tr? vào cookie
+            });
+        }
+    };
+
+    // Hàm ?? l?u giá tr? vào cookie
+    function setCookie(cookieName, cookieValue, daysToExpire) {
+        const date = new Date();
+        date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
+        const expires = 'expires=' + date.toUTCString();
+        document.cookie = cookieName + '=' + cookieValue + ';' + expires + ';path=/';
+    }
+
+    // Hàm ?? l?y giá tr? c?a cookie
+    function getCookie(cookieName) {
+        const name = cookieName + '=';
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.indexOf(name) === 0) {
+                return cookie.substring(name.length, cookie.length);
+            }
+        }
+        return '';
+    }
+</script>
+<script>
+  // Check the value of the "sc" attribute
+  var scValue = "${sc}";
+
+  // Check if "sc" is "Successfully" and display an alert
+  if (scValue === "Successfully") {
+    alert("Sign up successfully! Please login to view our page");
+  }
+</script>
+
                             <div class="social-login">
                                 <span class="social-label">Or login with</span>
                                 <ul class="socials">

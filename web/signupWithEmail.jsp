@@ -25,14 +25,9 @@
 					<div class="signup-form">
 						<h2 class="form-title">Sign Up</h2>
 					
-						<form method="post" action="signup" class="register-form"
+						<form method="post" action="signupwithemail" class="register-form"
 							id="register-form">
-							<div class="form-group">
-								<label for="name"><i
-									class="zmdi zmdi-account material-icons-name"></i></label> <input
-									type="text" name="name" id="name" placeholder="Your Name" />
-							</div>
-                                                
+                                                    <h3>${error}</h3>
 							<div class="form-group">
 								<label for="email"><i class="zmdi zmdi-email"></i></label>                                    
                                                                 <input type="email" name="email" id="email" placeholder="Your Email" class="email">
@@ -49,11 +44,6 @@
                                                                 <span class="error"></span>
 							</div>
 							<div class="form-group">
-								<label for="contact"><i class="zmdi zmdi-lock-outline"></i></label>
-								<input type="text" name="contact" id="contact"
-									placeholder="Contact no" />
-							</div>
-							<div class="form-group">
 								<input type="checkbox" name="agree-term" id="agree-term"
 									class="agree-term" /> <label for="agree-term"
 									class="label-agree-term"><span><span></span></span>I
@@ -66,30 +56,12 @@
                                                                 <span><a href="login.jsp">Have an account ?</a></span>
 							</div>
 						</form>
-                                                <script>
-  // Check the value of the "sc" attribute
-  var scValue = "${error}";
-
-  // Check if "sc" is "Successfully" and display an alert
-  if (scValue === "Email exist!") {
-    alert("Sign up fail! Please check carefully");
-  }
-</script>
                                                                                     <div class="social-login">
-                                <span class="social-label">Or Signup With</span>
-                                <ul class="socials">
-                                    <li><a href="#"><i
-                                                class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                    <li><a href="#"><i
-                                                class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                    <li><a href="signupWithEmail.jsp"><i
-                                                class="display-flex-center zmdi zmdi-google"></i></a></li>
-                                </ul>
                             </div>
 					</div>
 					<div class="signup-image">
 						<figure>
-							<img src="images/signup.jpg" alt="sing up image">
+							<img src="images/RSU.jpg" alt="sing up image">
 						</figure>
 						
 					</div>
@@ -104,6 +76,8 @@
 	<script src="js/main.js"></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script><script  src="./script.js"></script>
+
+
 
 </body>
 <!-- This templates was made by Colorlib (https://colorlib.com) -->

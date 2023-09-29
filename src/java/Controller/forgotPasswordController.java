@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author ADMIN
  */
-@WebServlet(name="ForgotPasswordController", urlPatterns={"/forgot-password"})
+@WebServlet(name="forgotPasswordController", urlPatterns={"/forgot-password"})
 public class forgotPasswordController extends HttpServlet {
    
     /**

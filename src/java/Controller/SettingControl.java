@@ -33,13 +33,27 @@ public class SettingControl extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String indexPage = request.getParameter("index");
+        if (indexPage == null) {
+            indexPage = "1";
+
+        }
+        int index = Integer.parseInt(indexPage);
         UserDAO c = new UserDAO();
-        List<Setting> listC = c.getAllSetting();
+        int count = c.getTotalSetting();
+        int endPage = count / 9;
+        if (count % 9 != 0) {
+            endPage++;
+        }
+        List<Setting> listC = c.getAllSetting(index);
         request.setAttribute("listC", listC);
+        request.setAttribute("endP", endPage);
+        request.setAttribute("tag", index);
         request.getRequestDispatcher("setting-management.jsp").forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

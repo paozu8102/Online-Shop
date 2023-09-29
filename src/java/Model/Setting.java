@@ -65,6 +65,10 @@ public class Setting {
     public void setDescription(String description) {
         this.description = description;
     }
+    @Override
+    public String toString() {
+        return "Setting{" + "id=" + id + ", name=" + name + ", settingtype=" + settingtype + ", status=" + status + ", description=" + description + '}';
+    }
 
 }
 

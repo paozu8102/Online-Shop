@@ -6,27 +6,30 @@
 package Controller;
 
 import DAO.DAO;
-import DAO.UserDAO;
+import DBcontext.Capcha;
+import DBcontext.Mail;
 import Model.Account;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Model.Mess;
+import urlPatterns.Url;
+
 
 /**
  *
  * @author Acer
  */
-@WebServlet(name="LoginController", urlPatterns={"/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name="SignupWithEmail", urlPatterns={"/signupwithemail"})
+public class SignupWithEmail extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -43,10 +46,10 @@ public class LoginController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");  
+            out.println("<title>Servlet SignupWithEmail</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SignupWithEmail at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,7 +66,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
+        processRequest(request, response);
     } 
 
     /** 
@@ -76,37 +79,59 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String e = request.getParameter("email");
-        String p = request.getParameter("password");
-        String r=request.getParameter("rem");
-        DAO ad = new DAO();
-        UserDAO ud= new UserDAO();
-        Account c = ad.getAccount(e, p);
-        int userID = ud.cusAccountExist(e, p);
-        try {
-                   if (c == null) {
-            request.setAttribute("mess", "Wrong user name or password!");
-            String er = "username: " + e + " and password: " + p + " don't exsited!";
-            request.setAttribute("error", er);
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
-            HttpSession session = request.getSession(true);
-            User user = (new UserDAO()).getUser(userID);
-            session.setAttribute("user", user);
-            session.setAttribute("acc", c);
-            session.setMaxInactiveInterval(1800);
-Cookie cookie = new Cookie("rem", r);
-if (r == null || r.isEmpty()) {
-    cookie.setMaxAge(0);
-} else {
-    cookie.setMaxAge(24 * 60 * 60);  // 1 day in seconds
-}
-response.addCookie(cookie);
+        String url = "";
+        String username = request.getParameter("email");
+        String password = request.getParameter("password");
+        String confpassword = request.getParameter("passwordCon");
+        String capchain = request.getParameter("capchain");
+        HttpSession session = request.getSession();
 
-            response.sendRedirect("home");
-        }
+        try {
+            DAO a = new DAO();
+            if (capchain == null) {
+                session.setAttribute("newAccount", new Account(username, password, 1, 1));
+                boolean checkpass = checkPass(password, confpassword);
+                boolean checkusername = a.getAccountByUsername(username);
+
+                if (checkpass && checkusername) {
+                    if (session.getAttribute("capcha") == null) {
+                        Capcha c = new Capcha();
+                        String capcha = c.createCapcha();
+                        session.setAttribute("capcha", capcha);
+                        boolean sendmail = Mail.sendMail(username, "Sigup", "Ma cap cha cua ban: " + capcha);
+                        if (sendmail) {
+                          
+                            session.setAttribute("confirm", "sigup");
+                            url = Url.CAPCHA_PAGE;
+                        } else {
+                            url = Url.SIGNUP_PAGE;
+                        }
+                    }
+
+                } else if (!checkpass) {
+                    url = Url.SIGNUP_PAGE;
+                } else if (!checkusername) {
+                    url = Url.SIGNUP_PAGE;
+                }
+            }
+            if (capchain != null) {
+                if (capchain.equals((String) session.getAttribute("capcha"))) {
+                    Account account = (Account) session.getAttribute("newAccount");
+                    boolean createa = a.createAccount(account);
+                    if (createa) {
+                        session.setAttribute("acc", (Account) session.getAttribute("newAccount"));
+                        url = Url.HOME_PAGE;
+                    }
+                } else {
+                    url = Url.CAPCHA_PAGE;
+                }
+            }
+        } catch (SQLException e) {
+
         } catch (Exception ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+            Logger.getLogger(SignupWithEmail.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
@@ -125,13 +150,5 @@ response.addCookie(cookie);
             }
         }
         return false;
-    }
-    private boolean checkUserName(String userName){
-        if(userName.length() == 0){
-            System.out.println("You must input email");
-        }else{
-            return true;
-        }
-     return false;
     }
 }
