@@ -209,3 +209,69 @@ CREATE TABLE Comment(
 	CommentContent VARCHAR(MAX),
 	CommentDate DATETIME
 );
+
+--create objecttype table
+CREATE TABLE ObjectType(
+	TypeID INT PRIMARY KEY IDENTITY,
+	TypeName VARCHAR(30)
+);
+
+--delete table product comment
+DROP TABLE ProductComment;
+DROP TABLE ProductImage;
+DROP TABLE Comment;
+
+--re-create Comment table
+CREATE TABLE Comment(
+	CommentID INT PRIMARY KEY IDENTITY,
+	UserID INT REFERENCES [User](UserID),
+	TypeID INT REFERENCES ObjectType(TypeID),--type of the object own the image
+	ObjectID INT,--id of the object
+	CommentContent VARCHAR(MAX),
+	CommentDate DATETIME
+);
+
+--re-create image table
+CREATE TABLE [Image](
+	ImageID INT IDENTITY PRIMARY KEY,
+	TypeID INT REFERENCES ObjectType(TypeID),
+	ObjectID INT,--id of the object
+	ImageUrl VARCHAR(MAX)
+);
+
+--insert to objecttype table
+INSERT INTO [dbo].[ObjectType]
+           ([TypeName])
+     VALUES ('Product'),
+		    ('Post')
+
+--re-insert for Image table
+INSERT INTO [dbo].[Image]
+           ([TypeID]
+           ,[ObjectID]
+           ,[ImageUrl])
+     VALUES (1, 8,	'https://cdn11.bigcommerce.com/s-rh8oo/images/stencil/original/products/9284/46854/484861_640_320__36276.1631022081.jpg?c=2'),
+		    (1, 2,	'https://cdna.artstation.com/p/assets/images/images/013/078/628/large/bogdan-lisovetsky-.jpg?1537956986'),
+			(1, 1,	'https://charkoledesigns.com/cdn/shop/products/Warmth-of-Community-1000-x-800-size_c93a1768-9a3c-4dde-8296-5f8d1466ac3b_1000x.jpg?v=1570768477'),
+            (1, 3,	'https://images.squarespace-cdn.com/content/v1/5c2f7f8e2971143d628136a8/1606845407887-BH5WPLXFEK5O7AOOHJ6O/photo+5.jpg?format=1000w'),
+			(1, 4,	'https://images.squarespace-cdn.com/content/v1/5cee03f752ab760001a4764b/1674838836674-X52EF0VHHY32XBCPDBD8/iowagradient8x10sm.png?format=1000w'),
+			(1, 5,	'https://www.chartingnature.com/cdn/shop/products/Plate-32-Black-billed-Cuckoo-final.jpg?v=1535306417'),
+			(1, 6,	'https://www.chicagoskylineart.com/cdn/shop/products/abstract_art_painting_DARKER_DSCN0931.jpg?v=1648873269'),
+			(1, 7,	'https://www.evergreenartcafe.co.uk/cdn/shop/products/EnchantedLand.jpg?v=1643283516')
+
+--add data for comment table
+INSERT INTO [dbo].[Comment]
+           ([UserID]
+           ,[TypeID]
+           ,[ObjectID]
+           ,[CommentContent]
+           ,[CommentDate])
+     VALUES (1, 1, 1, N'Amazing, i have finding this kind of art for so long. Now i dont have to running around to get this kind of art', '2023-09-20'),
+			(2, 1, 2, N'Haizza, this pic is exactly what im looking for for life', '2023-09-10'),
+			(3, 1, 3, N'I love style of this pic, where have they been the whole time?', '2023-03-10'),
+			(4, 1, 4, N'Wow, this pic is amazing, look at this, you cant convince me this is truly art', '2023-04-14'),
+			(5, 1, 5, N'Thank you customer for supporting us the whole time. Your support is our motivation to be creative', '2023-05-05')
+
+--change datatype of comment table
+ALTER TABLE Comment
+ALTER COLUMN CommentContent NVARCHAR(MAX) COLLATE Vietnamese_CI_AS

@@ -78,7 +78,27 @@
 	    </div>
 	  </nav>
     <!-- END nav -->
+    <script>
+            function goToImage(link) {
+            window.location.href = link;
+            }              
+    </script>
+    <style>
+        .grid-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Create a 2x2 grid */
+        gap: 20px; /* Adjust the gap between grid items */
+        padding: 20px; /* Add padding around the grid container */
+        }
 
+        .grid-item {
+/*        border: 2px solid greenyellow;*/
+/*        padding: 50px;*/
+/*        border-radius: 50px;*/
+        margin-top: -50px;
+        margin-left: 0%;
+        }
+    </style>
     <section id="home-section" class="hero">
 		  <div class="home-slider owl-carousel">
               <div class="slider-item" onclick="goToImage('https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/379957160_1005019747406343_5701408785809078671_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=jfzP0wUgP1UAX_b0z-f&_nc_ht=scontent.fhan2-3.fna&oh=03_AdSvbMmN1iWHL33oQe1Qi2rlJFi4MwlB-6Vaj6kISth1eQ&oe=653870B2')" 
@@ -95,7 +115,7 @@
 	        </div>
 	      </div>
             
-                      <div class="slider-item" onclick="goToImage('https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/258266920_325266972344230_7747455939193950549_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=rydus25vqwMAX9MCCcs&_nc_ht=scontent.fhan2-3.fna&oh=03_AdQqIlZ9ou4PGyjq8PyYDWU8Ih9H4kWvQKy6ep4n4_TOpw&oe=65388BB5')" 
+            <div class="slider-item" onclick="goToImage('https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/258266920_325266972344230_7747455939193950549_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=rydus25vqwMAX9MCCcs&_nc_ht=scontent.fhan2-3.fna&oh=03_AdQqIlZ9ou4PGyjq8PyYDWU8Ih9H4kWvQKy6ep4n4_TOpw&oe=65388BB5')" 
                            style="background-image: url('https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/258266920_325266972344230_7747455939193950549_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_ohc=rydus25vqwMAX8xNSuR&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSeclv665FPKdHWDRpV0D5rSwwqNPmblXulFasgog6SUg&oe=65385375');">
 	      	<div class="overlay"></div>
 	        <div class="container">
@@ -109,7 +129,7 @@
 
 	          </div>
 	        </div>
-	      </div>         
+	    </div>         
             
                       <div class="slider-item" onclick="goToImage('https://scontent.fhan2-3.fna.fbcdn.net/v/t1.15752-9/379644678_843064157279424_6910038879225445721_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=DYU5T_h3-UIAX-kgCVc&_nc_oc=AQkKZoHPULlRUto-YrB_58iS-45zsaQUk0DYx90eCsxYqJI_suTIJC8n4MSlnwkrH7Q&_nc_ht=scontent.fhan2-3.fna&oh=03_AdQWFavgOW2JLjm0HvDtgDPqwbgZe7_TcxwddLzbEQ96QQ&oe=65385A67')" 
                            style="background-image: url('https://scontent.fhan18-1.fna.fbcdn.net/v/t1.15752-9/379644678_843064157279424_6910038879225445721_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=ae9488&_nc_ohc=DYU5T_h3-UIAX-SxSD7&_nc_oc=AQk9F8E2yX3TylUXQ_qRD-wRPN7VkCSxAPU1ailNVCHyioc-K5KyaXkJUXJ_VWOPGvCcJYdn4nQfbstajUoctcI6&_nc_ht=scontent.fhan18-1.fna&oh=03_AdSUT47b-Feysxi3jdF0HZ8asYFHma95JJrlcR8yJKN9Qg&oe=65385A67');">
@@ -128,11 +148,7 @@
                       
 	    </div>
         
-        <script>
-            function goToImage(link) {
-            window.location.href = link;
-            }              
-        </script>
+        
     </section>
 
     <section class="ftco-section">
@@ -345,22 +361,6 @@
 		            </div>
         </div>
     </div>
-    <style>
-        .grid-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Create a 2x2 grid */
-        gap: 20px; /* Adjust the gap between grid items */
-        padding: 20px; /* Add padding around the grid container */
-        }
-
-        .grid-item {
-/*        border: 2px solid greenyellow;*/
-/*        padding: 50px;*/
-/*        border-radius: 50px;*/
-        margin-top: -50px;
-        margin-left: 0%;
-        }
-    </style>
 
     <section class="ftco-section testimony-section" style="margin-top: -100px">
       <div class="container">
@@ -383,7 +383,7 @@
                     </span>
                   </div>
                   <div class="text text-center">
-                    <p class="mb-5 pl-4 line">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p class="mb-5 pl-4 line">${homeUsers[loop.index].getFirstComment()}</p>
                     <p class="name">${homeUsers[loop.index].getUserName()}</p>
                     <span class="position">${roleOfHomeUser[loop.index]}</span>
                   </div>

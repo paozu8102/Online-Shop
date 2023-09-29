@@ -53,25 +53,25 @@ public class ProductDAO extends DBContext {
     //get each product one picture: ThanhNX
     public ArrayList<String> getOnePicPerProduct(ArrayList<Product> products) {
         ArrayList<String> picList = new ArrayList<>();
-        String command = "SELECT  ImageUrl\n"
-                + "FROM Product p JOIN ProductImage i\n"
-                + "ON p.ProductID = i.ProductID\n"
+        String command = "SELECT ImageUrl\n"
+                + "FROM Product p JOIN [Image] i\n"
+                + "ON p.ProductID = i.ObjectID\n"
                 + "WHERE p.ProductID = ?";
         for (int i = 0; i < products.size(); i++) {
             try {
                 PreparedStatement st = getConnection().prepareStatement(command);
                 st.setInt(1, products.get(i).getProductID());
                 ResultSet rs = st.executeQuery();
-                if(rs.next()){
+                if (rs.next()) {
                     picList.add(rs.getString("ImageUrl"));
                 }
             } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-        } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
-        }
+                // Handle SQL exception
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+            } catch (Exception e) {
+                // Handle other exceptions
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+            }
         }
 
         return picList;
@@ -83,6 +83,9 @@ public class ProductDAO extends DBContext {
         for (int i = 0; i < test.size(); i++) {
             System.out.println(test.get(i).toString());
         }
-        
+        ArrayList<String> testImage = new ProductDAO().getOnePicPerProduct(test);
+        for (int i = 0; i < testImage.size(); i++) {
+            System.out.println(testImage.get(i).toString());
+        }
     }
 }

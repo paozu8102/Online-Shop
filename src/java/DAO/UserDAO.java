@@ -27,7 +27,7 @@ public class UserDAO extends DBContext {
     //select top 5 user: ThanhNX
     public ArrayList<User> getTopUser() {
         ArrayList<User> topUser = new ArrayList<>();
-        String command = "select top 5 * from [User]";
+        String command = "SELECT TOP 5 * FROM [User]";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
             ResultSet rs = ps.executeQuery();
