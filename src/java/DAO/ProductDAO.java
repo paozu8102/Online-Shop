@@ -56,7 +56,7 @@ public class ProductDAO extends DBContext {
         String command = "SELECT ImageUrl\n"
                 + "FROM Product p JOIN [Image] i\n"
                 + "ON p.ProductID = i.ObjectID\n"
-                + "WHERE p.ProductID = ?";
+                + "WHERE p.ProductID = ? AND i.TypeID = 1";
         for (int i = 0; i < products.size(); i++) {
             try {
                 PreparedStatement st = getConnection().prepareStatement(command);
@@ -85,7 +85,7 @@ public class ProductDAO extends DBContext {
         }
         ArrayList<String> testImage = new ProductDAO().getOnePicPerProduct(test);
         for (int i = 0; i < testImage.size(); i++) {
-            System.out.println(testImage.get(i).toString());
+            System.out.println(testImage.get(i));
         }
     }
 }
