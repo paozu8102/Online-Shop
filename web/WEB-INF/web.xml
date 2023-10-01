@@ -12,6 +12,10 @@
         <servlet-name>UploadAvatarController</servlet-name>
         <servlet-class>Controller.UploadAvatarController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BlogOrPostSingleController</servlet-name>
+        <servlet-class>Controller.BlogOrPostSingleController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ThanhServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>UploadAvatarController</servlet-name>
         <url-pattern>/changeavatar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogOrPostSingleController</servlet-name>
+        <url-pattern>/BlogOrPostSingle</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
