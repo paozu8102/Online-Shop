@@ -275,3 +275,63 @@ INSERT INTO [dbo].[Comment]
 --change datatype of comment table
 ALTER TABLE Comment
 ALTER COLUMN CommentContent NVARCHAR(MAX) COLLATE Vietnamese_CI_AS
+
+--add column View for blog table 
+ALTER TABLE Blog
+ADD [View] INT DEFAULT 0;
+
+--adjustment to blog table
+ALTER TABLE Blog
+ALTER COLUMN Title VARCHAR(MAX);
+ALTER TABLE Blog
+ALTER COLUMN Content VARCHAR(MAX);
+ALTER TABLE Blog
+ADD CONSTRAINT Fk_Blog_BlogStatus_StatusID
+FOREIGN KEY (StatusID) REFERENCES BlogStatus(StatusID);
+
+--add data for Blog Status table
+INSERT INTO [dbo].[BlogStatus]
+           ([StatusID]
+           ,[StatusName])
+VALUES (1, 'Waiting'),
+	   (2, 'Approved'),
+	   (3, 'Denied');
+
+--add data for Blog Table 
+INSERT INTO [dbo].[Blog]
+           ([Title]
+           ,[Content]
+           ,[Date]
+           ,[UserID]
+           ,[StatusID]
+           ,[BlogType]
+           ,[View])
+VALUES ('History of art', 
+		'The history of art focuses on objects made by humans for any number of spiritual, narrative, philosophical, symbolic, conceptual, documentary, decorative, and even functional and other purposes, but with a primary emphasis on its aesthetic visual form. Visual art can be classified in diverse ways, such as separating fine arts from applied arts; inclusively focusing on human creativity; or focusing on different media such as architecture, sculpture, painting, film, photography, and graphic arts. In recent years, technological advances have led to video art, computer art, performance art, animation, television, and videogames.
+		 The history of art is often told as a chronology of masterpieces created during each civilization. It can thus be framed as a story of high culture, epitomized by the Wonders of the World. On the other hand, vernacular art expressions can also be integrated into art historical narratives, referred to as folk arts or craft. The more closely that an art historian engages with these latter forms of low culture, the more likely it is that they will identify their work as examining visual culture or material culture, or as contributing to fields related to art history, such as anthropology or archaeology. In the latter cases, art objects may be referred to as archeological artifacts.', 
+		'2023-04-14',
+		1, 2, 2, 0),
+		('Finding a picture for coffe shop',
+		'I want to find some picture to decorate my coffe store, i want it to has bright color, main theme is coffe or the feeling of chill in a coffe shop.',
+		'2023-05-15',
+		2, 2, 2, 0),
+		('Finding decor pic for new house',
+		'I want to find a picture for our new house. I want 5 pics that has dark color, IT theme for me and 5 pics has brighter color and a bit for children for my wife. Feel free to leave contact', 
+		'2023-08-09',
+		3, 2, 2, 0),
+		('Presenting new picture for your home',
+		'Today i will present to all customer these pictures of mine, they are color full, beautiful and have all size for you to choose. Please have a look and leave a comment to let me know which one is your favorite.',
+		'2023-06-06',
+		4, 2, 2, 0);
+
+--add data for image table
+INSERT INTO [dbo].[Image]
+           ([TypeID]
+           ,[ObjectID]
+           ,[ImageUrl])
+VALUES (2, 3, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg'),
+	   (2, 3, 'https://upload.wikimedia.org/wikipedia/commons/0/07/Lascaux2.jpg'),
+	   (2, 3, 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Les_Demoiselles_d%27Avignon.jpg/1024px-Les_Demoiselles_d%27Avignon.jpg'),
+	   (2, 6, 'https://thehousethatlarsbuilt.com/wp-content/uploads/2017/09/layered-fan-wall-piece-diy-9.jpg'),
+	   (2, 6, 'https://cdn.sanity.io/images/cctd4ker/production/7a66ca4beaee92042c71f884be97561d0576116f-1080x1080.jpg?w=3840&q=75&fit=clip&auto=format'),
+	   (2, 6, 'https://c8.alamy.com/comp/2A36MNE/coffee-doodle-with-ornament-its-about-equipment-and-economic-business-of-coffee-shop-decoration-with-nature-black-and-white-drawing-lines-art-good-2A36MNE.jpg')

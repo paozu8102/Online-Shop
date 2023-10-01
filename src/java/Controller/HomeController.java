@@ -41,6 +41,7 @@ public class HomeController extends HttpServlet{
         ArrayList<String> roleOfHomeUser = userDAO.getRoleList(homeUsers);
         ArrayList<String> picOfProduct = productDAO.getOnePicPerProduct(homeProducts);
         
+        
         req.setAttribute("homeProduct", homeProducts);
         req.setAttribute("homeUsers", homeUsers);
         req.setAttribute("roleOfHomeUser", roleOfHomeUser);

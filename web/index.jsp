@@ -314,8 +314,8 @@
         </div>
         <div class="col-md-12 d-flex ftco-animate grid-item">
 		            <div class="blog-entry align-self-stretch d-md-flex">
-		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_1.jpg');">
-		              </a>
+<!--		              <a href="blog-single.jsp" class="block-20" style="background-image: url('images/image_1.jpg');">
+		              </a>-->
 		              <div class="text d-block pl-md-4">
 		              	<div class="meta mb-3">
 		                  <div><a href="#">July 20, 2019</a></div>
@@ -367,29 +367,90 @@
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
           	<span class="subheading">Testimony</span>
-            <h2 class="mb-4">Our customers and staff says</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+            <h2 class="mb-4">Our staff's perspective</h2>
+            <p>We all have a common goal, that is bring the beauty of arts and passion of artists to everyone.</p>
           </div>
         </div>
         <div class="row ftco-animate">
           <div class="col-md-12">
             <div class="carousel-testimony owl-carousel">
-            <c:forEach items="${homeUsers}" varStatus="loop">
+                
                 <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(${homeUsers[loop.index].getAvatar()})">
+                  <div class="user-img mb-5" style="background-image: url('https://bizweb.dktcdn.net/100/438/408/files/anh-dep-3d-yodyvn4.jpg?v=1683534900596');">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
                   </div>
                   <div class="text text-center">
-                    <p class="mb-5 pl-4 line">${homeUsers[loop.index].getFirstComment()}</p>
-                    <p class="name">${homeUsers[loop.index].getUserName()}</p>
-                    <span class="position">${roleOfHomeUser[loop.index]}</span>
+                    <p class="mb-5 pl-4 line">We would want to connect art to everyone, create opportunity for artists to shine and cherish their creativity</p>
+                    <p class="name">Mai Vu Bao</p>
+                    <span class="position">Admin</span>
                   </div>
                 </div>
+                </div>
+                
+                <div class="item">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-5" style="background-image: url('https://genzrelax.com/wp-content/uploads/2022/03/anh-dai-dien-dep-1.jpg');">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text text-center">
+                    <p class="mb-5 pl-4 line">I want no art is wasted, i want people to feel the beauty and pay more attension to artists</p>
+                    <p class="name">Nguyen Xuan Thanh</p>
+                    <span class="position">BE Developer</span>
+                  </div>
+                </div>
+                </div>
+                    
+                <div class="item">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-5" style="background-image: url('https://khoinguonsangtao.vn/wp-content/uploads/2022/05/anh-avatar-dep-ngau-hinh-dai-dien-510x560.jpg');">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text text-center">
+                    <p class="mb-5 pl-4 line">Im look at what i do as a FE developer to create a beautiful interface for user and look at the artist and think that they did the same, just not on computer</p>
+                    <p class="name">Le Van Duc</p>
+                    <span class="position">FE Developer</span>
+                  </div>
+                </div>
+                </div>
+                    
+                <div class="item">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-5" style="background-image: url('https://pgddttieucan.edu.vn/wp-content/uploads/2022/08/1660864210_Anh-Avatar-Dep-Cute-Chat-Ngau-Lam-Hinh-Dai-Dien-696x619.jpg');">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text text-center">
+                    <p class="mb-5 pl-4 line">I look at what we do and think that this will definitely make the world of art shine again by combine it with the world of technology</p>
+                    <p class="name">Hoang Chinh Minh</p>
+                    <span class="position">Doc Master</span>
+                  </div>
+                </div>
+                </div>
+                    
+                <div class="item">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-5" style="background-image: url('https://top10kontum.com/wp-content/uploads/2022/10/anh-dai-dien-zalo-y-nghia-2.jpg');">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text text-center">
+                    <p class="mb-5 pl-4 line">My dad is a non-pro artist but everything he made, he was so proud of it. I take part in this project to make sure every artist out there proud of themselves</p>
+                    <p class="name">Nguyen Huy Hoang</p>
+                    <span class="position">Full Stack Developer</span>
+                  </div>
+                </div>
+                </div>
+                
               </div>
-            </c:forEach>
             </div>
           </div>
         </div>
@@ -397,6 +458,7 @@
     </section>
     <hr>
 
+    
     <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
       <div class="container py-4">
         <div class="row d-flex justify-content-center py-5">
@@ -415,5 +477,6 @@
         </div>
       </div>
     </section>
+    
     <footer class="ftco-footer ftco-section">
  <%@include file="template/footer.jsp" %>

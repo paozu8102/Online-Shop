@@ -4,8 +4,6 @@
  */
 package Model;
 
-import DAO.CommentDAO;
-
 /**
  *
  * @author Acer
@@ -97,11 +95,6 @@ public class User extends Account {
 
     public void setAvatar(String Avatar) {
         this.Avatar = Avatar;
-    }
-
-    //ThanhNX
-    public String getFirstComment(){
-        return new CommentDAO().getFisrtCommentOfUser(this.UserID);
     }
     
     @Override
