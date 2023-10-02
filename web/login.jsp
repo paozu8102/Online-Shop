@@ -42,13 +42,7 @@
         <input type="password" name="password" id="password" placeholder="Password" />
     </div>
 
-    <div class="form-group">
-        <label><i class="zmdi zmdi-check"></i> Remember Me:</label><br>
-        <input type="radio" id="remember-on" name="rem" value="ON">
-        <label for="remember-on">Yes</label><br>
-        <input type="radio" id="remember-off" name="rem" value="OFF">
-        <label for="remember-off">No</label>
-    </div>
+ 
 
     <div class="form-group form-button">
         <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />

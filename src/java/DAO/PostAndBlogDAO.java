@@ -63,10 +63,5 @@ public class PostAndBlogDAO extends DBContext{
         return dataList;
     }
     
-    public static void main(String[] args) {
-        ArrayList<Map<String, String>> dataList = new BlogAndPostDAO().getTop4Posts();
-        for (int i = 0; i < dataList.size(); i++) {
-            System.out.println(dataList.get(i));
-        }
-    }
+  
 }
