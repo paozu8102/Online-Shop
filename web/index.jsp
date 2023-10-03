@@ -251,7 +251,7 @@
                 <c:forEach items="${homeProduct}" var="product" varStatus="loop">
                     <div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="${picOfProduct[loop.index]}" alt="Yeallow Girl">
+                                    <a href="#" class="img-prod"><img class="img-fluid" src="${picOfProduct[loop.index]}" alt="Yeallow Girl">
     						<c:if test="${homeProduct[loop.index].getDiscount() > 0}">
                                                     <span class="status">${homeProduct[loop.index].getDiscount()}%</span>
                                                 </c:if>
@@ -300,18 +300,18 @@
             <div class="col-md-12 d-flex ftco-animate grid-item">
 		            <div class="blog-entry align-self-stretch d-md-flex">
                               <c:if test="${object.ImageUrl ne null}">
-		              <a href="blog-single.jsp" class="block-20" style="background-image: url('${object.ImageUrl}');">
+		              <a href="<%=path%>/BlogOrPostSingle?id=${object.BlogID}" class="block-20" style="background-image: url('${object.ImageUrl}');">
 		              </c:if>
                               </a>
 		              <div class="text d-block pl-md-4">
 		              	<div class="meta mb-3">
-		                  <div><a href="#">${object.DateTime}</a></div>
+		                  <div><a href="<%=path%>/BlogOrPostSingle?id=${object.BlogID}">${object.DateTime}</a></div>
 		                  <div><a href="#">${object.UserName}</a></div>
 		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span>${object.CommentNumber}</a></div>
 		                </div>
-		                <h3 class="heading"><a href="#">${object.Title}</a></h3>
+		                <h3 class="heading"><a href="<%=path%>/BlogOrPostSingle?id=${object.BlogID}">${object.Title}</a></h3>
 		                <p>${object.Content}</p>
-		                <p><a href="blog-single.jsp" class="btn btn-primary py-2 px-3">Read more</a></p>
+		                <p><a href="<%=path%>/BlogOrPostSingle?id=${object.BlogID}" class="btn btn-primary py-2 px-3">Read more</a></p>
 		              </div>
 		            </div>
             </div>

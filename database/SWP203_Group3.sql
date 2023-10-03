@@ -336,4 +336,18 @@ VALUES (2, 3, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Li
 	   (2, 6, 'https://cdn.sanity.io/images/cctd4ker/production/7a66ca4beaee92042c71f884be97561d0576116f-1080x1080.jpg?w=3840&q=75&fit=clip&auto=format'),
 	   (2, 6, 'https://c8.alamy.com/comp/2A36MNE/coffee-doodle-with-ornament-its-about-equipment-and-economic-business-of-coffee-shop-decoration-with-nature-black-and-white-drawing-lines-art-good-2A36MNE.jpg')
 
---
+--add data for Product Category table
+INSERT INTO [dbo].[ProductCategory]
+           ([ProductID]
+           ,[CategoryID])
+VALUES (1, 1),
+	   (2, 2),
+	   (3, 3),
+	   (4, 4),
+	   (5, 5),
+	   (6, 6),
+	   (7, 1),
+	   (8, 2),
+	   (1, 2),
+	   (3, 5),
+	   (6, 1)

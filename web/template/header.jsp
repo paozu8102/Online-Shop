@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <%
+    String path = request.getContextPath();
+  %>
   <script>
     //from 11-31: ThanhNX
     // Function to set the scroll position in session storage
