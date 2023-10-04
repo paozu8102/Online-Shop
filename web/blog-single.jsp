@@ -25,12 +25,84 @@
 	    </div>
 	  </nav>
     <!-- END nav -->
+<style>
+.slider-container {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
 
-    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.slider-nav {
+/*  position: absolute;*/
+  top: 50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.prev-btn, .next-btn {
+  background: #82AE46;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
+.slide-number {
+  color: black;
+  font-size: 18px;
+  margin: 0 10px;
+}
+</style>
+    
+<script>
+        let slideIndex = 1;
+
+function showSlide(n) {
+  const slides = document.querySelectorAll('.slide');
+  const slideNumber = document.querySelector('.slide-number');
+  if (n > slides.length) slideIndex = 1;
+  if (n < 1) slideIndex = slides.length;
+
+  slides.forEach((slide) => {
+    slide.style.display = 'none';
+  });
+
+  slides[slideIndex - 1].style.display = 'block';
+  slideNumber.textContent = slideIndex;
+}
+
+function changeSlide(n) {
+  showSlide((slideIndex += n));
+}
+
+// Initialize the slider
+showSlide(slideIndex);
+
+</script>
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Home</a></span> <span>Blog</span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Blog</span></p>
             <h1 class="mb-0 bread">Blog</h1>
           </div>
         </div>
@@ -41,7 +113,25 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 ftco-animate">
-						<h2 class="mb-3">Organic foods is good for your health</h2>
+            <h2 class="mb-3">Organic foods is good for your health</h2>
+<div class="slider-container">
+  <div class="slider">
+    <div class="slide">
+      <img src="images/bg_1.jpg" alt="Image 1">
+    </div>
+    <div class="slide">
+      <img src="images/bg_2.jpg" alt="Image 2">
+    </div>
+    <!-- Add more slides with images -->
+  </div>
+  <div class="slider-nav">
+    <button class="prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+    <span class="slide-number">1</span>
+    <button class="next-btn" onclick="changeSlide(1)">&#10095;</button>
+  </div>
+</div>
+
+
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
             <p>
               <img src="images/image_1.jpg" alt="" class="img-fluid">
@@ -200,9 +290,10 @@
             <div class="sidebar-box ftco-animate">
             	<h3 class="heading">Categories</h3>
               <ul class="categories">
-              <c:forEach items="${cateAndPicNum}" var="cate">
-                  <li><a href="#">${cate.CategoryName}<span>(${cate.ProductCount})</span></a></li>
-              </c:forEach>
+                <li><a href="#">Vegetables <span>(12)</span></a></li>
+                <li><a href="#">Fruits <span>(22)</span></a></li>
+                <li><a href="#">Juice <span>(37)</span></a></li>
+                <li><a href="#">Dries <span>(42)</span></a></li>
               </ul>
             </div>
 

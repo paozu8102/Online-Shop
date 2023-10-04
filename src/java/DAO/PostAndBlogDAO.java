@@ -63,11 +63,11 @@ public class PostAndBlogDAO extends DBContext {
         }
         return dataList;
     }
-<<<<<<< HEAD
+
 
     //get blog or post by id: ThanhNX
     public void checkPostOrBlogID(String id) {
-
+        
     }
 
     //get all categories and number pic of each: ThanhNX
@@ -101,8 +101,4 @@ public class PostAndBlogDAO extends DBContext {
             System.out.println(dataList.get(i));
         }
     }
-=======
-    
-  
->>>>>>> f25a2c6b68ebf2f45f7f83bd6c16ea2a1178d20e
 }
