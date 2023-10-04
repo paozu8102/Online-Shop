@@ -1,4 +1,5 @@
 ﻿CREATE DATABASE SWP391_Group3
+GO
 use [SWP391_Group3]
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
@@ -329,12 +330,12 @@ INSERT INTO [dbo].[Image]
            ([TypeID]
            ,[ObjectID]
            ,[ImageUrl])
-VALUES (2, 3, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg'),
-	   (2, 3, 'https://upload.wikimedia.org/wikipedia/commons/0/07/Lascaux2.jpg'),
-	   (2, 3, 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Les_Demoiselles_d%27Avignon.jpg/1024px-Les_Demoiselles_d%27Avignon.jpg'),
-	   (2, 6, 'https://thehousethatlarsbuilt.com/wp-content/uploads/2017/09/layered-fan-wall-piece-diy-9.jpg'),
-	   (2, 6, 'https://cdn.sanity.io/images/cctd4ker/production/7a66ca4beaee92042c71f884be97561d0576116f-1080x1080.jpg?w=3840&q=75&fit=clip&auto=format'),
-	   (2, 6, 'https://c8.alamy.com/comp/2A36MNE/coffee-doodle-with-ornament-its-about-equipment-and-economic-business-of-coffee-shop-decoration-with-nature-black-and-white-drawing-lines-art-good-2A36MNE.jpg')
+VALUES (2, 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/800px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg'),
+	   (2, 1, 'https://upload.wikimedia.org/wikipedia/commons/0/07/Lascaux2.jpg'),
+	   (2, 1, 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Les_Demoiselles_d%27Avignon.jpg/1024px-Les_Demoiselles_d%27Avignon.jpg'),
+	   (2, 4, 'https://thehousethatlarsbuilt.com/wp-content/uploads/2017/09/layered-fan-wall-piece-diy-9.jpg'),
+	   (2, 4, 'https://cdn.sanity.io/images/cctd4ker/production/7a66ca4beaee92042c71f884be97561d0576116f-1080x1080.jpg?w=3840&q=75&fit=clip&auto=format'),
+	   (2, 4, 'https://c8.alamy.com/comp/2A36MNE/coffee-doodle-with-ornament-its-about-equipment-and-economic-business-of-coffee-shop-decoration-with-nature-black-and-white-drawing-lines-art-good-2A36MNE.jpg')
 
 --add data for Product Category table
 INSERT INTO [dbo].[ProductCategory]
@@ -368,15 +369,15 @@ SET ObjectTypeID = 1;
 
 --add data for category table
 INSERT INTO [dbo].[Category]
-           ([CategoryID]
-           ,[CategoryName]
+           ([CategoryName]
            ,[Status]
+		   ,[Description]
            ,[ObjectTypeID])
-     VALUES (7, 'Life and art', 1, 2),
-			(8, 'Q&A', 1, 2),
-			(9, 'Introduce product', 1, 2),
-			(10, 'Review product', 1, 2),
-			(11, 'Sharing', 1, 2);
+     VALUES ( 'Life and art', 1,'Post about life and art', 2),
+			( 'Q&A', 1,'Post about question and answer', 2),
+			( 'Introduce product', 1,'post to introduce products', 2),
+			( 'Review product', 1,'post to review products', 2),
+			( 'Sharing', 1,'post to sharing information', 2);
 --create table PostCategory
 CREATE TABLE PostCategory(
 	PostID INT REFERENCES Blog(BlogID),
@@ -388,8 +389,8 @@ CREATE TABLE PostCategory(
 INSERT INTO [dbo].[PostCategory]
            ([PostID]
            ,[CategoryID])
-     VALUES(3, 11),
-		   (4, 8),
-		   (5, 8),
-		   (6, 11),
-		   (6, 9);
+     VALUES(1, 11),
+		   (2, 8),
+		   (3, 8),
+		   (4, 11),
+		   (4, 9);

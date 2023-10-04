@@ -34,9 +34,9 @@ public class BlogOrPostSingleController extends HttpServlet{
         String id = req.getParameter("id");
         
         PostAndBlogDAO blogDAO = new PostAndBlogDAO();
-        ArrayList<Map<String, String>> cateAndPicNum = blogDAO.cateAndPicNumber();
+        //ArrayList<Map<String, String>> cateAndPicNum = blogDAO.cateAndPicNumber();
         
-        req.setAttribute("cateAndPicNum", cateAndPicNum);
+        //req.setAttribute("cateAndPicNum", cateAndPicNum);
         
     }
 }
