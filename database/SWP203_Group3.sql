@@ -350,4 +350,46 @@ VALUES (1, 1),
 	   (8, 2),
 	   (1, 2),
 	   (3, 5),
-	   (6, 1)
+	   (6, 1);
+
+--NEW VERSION
+--add column for category table
+ALTER TABLE Category
+ADD ObjectTypeID INT;
+ALTER TABLE Category 
+ADD CONSTRAINT Fk_Category_ObjectType_ObjectTypeID
+FOREIGN KEY (ObjectTypeID) REFERENCES ObjectType(TypeID);
+
+--update data for category table
+UPDATE Category
+SET ObjectTypeID = 1;
+
+
+
+--add data for category table
+INSERT INTO [dbo].[Category]
+           ([CategoryID]
+           ,[CategoryName]
+           ,[Status]
+           ,[ObjectTypeID])
+     VALUES (7, 'Life and art', 1, 2),
+			(8, 'Q&A', 1, 2),
+			(9, 'Introduce product', 1, 2),
+			(10, 'Review product', 1, 2),
+			(11, 'Sharing', 1, 2);
+--create table PostCategory
+CREATE TABLE PostCategory(
+	PostID INT REFERENCES Blog(BlogID),
+	CategoryID INT REFERENCES Category(CategoryID)
+	PRIMARY KEY(PostID, CategoryID)
+);
+
+--add data for PostCategory Table
+INSERT INTO [dbo].[PostCategory]
+           ([PostID]
+           ,[CategoryID])
+     VALUES(3, 11),
+		   (4, 8),
+		   (5, 8),
+		   (6, 11),
+		   (6, 9);

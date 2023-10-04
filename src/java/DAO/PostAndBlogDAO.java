@@ -70,33 +70,10 @@ public class PostAndBlogDAO extends DBContext {
         
     }
 
-    //get all categories and number pic of each: ThanhNX
-    public ArrayList<Map<String, String>> cateAndPicNumber() {
-        ArrayList<Map<String, String>> dataList = new ArrayList<>();
-        String command = "SELECT c.CategoryID, \n"
-                + "	   c.CategoryName, \n"
-                + "	   COUNT(pc.ProductID) AS ProductCount\n"
-                + "FROM Category c\n"
-                + "LEFT JOIN ProductCategory pc \n"
-                + "ON c.CategoryID = pc.CategoryID\n"
-                + "GROUP BY c.CategoryID, c.CategoryName";
-        try {
-            PreparedStatement ps = getConnection().prepareStatement(command);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
-                Map<String, String> dataMap = new HashMap<>();
-                dataMap.put("CategoryID", rs.getString("CategoryID"));
-                dataMap.put("CategoryName", rs.getString("CategoryName"));
-                dataMap.put("ProductCount", rs.getString("ProductCount"));
-                dataList.add(dataMap);
-            }
-        } catch (Exception e) {
-        }
-        return dataList;
-    }
+    
 
     public static void main(String[] args) {
-        ArrayList<Map<String, String>> dataList = new PostAndBlogDAO().cateAndPicNumber();
+        ArrayList<Map<String, String>> dataList = new PostAndBlogDAO().getTop4Posts();
         for (int i = 0; i < dataList.size(); i++) {
             System.out.println(dataList.get(i));
         }
