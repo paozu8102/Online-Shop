@@ -114,14 +114,17 @@ INSERT INTO [dbo].[Product]
            ,[View]
            ,[Discount]
            ,[UserID])
-VALUES ('Product 1', 100,	'This is Product 1',	1,	1,	1,	0,	0,	10),
-	   ('Product 2', 100,	'This is Product 2',	1,	1,	1,	0,	20,	10),
-	   ('Product 3', 120,	'This is Product 3',	1,	1,	1,	0,	0,	10),
-	   ('Product 4', 150,	'This is Product 4',	1,	1,	1,	0,	0,	10),
-	   ('Product 5', 90,	'This is Product 5',	1,	1,	1,	0,	0,	10),
-	   ('Product 6', 110,	'This is Product 6',	1,	1,	1,	0,	0,	10),
-	   ('Product 7', 100,	'This is Product 7',	1,	1,	1,	0,	30,	10),
-	   ('Product 8', 115,	'This is Product 8',	1,	1,	1,	0,	0,	10)
+VALUES ('Beautiful Painting', 100.00,	'A stunning painting that brings freshness and brightness with vibrant colors and exquisite details. It reflects artistic talent and meticulous investment in every brushstroke, providing a sense of comfort and relaxation when looked upon',	50.0,	45.0,	1,	0,	0,	2),
+	   ('Landscape Artwork', 75.00,	'A breathtaking landscape painting that captures the serenity of nature. The vibrant colors and intricate brushstrokes bring to life a picturesque scene of rolling hills, a tranquil lake, and a colorful sunset. This masterpiece is an invitation to immerse yourself in the beauty of the outdoors, creating a sense of peace and wonder with every gaze. Perfect for those seeking a connection with nature within the comfort of their own space',	50.0,	25.0,	1,	0,	20,	3),
+	   ('Artistic Expression', 120.00,	'An awe-inspiring artwork that delves into the depths of artistic expression. With a mesmerizing blend of vibrant and subtle colors, meticulously crafted brushstrokes, and a harmonious composition, this painting invites the viewer into a world where creativity knows no bounds. The intricate details and thoughtful use of light and shadow create a visual narrative that captivates the imagination, allowing one to explore the depths of their own creativity. Each glance at this masterpiece reveals new layers of meaning and emotions, making it a timeless piece for art enthusiasts and connoisseurs.',	36.0,	24.0,	1,	0,	15.0,	7),
+	   ('Enchanted Forest', 200.00,	'Step into a world of enchantment with this captivating painting, "Enchanted Forest." The canvas comes alive with a symphony of colors, portraying a mystical forest where every brushstroke seems to whisper secrets of ancient trees and hidden wonders. The interplay of light and shadow creates an illusion of depth, allowing one to get lost in the mysterious depths of the woods. The artists skillful use of texture and depth brings the foliage and flora to life, making it feel as if you could almost step into this magical realm. Perfect for those seeking a piece that transports them to a realm of magic and wonder.',	42.0,	30.0,	1,	0,	0,	5),
+	   ('Galactic Dreamscape', 180.00,	'Transport yourself to the cosmos with the mesmerizing "Galactic Dreamscape" painting. This celestial masterpiece embodies the vastness and beauty of the universe, featuring swirling nebulae, distant stars, and a cosmic dance of colors. The play of light and dark creates a sense of depth, allowing you to peer into the depths of space. Each brushstroke is a journey through the cosmos, inviting contemplation and wonder. Perfect for stargazers and dreamers alike.',	48.0,	36.0,	1,	0,	0,	3),
+	   ('Serene Landscape', 250.00,	'Immerse yourself in the beauty of nature with the "Serene Landscape" painting. This artwork encapsulates the tranquility and harmony of a breathtaking landscape. Rolling hills, a gentle stream, and a radiant sunset are expertly captured, evoking a sense of peace and calmness. The artists use of color and texture brings the scene to life, inviting you to escape into this idyllic setting. A perfect addition to any space seeking a touch of serenity and natural beauty.',	36.0,	48.0,	1,	0,	0,	2),
+	   ('Abstract Harmony', 180.00,	'"Abstract Harmony" is a mesmerizing abstract painting that effortlessly combines colors and shapes to create a symphony for the eyes. The artists bold and expressive brushstrokes evoke a sense of movement and energy. The vibrant hues dance across the canvas, blending and contrasting in perfect harmony. This piece sparks imagination and invites viewers to find their own meaning within its abstract depths, making it a perfect addition to any contemporary art collection.',	30.0,	30.0,	1,	0,	30,	7),
+	   ('Elegant Portrait', 300.00,	'The "Elegant Portrait" is a masterpiece that brings a timeless elegance to life. It captures the essence and grace of the subject, presenting a beautiful portrait with exquisite details and lifelike features. The play of light and shadow accentuates the depth and character, making it a truly captivating piece. This artwork is a homage to the art of portraiture, appealing to those who appreciate the beauty and grace of the human form.',	40.0,	30.0,	1,	0,	50,	9),
+	   ('Contemporary Fusion'     ,280.00      ,'"Contemporary Fusion" is a dynamic piece that seamlessly blends various artistic elements. Bold, geometric shapes intertwine with vibrant splashes of color, creating a visually captivating experience. This artwork challenges traditional boundaries, provoking thought and evoking emotions. The juxtaposition of modern aesthetics and classic artistry makes it a conversation starter and a symbol of the ever-evolving nature of art.'     ,36.0      ,36.0       ,1      ,0      ,0   ,3),
+	   ('Tranquil Waters'       ,190.00       ,'"Tranquil Waters" transports you to the serene beauty of nature. This artwork captures the essence of calmness and purity through its depiction of a tranquil lake surrounded by lush greenery and majestic mountains. The play of light on the waters surface and the reflections create a soothing and harmonious atmosphere. Every brushstroke in this painting is a testament to the artists deep connection with the natural world, making it a perfect choice for those seeking a piece that brings the outdoors inside.'       ,30.0       ,40.0       ,1       ,0       ,0       ,7);
+
 
 CREATE TABLE ProductCategory(
 ProductID INT NOT NULL ,
@@ -248,17 +251,28 @@ INSERT INTO [dbo].[ObjectType]
 
 --re-insert for Image table
 INSERT INTO [dbo].[Image]
-           ([TypeID]
+			([TypeID]
            ,[ObjectID]
            ,[ImageUrl])
-     VALUES (1, 8,	'https://cdn11.bigcommerce.com/s-rh8oo/images/stencil/original/products/9284/46854/484861_640_320__36276.1631022081.jpg?c=2'),
-		    (1, 2,	'https://cdna.artstation.com/p/assets/images/images/013/078/628/large/bogdan-lisovetsky-.jpg?1537956986'),
-			(1, 1,	'https://charkoledesigns.com/cdn/shop/products/Warmth-of-Community-1000-x-800-size_c93a1768-9a3c-4dde-8296-5f8d1466ac3b_1000x.jpg?v=1570768477'),
-            (1, 3,	'https://images.squarespace-cdn.com/content/v1/5c2f7f8e2971143d628136a8/1606845407887-BH5WPLXFEK5O7AOOHJ6O/photo+5.jpg?format=1000w'),
-			(1, 4,	'https://images.squarespace-cdn.com/content/v1/5cee03f752ab760001a4764b/1674838836674-X52EF0VHHY32XBCPDBD8/iowagradient8x10sm.png?format=1000w'),
-			(1, 5,	'https://www.chartingnature.com/cdn/shop/products/Plate-32-Black-billed-Cuckoo-final.jpg?v=1535306417'),
-			(1, 6,	'https://www.chicagoskylineart.com/cdn/shop/products/abstract_art_painting_DARKER_DSCN0931.jpg?v=1648873269'),
-			(1, 7,	'https://www.evergreenartcafe.co.uk/cdn/shop/products/EnchantedLand.jpg?v=1643283516')
+     VALUES (1, 8,	'product8.jpg'),
+		    (1, 2,	'product.jpg'),
+			(1, 1,	'product2.jpg'),
+            (1, 3,	'product3.jpg'),
+			(1, 4,	'product4.jpg'),
+			(1, 5,	'product5.jpg'),
+			(1, 6,	'product6.jpg'),
+			(1, 7,	'product7.jpg'),
+			(1, 9,	'product9.jpg'),
+			(1, 10,	'product10.jpg'),
+			(1, 2,	'product_1.jpg'),
+			(1, 2,	'product_2.jpg'),
+			(1, 1,	'product2_1.jpg'),
+			(1, 1,	'product2_2.jpg'),
+			(1, 3,	'product3_1.jpg'),
+			(1, 3,	'product3_2.jpg'),
+			(1, 4,	'product4_1.jpg'),
+			(1, 4,	'product4_2.jpg'),
+			(1, 4,	'product4_3.jpg')
 
 --add data for comment table
 INSERT INTO [dbo].[Comment]
