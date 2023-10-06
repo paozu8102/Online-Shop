@@ -90,7 +90,7 @@
         </style>
         <%@include file="template/header.jsp" %>
     </head>
-    <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
+    <li class="nav-item active"><a href="home" class="nav-link">Home</a></li>
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
         <div class="dropdown-menu" aria-labelledby="dropdown04">
