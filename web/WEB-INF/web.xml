@@ -14,7 +14,11 @@
     </servlet>
     <servlet>
         <servlet-name>BlogOrPostSingleController</servlet-name>
-        <servlet-class>Controller.BlogOrPostSingleController</servlet-class>
+        <servlet-class>Controller.PostSingleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ErrorServlet</servlet-name>
+        <jsp-file>/error.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>ThanhServlet</servlet-name>
@@ -30,7 +34,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogOrPostSingleController</servlet-name>
-        <url-pattern>/BlogOrPostSingle</url-pattern>
+        <url-pattern>/PostSingle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ErrorServlet</servlet-name>
+        <url-pattern>/error</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

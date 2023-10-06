@@ -394,3 +394,4 @@ INSERT INTO [dbo].[PostCategory]
 		   (3, 8),
 		   (4, 11),
 		   (4, 9);
+--DATA UNTILL NOW IS SYNCHRONIZED

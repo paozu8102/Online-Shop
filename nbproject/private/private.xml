@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/index.jsp</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/DAO/PostAndBlogDAO.java</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/BlogOrPostSingleController.java</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/DAO/ImageDAO.java</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/DAO/ProductDAO.java</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/DAO/PostDAO.java</file>
             <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/blog-single.jsp</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/PostSingleController.java</file>
         </group>
     </open-files>
 </project-private>

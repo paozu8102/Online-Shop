@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import DAO.PostAndBlogDAO;
+import DAO.PostDAO;
 import DAO.ProductDAO;
 import DAO.UserDAO;
 import Model.Product;
@@ -37,18 +37,13 @@ public class HomeController extends HttpServlet{
     //ThanhNX
     public static void getDataForHome(HttpServletRequest req, HttpServletResponse resp){
         ProductDAO productDAO = new ProductDAO();
-        //UserDAO userDAO = new UserDAO();
         ArrayList<Product> homeProducts = productDAO.getLatestProduct();
-        //ArrayList<User> homeUsers = userDAO.getTopUser();
-        //ArrayList<String> roleOfHomeUser = userDAO.getRoleList(homeUsers);
         ArrayList<String> picOfProduct = productDAO.getOnePicPerProduct(homeProducts);
-        ArrayList<Map<String, String>> postInfoList = new PostAndBlogDAO().getTop4Posts();
+        ArrayList<Map<String, String>> postInfoList = new PostDAO().getTop4Posts();
         
         
         req.setAttribute("homeProduct", homeProducts);
         req.setAttribute("postInfoList", postInfoList);
-        //req.setAttribute("homeUsers", homeUsers);
-        //req.setAttribute("roleOfHomeUser", roleOfHomeUser);
         req.setAttribute("picOfProduct", picOfProduct);
     }
     

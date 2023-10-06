@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author Nhat Anh
  */
-public class PostAndBlogDAO extends DBContext {
+public class PostDAO extends DBContext {
 
     //get the top 4 viewed posts in DB: ThanhNX
     public ArrayList<Map<String, String>> getTop4Posts() {
@@ -64,18 +64,50 @@ public class PostAndBlogDAO extends DBContext {
         return dataList;
     }
 
+    //get post by id: ThanhNX
+    public Map<String, String> getPostInfo(String id) {
+        Map<String, String> dataMap = new HashMap<>();
+        String command = "SELECT b.BlogID, \n"
+                + "	   b.Title, \n"
+                + "	   b.Content\n"
+                + "FROM Blog b\n"
+                + "WHERE b.BlogID = ?";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(command);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                dataMap.put("BlogID", rs.getString("BlogID"));
+                dataMap.put("Title", rs.getString("Title"));
+                dataMap.put("Content", rs.getString("Content"));
+            } else {
+                return null;
+            }
 
-    //get blog or post by id: ThanhNX
-    public void checkPostOrBlogID(String id) {
-        
+        } catch (Exception e) {
+        }
+        return dataMap;
     }
 
-    
+    //add one view to a blog: ThanhNX
+    public void addViewToPost(String id) {
+        String command = "UPDATE Blog\n"
+                + "SET [View] = [View] + 1\n"
+                + "WHERE BlogID = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(command);
+            ps.setString(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 
     public static void main(String[] args) {
-        ArrayList<Map<String, String>> dataList = new PostAndBlogDAO().getTop4Posts();
+        ArrayList<Map<String, String>> dataList = new PostDAO().getTop4Posts();
         for (int i = 0; i < dataList.size(); i++) {
             System.out.println(dataList.get(i));
         }
+
+        System.out.println(new PostDAO().getPostInfo("po"));
     }
 }

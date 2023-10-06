@@ -4,7 +4,9 @@
  */
 package Controller;
 
-import DAO.PostAndBlogDAO;
+import DAO.ImageDAO;
+import DAO.PostDAO;
+import Model.Image;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +19,7 @@ import java.util.Map;
  *
  * @author Nhat Anh
  */
-public class BlogOrPostSingleController extends HttpServlet{
+public class PostSingleController extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,16 +29,22 @@ public class BlogOrPostSingleController extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getDataForBlogOrPostSinglePage(req, resp);
-        req.getRequestDispatcher("blog-single.jsp").forward(req, resp);
     }
     
-    public void getDataForBlogOrPostSinglePage(HttpServletRequest req, HttpServletResponse resp){
+    public void getDataForBlogOrPostSinglePage(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+        PostDAO blogDAO = new PostDAO();
         String id = req.getParameter("id");
-        
-        PostAndBlogDAO blogDAO = new PostAndBlogDAO();
-        //ArrayList<Map<String, String>> cateAndPicNum = blogDAO.cateAndPicNumber();
-        
-        //req.setAttribute("cateAndPicNum", cateAndPicNum);
-        
+        Map<String, String> postData = new PostDAO().getPostInfo(id);
+        if (postData.size() == 0) {
+            resp.sendRedirect(req.getContextPath()+"/error");
+        }
+        else{
+            blogDAO.addViewToPost(id);
+            ArrayList<Image> imageList = new ImageDAO().getPostImageByID(id);
+            
+            req.setAttribute("imageList", imageList);
+            req.setAttribute("post", postData);
+            req.getRequestDispatcher("blog-single.jsp").forward(req, resp);
+        }
     }
 }

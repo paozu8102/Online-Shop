@@ -28,33 +28,38 @@
 <style>
 .slider-container {
   position: relative;
-  max-width: 100%;
+  width: 100%; /* Set your desired fixed width */
+  height: 400px; /* Set your desired fixed height */
   overflow: hidden;
 }
 
 .slider {
   display: flex;
+  width: 100%;
+  height: 100%;
   transition: transform 0.5s ease-in-out;
 }
 
 .slide {
-  min-width: 100%;
+  flex: 0 0 100%;
+  height: 100%;
   overflow: hidden;
 }
 
 img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
 }
 
 .slider-nav {
-/*  position: absolute;*/
   top: 50%;
   left: 0;
   right: 0;
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
+  background-color: none;
 }
 
 .prev-btn, .next-btn {
@@ -69,35 +74,38 @@ img {
 .slide-number {
   color: black;
   font-size: 18px;
-  margin: 0 10px;
+  
 }
 </style>
     
 <script>
-        let slideIndex = 1;
-
-function showSlide(n) {
-  const slides = document.querySelectorAll('.slide');
-  const slideNumber = document.querySelector('.slide-number');
-  if (n > slides.length) slideIndex = 1;
-  if (n < 1) slideIndex = slides.length;
-
-  slides.forEach((slide) => {
-    slide.style.display = 'none';
-  });
-
-  slides[slideIndex - 1].style.display = 'block';
-  slideNumber.textContent = slideIndex;
-}
-
-function changeSlide(n) {
-  showSlide((slideIndex += n));
-}
-
-// Initialize the slider
+let slideIndex = 1;
 showSlide(slideIndex);
 
+function changeSlide(n) {
+  showSlide(slideIndex += n);
+}
+
+function showSlide(n) {
+  let slides = document.querySelectorAll(".slide");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (let i = 0; i < slides.length; i++) {
+    if (i === slideIndex - 1) {
+      slides[i].style.display = "block"; // Show the current slide
+    } else {
+      slides[i].style.display = "none"; // Hide all other slides
+    }
+  }
+  updateSlideNumber(slideIndex);
+}
+
+function updateSlideNumber(n) {
+  let slideNumber = document.querySelector(".slide-number");
+  slideNumber.textContent = n;
+}
 </script>
+
 <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -113,48 +121,35 @@ showSlide(slideIndex);
       <div class="container">
         <div class="row">
           <div class="col-lg-8 ftco-animate">
-            <h2 class="mb-3">Organic foods is good for your health</h2>
+            <h2 class="mb-3">${post.Title}</h2>
+          
+<c:if test="${fn:length(imageList) > 0}">    
 <div class="slider-container">
   <div class="slider">
-    <div class="slide">
-      <img src="images/bg_1.jpg" alt="Image 1">
-    </div>
-    <div class="slide">
-      <img src="images/bg_2.jpg" alt="Image 2">
-    </div>
-    <!-- Add more slides with images -->
-  </div>
-  <div class="slider-nav">
-    <button class="prev-btn" onclick="changeSlide(-1)">&#10094;</button>
-    <span class="slide-number">1</span>
-    <button class="next-btn" onclick="changeSlide(1)">&#10095;</button>
+      <c:forEach items="${imageList}" var="image">
+          <div class="slide">
+            <img src="${image.getImageUrl()}">
+          </div>
+      </c:forEach>
   </div>
 </div>
+<div class="slider-nav">
+    <button class="prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+    <span class="slide-number">1</span><span class="slide-number">/${fn:length(imageList)}</span>
+    <button class="next-btn" onclick="changeSlide(1)">&#10095;</button>
+</div>
+</c:if> 
 
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
-            <p>
-              <img src="images/image_1.jpg" alt="" class="img-fluid">
-            </p>
-            <p>Molestiae cupiditate inventore animi, maxime sapiente optio, illo est nemo veritatis repellat sunt doloribus nesciunt! Minima laborum magni reiciendis qui voluptate quisquam voluptatem soluta illo eum ullam incidunt rem assumenda eveniet eaque sequi deleniti tenetur dolore amet fugit perspiciatis ipsa, odit. Nesciunt dolor minima esse vero ut ea, repudiandae suscipit!</p>
-            <h2 class="mb-3 mt-5">#2. Creative WordPress Themes</h2>
-            <p>Temporibus ad error suscipit exercitationem hic molestiae totam obcaecati rerum, eius aut, in. Exercitationem atque quidem tempora maiores ex architecto voluptatum aut officia doloremque. Error dolore voluptas, omnis molestias odio dignissimos culpa ex earum nisi consequatur quos odit quasi repellat qui officiis reiciendis incidunt hic non? Debitis commodi aut, adipisci.</p>
-            <p>
-              <img src="images/image_2.jpg" alt="" class="img-fluid">
-            </p>
-            <p>Quisquam esse aliquam fuga distinctio, quidem delectus veritatis reiciendis. Nihil explicabo quod, est eos ipsum. Unde aut non tenetur tempore, nisi culpa voluptate maiores officiis quis vel ab consectetur suscipit veritatis nulla quos quia aspernatur perferendis, libero sint. Error, velit, porro. Deserunt minus, quibusdam iste enim veniam, modi rem maiores.</p>
-            <p>Odit voluptatibus, eveniet vel nihil cum ullam dolores laborum, quo velit commodi rerum eum quidem pariatur! Quia fuga iste tenetur, ipsa vel nisi in dolorum consequatur, veritatis porro explicabo soluta commodi libero voluptatem similique id quidem? Blanditiis voluptates aperiam non magni. Reprehenderit nobis odit inventore, quia laboriosam harum excepturi ea.</p>
-            <p>Adipisci vero culpa, eius nobis soluta. Dolore, maxime ullam ipsam quidem, dolor distinctio similique asperiores voluptas enim, exercitationem ratione aut adipisci modi quod quibusdam iusto, voluptates beatae iure nemo itaque laborum. Consequuntur et pariatur totam fuga eligendi vero dolorum provident. Voluptatibus, veritatis. Beatae numquam nam ab voluptatibus culpa, tenetur recusandae!</p>
-            <p>Voluptas dolores dignissimos dolorum temporibus, autem aliquam ducimus at officia adipisci quasi nemo a perspiciatis provident magni laboriosam repudiandae iure iusto commodi debitis est blanditiis alias laborum sint dolore. Dolores, iure, reprehenderit. Error provident, pariatur cupiditate soluta doloremque aut ratione. Harum voluptates mollitia illo minus praesentium, rerum ipsa debitis, inventore?</p>
-            <div class="tag-widget post-tag-container mb-5 mt-5">
+<!--            <div class="tag-widget post-tag-container mb-5 mt-5">
               <div class="tagcloud">
                 <a href="#" class="tag-cloud-link">Life</a>
                 <a href="#" class="tag-cloud-link">Sport</a>
                 <a href="#" class="tag-cloud-link">Tech</a>
                 <a href="#" class="tag-cloud-link">Travel</a>
               </div>
-            </div>
-            
+            </div>-->
+            <p style="font-size: 30px; color: black">${post.Content}</p>
+            <hr>
             <div class="about-author d-flex p-4 bg-light">
               <div class="bio align-self-md-center mr-4">
                 <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
