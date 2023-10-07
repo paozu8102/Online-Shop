@@ -32,8 +32,8 @@ VALUES
     (3, 'Pastel Painting', 1, 'Pastel painting is a captivating and expressive medium in the world of visual arts. It involves using soft pastels, which are sticks made of pure pigment held together with a minimal amount of binder, to create artworks on various surfaces like paper, cardboard, or specially designed pastel paper.'),
     (4, 'Lacquer Painting', 1 , 'Lacquer painting is a traditional and intricate art form that involves the use of lacquer, a natural resin obtained from the sap of certain trees, to create highly detailed and decorative artworks'),
 	(5, 'Silk painting', 1, 'Silk painting is a unique and exquisite form of art that involves using silk fabric as a canvas and applying dyes or paints to create colorful and intricate designs. This art form is known for its vibrant colors, flowing lines, and the shimmering quality of silk that adds an extra dimension to the artwork'),
-	(6, 'Puzzle painting', 1, 'Puzzle painting, also known as jigsaw puzzle painting, is a creative and innovative art form that combines traditional painting techniques with the interactivity of jigsaw puzzles. In puzzle paintings, an artwork is painted on multiple wooden or cardboard pieces, each of which is a small section of the larger picture.');
-SET IDENTITY_INSERT Category OFF;
+	(6, 'Acrylic painting', 1, 'Puzzle painting, also known as jigsaw puzzle painting, is a creative and innovative art form that combines traditional painting techniques with the interactivity of jigsaw puzzles. In puzzle paintings, an artwork is painted on multiple wooden or cardboard pieces, each of which is a small section of the larger picture.');
+	SET IDENTITY_INSERT [Category] OFF;
 CREATE TABLE Account(
 
 Email VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -123,8 +123,34 @@ VALUES ('Beautiful Painting', 100.00,	'A stunning painting that brings freshness
 	   ('Abstract Harmony', 180.00,	'"Abstract Harmony" is a mesmerizing abstract painting that effortlessly combines colors and shapes to create a symphony for the eyes. The artists bold and expressive brushstrokes evoke a sense of movement and energy. The vibrant hues dance across the canvas, blending and contrasting in perfect harmony. This piece sparks imagination and invites viewers to find their own meaning within its abstract depths, making it a perfect addition to any contemporary art collection.',	30.0,	30.0,	1,	0,	30,	7),
 	   ('Elegant Portrait', 300.00,	'The "Elegant Portrait" is a masterpiece that brings a timeless elegance to life. It captures the essence and grace of the subject, presenting a beautiful portrait with exquisite details and lifelike features. The play of light and shadow accentuates the depth and character, making it a truly captivating piece. This artwork is a homage to the art of portraiture, appealing to those who appreciate the beauty and grace of the human form.',	40.0,	30.0,	1,	0,	50,	9),
 	   ('Contemporary Fusion'     ,280.00      ,'"Contemporary Fusion" is a dynamic piece that seamlessly blends various artistic elements. Bold, geometric shapes intertwine with vibrant splashes of color, creating a visually captivating experience. This artwork challenges traditional boundaries, provoking thought and evoking emotions. The juxtaposition of modern aesthetics and classic artistry makes it a conversation starter and a symbol of the ever-evolving nature of art.'     ,36.0      ,36.0       ,1      ,0      ,0   ,3),
-	   ('Tranquil Waters'       ,190.00       ,'"Tranquil Waters" transports you to the serene beauty of nature. This artwork captures the essence of calmness and purity through its depiction of a tranquil lake surrounded by lush greenery and majestic mountains. The play of light on the waters surface and the reflections create a soothing and harmonious atmosphere. Every brushstroke in this painting is a testament to the artists deep connection with the natural world, making it a perfect choice for those seeking a piece that brings the outdoors inside.'       ,30.0       ,40.0       ,1       ,0       ,0       ,7);
+	   ('Tranquil Waters'       ,190.00       ,'"Tranquil Waters" transports you to the serene beauty of nature. This artwork captures the essence of calmness and purity through its depiction of a tranquil lake surrounded by lush greenery and majestic mountains. The play of light on the waters surface and the reflections create a soothing and harmonious atmosphere. Every brushstroke in this painting is a testament to the artists deep connection with the natural world, making it a perfect choice for those seeking a piece that brings the outdoors inside.'       ,30.0       ,40.0       ,1       ,0       ,0       ,7),
+	   ('Red Sunset', 292.00,	'Painting is an art form of painting on a surface by aesthetically applying colored fluids. Painters represent a very personal expression on supports such as paper, rock, canvas, wood, bark, glass, concrete and many other substrates. Work of representation or invention, painting can be naturalistic and figurative, or abstract. It can have narrative, descriptive, symbolic, spiritual, or philosophical content.',	30,	20,	1,	0,	0,	2),
+	   ('INFINITÉ', 132.00,	'A little composition game around the golden ratio and the Fibonacci sequence, and the opportunity to test pastel painting on tissue paper.',	29,	21,	1,	0,	0,	2),
+	   ('Ocean Sunset', 499.00,	'A vibrant sunset painting with pastels to brighten up any décor!',	24,	18,	1,	0,	0,	2),
+	   ('Still life Pastel Print', 123.00,	'Original pastel painting on paper. Best choice for your interior. This art work brings luck to its owner.',	30,	20,	1,	0,	0,	2),
+	   ('COLONIAL style HOUSE', 254.00,	'the size of the sheet with fields for Passepartout: 32 x 24 cm. The size of the drawing itself: approx. 27 x 20 cm',	32,	24,	1,	0,	0,	3),
+	    ('Peaceful Street',150.00,	'A "Peaceful Street" painting captures a serene and tranquil urban or suburban scene, inviting viewers into a world of calm and harmony.',	47,	31,	1,	0,	0,	7),
+		('Summer Noon', 150.00,	'A "Summer Noon" painting captures the essence of a bright and vibrant midday scene during the summer season.',	47,	31,	1,	0,	0,	7),
+		('Spring Sunlight', 160.00,	'A "Spring Sunlight" painting captures the enchanting and rejuvenating qualities of sunlight in the early days of the spring season.',	47,	31,	1,	0,	0,	7),
+		('Camellia', 67.00,	'"Camellia" is a captivating artwork that captures the essence of beauty, delicacy, and grace. The painting focal point is a stunning camellia flower, rendered with meticulous detail at the center of the canvas. The camellia petals are a rich, velvety shade of pink, their soft curves and layers depicted with great precision.',	19,	19,	1,	0,	0,	2),
+        ('Lotus Lady VIII', 170.00,	'"Lotus Lady VIII" is a captivating and symbolic artwork that features a woman in a serene and contemplative pose amidst a backdrop of lotus flowers.',	29,	37,	1,	0,	0,	3),
+		 ('Lotus Lady VI', 170.00,	'"Lotus Lady VI" is a captivating and symbolic artwork that features a woman in a serene and contemplative pose amidst a backdrop of lotus flowers.',	29,	37,	1,	0,	0,	9),
+		 ('Lotus Lady IV', 170.00,	'"Lotus Lady IV" is a captivating and symbolic artwork that features a woman in a serene and contemplative pose amidst a backdrop of lotus flowers.',	29,	37,	1,	0,	0,	9),
+		 ('Fairy Tail II', 170.00,	'If "Fairy Tail II" is a painting featuring a girl showering, it would typically fall under the category of figurative or contemporary art. The artist approach to the subject matter would greatly influence the style and tone of the painting, whether it focuses on realism, abstraction, symbolism, or other artistic techniques.',	24,	31,	1,	0,	0,	9),
+		 ('The Faces', 67.00,	'"The Faces" is a series of captivating abstract artworks that explore the human face as a source of inspiration and expression. In each piece, the artist deconstructs and reimagines facial features in a unique and non-traditional manner, pushing the boundaries of conventional representation.',	43,	39,	1,	0,	0,	9),
+		  ('Abstract 10', 97.00,	'"Abstract 10" is a captivating abstract artwork that engages viewers with its expressive use of color, shape, and form. The artist employs a bold and dynamic approach, creating a composition that is both visually stimulating and emotionally evocative.',	49,	31,	1,	0,	0,	9);
 
+		  --create objecttype table
+CREATE TABLE ObjectType(
+	TypeID INT PRIMARY KEY IDENTITY,
+	TypeName VARCHAR(30)
+);
+--insert to objecttype table
+INSERT INTO [dbo].[ObjectType]
+           ([TypeName])
+     VALUES ('Product Material'),
+		    ('Post'),
+			('Product Topic')
 
 CREATE TABLE ProductCategory(
 ProductID INT NOT NULL ,
@@ -133,29 +159,27 @@ PRIMARY KEY (ProductID, CategoryID),
 FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
 FOREIGN KEY (CategoryID) REFERENCES  [Category](CategoryID)
 )
-CREATE TABLE [Type](
-TypeID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-TypeName VARCHAR(50) NOT NULL,
-Status BIT NOT NULL,
-Description VARCHAR(Max) NOT NULL
-)
-SET IDENTITY_INSERT [Type] ON;
-INSERT INTO Type (TypeID, TypeName, Status, Description)
+--add column for category table
+ALTER TABLE Category
+ADD ObjectTypeID INT;
+ALTER TABLE Category 
+ADD CONSTRAINT Fk_Category_ObjectType_ObjectTypeID
+FOREIGN KEY (ObjectTypeID) REFERENCES ObjectType(TypeID);
+SET IDENTITY_INSERT [Category] ON;
+--update data for category table
+UPDATE Category
+SET ObjectTypeID = 1;
+SET IDENTITY_INSERT [Category] OFF;
+INSERT INTO Category(CategoryName, Status, Description,ObjectTypeID )
 VALUES
-    (1, 'Landscape Painting', 1, 'Landscape painting is a timeless and beloved genre of visual art that focuses on depicting natural scenery, often showcasing the beauty and grandeur of the natural world'),
-    (2, 'Still Life Painting', 1, 'Still life painting is a genre of visual art that focuses on depicting inanimate objects, typically arranged in a composed and deliberate manner'),
-	(3, 'Portrait Painting', 1, 'Portrait painting is a revered genre of visual art that focuses on the depiction of a person or a group of people, capturing their likeness, personality, and often their emotions'),
-	(4, 'Political Painting', 1, 'Political painting is a genre of visual art that addresses political themes, issues, and commentary through the use of visual imagery and symbolism'),
-	(5, 'Humorous Painting', 1, 'Humorous painting is a delightful genre of visual art that aims to evoke laughter, amusement, or a sense of lightheartedness in viewers through clever and comical imagery'),
-	(6, 'Abstract Painting', 1, 'Abstract painting is a dynamic and expressive genre of visual art that emphasizes the use of shapes, colors, lines, and forms to convey emotions, ideas, and concepts, rather than a direct representation of recognizable objects or scenes');
-	SET IDENTITY_INSERT [Type] OFF;
-CREATE TABLE ProductType(
-ProductID INT NOT NULL ,
-TypeID INT NOT NULL,
-PRIMARY KEY (ProductID, TypeID),
-FOREIGN KEY (ProductID) REFERENCES  [Product](ProductID),
-FOREIGN KEY (TypeID) REFERENCES  [Type](TypeID)
-)
+    ('Landscape Painting', 1, 'Landscape painting is a timeless and beloved genre of visual art that focuses on depicting natural scenery, often showcasing the beauty and grandeur of the natural world', 3),
+    ('Still Life Painting', 1, 'Still life painting is a genre of visual art that focuses on depicting inanimate objects, typically arranged in a composed and deliberate manner', 3),
+	('Portrait Painting', 1, 'Portrait painting is a revered genre of visual art that focuses on the depiction of a person or a group of people, capturing their likeness, personality, and often their emotions', 3),
+	('Political Painting', 1, 'Political painting is a genre of visual art that addresses political themes, issues, and commentary through the use of visual imagery and symbolism', 3),
+	('Humorous Painting', 1, 'Humorous painting is a delightful genre of visual art that aims to evoke laughter, amusement, or a sense of lightheartedness in viewers through clever and comical imagery', 3),
+	('Abstract Painting', 1, 'Abstract painting is a dynamic and expressive genre of visual art that emphasizes the use of shapes, colors, lines, and forms to convey emotions, ideas, and concepts, rather than a direct representation of recognizable objects or scenes', 3);
+	SET IDENTITY_INSERT [Category] OFF;
+
 CREATE TABLE ProductImage(
 ProductID INT NOT NULL,
 ImageUrl VARCHAR(255) UNIQUE,
@@ -214,11 +238,7 @@ CREATE TABLE Comment(
 	CommentDate DATETIME
 );
 
---create objecttype table
-CREATE TABLE ObjectType(
-	TypeID INT PRIMARY KEY IDENTITY,
-	TypeName VARCHAR(30)
-);
+
 
 --delete table product comment
 DROP TABLE ProductComment;
@@ -243,36 +263,115 @@ CREATE TABLE [Image](
 	ImageUrl VARCHAR(MAX)
 );
 
---insert to objecttype table
-INSERT INTO [dbo].[ObjectType]
-           ([TypeName])
-     VALUES ('Product'),
-		    ('Post')
+
 
 --re-insert for Image table
 INSERT INTO [dbo].[Image]
 			([TypeID]
            ,[ObjectID]
            ,[ImageUrl])
-     VALUES (1, 8,	'product8.jpg'),
-		    (1, 2,	'product.jpg'),
-			(1, 1,	'product2.jpg'),
+     VALUES 
+			(1, 1,	'product.jpg'),
+			(1, 1,	'product_1.jpg'),
+			(1, 1,	'product_2.jpg'),
+			(1, 2,	'product2.jpg'),
+			(1, 2,	'product2_1.jpg'),
+			(1, 2,	'product2_2.jpg'),
             (1, 3,	'product3.jpg'),
-			(1, 4,	'product4.jpg'),
-			(1, 5,	'product5.jpg'),
-			(1, 6,	'product6.jpg'),
-			(1, 7,	'product7.jpg'),
-			(1, 9,	'product9.jpg'),
-			(1, 10,	'product10.jpg'),
-			(1, 2,	'product_1.jpg'),
-			(1, 2,	'product_2.jpg'),
-			(1, 1,	'product2_1.jpg'),
-			(1, 1,	'product2_2.jpg'),
 			(1, 3,	'product3_1.jpg'),
 			(1, 3,	'product3_2.jpg'),
+			(1, 4,	'product4.jpg'),
 			(1, 4,	'product4_1.jpg'),
 			(1, 4,	'product4_2.jpg'),
-			(1, 4,	'product4_3.jpg')
+			(1, 4,	'product4_3.jpg'),
+			(1, 5,	'product5.jpg'),
+			(1, 5,	'product5_1.jpg'),
+			(1, 5,	'product5_2.jpg'),
+			(1, 5,	'product5_3.jpg'),
+			(1, 6,	'product6.jpg'),
+			(1, 6,	'product6_1.jpg'),
+			(1, 6,	'product6_2.jpg'),
+			(1, 6,	'product6_3.jpg'),
+			(1, 7,	'product7.jpg'),
+			(1, 7,	'product7_1.jpg'),
+			(1, 7,	'product7_2.jpg'),
+			(1, 7,	'product7_3.jpg'),
+			(1, 8,	'product8.jpg'),
+			(1, 8,	'product8_1.jpg'),
+			(1, 8,	'product8_2.jpg'),
+			(1, 8,	'product8_3.jpg'),
+			(1, 9,	'product9.jpg'),
+			(1, 9,	'product9_1.jpg'),
+			(1, 9,	'product9_2.jpg'),
+			(1, 9,	'product9_3.jpg'),
+			(1, 10,	'product10.jpg'),
+			(1, 10,	'product10_1.jpg'),
+			(1, 10,	'product10_2.jpg'),
+			(1, 10,	'product10_3.jpg'),
+			(1, 11,	'product11.jpg'),
+			(1, 11,	'product11_1.jpg'),
+			(1, 11,	'product11_2.jpg'),
+			(1, 11,	'product11_3.jpg'),
+			(1, 12,	'product12.jpg'),
+			(1, 12,	'product12_1.jpg'),
+			(1, 12,	'product12_2.jpg'),
+			(1, 12,	'product12_3.jpg'),
+			(1, 13,	'product13.jpg'),
+			(1, 13,	'product13_1.jpg'),
+			(1, 13,	'product13_2.jpg'),
+			(1, 13,	'product13_3.jpg'),
+			(1, 14,	'product14.jpg'),
+			(1, 14,	'product14_1.jpg'),
+			(1, 14,	'product14_2.jpg'),
+			(1, 14,	'product14_3.jpg'),
+			(1, 15,	'product15.jpg'),
+			(1, 15,	'product15_1.jpg'),
+			(1, 15,	'product15_2.jpg'),
+			(1, 15,	'product15_3.jpg'),
+			(1, 16,	'product16.jpg'),
+			(1, 16,	'product16_1.jpg'),
+			(1, 16,	'product16_2.jpg'),
+			(1, 16,	'product16_3.jpg'),
+			(1, 17,	'product17.jpg'),
+			(1, 17,	'product17_1.jpg'),
+			(1, 17,	'product17_2.jpg'),
+			(1, 17,	'product17_3.jpg'),
+			(1, 18,	'product18.jpg'),
+			(1, 18,	'product18_1.jpg'),
+			(1, 18,	'product18_2.jpg'),
+			(1, 18,	'product18_3.jpg'),
+			(1, 19,	'product19.jpg'),
+			(1, 19,	'product19_1.jpg'),
+			(1, 19,	'product19_2.jpg'),
+			(1, 19,	'product19_3.jpg'),
+			(1, 20,	'product20.jpg'),
+			(1, 20,	'product20_1.jpg'),
+			(1, 20,	'product20_2.jpg'),
+			(1, 20,	'product20_3.jpg'),
+			(1, 21,	'product21.jpg'),
+			(1, 21,	'product21_1.jpg'),
+			(1, 21,	'product21_2.jpg'),
+			(1, 21,	'product21_3.jpg'),
+			(1, 22,	'product22.jpg'),
+			(1, 22,	'product22_1.jpg'),
+			(1, 22,	'product22_2.jpg'),
+			(1, 22,	'product22_3.jpg'),
+			(1, 23,	'product23.jpg'),
+			(1, 23,	'product23_1.jpg'),
+			(1, 23,	'product23_2.jpg'),
+			(1, 23,	'product23_3.jpg'),
+			(1, 24,	'product24.jpg'),
+			(1, 24,	'product24_1.jpg'),
+			(1, 24,	'product24_2.jpg'),
+			(1, 24,	'product24_3.jpg'),
+			(1, 25,	'product25.jpg'),
+			(1, 25,	'product25_1.jpg'),
+			(1, 25,	'product25_2.jpg'),
+			(1, 25,	'product25_3.jpg')
+			
+			
+			
+			
 
 --add data for comment table
 INSERT INTO [dbo].[Comment]
@@ -355,29 +454,72 @@ VALUES (2, 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Li
 INSERT INTO [dbo].[ProductCategory]
            ([ProductID]
            ,[CategoryID])
-VALUES (1, 1),
+VALUES (1, 2),
+	   (1, 7),
 	   (2, 2),
-	   (3, 3),
-	   (4, 4),
-	   (5, 5),
-	   (6, 6),
+	   (2, 7),
+	   (3, 6),
+	   (3, 2),
+	   (3, 12),
+	   (3, 11),
+	   (4, 6),
+	   (4, 7),
+	   (5, 6),
+	    (5, 2),
+	   (5, 7),
+	   (6, 2),
+	   (6, 7),
 	   (7, 1),
-	   (8, 2),
-	   (1, 2),
-	   (3, 5),
-	   (6, 1);
+	   (7, 2),
+	   (7, 12),
+	   (8, 6),
+	   (8, 9),
+	   (9, 2),
+	    (9, 11),
+	   (10, 3),
+	   (10, 1),
+	   (10, 7),
+	   (11, 1),
+	   (11, 3),
+	   (11, 7),
+	   (12, 1),
+	   (12, 3),
+	   (12, 12),
+	    (13, 1),
+	   (13, 3),
+	   (13, 7),
+	   (14, 3),
+	   (14, 8),
+	   (15, 3),
+	   (15, 2),
+	   (15, 8),
+	   (16, 4),
+	   (16, 7),
+	    (17, 4),
+	   (17, 7),
+	   (18, 4),
+	   (18, 7),
+	   (19, 4),
+	   (19, 9),
+	   (20, 5),
+	   (20, 9),
+	   (21, 5),
+	   (21, 9),
+	    (22, 5),
+	   (22, 9),
+	   (23, 5),
+	   (23, 9),
+	   (24, 6),
+	   (24, 11),
+	   (24, 12),
+	   (25, 1),
+	   (25, 12);
+	   
 
 --NEW VERSION
---add column for category table
-ALTER TABLE Category
-ADD ObjectTypeID INT;
-ALTER TABLE Category 
-ADD CONSTRAINT Fk_Category_ObjectType_ObjectTypeID
-FOREIGN KEY (ObjectTypeID) REFERENCES ObjectType(TypeID);
 
---update data for category table
-UPDATE Category
-SET ObjectTypeID = 1;
+
+
 
 
 
