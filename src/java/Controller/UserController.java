@@ -8,6 +8,7 @@ package Controller;
 import Model.Role;
 
 import DAO.UserDAO;
+import Model.Account;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,6 +37,11 @@ public class UserController extends HttpServlet {
    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         HttpSession session = request.getSession();
+        Account a = (Account) session.getAttribute("acc");
+        if (a.getRoleID() != 1) {
+    return;
+}
         String indexPage = request.getParameter("index");
          if(indexPage == null){
                       indexPage = "1";
@@ -52,14 +58,14 @@ public class UserController extends HttpServlet {
        
         List<User> listU = c.getAllUser(index);
         request.setAttribute("listU", listU);
-        
-        HttpSession session = request.getSession();
+        List<Role> listR = c.getRole();
+        request.setAttribute("listR", listR);
+     
         Boolean emailExists = (Boolean) session.getAttribute("emailExists");
        
                     request.setAttribute("endP", endPage);
                      request.setAttribute("tag", indexPage);
-                      List<Role> listR = c.getRole();
-        request.setAttribute("listR", listR);
+                      
         request.getRequestDispatcher("user-management.jsp").forward(request, response);
         
         

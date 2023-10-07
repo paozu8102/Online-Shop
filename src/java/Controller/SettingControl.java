@@ -7,6 +7,7 @@ package Controller;
 
 
 import DAO.UserDAO;
+import Model.Account;
 import Model.Setting;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -36,6 +38,12 @@ public class SettingControl extends HttpServlet {
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        Account a = (Account) session.getAttribute("acc");
+        if (a.getRoleID() != 1) {
+    return;
+}
+
         String indexPage = request.getParameter("index");
         if (indexPage == null) {
             indexPage = "1";
@@ -93,6 +101,8 @@ if ("all".equals(settingtype) || "all".equals(settingstatus)) {
     listC = c.getAllSettingTyp();
 } else if ("category".equals(settingtype)) {
     listC = c.getAllSettingCat();
+} else if("post".equals(settingtype)){
+    listC = c.getAllSettingPost();
 } else if ("active".equals(settingstatus)) {
     listC = c.getSettingActive();
 } else if ("inactive".equals(settingstatus)) {
