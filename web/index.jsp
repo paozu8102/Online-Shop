@@ -251,7 +251,7 @@
                 <c:forEach items="${homeProduct}" var="product" varStatus="loop">
                     <div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-                                    <a href="#" class="img-prod"><img class="img-fluid" src="${picOfProduct[loop.index]}" alt="Yeallow Girl">
+                                    <a href="#" class="img-prod"><img class="img-fluid" src="images/${picOfProduct[loop.index]}" alt="Yeallow Girl">
     						<c:if test="${homeProduct[loop.index].getDiscount() > 0}">
                                                     <span class="status">${homeProduct[loop.index].getDiscount()}%</span>
                                                 </c:if>

@@ -61,17 +61,15 @@ public class ChangeSettingStatus extends HttpServlet {
     throws ServletException, IOException {
 int currentStatus = Integer.parseInt(request.getParameter("status"));
     int id = Integer.parseInt(request.getParameter("id"));
-String settingtype = request.getParameter("settingtype");
+
 
     // Kiểm tra và xử lý dữ liệu
       int newStatus = (currentStatus == 0) ? 1 : 0;
         // Gọi phương thức xử lý dữ liệu
           UserDAO dao = new UserDAO();
-          if(settingtype.equals("Product Category")){
+      
         dao.ChangeSettingStatusCat(id, newStatus);
-          } else if(settingtype.equals("Product Type")){
-              dao.ChangeSettingStatusTyp(id, newStatus);
-          }
+         
         // Chuyển hướng trang sau khi xử lý
         response.sendRedirect("settingcontrol");
   

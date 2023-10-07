@@ -71,11 +71,9 @@ public class EditSettingController extends HttpServlet {
             status= 1;
         } else status =0;
         UserDAO dao = new UserDAO();
-         if(settingtype.equals("Product Type")){
-        dao.EditSettingTyp(id ,status, description);
-        }else{
+
              dao.EditSettingCat(id ,status, description);
-         }
+         
              
          response.sendRedirect("settingcontrol");
     }
