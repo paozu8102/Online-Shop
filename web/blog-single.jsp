@@ -121,7 +121,7 @@ function updateSlideNumber(n) {
       <div class="container">
         <div class="row">
           <div class="col-lg-8 ftco-animate">
-            <h2 class="mb-3">${post.Title}</h2>
+              <h2 class="mb-3" style="font-weight: bold">${post.Title}</h2>
           
 <c:if test="${fn:length(imageList) > 0}">    
 <div class="slider-container">
