@@ -111,12 +111,16 @@
         const confirmPassword = document.getElementById('form3Example3c').value;
 
         // Check if the password has at least 8 characters
-        if (newPassword.length < 8) {
+        if (newPassword.length < 8 {
             // Display an error message in the modal
             displayNotification('Password must have at least 8 characters.');
             return;
         }
-
+if (newPassword.trim() === "") {
+    // Display an error message
+    displayNotification('Password must not all be spaces.');
+    return;
+}
         // Check if the new password matches the confirm password
         if (newPassword !== confirmPassword) {
             // Display an error message in the modal
@@ -163,7 +167,6 @@
         window.location.href = 'login.jsp';
     }
 </script>
-
 
     <!-- jQuery và Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
