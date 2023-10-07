@@ -63,7 +63,8 @@
 							<div class="form-group form-button">
 								<input type="submit" name="signup" id="signup"
 									class="form-submit" value="Register" />
-                                                                <span><a href="login.jsp">Have an account ?</a></span>
+                                                                <span><a href="signupWithEmail.jsp">You're an user?</a></span>
+                                                                <span><a href="login.jsp">Login</a></span>
 							</div>
 						</form>
 					</div>
