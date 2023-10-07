@@ -5,6 +5,7 @@
 package DAO;
 
 import DBcontext.DBContext;
+import Model.Comment;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -21,27 +22,27 @@ public class PostDAO extends DBContext {
     public ArrayList<Map<String, String>> getTop4Posts() {
         ArrayList<Map<String, String>> dataList = new ArrayList<>();
         String command = "SELECT TOP 4\n"
-                + "    b.BlogID,\n"
-                + "    b.Title,\n"
-                + "    CONVERT(varchar, b.[Date], 103) + ' ' + CONVERT(varchar, b.[Date], 108) AS DateTime,\n"
-                + "    CONCAT(SUBSTRING(b.Content, 1, 100), '...') AS Content,\n"
-                + "    i.ImageUrl,\n"
-                + "    u.UserName,\n"
-                + "    (\n"
-                + "        SELECT COUNT(*)\n"
-                + "        FROM Comment AS c\n"
-                + "        WHERE c.TypeID = 2\n"
-                + "        AND c.ObjectID = b.BlogID\n"
-                + "    ) AS CommentNumber\n"
-                + "FROM Blog AS b\n"
+                + "b.PostID,\n"
+                + "b.Title,\n"
+                + "CONVERT(varchar, b.[Date], 103) + ' ' + CONVERT(varchar, b.[Date], 108) AS DateTime,\n"
+                + " CONCAT(SUBSTRING(b.Content, 1, 100), '...') AS Content,\n"
+                + "i.ImageUrl,\n"
+                + "u.UserName,\n"
+                + "(\n"
+                + "SELECT COUNT(*)\n"
+                + "FROM Comment AS c\n"
+                + "WHERE c.TypeID = 2\n"
+                + "AND c.ObjectID = b.PostID\n"
+                + ") AS CommentNumber\n"
+                + "FROM Post AS b\n"
                 + "LEFT JOIN\n"
-                + "    (\n"
-                + "        SELECT ObjectID, MIN(ImageUrl) AS ImageUrl\n"
-                + "        FROM [Image]\n"
-                + "        GROUP BY ObjectID, TypeID\n"
-                + "        HAVING TypeID = 2\n"
-                + "    ) AS i\n"
-                + "ON b.BlogID = i.ObjectID\n"
+                + "(\n"
+                + "SELECT ObjectID, MIN(ImageUrl) AS ImageUrl\n"
+                + "FROM [Image]\n"
+                + "GROUP BY ObjectID, TypeID\n"
+                + "HAVING TypeID = 2\n"
+                + ") AS i\n"
+                + "ON b.PostID = i.ObjectID\n"
                 + "JOIN [User] AS u\n"
                 + "ON u.UserID = b.UserID\n"
                 + "ORDER BY [View] DESC;";
@@ -50,7 +51,7 @@ public class PostDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Map<String, String> dataMap = new HashMap<>();
-                dataMap.put("BlogID", rs.getString("BlogID"));
+                dataMap.put("BlogID", rs.getString("PostID"));
                 dataMap.put("Title", rs.getString("Title"));
                 dataMap.put("DateTime", rs.getString("DateTime"));
                 dataMap.put("Content", rs.getString("Content"));
@@ -67,17 +68,17 @@ public class PostDAO extends DBContext {
     //get post by id: ThanhNX
     public Map<String, String> getPostInfo(String id) {
         Map<String, String> dataMap = new HashMap<>();
-        String command = "SELECT b.BlogID, \n"
+        String command = "SELECT b.PostID, \n"
                 + "	   b.Title, \n"
                 + "	   b.Content\n"
-                + "FROM Blog b\n"
-                + "WHERE b.BlogID = ?";
+                + "FROM Post b\n"
+                + "WHERE b.PostID = ?";
         try {
             PreparedStatement st = getConnection().prepareStatement(command);
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                dataMap.put("BlogID", rs.getString("BlogID"));
+                dataMap.put("BlogID", rs.getString("PostID"));
                 dataMap.put("Title", rs.getString("Title"));
                 dataMap.put("Content", rs.getString("Content"));
             } else {
@@ -91,9 +92,9 @@ public class PostDAO extends DBContext {
 
     //add one view to a blog: ThanhNX
     public void addViewToPost(String id) {
-        String command = "UPDATE Blog\n"
+        String command = "UPDATE Post\n"
                 + "SET [View] = [View] + 1\n"
-                + "WHERE BlogID = ?";
+                + "WHERE PostID = ?";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
             ps.setString(1, id);
@@ -102,12 +103,109 @@ public class PostDAO extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        ArrayList<Map<String, String>> dataList = new PostDAO().getTop4Posts();
-        for (int i = 0; i < dataList.size(); i++) {
-            System.out.println(dataList.get(i));
+    //get number comment of a post: ThanhNX
+    public int getCommentNumberByPostID(String id) {
+        int CommentNumber = 0;
+        String command = "SELECT COUNT(*) CommentNumber\n"
+                + "FROM Comment c JOIN Post p\n"
+                + "ON c.ObjectID = p.PostID\n"
+                + "JOIN ObjectType o\n"
+                + "ON o.TypeID = c.TypeID\n"
+                + "WHERE o.TypeName = 'Post' AND p.PostID = ?;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(command);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                CommentNumber = rs.getInt("CommentNumber");
+            }
+        } catch (Exception e) {
         }
+        return CommentNumber;
+    }
 
-        System.out.println(new PostDAO().getPostInfo("po"));
+    public ArrayList<Comment> getAllRootCommentByPostID(String id) {
+        ArrayList<Comment> rootCommentList = new ArrayList<>();
+        String command = "SELECT u.UserID,\n"
+                + "	   u.Avatar,\n"
+                + "	   u.UserName,\n"
+                + "	   c.CommentID,\n"
+                + "	   CONVERT(varchar, c.CommentDate, 103) + ' ' + CONVERT(varchar, c.CommentDate, 108) CommentDate,\n"
+                + "	   c.CommentContent\n"
+                + "FROM Comment c JOIN [User] u\n"
+                + "ON c.UserID = u.UserID\n"
+                + "JOIN ObjectType o\n"
+                + "ON c.TypeID = o.TypeID\n"
+                + "WHERE c.CommentRepID IS NULL \n"
+                + "	  AND o.TypeName = 'Post'\n"
+                + "	  AND c.ObjectID = ?\n"
+                + "ORDER BY c.CommentDate";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(command);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Comment comment = new Comment();
+                comment.setUserID(rs.getInt("UserID"));
+                comment.setAvatar(rs.getString("Avatar"));
+                comment.setUserName(rs.getString("UserName"));
+                comment.setCommentID(rs.getInt("CommentID"));
+                comment.setCommentDate(rs.getString("CommentDate"));
+                comment.setCommentContent(rs.getString("CommentContent"));
+                rootCommentList.add(comment);
+            }
+        } catch (Exception e) {
+        }
+        return rootCommentList;
+    }
+
+    //get all replied comment by a list of root comment: ThanhNX
+    public ArrayList<ArrayList<Comment>> getAllRepComment(ArrayList<Comment> rootCommentList) {
+        ArrayList<ArrayList<Comment>> repCommentList = new ArrayList<>();
+        String command = "SELECT u.UserID,\n"
+                + "	   u.Avatar,\n"
+                + "	   u.UserName,\n"
+                + "	   c.CommentID,\n"
+                + "	   CONVERT(varchar, c.CommentDate, 103) + ' ' + CONVERT(varchar, c.CommentDate, 108) CommentDate,\n"
+                + "	   c.CommentContent\n"
+                + "FROM Comment c JOIN [User] u\n"
+                + "ON c.UserID = u.UserID\n"
+                + "JOIN ObjectType o\n"
+                + "ON c.TypeID = o.TypeID\n"
+                + "WHERE c.CommentRepID = ?\n"
+                + "	  AND o.TypeName = 'Post'\n"
+                + "ORDER BY c.CommentDate";
+        for (int i = 0; i < rootCommentList.size(); i++) {
+            try {
+                ArrayList<Comment> repComments = new ArrayList<>();
+                PreparedStatement st = getConnection().prepareStatement(command);
+                st.setString(1, String.valueOf(rootCommentList.get(i).getCommentID()));
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    Comment comment = new Comment();
+                    comment.setUserID(rs.getInt("UserID"));
+                    comment.setAvatar(rs.getString("Avatar"));
+                    comment.setUserName(rs.getString("UserName"));
+                    comment.setCommentID(rs.getInt("CommentID"));
+                    comment.setCommentDate(rs.getString("CommentDate"));
+                    comment.setCommentContent(rs.getString("CommentContent"));
+                    repComments.add(comment);
+                }
+                repCommentList.add(repComments);
+            } catch (Exception e) {
+            }
+        }
+        return repCommentList;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Comment> dataList = new PostDAO().getAllRootCommentByPostID("1");
+        for (int i = 0; i < dataList.size(); i++) {
+            System.out.println(dataList.get(i).toString());
+        }
+        ArrayList<ArrayList<Comment>> repcomment = new PostDAO().getAllRepComment(dataList);
+        for (int i = 0; i < repcomment.size(); i++) {
+            System.out.println(repcomment.get(i).size());
+        }
     }
 }

@@ -110,8 +110,8 @@ function updateSlideNumber(n) {
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Blog</span></p>
-            <h1 class="mb-0 bread">Blog</h1>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Post</span></p>
+            <h1 class="mb-0 bread">Post</h1>
           </div>
         </div>
       </div>
@@ -139,15 +139,6 @@ function updateSlideNumber(n) {
     <button class="next-btn" onclick="changeSlide(1)">&#10095;</button>
 </div>
 </c:if> 
-
-<!--            <div class="tag-widget post-tag-container mb-5 mt-5">
-              <div class="tagcloud">
-                <a href="#" class="tag-cloud-link">Life</a>
-                <a href="#" class="tag-cloud-link">Sport</a>
-                <a href="#" class="tag-cloud-link">Tech</a>
-                <a href="#" class="tag-cloud-link">Travel</a>
-              </div>
-            </div>-->
             <p style="font-size: 30px; color: black">${post.Content}</p>
             <hr>
             <div class="about-author d-flex p-4 bg-light">
@@ -162,87 +153,42 @@ function updateSlideNumber(n) {
 
 
             <div class="pt-5 mt-5">
-              <h3 class="mb-5">6 Comments</h3>
+              <h3 class="mb-5">${CommentNumber} ${CommentNumber > 1 ? "Comments":"Comment"}</h3>
+              <c:if test="${CommentNumber > 0}">
+              <c:forEach items="${rootCommentList}" varStatus="loop">
               <ul class="comment-list">
                 <li class="comment">
                   <div class="vcard bio">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
+                    <img src="${rootCommentList[loop.index].getAvatar()}" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
-                    <h3>John Doe</h3>
-                    <div class="meta">June 27, 2018 at 2:21pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                    <h3>${rootCommentList[loop.index].getUserName()}</h3>
+                    <div class="meta">${rootCommentList[loop.index].getCommentDate()}</div>
+                    <p>${rootCommentList[loop.index].getCommentContent()}</p>
                     <p><a href="#" class="reply">Reply</a></p>
                   </div>
-                </li>
-
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>John Doe</h3>
-                    <div class="meta">June 27, 2018 at 2:21pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
-
+                  <c:if test="${fn:length(repCommentList[loop.index])>0}">
+                  <c:forEach items="${repCommentList[loop.index]}" var="repComment">
                   <ul class="children">
                     <li class="comment">
                       <div class="vcard bio">
-                        <img src="images/person_1.jpg" alt="Image placeholder">
+                        <img src="${repComment.getAvatar()}" alt="Image placeholder">
                       </div>
                       <div class="comment-body">
-                        <h3>John Doe</h3>
-                        <div class="meta">June 27, 2018 at 2:21pm</div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                        <h3>${repComment.getUserName()}</h3>
+                        <div class="meta">${repComment.getCommentDate()}</div>
+                        <p>${repComment.getCommentContent()}</p>
                         <p><a href="#" class="reply">Reply</a></p>
                       </div>
 
-
-                      <ul class="children">
-                        <li class="comment">
-                          <div class="vcard bio">
-                            <img src="images/person_1.jpg" alt="Image placeholder">
-                          </div>
-                          <div class="comment-body">
-                            <h3>John Doe</h3>
-                            <div class="meta">June 27, 2018 at 2:21pm</div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                            <p><a href="#" class="reply">Reply</a></p>
-                          </div>
-
-                            <ul class="children">
-                              <li class="comment">
-                                <div class="vcard bio">
-                                  <img src="images/person_1.jpg" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                  <h3>John Doe</h3>
-                                  <div class="meta">June 27, 2018 at 2:21pm</div>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                  <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-                              </li>
-                            </ul>
-                        </li>
-                      </ul>
-                    </li>
+                    </li>                      
                   </ul>
-                </li>
-
-                <li class="comment">
-                  <div class="vcard bio">
-                    <img src="images/person_1.jpg" alt="Image placeholder">
-                  </div>
-                  <div class="comment-body">
-                    <h3>John Doe</h3>
-                    <div class="meta">June 27, 2018 at 2:21pm</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <p><a href="#" class="reply">Reply</a></p>
-                  </div>
+                  </c:forEach>
+                  </c:if>  
                 </li>
               </ul>
+              </c:forEach>
+              </c:if>
               <!-- END comment-list -->
               
               <div class="comment-form-wrap pt-5">
