@@ -66,11 +66,10 @@ public class AddSetting extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         UserDAO dao = new UserDAO();
-        if (type.equals("category")) {
-            dao.addsettingCategory(name, description);
-        } else if (type.equals(type)) {
-            dao.addsettingType(name, description);
-        }
+      int settingTypeInt = Integer.parseInt(type);
+        
+            dao.addsetting(name, description, settingTypeInt);
+       
 
         response.sendRedirect("settingcontrol");
     }

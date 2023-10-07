@@ -66,12 +66,13 @@ public class UserDAO extends DBContext {
         }
         return roleList;
     }
+
     //get all Setting MinhHC
     public List<Setting> getAllSetting() {
         List<Setting> list = new ArrayList<>();
-        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type, Status, Description FROM Category\n"
-                + "    UNION\n"
-                + "    SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type";
+        String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName\n"
+                + "FROM Category\n"
+                + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID;";
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
@@ -81,45 +82,9 @@ public class UserDAO extends DBContext {
 
                 list.add(new Setting(rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5)
-                ));
-            }
-       } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-        } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
-        }
-
-        return list;
-    }
-//get all Setting MinhHC
-    public List<Setting> getAllSetting(int index) {
-        List<Setting> list = new ArrayList<>();
-      String sql = "SELECT ID, Name, Type, Status, Description\n" +
-                 "FROM (\n" +
-                 "    SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type, Status, Description FROM Category\n" +
-                 "    UNION\n" +
-                 "    SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type\n" +
-                 ") AS CombinedData\n" +
-                 "ORDER BY ID\n" +
-                 "OFFSET ? ROWS\n" +
-                 "FETCH NEXT 9 ROWS ONLY";
-        try {
-            PreparedStatement st = getConnection().prepareStatement(sql);
-             st.setInt(1, (index - 1) * 9);
-            ResultSet rs = st.executeQuery();
-           
-            while (rs.next()) {
-
-                list.add(new Setting(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5)
+                        rs.getString(5),
+                        rs.getInt(3),
+                        rs.getString(4)
                 ));
             }
         } catch (SQLException e) {
@@ -132,13 +97,49 @@ public class UserDAO extends DBContext {
 
         return list;
     }
-    
-    
+//get all Setting MinhHC
+
+    public List<Setting> getAllSetting(int index) {
+        List<Setting> list = new ArrayList<>();
+        String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName "
+                + "FROM Category "
+                + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID "
+                + "ORDER BY Category.CategoryID "
+                + "OFFSET ? ROWS "
+                + "FETCH NEXT 9 ROWS ONLY";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, (index - 1) * 9);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(5),
+                        rs.getInt(3),
+                        rs.getString(4)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
 
     //get all Category Setting MinhHC
     public List<Setting> getAllSettingCat() {
         List<Setting> list = new ArrayList<>();
-        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status, Description FROM Category";
+        String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName\n"
+                + "FROM Category\n"
+                + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID\n"
+                + "WHERE ObjectType.TypeID = 1;";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -146,9 +147,39 @@ public class UserDAO extends DBContext {
 
                 list.add(new Setting(rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5)
+                        rs.getString(5),
+                        rs.getInt(3),
+                        rs.getString(4)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+    //get all Blog Setting MinhHC
+
+    public List<Setting> getAllSettingPost() {
+        List<Setting> list = new ArrayList<>();
+        String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName\n"
+                + "FROM Category\n"
+                + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID\n"
+                + "WHERE ObjectType.TypeID = 2;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(5),
+                        rs.getInt(3),
+                        rs.getString(4)
                 ));
             }
         } catch (SQLException e) {
@@ -165,7 +196,10 @@ public class UserDAO extends DBContext {
     //get all Type Setting MinhHC
     public List<Setting> getAllSettingTyp() {
         List<Setting> list = new ArrayList<>();
-        String sql = "SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type";
+        String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName\n"
+                + "FROM Category\n"
+                + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID\n"
+                + "WHERE ObjectType.TypeID = 3;";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -173,9 +207,9 @@ public class UserDAO extends DBContext {
 
                 list.add(new Setting(rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5)
+                        rs.getString(5),
+                        rs.getInt(3),
+                        rs.getString(4)
                 ));
             }
         } catch (SQLException e) {
@@ -192,9 +226,10 @@ public class UserDAO extends DBContext {
     //get all active setting MinhHC
     public List<Setting> getSettingActive() {
         List<Setting> list = new ArrayList<>();
-        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status, Description FROM Category Where status =1\n"
-                + "UNION\n"
-                + "SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type Where status =1;";
+        String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName\n"
+                + "FROM Category\n"
+                + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID\n"
+                + "WHERE Status= 1;";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -202,9 +237,9 @@ public class UserDAO extends DBContext {
 
                 list.add(new Setting(rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5)
+                        rs.getString(5),
+                        rs.getInt(3),
+                        rs.getString(4)
                 ));
             }
         } catch (SQLException e) {
@@ -221,9 +256,10 @@ public class UserDAO extends DBContext {
     //get all inactive setting MinhHC
     public List<Setting> getSettingInactive() {
         List<Setting> list = new ArrayList<>();
-        String sql = "SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type ,Status, Description FROM Category Where status =0\n"
-                + "UNION\n"
-                + "SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status,Description FROM Type Where status =0;";
+        String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName\n"
+                + "FROM Category\n"
+                + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID\n"
+                + "WHERE Status= 0;";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -231,9 +267,9 @@ public class UserDAO extends DBContext {
 
                 list.add(new Setting(rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5)
+                        rs.getString(5),
+                        rs.getInt(3),
+                        rs.getString(4)
                 ));
             }
         } catch (SQLException e) {
@@ -250,13 +286,14 @@ public class UserDAO extends DBContext {
     //Search setting by name MinhHC
     public List<Setting> searchSettingByName(String txtSearch) {
         List<Setting> list = new ArrayList<>();
-        String sql = "SELECT *\n"
-                + "FROM (\n"
-                + "    SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type, Status, Description FROM Category \n"
-                + "    UNION\n"
-                + "    SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type\n"
-                + ") AS setting \n"
-                + "WHERE Name LIKE ?;";
+      String sql = "SELECT * " +
+             "FROM ( " +
+             "    SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName " +
+             "    FROM Category " +
+             "    INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID " +
+             ") AS setting " +
+             "WHERE CategoryName LIKE ?;";
+
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
@@ -266,9 +303,9 @@ public class UserDAO extends DBContext {
 
                 list.add(new Setting(rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5)
+                        rs.getString(5),
+                        rs.getInt(3),
+                        rs.getString(4)
                 ));
             }
         } catch (SQLException e) {
@@ -283,14 +320,15 @@ public class UserDAO extends DBContext {
     }
 
     //Add Product Category MinhHC
-    public void addsettingCategory(String name, String description) {
+    public void addsetting(String name, String description, int type) {
 
-        String sql = "INSERT INTO Category (CategoryName, Status, Description) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Category (CategoryName, Status, Description, ObjectTypeID) VALUES (?, ?, ?, ?)";
         try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
 
             st.setString(1, name);
             st.setInt(2, 1);
             st.setString(3, description);
+            st.setInt(4, type);
             st.executeUpdate();
         } catch (SQLException e) {
             // Handle SQL exception
@@ -301,24 +339,7 @@ public class UserDAO extends DBContext {
         }
     }
 
-    //Add Product Type MinhHC
-    public void addsettingType(String name, String description) {
-
-        String sql = "INSERT INTO Type (TypeName, Status, Description) VALUES (?, ?, ?)";
-        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
-
-            st.setString(1, name);
-            st.setInt(2, 1);
-            st.setString(3, description);
-            st.executeUpdate();
-        } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-        } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
-        }
-    }
+    
 
     //Change status in table Category MinhHC
     public void ChangeSettingStatusCat(int id, int newStatus) {
@@ -341,47 +362,6 @@ public class UserDAO extends DBContext {
         }
     }
 
-    //Change status in table Type MinhHC
-    public void ChangeSettingStatusTyp(int id, int newStatus) {
-
-        String sql = "UPDATE Type SET Status = ? WHERE TypeID = ?";
-
-        // Thay categoryId bằng giá trị thích hợp
-        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
-            st.setInt(1, newStatus);
-            st.setInt(2, id);
-
-            st.executeUpdate();
-
-        } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-        } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
-        }
-    }
-
-    //Edit setting Type MinhHC
-    public void EditSettingTyp(int id, int status, String description) {
-
-        String sql = "UPDATE Type SET Status = ?, description = ? WHERE TypeID = ?";
-
-        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
-            st.setInt(1, status);
-            st.setString(2, description);
-            st.setInt(3, id);
-
-            st.executeUpdate();
-
-        } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-        } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
-        }
-    }
 
     //Edit setting category MinhHC
     public void EditSettingCat(int id, int status, String description) {
@@ -404,7 +384,6 @@ public class UserDAO extends DBContext {
         }
     }
 
-    
     //get total user MinhHC
     public int getTotalUser() {
         String sql = "select count(*) from [User]";
@@ -415,7 +394,7 @@ public class UserDAO extends DBContext {
                 return rs.getInt(1);
 
             }
-       } catch (SQLException e) {
+        } catch (SQLException e) {
             // Handle SQL exception
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
@@ -425,6 +404,7 @@ public class UserDAO extends DBContext {
 
         return 0;
     }
+
     //get total setting minhHC
     public int getTotalSetting() {
         String sql = "SELECT COUNT(*) AS TotalCount\n"
@@ -440,7 +420,7 @@ public class UserDAO extends DBContext {
                 return rs.getInt(1);
 
             }
-       } catch (SQLException e) {
+        } catch (SQLException e) {
             // Handle SQL exception
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
@@ -450,7 +430,6 @@ public class UserDAO extends DBContext {
         return 0;
     }
 
-    
     //Get all User MinhHC
     public List<User> getAllUser(int index) {
         List<User> list = new ArrayList<>();
@@ -497,7 +476,6 @@ public class UserDAO extends DBContext {
 
         return list;
     }
-    
 
     //Get all Admin MinhHC
     public List<User> getAllAdmin() {
@@ -807,7 +785,6 @@ public class UserDAO extends DBContext {
 
         String sql = "UPDATE Account SET Status = ? WHERE email = ?";
 
-        
         try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
             st.setInt(1, newStatus);
             st.setString(2, email);

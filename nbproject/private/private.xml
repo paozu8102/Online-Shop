@@ -3,9 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/SWP/web/index.jsp</file>
-            <file>file:/D:/SWP/web/images/product4.jpg</file>
-            <file>file:/D:/SWP/web/images/product4_1.jpg</file>
+            <file>file:/C:/Users/admin/Documents/master/web/setting-management.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/user-management.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/AddUser.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/SearchUser.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/ChangeSettingStatus.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/Setting.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/EditSettingController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/UserController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/DBContext.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/SettingControl.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/EditUserController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/AddSetting.java</file>
         </group>
     </open-files>
 </project-private>

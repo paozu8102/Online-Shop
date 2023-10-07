@@ -145,6 +145,7 @@
                         <option value="all">All setting types</option>
                         <option value="category">Product Category</option>
                         <option value="type">Product Type</option>
+                        <option value="post">Post</option>
 
                     </select>
                 </form>
@@ -283,8 +284,9 @@
                                 <select name="settingtype" class="form-select" aria-label="Default select example" required>
                                     <option value="">-Select-</option>
 
-                                    <option value="Type">Product Type</option>
-                                    <option value="Category">Product Category</option>
+                                    <option value="3">Product Topic</option>
+                                    <option value="1">Product Material</option>
+                                    <option value="2">Post</option>
                                 </select>
                                 <div class="form-group">
                                     <label>Description</label>
