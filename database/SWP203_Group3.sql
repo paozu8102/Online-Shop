@@ -12,7 +12,7 @@ VALUES (1,'Admin'),
 (2,'Artist'),
 (3,'Customer');
 
-CREATE TABLE BlogStatus(
+CREATE TABLE PostStatus(
 StatusID INT NOT NULL PRIMARY KEY,
 StatusName VARCHAR(20) NOT NULL
 
@@ -79,15 +79,15 @@ VALUES ('Ducle', 1, '0903020202', '123 Le Loi Street, Hai Chau Ward, Hai Chau Di
 ('Bao', 1, '0989123456', '135 Le Duan Street, Thanh Binh Ward, Rach Gia City, Kien Giang Province', 'https://phunugioi.com/wp-content/uploads/2020/01/anh-dai-dien-co-gai-quay-lung.jpg', 'bao09@gmail.com'),
 ('Thanh', 1, '0991234567', '987 Nguyen Van Cu Street, An Hoa Ward, Rach Gia City, Kien Giang Province', 'https://i.pinimg.com/736x/94/9b/8d/949b8d8d9229693ba9d53b054b738e2a.jpg', 'thanh10@gmail.com');
 
-CREATE TABLE Blog(
-BlogID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+CREATE TABLE Post(
+PostID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 Title VARCHAR(MAX) NOT NULL,
 Content VARCHAR(20) NOT NULL,
 [Date] DATETIME NOT NULL,
 UserID INT NOT NULL,
 StatusID INT NOT NULL,
 FOREIGN KEY (UserID) REFERENCES [User](UserID),
-FOREIGN KEY (StatusID) REFERENCES BlogStatus(StatusID)
+FOREIGN KEY (StatusID) REFERENCES PostStatus(StatusID)
 )
 
 CREATE TABLE Product(
@@ -201,15 +201,15 @@ FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
 FOREIGN KEY (UserID) REFERENCES [User](UserID)
 )
 
---change in the blog table 
-ALTER TABLE Blog
-ADD BlogType INT DEFAULT 0;
+--change in the Post table 
+ALTER TABLE Post
+ADD PostType INT DEFAULT 0;
 
 --create table comment
 CREATE TABLE Comment(
 	CommentID INT PRIMARY KEY IDENTITY,
 	UserID INT REFERENCES [User](UserID),
-	BlogID INT REFERENCES Blog(BlogID),
+	PostID INT REFERENCES Post(PostID),
 	CommentContent VARCHAR(MAX),
 	CommentDate DATETIME
 );
@@ -247,7 +247,8 @@ CREATE TABLE [Image](
 INSERT INTO [dbo].[ObjectType]
            ([TypeName])
      VALUES ('Product'),
-		    ('Post')
+		    ('Post'),
+			('Slider')
 
 --re-insert for Image table
 INSERT INTO [dbo].[Image]
@@ -291,35 +292,35 @@ INSERT INTO [dbo].[Comment]
 ALTER TABLE Comment
 ALTER COLUMN CommentContent NVARCHAR(MAX) COLLATE Vietnamese_CI_AS
 
---add column View for blog table 
-ALTER TABLE Blog
+--add column View for Post table 
+ALTER TABLE Post
 ADD [View] INT DEFAULT 0;
 
---adjustment to blog table
-ALTER TABLE Blog
+--adjustment to Post table
+ALTER TABLE Post
 ALTER COLUMN Title VARCHAR(MAX);
-ALTER TABLE Blog
+ALTER TABLE Post
 ALTER COLUMN Content VARCHAR(MAX);
-ALTER TABLE Blog
-ADD CONSTRAINT Fk_Blog_BlogStatus_StatusID
-FOREIGN KEY (StatusID) REFERENCES BlogStatus(StatusID);
+ALTER TABLE Post
+ADD CONSTRAINT Fk_Post_PostStatus_StatusID
+FOREIGN KEY (StatusID) REFERENCES PostStatus(StatusID);
 
---add data for Blog Status table
-INSERT INTO [dbo].[BlogStatus]
+--add data for Post Status table
+INSERT INTO [dbo].[PostStatus]
            ([StatusID]
            ,[StatusName])
 VALUES (1, 'Waiting'),
 	   (2, 'Approved'),
 	   (3, 'Denied');
 
---add data for Blog Table 
-INSERT INTO [dbo].[Blog]
+--add data for Post Table 
+INSERT INTO [dbo].[Post]
            ([Title]
            ,[Content]
            ,[Date]
            ,[UserID]
            ,[StatusID]
-           ,[BlogType]
+           ,[PostType]
            ,[View])
 VALUES ('History of art', 
 		'The history of art focuses on objects made by humans for any number of spiritual, narrative, philosophical, symbolic, conceptual, documentary, decorative, and even functional and other purposes, but with a primary emphasis on its aesthetic visual form. Visual art can be classified in diverse ways, such as separating fine arts from applied arts; inclusively focusing on human creativity; or focusing on different media such as architecture, sculpture, painting, film, photography, and graphic arts. In recent years, technological advances have led to video art, computer art, performance art, animation, television, and videogames.
@@ -394,7 +395,7 @@ INSERT INTO [dbo].[Category]
 			( 'Sharing', 1,'post to sharing information', 2);
 --create table PostCategory
 CREATE TABLE PostCategory(
-	PostID INT REFERENCES Blog(BlogID),
+	PostID INT REFERENCES Post(PostID),
 	CategoryID INT REFERENCES Category(CategoryID)
 	PRIMARY KEY(PostID, CategoryID)
 );
