@@ -67,7 +67,7 @@ body {
     margin: 0 auto;
     overflow: hidden;
     position: relative;
-    margin-top: 75px;
+    margin-top:  10px;
 }
 
 .slider {

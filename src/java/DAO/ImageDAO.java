@@ -6,9 +6,14 @@ package DAO;
 
 import DBcontext.DBContext;
 import Model.Image;
+import Model.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -41,4 +46,38 @@ public class ImageDAO extends DBContext {
         }
         return imageList;
     }
+    
+    public List<Image> getProductImage(String id) {
+        List<Image> list = new ArrayList<>();
+        String sql = "SELECT ImageID, TypeID, ObjectID, ImageUrl\n" +
+"FROM [dbo].[Image]\n" +
+"WHERE ObjectID = ? AND TypeID = 1;";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setString(1, id);
+          
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(new Image(
+                        rs.getInt(1), 
+                        rs.getInt(2), 
+                        rs.getInt(3), 
+                        rs.getString(4)
+                      
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
 }

@@ -1,9 +1,9 @@
 <%@include file="template/header.jsp" %>
-<li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
+<li class="nav-item"><a href="home" class="nav-link">Home</a></li>
 <li class="nav-item active dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
     <div class="dropdown-menu" aria-labelledby="dropdown04">
-        <a class="dropdown-item" href="shop.jsp">Shop</a>
+        <a class="dropdown-item" href="shop">Shop</a>
         <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
         <a class="dropdown-item" href="product-single.jsp">Single Product</a>
         <a class="dropdown-item" href="cart.jsp">Cart</a>
@@ -54,7 +54,7 @@
     <c:forEach items="${listP}" var="o">
         <div class="col-md-6 col-lg-3 ftco-animate">
             <div class="product">
-                <a href="#" class="img-prod">
+                <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="img-prod">
                    
                            <div style="width: 345px; height: 234px; overflow: hidden;">
     <img src="images/${o.image}" alt="Colorlib Template" style="width: 100%; height: 100%; object-fit: cover;">
@@ -66,7 +66,7 @@
                     <div class="overlay"></div>
                 </a>
                 <div class="text py-3 pb-4 px-3 text-center">
-                    <h3><a href="#">${o.productName}</a></h3>
+                    <h3><a href="detail?pid=${o.productID}&cid=${o.cateID}">${o.productName}</a></h3>
                     <div class="d-flex">
                         <div class="pricing">
                             <c:if test="${o.discount == 0}">
@@ -79,7 +79,7 @@
                     </div>
                     <div class="bottom-area d-flex px-3">
                         <div class="m-auto d-flex">
-                            <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                            <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                 <span><i class="ion-ios-menu"></i></span>
                             </a>
                             <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
