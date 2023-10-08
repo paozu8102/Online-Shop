@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,6 +76,95 @@ public class ProductDAO extends DBContext {
         }
 
         return picList;
+    }
+    //get total product DucLV
+
+    public int getTotalProduct() {
+        String sql = "select count(*) from Product";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return 0;
+    }
+
+    //Get all product DucLV
+    public List<Product> getAllProduct(int index) {
+        List<Product> list = new ArrayList<>();
+        String sql = "WITH RankedImages AS (\n" +
+"    SELECT\n" +
+"        I.ObjectID AS ProductID,\n" +
+"        I.ImageUrl,\n" +
+"        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n" +
+"    FROM\n" +
+"        [dbo].[Image] AS I\n" +
+"    WHERE\n" +
+"        I.TypeID = 1  -- Assuming TypeID 1 corresponds to products\n" +
+")\n" +
+"\n" +
+"SELECT\n" +
+"    P.ProductID,\n" +
+"    P.ProductName,\n" +
+"    P.Price,\n" +
+"    P.[Description] AS ProductDescription,\n" +
+"    P.Height,\n" +
+"    P.Width,\n" +
+"    P.Quantity,\n" +
+"    P.[View],\n" +
+"    P.Discount,\n" +
+"    P.UserID,\n" +
+"    R.ImageUrl AS ProductImage\n" +
+"FROM\n" +
+"    Product AS P\n" +
+"LEFT JOIN\n" +
+"    RankedImages AS R ON P.ProductID = R.ProductID\n" +
+"WHERE\n" +
+"    R.ImageRank = 1\n" +
+"ORDER BY P.ProductID\n" +
+"OFFSET ? ROWS \n" +
+"FETCH NEXT 16 ROWS ONLY";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, (index - 1) * 16);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(new Product(
+                        rs.getInt(1), // ProductID
+                        rs.getString(2), // ProductName
+                        rs.getDouble(3), // Price
+                        rs.getString(4), // Description
+                        rs.getDouble(5), // Height
+                        rs.getDouble(6), // Width
+                        rs.getInt(7), // Quantity
+                        rs.getInt(8), // View
+                        rs.getDouble(9), // Discount
+                        rs.getInt(10), // UserID
+                        rs.getString(11) // Image
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
     }
 
     //method to test: ThanhNX
