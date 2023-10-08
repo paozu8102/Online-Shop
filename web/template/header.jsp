@@ -60,6 +60,83 @@ body {
 #myBtn:hover {
   background-color: #555;
 }
+
+
+.slider-container {
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    margin-top: 75px;
+}
+
+.slider {
+    width: 100%;
+}
+
+.slide {
+    display: none;
+}
+
+.slide img {
+    max-width: 100%;
+    height: auto;
+}
+
+.thumbnails {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.thumbnails img {
+    max-width: 80px;
+    height: auto;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.thumbnails img:hover {
+    opacity: 0.7;
+}
+
+/* Định dạng nút điều hướng */
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    padding: 5px; /* Kích thước nút nhỏ hơn */
+    
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 20px; /* Kích thước chữ */
+    transition: background-color 0.3s; /* Hiệu ứng hover */
+    z-index: 1; /* Đảm bảo nút điều hướng nằm trên ảnh */
+}
+
+.prev-button {
+    left: 10px;
+    transform: translateY(-50%);
+}
+
+.next-button {
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+/* Hiệu ứng hover */
+.prev-button:hover,
+.next-button:hover {
+   color: white; /* Màu xám */
+    opacity: 1; /* Độ mờ tối thiểu */
+    background-color: gray;
+}
+
+
+
+
+
 </style>
     <title>Palette Joy - Bring art to your home</title>
     <meta charset="utf-8">
@@ -87,6 +164,8 @@ body {
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
   </head>
   <body class="goto-here">
       <button onclick="topFunction()" id="myBtn" title="Go to top">&#8679;</button>

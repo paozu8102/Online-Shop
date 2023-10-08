@@ -1,4 +1,6 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="template/header.jsp" %>
+
 <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
 	          <li class="nav-item active dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
@@ -26,22 +28,32 @@
 	  </nav>
     <!-- END nav -->
 
-    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Home</a></span> <span class="mr-2"><a href="index.jsp">Product</a></span> <span>Product Single</span></p>
-            <h1 class="mb-0 bread">Product Single</h1>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <section class="ftco-section">
     	<div class="container">
     		<div class="row">
+                    
     			<div class="col-lg-6 mb-5 ftco-animate">
-    				<a href="images/product-1.jpg" class="image-popup"><img src="images/product-1.jpg" class="img-fluid" alt="Colorlib Template"></a>
+    				
+                                 <div class="slider-container">
+        <div class="slider">
+            <div class="slide"><img src="images/product10.jpg" alt="Image 1"></div>
+            <div class="slide"><img src="images/product10_1.jpg" alt="Image 2"></div>
+            <div class="slide"><img src="images/product10_2.jpg" alt="Image 3"></div>
+            <div class="slide"><img src="images/product10_3.jpg" alt="Image 4"></div>
+        </div>
+        <div class="thumbnails">
+            <img src="images/product10.jpg" alt="Image 1">
+            <img src="images/product10_1.jpg" alt="Image 2">
+            <img src="images/product10_2.jpg" alt="Image 3">
+            <img src="images/product10_3.jpg" alt="Image 4">
+        </div>
+    </div>
+                            
+
+
+    <button class="prev-button">&#9668;</button>
+        <button class="next-button">&#9658;</button>
     			</div>
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
     				<h3>Bell Pepper</h3>
@@ -117,7 +129,7 @@
     		<div class="row">
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
+
     						<span class="status">30%</span>
     						<div class="overlay"></div>
     					</a>
@@ -231,4 +243,71 @@
     		</div>
     	</div>
     </section>
+    <script>
+// script.js
+// script.js
+document.addEventListener("DOMContentLoaded", function() {
+    const slides = document.querySelectorAll(".slide");
+    const thumbnails = document.querySelectorAll(".thumbnails img");
+    const prevButton = document.querySelector(".prev-button");
+    const nextButton = document.querySelector(".next-button");
+
+    let currentSlide = 0;
+
+    // Hiển thị slide đầu tiên
+    slides[currentSlide].style.display = "block";
+
+    // Xử lý khi nhấp vào các ảnh nhỏ
+    thumbnails.forEach(function(thumbnail, index) {
+        thumbnail.addEventListener("click", function() {
+            slides[currentSlide].style.display = "none";
+            currentSlide = index;
+            slides[currentSlide].style.display = "block";
+
+            // Tắt tất cả các ảnh nhỏ khỏi trạng thái tối màu
+            thumbnails.forEach(function(thumb) {
+                thumb.style.opacity = 1;
+            });
+
+            // Đặt ảnh nhỏ tương ứng vào trạng thái tối màu
+            thumbnail.style.opacity = 0.7;
+        });
+    });
+
+    // Xử lý nút "Previous"
+    prevButton.addEventListener("click", function() {
+        slides[currentSlide].style.display = "none";
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        slides[currentSlide].style.display = "block";
+
+        // Tắt tất cả các ảnh nhỏ khỏi trạng thái tối màu
+        thumbnails.forEach(function(thumb) {
+            thumb.style.opacity = 1;
+        });
+
+        // Đặt ảnh nhỏ tương ứng vào trạng thái tối màu
+        thumbnails[currentSlide].style.opacity = 0.7;
+    });
+
+    // Xử lý nút "Next"
+    nextButton.addEventListener("click", function() {
+        slides[currentSlide].style.display = "none";
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].style.display = "block";
+
+        // Tắt tất cả các ảnh nhỏ khỏi trạng thái tối màu
+        thumbnails.forEach(function(thumb) {
+            thumb.style.opacity = 1;
+        });
+
+        // Đặt ảnh nhỏ tương ứng vào trạng thái tối màu
+        thumbnails[currentSlide].style.opacity = 0.7;
+    });
+      
+});
+
+
+    </script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <%@include file="template/footerJS.jsp" %>
