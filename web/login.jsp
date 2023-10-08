@@ -46,57 +46,10 @@
 
     <div class="form-group form-button">
         <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
-        <a style="text-decoration: none; color: black" href="signup.jsp">New account?</a>
-        <a style="text-decoration: none; color: black" href="signupforsaler.jsp">Artist</a>
+        <a style="text-decoration: none; color: black" href="signupWithEmail.jsp">New account?</a>
         <a style="text-decoration: none; color: black" href="forgotPassword.jsp">Forgot</a>
     </div>
 </form>
-
-<script>
-    // L?y giá tr? c?a "Remember Me" t? cookie và ??t vào radio button khi trang t?i l?i
-    window.onload = function() {
-        const rememberOnRadio = document.getElementById('remember-on');
-        const rememberOffRadio = document.getElementById('remember-off');
-
-        const rememberMeValue = getCookie('rem');
-
-        if (rememberMeValue === 'ON') {
-            rememberOnRadio.checked = true;
-        } else if (rememberMeValue === 'OFF') {
-            rememberOffRadio.checked = true;
-        }
-
-        // Thêm x? lý s? ki?n cho radio button
-        const radios = document.querySelectorAll('input[name="rem"]');
-        for (const radio of radios) {
-            radio.addEventListener('change', function() {
-                const selectedValue = document.querySelector('input[name="rem"]:checked').value;
-                setCookie('rem', selectedValue, 30);  // L?u giá tr? vào cookie
-            });
-        }
-    };
-
-    // Hàm ?? l?u giá tr? vào cookie
-    function setCookie(cookieName, cookieValue, daysToExpire) {
-        const date = new Date();
-        date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
-        const expires = 'expires=' + date.toUTCString();
-        document.cookie = cookieName + '=' + cookieValue + ';' + expires + ';path=/';
-    }
-
-    // Hàm ?? l?y giá tr? c?a cookie
-    function getCookie(cookieName) {
-        const name = cookieName + '=';
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            if (cookie.indexOf(name) === 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
-        }
-        return '';
-    }
-</script>
 <script>
   // Check the value of the "sc" attribute
   var scValue = "${sc}";

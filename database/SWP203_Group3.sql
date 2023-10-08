@@ -524,7 +524,7 @@ VALUES (1, 2),
 
 
 
---add data for category table
+--add data for category table: ThanhNX
 INSERT INTO [dbo].[Category]
            ([CategoryName]
            ,[Status]
@@ -535,14 +535,14 @@ INSERT INTO [dbo].[Category]
 			( 'Introduce product', 1,'post to introduce products', 2),
 			( 'Review product', 1,'post to review products', 2),
 			( 'Sharing', 1,'post to sharing information', 2);
---create table PostCategory
+--create table PostCategory: ThanhNX
 CREATE TABLE PostCategory(
 	PostID INT REFERENCES Post(PostID),
 	CategoryID INT REFERENCES Category(CategoryID)
 	PRIMARY KEY(PostID, CategoryID)
 );
 
---add data for PostCategory Table
+--add data for PostCategory Table: ThanhNX
 INSERT INTO [dbo].[PostCategory]
            ([PostID]
            ,[CategoryID])
@@ -552,3 +552,32 @@ INSERT INTO [dbo].[PostCategory]
 		   (4, 11),
 		   (4, 9);
 --DATA UNTILL NOW IS SYNCHRONIZED
+
+--add column for comment table
+ALTER TABLE Comment
+ADD CommentRepID INT DEFAULT NULL;
+ALTER TABLE Comment
+ADD CONSTRAINT Fk_Comment_CommentID_CommentRepID
+FOREIGN KEY (CommentRepID) REFERENCES Comment(CommentID);
+
+--add data for comment table
+INSERT INTO [dbo].[Comment]
+           ([UserID]
+           ,[TypeID]
+           ,[ObjectID]
+           ,[CommentContent]
+           ,[CommentDate]
+		   ,CommentRepID)
+     VALUES(1, (SELECT o.TypeID FROM ObjectType o WHERE o.TypeName = 'Post'), 
+		   1, 'So nice to know more bout history', '2023-04-14', NULL),
+		   (2, (SELECT o.TypeID FROM ObjectType o WHERE o.TypeName = 'Post'),
+		   1, 'Man i love history, specialy bout art', '2023-04-14', 6),
+		   (3, (SELECT o.TypeID FROM ObjectType o WHERE o.TypeName = 'Post'),
+		   1, 'Look at the pic in a cave, isnt it beautiful?', '2023-04-14', 6),
+		   (4, (SELECT o.TypeID FROM ObjectType o WHERE o.TypeName = 'Post'),
+		   1, 'Ooh, so much helpful information', '2023-04-15', NULL),
+		   (5, (SELECT o.TypeID FROM ObjectType o WHERE o.TypeName = 'Post'),
+		   1, 'I want more post like this', '2023-04-16', NULL)
+
+
+

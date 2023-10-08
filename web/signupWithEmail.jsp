@@ -13,6 +13,30 @@
 
 <!-- Main css -->
 <link rel="stylesheet" href="css2/style.css">
+<style>
+.error-message {
+    display: none;
+    color: red;
+    font-weight: bold;
+    white-space: nowrap; /* Prevent the text from wrapping */
+    overflow: hidden; /* Hide any overflowed text */
+}
+
+.agree-term:invalid + .label-agree-term + .error-message {
+    display: inline-block; /* Display inline-block to enable sliding */
+    animation: slide 8s linear forwards; /* Sliding animation */
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+</style>
 </head>
 <body>
 
@@ -44,16 +68,18 @@
                                                                 <span class="error"></span>
 							</div>
 							<div class="form-group">
-								<input type="checkbox" name="agree-term" id="agree-term"
-									class="agree-term" /> <label for="agree-term"
-									class="label-agree-term"><span><span></span></span>I
-									agree with all statements <a href="#" class="term-service">Terms
-										of service</a></label>
-							</div>
+    <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" required />
+    <label for="agree-term" class="label-agree-term">
+        <span><span></span></span>I agree with all statements <a href="term.jsp" class="term-service">Terms of service</a>
+    </label>
+    <span class="error-message">Please select the Terms of service.</span>
+</div>
+                                                        
 							<div class="form-group form-button">
 								<input type="submit" name="signup" id="signup"
 									class="form-submit" value="Register" />
-                                                                <span><a href="login.jsp">Have an account ?</a></span>
+                                                                <span><a href="signupforsaler.jsp">You're an artist?</a></span>
+                                                                <span><a href="login.jsp">Login</a></span>
 							</div>
 						</form>
                                                                                     <div class="social-login">

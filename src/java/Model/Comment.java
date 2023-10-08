@@ -9,31 +9,23 @@ package Model;
  * @author Nhat Anh
  */
 public class Comment {
-    private int CommentID;
     private int UserID;
-    private int TypeID;
-    private int ObjectID;
-    private String CommentContent;
+    private String Avatar;
+    private String UserName;
+    private int CommentID;
     private String CommentDate;
+    private String CommentContent;
 
     public Comment() {
     }
 
-    public Comment(int CommentID, int UserID, int TypeID, int ObjectID, String CommentContent, String CommentDate) {
-        this.CommentID = CommentID;
+    public Comment(int UserID, String Avatar, String UserName, int CommentID, String CommentDate, String CommentContent) {
         this.UserID = UserID;
-        this.TypeID = TypeID;
-        this.ObjectID = ObjectID;
-        this.CommentContent = CommentContent;
-        this.CommentDate = CommentDate;
-    }
-
-    public int getCommentID() {
-        return CommentID;
-    }
-
-    public void setCommentID(int CommentID) {
+        this.Avatar = Avatar;
+        this.UserName = UserName;
         this.CommentID = CommentID;
+        this.CommentDate = CommentDate;
+        this.CommentContent = CommentContent;
     }
 
     public int getUserID() {
@@ -44,28 +36,28 @@ public class Comment {
         this.UserID = UserID;
     }
 
-    public int getTypeID() {
-        return TypeID;
+    public String getAvatar() {
+        return Avatar;
     }
 
-    public void setTypeID(int TypeID) {
-        this.TypeID = TypeID;
+    public void setAvatar(String Avatar) {
+        this.Avatar = Avatar;
     }
 
-    public int getObjectID() {
-        return ObjectID;
+    public String getUserName() {
+        return UserName;
     }
 
-    public void setObjectID(int ObjectID) {
-        this.ObjectID = ObjectID;
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
     }
 
-    public String getCommentContent() {
-        return CommentContent;
+    public int getCommentID() {
+        return CommentID;
     }
 
-    public void setCommentContent(String CommentContent) {
-        this.CommentContent = CommentContent;
+    public void setCommentID(int CommentID) {
+        this.CommentID = CommentID;
     }
 
     public String getCommentDate() {
@@ -76,9 +68,17 @@ public class Comment {
         this.CommentDate = CommentDate;
     }
 
+    public String getCommentContent() {
+        return CommentContent;
+    }
+
+    public void setCommentContent(String CommentContent) {
+        this.CommentContent = CommentContent;
+    }
+
     @Override
     public String toString() {
-        return "Comment{" + "CommentID=" + CommentID + ", UserID=" + UserID + ", TypeID=" + TypeID + ", ObjectID=" + ObjectID + ", CommentContent=" + CommentContent + ", CommentDate=" + CommentDate + '}';
+        return "CommentDAO{" + "UserID=" + UserID + ", Avatar=" + Avatar + ", UserName=" + UserName + ", CommentID=" + CommentID + ", CommentDate=" + CommentDate + ", CommentContent=" + CommentContent + '}';
     }
     
     

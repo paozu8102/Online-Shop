@@ -6,6 +6,7 @@ package Controller;
 
 import DAO.ImageDAO;
 import DAO.PostDAO;
+import Model.Comment;
 import Model.Image;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -28,22 +29,34 @@ public class PostSingleController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getDataForBlogOrPostSinglePage(req, resp);
+        getDataForPostSinglePage(req, resp);
     }
     
-    public void getDataForBlogOrPostSinglePage(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
-        PostDAO blogDAO = new PostDAO();
+    public void getDataForPostSinglePage(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException{
+        PostDAO postDAO = new PostDAO();
         String id = req.getParameter("id");
         Map<String, String> postData = new PostDAO().getPostInfo(id);
         if (postData.size() == 0) {
             resp.sendRedirect(req.getContextPath()+"/error");
         }
         else{
-            blogDAO.addViewToPost(id);
+            postDAO.addViewToPost(id);
+            int commentNumber = postDAO.getCommentNumberByPostID(id);
             ArrayList<Image> imageList = new ImageDAO().getPostImageByID(id);
+            ArrayList<Comment> rootCommentList = new ArrayList<>();
+            ArrayList<ArrayList<Comment>> repCommentList = new ArrayList<>();
+            if (commentNumber > 0) {
+                rootCommentList = postDAO.getAllRootCommentByPostID(id);
+                repCommentList = postDAO.getAllRepComment(rootCommentList);
+            }
+            
             
             req.setAttribute("imageList", imageList);
             req.setAttribute("post", postData);
+            req.setAttribute("CommentNumber", commentNumber);
+            req.setAttribute("rootCommentList", rootCommentList);
+            req.setAttribute("repCommentList", repCommentList);
+            
             req.getRequestDispatcher("blog-single.jsp").forward(req, resp);
         }
     }

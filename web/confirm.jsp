@@ -116,6 +116,7 @@
     </div>
     <div class="container">
         <h2>CAPCHA</h2>
+        <span style="color: red">${mess}</span>
         <c:set var="cf" scope="session" value="${sessionScope.confirm}"/>
         <c:if test="${cf == 'sigup'}">
         <form method="post" action="signupwithemail">
@@ -123,7 +124,7 @@
             <label for="email">Enter your capcha:</label>
             <input type="text" name="capchain" placeholder="Your capcha" value="${param.capchain}" required="">
             <input type="submit" value="Confirm">
-            <a href="login.jsp" class="cancel-button">Cancel</a>
+            <a href="signupWithEmail.jsp" class="cancel-button">Cancel</a>
         </form>
     </div>
 </body>

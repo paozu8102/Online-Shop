@@ -123,6 +123,7 @@ public class SignupWithEmail extends HttpServlet {
                         url = Url.HOME_PAGE;
                     }
                 } else {
+                    request.setAttribute("mess", "Ma capcha khong hop le");
                     url = Url.CAPCHA_PAGE;
                 }
             }
