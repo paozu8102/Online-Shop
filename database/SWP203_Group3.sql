@@ -138,7 +138,12 @@ VALUES ('Beautiful Painting', 100.00,	'A stunning painting that brings freshness
 		 ('Lotus Lady IV', 170.00,	'"Lotus Lady IV" is a captivating and symbolic artwork that features a woman in a serene and contemplative pose amidst a backdrop of lotus flowers.',	29,	37,	1,	0,	0,	9),
 		 ('Fairy Tail II', 170.00,	'If "Fairy Tail II" is a painting featuring a girl showering, it would typically fall under the category of figurative or contemporary art. The artist approach to the subject matter would greatly influence the style and tone of the painting, whether it focuses on realism, abstraction, symbolism, or other artistic techniques.',	24,	31,	1,	0,	0,	9),
 		 ('The Faces', 67.00,	'"The Faces" is a series of captivating abstract artworks that explore the human face as a source of inspiration and expression. In each piece, the artist deconstructs and reimagines facial features in a unique and non-traditional manner, pushing the boundaries of conventional representation.',	43,	39,	1,	0,	0,	9),
-		  ('Abstract 10', 97.00,	'"Abstract 10" is a captivating abstract artwork that engages viewers with its expressive use of color, shape, and form. The artist employs a bold and dynamic approach, creating a composition that is both visually stimulating and emotionally evocative.',	49,	31,	1,	0,	0,	9);
+		  ('Abstract 10', 97.00,	'"Abstract 10" is a captivating abstract artwork that engages viewers with its expressive use of color, shape, and form. The artist employs a bold and dynamic approach, creating a composition that is both visually stimulating and emotionally evocative.',	49,	31,	1,	0,	0,	9),
+		  ('Such a Kiss', 86.00,	'"This Painting is a vibrant and passionate work of art that captures the essence of a kiss through abstract forms and expressive use of color. The canvas comes alive with a fusion of bold reds, pinks, and purples, creating an atmosphere of intensity and warmth. ',	39,	31,	1,	0,	0,	9),
+		  ('Couple at night', 175.00,	'This evocative artwork captures a serene and intimate moment between two individuals under the enchanting veil of the night sky. The painting is suffused with a deep, velvety darkness that serves as the backdrop for the protagonists of the scene.',	40,	20,	1,	0,	0,	9),
+		  ('Night seascape', 134.00,	'This mesmerizing painting transports viewers to the tranquil and enchanting world of the nighttime seascape. The canvas is a vast expanse of deep, velvety blues and purples, representing the dark, calm waters of the sea.',	40,	27,	1,	0,	0,	9),
+		  ('Toad folk painting', 56.00,	'This enchanting painting is a celebration of folk art and the quirky world of toads. The canvas bursts with vibrant colors, intricate patterns, and a sense of joyful storytelling. The toads, anthropomorphized and full of character, take center stage in this whimsical composition.',	40,	30,	1,	0,	0,	2),
+		   ('SPRING IN THE AIR', 677.00,	'Spring in the air I adore spring with its warm wind, lots of sun and hope it brings.',	73,	100,	1,	0,	0,	3),
 
 		  --create objecttype table
 CREATE TABLE ObjectType(
@@ -368,9 +373,27 @@ INSERT INTO [dbo].[Image]
 			(1, 25,	'product25.jpg'),
 			(1, 25,	'product25_1.jpg'),
 			(1, 25,	'product25_2.jpg'),
-			(1, 25,	'product25_3.jpg')
-			
-			
+			(1, 25,	'product25_3.jpg'),
+			(1, 26,	'product26.jpg'),
+			(1, 26,	'product26_1.jpg'),
+			(1, 26,	'product26_2.jpg'),
+			(1, 26,	'product26_3.jpg'),
+			(1, 27,	'product27.jpg'),
+			(1, 27,	'product27_1.jpg'),
+			(1, 27,	'product27_2.jpg'),
+			(1, 27,	'product27_3.jpg'),
+			(1, 28,	'product28.jpg'),
+			(1, 28,	'product28_1.jpg'),
+			(1, 28,	'product28_2.jpg'),
+			(1, 28,	'product28_3.jpg'),
+			(1, 29,	'product29.jpg'),
+			(1, 29,	'product29_1.jpg'),
+			(1, 29,	'product29_2.jpg'),
+			(1, 29,	'product29_3.jpg'),
+			(1, 30,	'product30.jpg'),
+			(1, 30,	'product30_1.jpg'),
+			(1, 30,	'product30_2.jpg'),
+			(1, 30,	'product30_3.jpg')
 			
 			
 
@@ -514,8 +537,21 @@ VALUES (1, 2),
 	   (24, 11),
 	   (24, 12),
 	   (25, 1),
-	   (25, 12);
-	   
+	   (25, 12),
+	     (26, 6),
+	   (26, 11),
+	   (26, 12),
+	   (27, 3),
+	   (27, 7),
+	    (28, 3),
+	   (28, 7),
+	   (29, 3),
+	   (29, 5),
+	   (29, 11),
+	   (30, 4),
+	   (30, 2),
+	   (30, 9),
+	   (30, 12);
 
 --NEW VERSION
 

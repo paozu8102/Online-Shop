@@ -20,7 +20,7 @@ public class Product {
     private double Discount;
     private int UserID;
     private String Image;
-
+    private int CateID;
     public Product() {
     }
 
@@ -37,7 +37,7 @@ public class Product {
         this.UserID = UserID;
     }
 
-    public Product(int ProductID, String ProductName, double Price, String Description, double Height, double Width, int Quantity, int View, double Discount, int UserID, String Image) {
+    public Product(int ProductID, String ProductName, double Price, String Description, double Height, double Width, int Quantity, int View, double Discount, int UserID, String Image, int CateID) {
         this.ProductID = ProductID;
         this.ProductName = ProductName;
         this.Price = Price;
@@ -49,7 +49,10 @@ public class Product {
         this.Discount = Discount;
         this.UserID = UserID;
         this.Image = Image;
+        this.CateID = CateID;
     }
+
+ 
 
     public int getProductID() {
         return ProductID;
@@ -137,6 +140,14 @@ public class Product {
 
     public void setImage(String Image) {
         this.Image = Image;
+    }
+
+    public int getCateID() {
+        return CateID;
+    }
+
+    public void setCateID(int CateID) {
+        this.CateID = CateID;
     }
 
     @Override
