@@ -5,10 +5,13 @@
         <group>
             <file>file:/C:/Users/admin/Documents/ducle/web/index.jsp</file>
             <file>file:/C:/Users/admin/Documents/ducle/src/java/DAO/ProductDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/ducle/src/java/Controller/HomeController.java</file>
             <file>file:/C:/Users/admin/Documents/ducle/web/blog-single.jsp</file>
+            <file>file:/C:/Users/admin/Documents/ducle/src/java/Model/Image.java</file>
             <file>file:/C:/Users/admin/Documents/ducle/web/product-single.jsp</file>
             <file>file:/C:/Users/admin/Documents/ducle/src/java/DAO/DAO.java</file>
             <file>file:/C:/Users/admin/Documents/ducle/web/shop.jsp</file>
+            <file>file:/C:/Users/admin/Documents/ducle/src/java/DAO/PostDAO.java</file>
             <file>file:/C:/Users/admin/Documents/ducle/web/contact.jsp</file>
             <file>file:/C:/Users/admin/Documents/ducle/web/scss/style.scss</file>
             <file>file:/C:/Users/admin/Documents/ducle/web/css/owl.carousel.min.css</file>
@@ -29,6 +32,7 @@
             <file>file:/C:/Users/admin/Documents/ducle/web/script.js</file>
             <file>file:/C:/Users/admin/Documents/ducle/src/java/DAO/accountDAO.java</file>
             <file>file:/C:/Users/admin/Documents/ducle/src/java/Controller/forgotPasswordController.java</file>
+            <file>file:/C:/Users/admin/Documents/ducle/src/java/DAO/ImageDAO.java</file>
         </group>
     </open-files>
 </project-private>
