@@ -5,135 +5,135 @@
 <%@page import="Model.Product" %>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <%
-    String path = request.getContextPath();
-  %>
-  <script>
-    //from 11-31: ThanhNX
-    // Function to set the scroll position in session storage
-        function saveScrollPosition() {
-            sessionStorage.setItem('scrollPosition', window.scrollY);
-        }
-
-        // Function to retrieve and restore the scroll position
-        function restoreScrollPosition() {
-            var scrollPosition = sessionStorage.getItem('scrollPosition');
-            if (scrollPosition) {
-                window.scrollTo(0, scrollPosition);
+    <head>
+        <%
+          String path = request.getContextPath();
+        %>
+        <script>
+            //from 11-31: ThanhNX
+            // Function to set the scroll position in session storage
+            function saveScrollPosition() {
+                sessionStorage.setItem('scrollPosition', window.scrollY);
             }
-        }
 
-        // Execute this function when the page is loaded
-        window.addEventListener('load', function() {
-            restoreScrollPosition();
-        });
+            // Function to retrieve and restore the scroll position
+            function restoreScrollPosition() {
+                var scrollPosition = sessionStorage.getItem('scrollPosition');
+                if (scrollPosition) {
+                    window.scrollTo(0, scrollPosition);
+                }
+            }
 
-        // Execute this function when navigating to other pages
-        function navigateToOtherPage() {
-            // Save the current scroll position before navigating
-            saveScrollPosition();
-    
-    </script>
-<style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-}
+            // Execute this function when the page is loaded
+            window.addEventListener('load', function () {
+                restoreScrollPosition();
+            });
 
-#myBtn {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 99;
-  font-size: 18px;
-  border: none;
-  outline: none;
-  background-color: #82AE46;
-  color: white;
-  cursor: pointer;
-  padding: 10px 15px;
-  border-radius: 50px;
-}
+            // Execute this function when navigating to other pages
+            function navigateToOtherPage() {
+                // Save the current scroll position before navigating
+                saveScrollPosition();
 
-#myBtn:hover {
-  background-color: #555;
-}
+        </script>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 20px;
+            }
+
+            #myBtn {
+                display: none;
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                z-index: 99;
+                font-size: 18px;
+                border: none;
+                outline: none;
+                background-color: #82AE46;
+                color: white;
+                cursor: pointer;
+                padding: 10px 15px;
+                border-radius: 50px;
+            }
+
+            #myBtn:hover {
+                background-color: #555;
+            }
 
 
-.slider-container {
-    width: 80%;
-    margin: 0 auto;
-    overflow: hidden;
-    position: relative;
-    margin-top:  10px;
-}
+            .slider-container {
+                width: 80%;
+                margin: 0 auto;
+                overflow: hidden;
+                position: relative;
+                margin-top:  10px;
+            }
 
-.slider {
-    width: 100%;
-}
+            .slider {
+                width: 100%;
+            }
 
-.slide {
-    display: none;
-}
+            .slide {
+                display: none;
+            }
 
-.slide img {
-    max-width: 100%;
-    height: auto;
-}
+            .slide img {
+                max-width: 100%;
+                height: auto;
+            }
 
-.thumbnails {
-    text-align: center;
-    margin-top: 10px;
-}
+            .thumbnails {
+                text-align: center;
+                margin-top: 10px;
+            }
 
-.thumbnails img {
-    max-width: 80px;
-    height: auto;
-    margin: 0 10px;
-    cursor: pointer;
-    transition: opacity 0.3s;
-}
+            .thumbnails img {
+                max-width: 80px;
+                height: auto;
+                margin: 0 10px;
+                cursor: pointer;
+                transition: opacity 0.3s;
+            }
 
-.thumbnails img:hover {
-    opacity: 0.7;
-}
+            .thumbnails img:hover {
+                opacity: 0.7;
+            }
 
-/* Định dạng nút điều hướng */
-.prev-button,
-.next-button {
-    position: absolute;
-    top: 50%;
-    padding: 5px; /* Kích thước nút nhỏ hơn */
-    
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 20px; /* Kích thước chữ */
-    transition: background-color 0.3s; /* Hiệu ứng hover */
-    z-index: 1; /* Đảm bảo nút điều hướng nằm trên ảnh */
-}
+            /* Định dạng nút điều hướng */
+            .prev-button,
+            .next-button {
+                position: absolute;
+                top: 50%;
+                padding: 5px; /* Kích thước nút nhỏ hơn */
 
-.prev-button {
-    left: 10px;
-    transform: translateY(-50%);
-}
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                font-size: 20px; /* Kích thước chữ */
+                transition: background-color 0.3s; /* Hiệu ứng hover */
+                z-index: 1; /* Đảm bảo nút điều hướng nằm trên ảnh */
+            }
 
-.next-button {
-    right: 10px;
-    transform: translateY(-50%);
-}
+            .prev-button {
+                left: 10px;
+                transform: translateY(-50%);
+            }
 
-/* Hiệu ứng hover */
-.prev-button:hover,
-.next-button:hover {
-   color: white; /* Màu xám */
-    opacity: 1; /* Độ mờ tối thiểu */
-    background-color: gray;
-}
+            .next-button {
+                right: 10px;
+                transform: translateY(-50%);
+            }
 
-    
+            /* Hiệu ứng hover */
+            .prev-button:hover,
+            .next-button:hover {
+                color: white; /* Màu xám */
+                opacity: 1; /* Độ mờ tối thiểu */
+                background-color: gray;
+            }
+
+
             .search-container input [type=text] {
                 padding: 6px;
                 margin-top: 8px;
@@ -155,240 +155,294 @@ body {
                 background: #82ae46;
             }
 
+            
 
-
-
-</style>
-    <title>Palette Joy - Bring art to your home</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/aos.css">
-
-    <link rel="stylesheet" href="css/ionicons.min.css">
-
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-  </head>
-  <body class="goto-here">
-      <button onclick="topFunction()" id="myBtn" title="Go to top">&#8679;</button>
-      <script>
-//from 91-107 ThanhNX
-let mybutton = document.getElementById("myBtn");
-
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
+.sorting {
+    display: flex; /* Use flexbox to align items in a row */
+    align-items: center; /* Vertically center items in the flex container */
+    gap: 20px; /* Space between the two forms */
 }
 
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+/* Style the select elements */
+form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    outline: none;
 }
-</script>
-		<div class="py-1 bg-primary">
-    	<div class="container">
-    		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
-	    		<div class="col-lg-12 d-block">
-		    		<div class="row d-flex">
-		    			<div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+0368686868</span>
-					    </div>
-					    <div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">Palettejoy@gmail.com</span>
-					    </div>
-					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
-					    </div>
-				    </div>
-			    </div>
-		    </div>
-		  </div>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="home">Palette Joy</a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-                    
-<li class="nav-item"><a href="home" class="nav-link">Home</a></li>
-<li class="nav-item active dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-    <div class="dropdown-menu" aria-labelledby="dropdown04">
-        <a class="dropdown-item" href="shop">Shop</a>
-        <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
-        <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-        <a class="dropdown-item" href="cart.jsp">Cart</a>
-        <a class="dropdown-item" href="checkout.jsp">Checkout</a>
-    </div>
-</li>
-<li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
-<li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
-<li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-<c:if test="${sessionScope.acc==null}"><li class="nav-item active"><a href="login" class="nav-link">Sign In</a></li></c:if>
-<c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>
-    <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
-    <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
-    </c:if>
-<li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+/* Style the select arrow */
+form select::after {
+    content: "\25BC"; /* Unicode down arrow character */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
 
-</ul>
-</div>
-</div>
-</nav>
-<!-- END nav -->
 
-<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Home</a></span> <span>Products</span></p>
-                <h1 class="mb-0 bread">Products</h1>
-            </div>
-        </div>
-    </div>
-</div>
+        </style>
+        <title>Palette Joy - Bring art to your home</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10 mb-5 text-center">
-                <ul class="product-category">
-                    <li><a href="#" class="active">All</a></li>
-                    <li><a href="#">Vegetables</a></li>
-                    <li><a href="#">Fruits</a></li>
-                    <li><a href="#">Juice</a></li>
-                    <li><a href="#">Dried</a></li>
-                     <div style="display: inline-block; margin-left: 10px">
-                <form action="searchproduct" method="post" class="search-form">
-                    <div class="search-container">
-                        <input name="txt" type="text"  placeholder="Search">
-                        <button type="submit"><i class="icon-search" style="color: white;"></i></button>
-                    </div>
-                </form>
-            </div>
-                </ul>
-               
-            </div>
-        </div>
-       <div class="row">
-    <c:forEach items="${listP}" var="o">
-        <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="product">
-                <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="img-prod">
-                   
-                           <div style="width: 345px; height: 234px; overflow: hidden;">
-    <img src="images/${o.image}" alt="Colorlib Template" style="width: 100%; height: 100%; object-fit: cover;">
-</div>
+        <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
 
-                    <c:if test="${o.discount != 0}">
-                        <span class="status">${o.discount}%</span>
-                    </c:if>
-                    <div class="overlay"></div>
-                </a>
-                <div class="text py-3 pb-4 px-3 text-center">
-                    <h3><a href="detail?pid=${o.productID}&cid=${o.cateID}">${o.productName}</a></h3>
-                    <div class="d-flex">
-                        <div class="pricing">
-                            <c:if test="${o.discount == 0}">
-                                <p class="price"><span class="price-sale">$${o.price}</span></p>
-                            </c:if>
-                            <c:if test="${o.discount != 0}">
-                                <p class="price"><span class="mr-2 price-dc">$${o.price}</span><span class="price-sale">$${o.price-o.price*o.discount/100}</span></p>
-                            </c:if>
-                        </div>
-                    </div>
-                    <div class="bottom-area d-flex px-3">
-                        <div class="m-auto d-flex">
-                            <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                <span><i class="ion-ios-menu"></i></span>
-                            </a>
-                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                <span><i class="ion-ios-cart"></i></span>
-                            </a>
-                            <a href="#" class="heart d-flex justify-content-center align-items-center">
-                                <span><i class="ion-ios-heart"></i></span>
-                            </a>
+        <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesheet" href="css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="css/magnific-popup.css">
+
+        <link rel="stylesheet" href="css/aos.css">
+
+        <link rel="stylesheet" href="css/ionicons.min.css">
+
+        <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+        <link rel="stylesheet" href="css/flaticon.css">
+        <link rel="stylesheet" href="css/icomoon.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    </head>
+    <body class="goto-here">
+        <button onclick="topFunction()" id="myBtn" title="Go to top">&#8679;</button>
+        <script>
+                //from 91-107 ThanhNX
+                let mybutton = document.getElementById("myBtn");
+
+                // When the user scrolls down 20px from the top of the document, show the button
+                window.onscroll = function () {
+                    scrollFunction()
+                };
+
+                function scrollFunction() {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                        mybutton.style.display = "block";
+                    } else {
+                        mybutton.style.display = "none";
+                    }
+                }
+
+                // When the user clicks on the button, scroll to the top of the document
+                function topFunction() {
+                    document.body.scrollTop = 0;
+                    document.documentElement.scrollTop = 0;
+                }
+        </script>
+        <div class="py-1 bg-primary">
+            <div class="container">
+                <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
+                    <div class="col-lg-12 d-block">
+                        <div class="row d-flex">
+                            <div class="col-md pr-4 d-flex topper align-items-center">
+                                <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
+                                <span class="text">+0368686868</span>
+                            </div>
+                            <div class="col-md pr-4 d-flex topper align-items-center">
+                                <div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
+                                <span class="text">Palettejoy@gmail.com</span>
+                            </div>
+                            <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
+                                <span class="text">3-5 Business days delivery &amp; Free Returns</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </c:forEach>
-</div>
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+            <div class="container">
+                <a class="navbar-brand" href="home">Palette Joy</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="oi oi-menu"></span> Menu
+                </button>
 
-        <div class="row mt-5">
-                                <div class="col text-center">
-                                    <div class="block-27">
-                                        <ul>
-                                            <c:if test="${tag > 1}">
-                                                <li><a href="shop?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
-                                                    </c:if>
+                <div class="collapse navbar-collapse" id="ftco-nav">
+                    <ul class="navbar-nav ml-auto">
 
-                                            <c:forEach begin="1" end="${endP}" var="i">
-                                                <li class="${tag == i ? 'active' : ''}">
-                                                    <a href="shop?index=${i}">${i}</a>
-                                                </li>
-                                            </c:forEach>
+                        <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
+                        <li class="nav-item active dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                <a class="dropdown-item" href="shop">Shop</a>
+                                <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
+                                <a class="dropdown-item" href="product-single.jsp">Single Product</a>
+                                <a class="dropdown-item" href="cart.jsp">Cart</a>
+                                <a class="dropdown-item" href="checkout.jsp">Checkout</a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
+                        <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
+                        <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
+                        <c:if test="${sessionScope.acc==null}"><li class="nav-item active"><a href="login" class="nav-link">Sign In</a></li></c:if>
+                        <c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>
+                            <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
+                            <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
+                            </c:if>
+                        <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
-                                            <c:if test="${tag < endP}">
-                                                <li><a href="shop?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
-                                                    </c:if>
-                                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- END nav -->
+
+        <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+            <div class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-9 ftco-animate text-center">
+                        <p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Home</a></span> <span>Products</span></p>
+                        <h1 class="mb-0 bread">Products</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="ftco-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 mb-5 text-center">
+                        <ul class="product-category">
+                            <li><a href="#" class="active">All</a></li>
+                            <li><a href="#">Vegetables</a></li>
+                            <li><a href="#">Fruits</a></li>
+                            <li><a href="#">Juice</a></li>
+                            <li><a href="#">Dried</a></li>
+                            <div style="display: inline-block; margin-left: 10px">
+                                <form action="searchproduct" method="post" class="search-form">
+                                    <div class="search-container">
+                                        <input name="txt" type="text"  placeholder="Search">
+                                        <button type="submit"><i class="icon-search" style="color: white;"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                             <div class="sorting">
+                            <form action="shop" method="post">
+                            <select name="sortprice" id="sortprice">
+                                <option value="">Sort By Price</option>
+                                <option value="asc">Low to High</option>
+                                <option value="desc">High to Low</option>
+                            </select>
+                                </form>
+                            
+                            <form action="shop" method="post">
+                            <select name="sortname" id="sortname">
+                                <option value="">Sort By Name</option>
+                                <option value="asc">A -> Z</option>
+                                <option value="desc">Z -> A</option>
+                            </select>
+                                </form>
+                        </div>
+                        </ul>
+                       
+                    </div>
+                </div>
+                <div class="row">
+                    <c:forEach items="${listP}" var="o">
+                        <div class="col-md-6 col-lg-3 ftco-animate">
+                            <div class="product">
+                                <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="img-prod">
+
+                                    <div style="width: 345px; height: 234px; overflow: hidden;">
+                                        <img src="images/${o.image}" alt="Colorlib Template" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+
+                                    <c:if test="${o.discount != 0}">
+                                        <span class="status">${o.discount}%</span>
+                                    </c:if>
+                                    <div class="overlay"></div>
+                                </a>
+                                <div class="text py-3 pb-4 px-3 text-center">
+                                    <h3><a href="detail?pid=${o.productID}&cid=${o.cateID}">${o.productName}</a></h3>
+                                    <div class="d-flex">
+                                        <div class="pricing">
+                                            <c:if test="${o.discount == 0}">
+                                                <p class="price"><span class="price-sale">$${o.price}</span></p>
+                                            </c:if>
+                                            <c:if test="${o.discount != 0}">
+                                                <p class="price"><span class="mr-2 price-dc">$${o.price}</span><span class="price-sale">$${o.price-o.price*o.discount/100}</span></p>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                    <div class="bottom-area d-flex px-3">
+                                        <div class="m-auto d-flex">
+                                            <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                                <span><i class="ion-ios-menu"></i></span>
+                                            </a>
+                                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                <span><i class="ion-ios-cart"></i></span>
+                                            </a>
+                                            <a href="#" class="heart d-flex justify-content-center align-items-center">
+                                                <span><i class="ion-ios-heart"></i></span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-    </div>
-</section>
+                        </div>
+                    </c:forEach>
+                </div>
 
-<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-    <div class="container py-4">
-        <div class="row d-flex justify-content-center py-5">
-            <div class="col-md-6">
-                <h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
-                <span>Get e-mail updates about our latest shops and special offers</span>
-            </div>
-            <div class="col-md-6 d-flex align-items-center">
-                <form action="#" class="subscribe-form">
-                    <div class="form-group d-flex">
-                        <input type="text" class="form-control" placeholder="Enter email address">
-                        <input type="submit" value="Subscribe" class="submit px-3">
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+                                <c:if test="${tag > 1}">
+                                    <li><a href="shop?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                        </c:if>
+
+                                <c:forEach begin="1" end="${endP}" var="i">
+                                    <li class="${tag == i ? 'active' : ''}">
+                                        <a href="shop?index=${i}">${i}</a>
+                                    </li>
+                                </c:forEach>
+
+                                <c:if test="${tag < endP}">
+                                    <li><a href="shop?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                        </c:if>
+                            </ul>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
-<footer class="ftco-footer ftco-section">
-    <%@include file="template/footer.jsp" %>        
+        </section>
+
+        <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+            <div class="container py-4">
+                <div class="row d-flex justify-content-center py-5">
+                    <div class="col-md-6">
+                        <h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+                        <span>Get e-mail updates about our latest shops and special offers</span>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center">
+                        <form action="#" class="subscribe-form">
+                            <div class="form-group d-flex">
+                                <input type="text" class="form-control" placeholder="Enter email address">
+                                <input type="submit" value="Subscribe" class="submit px-3">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="ftco-footer ftco-section">
+                <script>
+
+            document.getElementById("sortprice").onchange = function () {
+                this.form.submit();
+            };
+
+            document.getElementById("sortname").onchange = function () {
+                this.form.submit();
+            };
+        </script>
+            <%@include file="template/footer.jsp" %>        

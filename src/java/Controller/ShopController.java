@@ -5,8 +5,10 @@
 package Controller;
 
 import DAO.ProductDAO;
+
 import Model.Category;
 import Model.Product;
+import Model.Setting;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -83,7 +85,38 @@ request.setAttribute("endP", endPage);
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+      String sortprice = request.getParameter("sortprice");
+String sortname = request.getParameter("sortname");
+ String indexPage = request.getParameter("index");
+        if (indexPage == null) {
+            indexPage = "1";
+
+        }
+        int index = Integer.parseInt(indexPage);
+ProductDAO c = new ProductDAO();
+
+  int count = c.getTotalProduct();
+        int endPage = count / 16;
+        if (count % 16 != 0) {
+            endPage++;
+        }
+        List<Product> listP = null;
+if ("all".equals(sortprice) || "all".equals(sortname)) {
+    listP = c.getAllProduct(index);
+} else if ("asc".equals(sortprice)) {
+    listP = c.getpriceAsc(index);
+} else if ("desc".equals(sortprice)) {
+    listP = c.getpriceDesc(index);
+} else if("asc".equals(sortname)){
+    listP = c.getNameAsc(index);
+} else if ("desc".equals(sortname)) {
+    listP = c.getNameDesc(index);
+} 
+
+        request.setAttribute("listP", listP);
+request.setAttribute("endP", endPage);
+        request.setAttribute("tag", index);
+        request.getRequestDispatcher("shop.jsp").forward(request, response);
     }
 
     /**
