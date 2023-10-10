@@ -139,6 +139,7 @@
                 margin-top: 8px;
                 font-size: 10px;
 
+
             }
 
             .search-container button {
@@ -155,33 +156,63 @@
                 background: #82ae46;
             }
 
-            
 
-.sorting {
-    display: flex; /* Use flexbox to align items in a row */
-    align-items: center; /* Vertically center items in the flex container */
-    gap: 20px; /* Space between the two forms */
+
+            .sorting {
+                display: flex; /* Use flexbox to align items in a row */
+                align-items: center; /* Vertically center items in the flex container */
+                gap: 20px; /* Space between the two forms */
+            }
+
+            /* Style the select elements */
+            form select {
+                padding: 10px;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                border-radius: 5px;
+                outline: none;
+            }
+
+            /* Style the select arrow */
+            form select::after {
+                content: "\25BC"; /* Unicode down arrow character */
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+            .product-category {
+                width: 100%; /* Set the width to 100% to expand to the full available width */
+                /* You can also add other CSS properties to style the menu, such as background color, padding, etc. */
+            }
+
+            .side{
+                padding: 1em;
+                width: 250px;
+                float: left ;
+                h3{
+                    font-size: 14px;
+                    text-transform: uppercase;
+
+                    margin-bottom: 20px;
+                }
+                ul{
+                    li{
+                        font-size: 14px;
+                    }
+
+                }
+            }
+            .custom-container {
+                max-width: 1200px; /* Adjust the width as per your preference */
+                margin: 0 auto; /* Center the container horizontally */
+            }
+            .your-ul-class {
+                margin-right: 50px;
+    list-style-type: none;
+    /* Add any other styling you want for the list here */
 }
-
-/* Style the select elements */
-form select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    border-radius: 5px;
-    outline: none;
-}
-
-/* Style the select arrow */
-form select::after {
-    content: "\25BC"; /* Unicode down arrow character */
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
-
 
         </style>
         <title>Palette Joy - Bring art to your home</title>
@@ -308,112 +339,173 @@ form select::after {
         </div>
 
         <section class="ftco-section">
-            <div class="container">
+            <div class="custom-container">
                 <div class="row justify-content-center">
-                    <div class="col-md-10 mb-5 text-center">
+
+                    <div class="col-md-10 col-lg-12 mb-5 text-center">
                         <ul class="product-category">
-                            <li><a href="#" class="active">All</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruits</a></li>
-                            <li><a href="#">Juice</a></li>
-                            <li><a href="#">Dried</a></li>
-                            <div style="display: inline-block; margin-left: 10px">
-                                <form action="searchproduct" method="post" class="search-form">
-                                    <div class="search-container">
-                                        <input name="txt" type="text"  placeholder="Search">
-                                        <button type="submit"><i class="icon-search" style="color: white;"></i></button>
-                                    </div>
+                            <li>
+                                <a href="shop" class="${param.promat == null ? 'active' : ''}">All</a>
+                            </li>
+                            <c:forEach items="${listC}" var="c">
+                                <li>
+                                    <a href="shop?promat=${c.categoryID}" class="${param.promat == c.categoryID ? 'active' : ''}">
+                                        ${c.categoryName}
+                                    </a>
+                                </li>
+                            </c:forEach>
+
+                            <li>
+                                <form action="shop" method="post">
+                                    <select name="sortprice" id="sortprice" style="color: #82ae46;">
+                                        <option value="" style="color: #82ae46;">Sort By Price</option>
+                                        <option value="asc" style="color: #82ae46;"
+                                                ${param.sortprice == 'asc' ? 'selected' : ''}>Low to High</option>
+                                        <option value="desc" style="color: #82ae46;"
+                                                ${param.sortprice == 'desc' ? 'selected' : ''}>High to Low</option>
+                                    </select>
+                                  
                                 </form>
-                            </div>
-                             <div class="sorting">
-                            <form action="shop" method="post">
-                            <select name="sortprice" id="sortprice">
-                                <option value="">Sort By Price</option>
-                                <option value="asc">Low to High</option>
-                                <option value="desc">High to Low</option>
-                            </select>
+                            </li>
+                            <li>
+                                <form action="shop" method="post">
+                                    <select name="sortname" id="sortname" style="color: #82ae46;">
+                                        <option value="" style="color: #82ae46;">Sort By Name</option>
+                                        <option value="asc" style="color: #82ae46;"
+                                                ${param.sortname == 'asc' ? 'selected' : ''}>A -> Z</option>
+                                        <option value="desc" style="color: #82ae46;"
+                                                ${param.sortname == 'desc' ? 'selected' : ''}>Z -> A</option>
+                                    </select>
+                                  
                                 </form>
-                            
-                            <form action="shop" method="post">
-                            <select name="sortname" id="sortname">
-                                <option value="">Sort By Name</option>
-                                <option value="asc">A -> Z</option>
-                                <option value="desc">Z -> A</option>
-                            </select>
-                                </form>
-                        </div>
+                            </li>
+                            <li>
+                                <div style="display: inline-block; margin-left: 10px">
+                                    <form action="searchproduct" method="post" class="search-form">
+                                        <div class="search-container">
+                                            <input name="txt" type="text"  placeholder="Search" >
+                                            <button type="submit"><i class="icon-search" style="color: white;"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
                         </ul>
-                       
+
                     </div>
                 </div>
                 <div class="row">
-                    <c:forEach items="${listP}" var="o">
-                        <div class="col-md-6 col-lg-3 ftco-animate">
-                            <div class="product">
-                                <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="img-prod">
+                    <div class="col-lg-3 col-xl-3">
 
-                                    <div style="width: 345px; height: 234px; overflow: hidden;">
-                                        <img src="images/${o.image}" alt="Colorlib Template" style="width: 100%; height: 100%; object-fit: cover;">
-                                    </div>
+                        <div class="col-sm-12">
+                            <div class="side border mb-1">
+                                <h3>Painting Topic</h3>
 
-                                    <c:if test="${o.discount != 0}">
-                                        <span class="status">${o.discount}%</span>
-                                    </c:if>
-                                    <div class="overlay"></div>
-                                </a>
-                                <div class="text py-3 pb-4 px-3 text-center">
-                                    <h3><a href="detail?pid=${o.productID}&cid=${o.cateID}">${o.productName}</a></h3>
-                                    <div class="d-flex">
-                                        <div class="pricing">
-                                            <c:if test="${o.discount == 0}">
-                                                <p class="price"><span class="price-sale">$${o.price}</span></p>
-                                            </c:if>
+
+
+                                <div class="your-ul-class">
+                                    <c:forEach items="${listT}" var="t">
+                                        <li><a href="shop?protopic=${t.categoryID}">${t.categoryName}</a></li>
+                                        </c:forEach>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="side border mb-1">
+                                <h3>Discount</h3>
+                                 <div class="your-ul-class">
+                                    <li><a href="categoryv?pack=16&type=vanguard">5 Cards</a></li>
+                                    <li><a href="categoryv?pack=17&type=vanguard">6 Cards</a></li>
+                                    <li><a href="categoryv?pack=18&type=vanguard">7 Cards</a></li>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="side border mb-1">
+                                <h3>Boxs</h3>
+                                <ul>
+                                    <li><a href="categoryv?box=19&type=vanguard">12 Packs</a></li>
+                                    <li><a href="categoryv?box=20&type=vanguard">15 Packs</a></li>
+                                    <li><a href="categoryv?box=21&type=vanguard">16 Packs</a></li>
+
+                                </ul>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-xl-9">
+                        <div class="row row-pb-md">
+
+                            <c:forEach items="${listP}" var="o">
+                                <div class="col-md-4 ftco-animate">
+                                    <div class="product">
+                                        <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="img-prod">
+
+                                            <div style="width: 345px; height: 234px; overflow: hidden;">
+                                                <img src="images/${o.image}" alt="Colorlib Template" style="width: 100%; height: 100%; object-fit: cover;">
+                                            </div>
+
                                             <c:if test="${o.discount != 0}">
-                                                <p class="price"><span class="mr-2 price-dc">$${o.price}</span><span class="price-sale">$${o.price-o.price*o.discount/100}</span></p>
+                                                <span class="status">${o.discount}%</span>
                                             </c:if>
-                                        </div>
-                                    </div>
-                                    <div class="bottom-area d-flex px-3">
-                                        <div class="m-auto d-flex">
-                                            <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                                <span><i class="ion-ios-menu"></i></span>
-                                            </a>
-                                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                                <span><i class="ion-ios-cart"></i></span>
-                                            </a>
-                                            <a href="#" class="heart d-flex justify-content-center align-items-center">
-                                                <span><i class="ion-ios-heart"></i></span>
-                                            </a>
+                                            <div class="overlay"></div>
+                                        </a>
+                                        <div class="text py-3 pb-4 px-3 text-center">
+                                            <h3><a href="detail?pid=${o.productID}&cid=${o.cateID}">${o.productName}</a></h3>
+                                            <div class="d-flex">
+                                                <div class="pricing">
+                                                    <c:if test="${o.discount == 0}">
+                                                        <p class="price"><span class="price-sale">$${o.price}</span></p>
+                                                    </c:if>
+                                                    <c:if test="${o.discount != 0}">
+                                                        <p class="price"><span class="mr-2 price-dc">$${o.price}</span><span class="price-sale">$${o.price-o.price*o.discount/100}</span></p>
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                            <div class="bottom-area d-flex px-3">
+                                                <div class="m-auto d-flex">
+                                                    <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                                        <span><i class="ion-ios-menu"></i></span>
+                                                    </a>
+                                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                        <span><i class="ion-ios-cart"></i></span>
+                                                    </a>
+                                                    <a href="#" class="heart d-flex justify-content-center align-items-center">
+                                                        <span><i class="ion-ios-heart"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </c:forEach>
+
+
+                            <div class="col text-center">
+                                <div class="block-27">
+                                    <ul>
+                                        <c:if test="${tag > 1}">
+                                            <li><a href="shop?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                                </c:if>
+
+                                        <c:forEach begin="1" end="${endP}" var="i">
+                                            <li class="${tag == i ? 'active' : ''}">
+                                                <a href="shop?index=${i}">${i}</a>
+                                            </li>
+                                        </c:forEach>
+
+                                        <c:if test="${tag < endP}">
+                                            <li><a href="shop?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                                </c:if>
+                                    </ul>
+
+                                </div>
                             </div>
-                        </div>
-                    </c:forEach>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col text-center">
-                        <div class="block-27">
-                            <ul>
-                                <c:if test="${tag > 1}">
-                                    <li><a href="shop?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
-                                        </c:if>
-
-                                <c:forEach begin="1" end="${endP}" var="i">
-                                    <li class="${tag == i ? 'active' : ''}">
-                                        <a href="shop?index=${i}">${i}</a>
-                                    </li>
-                                </c:forEach>
-
-                                <c:if test="${tag < endP}">
-                                    <li><a href="shop?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
-                                        </c:if>
-                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
 
         <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
@@ -435,14 +527,15 @@ form select::after {
             </div>
         </section>
         <footer class="ftco-footer ftco-section">
-                <script>
+            <script>
 
-            document.getElementById("sortprice").onchange = function () {
-                this.form.submit();
-            };
+                    document.getElementById("sortprice").onchange = function () {
+                        this.form.submit();
+                    };
 
-            document.getElementById("sortname").onchange = function () {
-                this.form.submit();
-            };
-        </script>
+                    document.getElementById("sortname").onchange = function () {
+                        this.form.submit();
+                    }
+                    ;
+            </script>
             <%@include file="template/footer.jsp" %>        

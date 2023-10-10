@@ -37,24 +37,56 @@ public class ShopController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
- String indexPage = request.getParameter("index");
+        String promat = request.getParameter("promat");
+            String protopic = request.getParameter("protopic");
+        String sortprice = request.getParameter("sortprice");
+        String sortname = request.getParameter("sortname");
+        String minprice = request.getParameter("minprice");
+        String maxprice = request.getParameter("maxprice");
+        String indexPage = request.getParameter("index");
         if (indexPage == null) {
             indexPage = "1";
 
         }
+
         int index = Integer.parseInt(indexPage);
         ProductDAO c = new ProductDAO();
-  int count = c.getTotalProduct();
-        int endPage = count / 16;
-        if (count % 16 != 0) {
-            endPage++;
-        }
+ int count = c.getTotalProduct();
+            int endPage = count / 15;
+            if (count % 15 != 0) {
+                endPage++;
+            }
         List<Product> list;
-
-        list = c.getAllProduct(index);
+        if ("all".equals(sortprice) || "all".equals(sortname)) {
+            list = c.getAllProduct(index);
+              request.setAttribute("endP", endPage);
+            request.setAttribute("tag", index);
+        } else if ("asc".equals(sortprice)) {
+            list = c.getpriceAsc();
+        } else if ("desc".equals(sortprice)) {
+            list = c.getpriceDesc();
+        } else if ("asc".equals(sortname)) {
+            list = c.getNameAsc();
+        } else if ("desc".equals(sortname)) {
+            list = c.getNameDesc();
+        } else if (promat != null) {
+            list = c.getProductByMatID(promat);
+            
+        } else if (protopic!= null) {
+            list = c.getProductByTopic(protopic);
+            
+        }else {
+           
+            list = c.getAllProduct(index);
+  request.setAttribute("endP", endPage);
+            request.setAttribute("tag", index);
+        }
+         
         request.setAttribute("listP", list);
-request.setAttribute("endP", endPage);
-        request.setAttribute("tag", index);
+        List<Category> listC = c.getProductCate();
+        List<Category> listT = c.getProductTopic();
+        request.setAttribute("listC", listC);
+request.setAttribute("listT", listT);
         request.getRequestDispatcher("shop.jsp").forward(request, response);
 
     }
@@ -85,38 +117,8 @@ request.setAttribute("endP", endPage);
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      String sortprice = request.getParameter("sortprice");
-String sortname = request.getParameter("sortname");
- String indexPage = request.getParameter("index");
-        if (indexPage == null) {
-            indexPage = "1";
-
-        }
-        int index = Integer.parseInt(indexPage);
-ProductDAO c = new ProductDAO();
-
-  int count = c.getTotalProduct();
-        int endPage = count / 16;
-        if (count % 16 != 0) {
-            endPage++;
-        }
-        List<Product> listP = null;
-if ("all".equals(sortprice) || "all".equals(sortname)) {
-    listP = c.getAllProduct(index);
-} else if ("asc".equals(sortprice)) {
-    listP = c.getpriceAsc(index);
-} else if ("desc".equals(sortprice)) {
-    listP = c.getpriceDesc(index);
-} else if("asc".equals(sortname)){
-    listP = c.getNameAsc(index);
-} else if ("desc".equals(sortname)) {
-    listP = c.getNameDesc(index);
-} 
-
-        request.setAttribute("listP", listP);
-request.setAttribute("endP", endPage);
-        request.setAttribute("tag", index);
-        request.getRequestDispatcher("shop.jsp").forward(request, response);
+ processRequest(request, response);
+      
     }
 
     /**
