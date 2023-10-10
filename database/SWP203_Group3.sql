@@ -1,5 +1,4 @@
 ﻿CREATE DATABASE SWP391_Group3
-GO
 use [SWP391_Group3]
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
@@ -143,7 +142,7 @@ VALUES ('Beautiful Painting', 100.00,	'A stunning painting that brings freshness
 		  ('Couple at night', 175.00,	'This evocative artwork captures a serene and intimate moment between two individuals under the enchanting veil of the night sky. The painting is suffused with a deep, velvety darkness that serves as the backdrop for the protagonists of the scene.',	40,	20,	1,	0,	0,	9),
 		  ('Night seascape', 134.00,	'This mesmerizing painting transports viewers to the tranquil and enchanting world of the nighttime seascape. The canvas is a vast expanse of deep, velvety blues and purples, representing the dark, calm waters of the sea.',	40,	27,	1,	0,	0,	9),
 		  ('Toad folk painting', 56.00,	'This enchanting painting is a celebration of folk art and the quirky world of toads. The canvas bursts with vibrant colors, intricate patterns, and a sense of joyful storytelling. The toads, anthropomorphized and full of character, take center stage in this whimsical composition.',	40,	30,	1,	0,	0,	2),
-		   ('SPRING IN THE AIR', 677.00,	'Spring in the air I adore spring with its warm wind, lots of sun and hope it brings.',	73,	100,	1,	0,	0,	3),
+		   ('SPRING IN THE AIR', 677.00,	'Spring in the air I adore spring with its warm wind, lots of sun and hope it brings.',	73,	100,	1,	0,	0,	3);
 
 		  --create objecttype table
 CREATE TABLE ObjectType(
@@ -393,7 +392,7 @@ INSERT INTO [dbo].[Image]
 			(1, 30,	'product30.jpg'),
 			(1, 30,	'product30_1.jpg'),
 			(1, 30,	'product30_2.jpg'),
-			(1, 30,	'product30_3.jpg')
+			(1, 30,	'product30_3.jpg');
 			
 			
 

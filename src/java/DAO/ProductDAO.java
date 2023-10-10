@@ -6,6 +6,7 @@ package DAO;
 
 import DBcontext.DBContext;
 import Model.Product;
+import Model.Setting;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -357,8 +358,424 @@ public class ProductDAO extends DBContext {
 
         return null;
     }
-    
-    
+
+    //Search setting by name MinhHC
+    public List<Product> searchProductByName(String txtSearch) {
+        List<Product> list = new ArrayList<>();
+        String sql = "WITH RankedImages AS (\n"
+                + "    SELECT\n"
+                + "        I.ObjectID AS ProductID,\n"
+                + "        I.ImageUrl,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+                + "    FROM\n"
+                + "        [dbo].[Image] AS I\n"
+                + "    WHERE\n"
+                + "        I.TypeID = 1  -- Assuming TypeID 1 corresponds to products\n"
+                + "),\n"
+                + "RankedCategories AS (\n"
+                + "    SELECT\n"
+                + "        PC.ProductID,\n"
+                + "        C.CategoryID,\n"
+                + "        C.CategoryName,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY PC.ProductID ORDER BY C.CategoryID) AS CategoryRank\n"
+                + "    FROM\n"
+                + "        ProductCategory AS PC\n"
+                + "    JOIN\n"
+                + "        Category AS C ON PC.CategoryID = C.CategoryID\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    P.ProductID,\n"
+                + "    P.ProductName,\n"
+                + "    P.Price,\n"
+                + "    P.[Description] AS ProductDescription,\n"
+                + "    P.Height,\n"
+                + "    P.Width,\n"
+                + "    P.Quantity,\n"
+                + "    P.[View],\n"
+                + "    P.Discount,\n"
+                + "    P.UserID,\n"
+                + "    R.ImageUrl AS ProductImage,\n"
+                + "    RC.CategoryID AS FirstCategoryID,\n"
+                + "    RC.CategoryName AS FirstCategoryName\n"
+                + "FROM\n"
+                + "    Product AS P\n"
+                + "LEFT JOIN\n"
+                + "    RankedImages AS R ON P.ProductID = R.ProductID\n"
+                + "LEFT JOIN\n"
+                + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
+                + "WHERE\n"
+                + "    R.ImageRank = 1\n"
+                + "    AND RC.CategoryRank = 1\n"
+                + "    AND P.ProductName LIKE ?";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setString(1, "%" + txtSearch + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                list.add(new Product(
+                        rs.getInt(1), // ProductID
+                        rs.getString(2), // ProductName
+                        rs.getDouble(3), // Price
+                        rs.getString(4), // Description
+                        rs.getDouble(5), // Height
+                        rs.getDouble(6), // Width
+                        rs.getInt(7), // Quantity
+                        rs.getInt(8), // View
+                        rs.getDouble(9), // Discount
+                        rs.getInt(10), // UserID
+                        rs.getString(11), // Image
+                        rs.getInt(12)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    public List<Product> getpriceAsc(int index) {
+        List<Product> list = new ArrayList<>();
+        String sql = "WITH RankedImages AS (\n"
+                + "    SELECT\n"
+                + "        I.ObjectID AS ProductID,\n"
+                + "        I.ImageUrl,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+                + "    FROM\n"
+                + "        [dbo].[Image] AS I\n"
+                + "    WHERE\n"
+                + "        I.TypeID = 1  -- Assuming TypeID 1 corresponds to products\n"
+                + "),\n"
+                + "RankedCategories AS (\n"
+                + "    SELECT\n"
+                + "        PC.ProductID,\n"
+                + "        C.CategoryID,\n"
+                + "        C.CategoryName,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY PC.ProductID ORDER BY C.CategoryID) AS CategoryRank\n"
+                + "    FROM\n"
+                + "        ProductCategory AS PC\n"
+                + "    JOIN\n"
+                + "        Category AS C ON PC.CategoryID = C.CategoryID\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    P.ProductID,\n"
+                + "    P.ProductName,\n"
+                + "    P.Price,\n"
+                + "    P.[Description] AS ProductDescription,\n"
+                + "    P.Height,\n"
+                + "    P.Width,\n"
+                + "    P.Quantity,\n"
+                + "    P.[View],\n"
+                + "    P.Discount,\n"
+                + "    P.UserID,\n"
+                + "    R.ImageUrl AS ProductImage,\n"
+                + "    RC.CategoryID AS FirstCategoryID,\n"
+                + "    RC.CategoryName AS FirstCategoryName\n"
+                + "FROM\n"
+                + "    Product AS P\n"
+                + "LEFT JOIN\n"
+                + "    RankedImages AS R ON P.ProductID = R.ProductID\n"
+                + "LEFT JOIN\n"
+                + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
+                + "WHERE\n"
+                + "    R.ImageRank = 1\n"
+                + "    AND RC.CategoryRank = 1\n"
+                + "ORDER BY P.Price ASC  -- Sort by Price in ascending order\n"
+                + "OFFSET ? ROWS \n"
+                + "FETCH NEXT 16 ROWS ONLY;";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, (index - 1) * 16);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(new Product(
+                        rs.getInt(1), // ProductID
+                        rs.getString(2), // ProductName
+                        rs.getDouble(3), // Price
+                        rs.getString(4), // Description
+                        rs.getDouble(5), // Height
+                        rs.getDouble(6), // Width
+                        rs.getInt(7), // Quantity
+                        rs.getInt(8), // View
+                        rs.getDouble(9), // Discount
+                        rs.getInt(10), // UserID
+                        rs.getString(11), // Image
+                        rs.getInt(12)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    public List<Product> getpriceDesc(int index) {
+        List<Product> list = new ArrayList<>();
+        String sql = "WITH RankedImages AS (\n"
+                + "    SELECT\n"
+                + "        I.ObjectID AS ProductID,\n"
+                + "        I.ImageUrl,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+                + "    FROM\n"
+                + "        [dbo].[Image] AS I\n"
+                + "    WHERE\n"
+                + "        I.TypeID = 1  -- Assuming TypeID 1 corresponds to products\n"
+                + "),\n"
+                + "RankedCategories AS (\n"
+                + "    SELECT\n"
+                + "        PC.ProductID,\n"
+                + "        C.CategoryID,\n"
+                + "        C.CategoryName,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY PC.ProductID ORDER BY C.CategoryID) AS CategoryRank\n"
+                + "    FROM\n"
+                + "        ProductCategory AS PC\n"
+                + "    JOIN\n"
+                + "        Category AS C ON PC.CategoryID = C.CategoryID\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    P.ProductID,\n"
+                + "    P.ProductName,\n"
+                + "    P.Price,\n"
+                + "    P.[Description] AS ProductDescription,\n"
+                + "    P.Height,\n"
+                + "    P.Width,\n"
+                + "    P.Quantity,\n"
+                + "    P.[View],\n"
+                + "    P.Discount,\n"
+                + "    P.UserID,\n"
+                + "    R.ImageUrl AS ProductImage,\n"
+                + "    RC.CategoryID AS FirstCategoryID,\n"
+                + "    RC.CategoryName AS FirstCategoryName\n"
+                + "FROM\n"
+                + "    Product AS P\n"
+                + "LEFT JOIN\n"
+                + "    RankedImages AS R ON P.ProductID = R.ProductID\n"
+                + "LEFT JOIN\n"
+                + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
+                + "WHERE\n"
+                + "    R.ImageRank = 1\n"
+                + "    AND RC.CategoryRank = 1\n"
+                + "ORDER BY P.Price Desc  -- Sort by Price in ascending order\n"
+                + "OFFSET ? ROWS \n"
+                + "FETCH NEXT 16 ROWS ONLY;";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, (index - 1) * 16);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(new Product(
+                        rs.getInt(1), // ProductID
+                        rs.getString(2), // ProductName
+                        rs.getDouble(3), // Price
+                        rs.getString(4), // Description
+                        rs.getDouble(5), // Height
+                        rs.getDouble(6), // Width
+                        rs.getInt(7), // Quantity
+                        rs.getInt(8), // View
+                        rs.getDouble(9), // Discount
+                        rs.getInt(10), // UserID
+                        rs.getString(11), // Image
+                        rs.getInt(12)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    public List<Product> getNameAsc(int index) {
+        List<Product> list = new ArrayList<>();
+        String sql = "WITH RankedImages AS (\n"
+                + "    SELECT\n"
+                + "        I.ObjectID AS ProductID,\n"
+                + "        I.ImageUrl,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+                + "    FROM\n"
+                + "        [dbo].[Image] AS I\n"
+                + "    WHERE\n"
+                + "        I.TypeID = 1  -- Assuming TypeID 1 corresponds to products\n"
+                + "),\n"
+                + "RankedCategories AS (\n"
+                + "    SELECT\n"
+                + "        PC.ProductID,\n"
+                + "        C.CategoryID,\n"
+                + "        C.CategoryName,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY PC.ProductID ORDER BY C.CategoryID) AS CategoryRank\n"
+                + "    FROM\n"
+                + "        ProductCategory AS PC\n"
+                + "    JOIN\n"
+                + "        Category AS C ON PC.CategoryID = C.CategoryID\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    P.ProductID,\n"
+                + "    P.ProductName,\n"
+                + "    P.Price,\n"
+                + "    P.[Description] AS ProductDescription,\n"
+                + "    P.Height,\n"
+                + "    P.Width,\n"
+                + "    P.Quantity,\n"
+                + "    P.[View],\n"
+                + "    P.Discount,\n"
+                + "    P.UserID,\n"
+                + "    R.ImageUrl AS ProductImage,\n"
+                + "    RC.CategoryID AS FirstCategoryID,\n"
+                + "    RC.CategoryName AS FirstCategoryName\n"
+                + "FROM\n"
+                + "    Product AS P\n"
+                + "LEFT JOIN\n"
+                + "    RankedImages AS R ON P.ProductID = R.ProductID\n"
+                + "LEFT JOIN\n"
+                + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
+                + "WHERE\n"
+                + "    R.ImageRank = 1\n"
+                + "    AND RC.CategoryRank = 1\n"
+                + "ORDER BY P.ProductName ASC  -- Sort by ProductName in ascending order\n"
+                + "OFFSET ? ROWS \n"
+                + "FETCH NEXT 16 ROWS ONLY;";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, (index - 1) * 16);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(new Product(
+                        rs.getInt(1), // ProductID
+                        rs.getString(2), // ProductName
+                        rs.getDouble(3), // Price
+                        rs.getString(4), // Description
+                        rs.getDouble(5), // Height
+                        rs.getDouble(6), // Width
+                        rs.getInt(7), // Quantity
+                        rs.getInt(8), // View
+                        rs.getDouble(9), // Discount
+                        rs.getInt(10), // UserID
+                        rs.getString(11), // Image
+                        rs.getInt(12)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    public List<Product> getNameDesc(int index) {
+        List<Product> list = new ArrayList<>();
+        String sql = "WITH RankedImages AS (\n"
+                + "    SELECT\n"
+                + "        I.ObjectID AS ProductID,\n"
+                + "        I.ImageUrl,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+                + "    FROM\n"
+                + "        [dbo].[Image] AS I\n"
+                + "    WHERE\n"
+                + "        I.TypeID = 1  -- Assuming TypeID 1 corresponds to products\n"
+                + "),\n"
+                + "RankedCategories AS (\n"
+                + "    SELECT\n"
+                + "        PC.ProductID,\n"
+                + "        C.CategoryID,\n"
+                + "        C.CategoryName,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY PC.ProductID ORDER BY C.CategoryID) AS CategoryRank\n"
+                + "    FROM\n"
+                + "        ProductCategory AS PC\n"
+                + "    JOIN\n"
+                + "        Category AS C ON PC.CategoryID = C.CategoryID\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    P.ProductID,\n"
+                + "    P.ProductName,\n"
+                + "    P.Price,\n"
+                + "    P.[Description] AS ProductDescription,\n"
+                + "    P.Height,\n"
+                + "    P.Width,\n"
+                + "    P.Quantity,\n"
+                + "    P.[View],\n"
+                + "    P.Discount,\n"
+                + "    P.UserID,\n"
+                + "    R.ImageUrl AS ProductImage,\n"
+                + "    RC.CategoryID AS FirstCategoryID,\n"
+                + "    RC.CategoryName AS FirstCategoryName\n"
+                + "FROM\n"
+                + "    Product AS P\n"
+                + "LEFT JOIN\n"
+                + "    RankedImages AS R ON P.ProductID = R.ProductID\n"
+                + "LEFT JOIN\n"
+                + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
+                + "WHERE\n"
+                + "    R.ImageRank = 1\n"
+                + "    AND RC.CategoryRank = 1\n"
+                + "ORDER BY P.ProductName Desc  -- Sort by ProductName in ascending order\n"
+                + "OFFSET ? ROWS \n"
+                + "FETCH NEXT 16 ROWS ONLY;";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, (index - 1) * 16);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(new Product(
+                        rs.getInt(1), // ProductID
+                        rs.getString(2), // ProductName
+                        rs.getDouble(3), // Price
+                        rs.getString(4), // Description
+                        rs.getDouble(5), // Height
+                        rs.getDouble(6), // Width
+                        rs.getInt(7), // Quantity
+                        rs.getInt(8), // View
+                        rs.getDouble(9), // Discount
+                        rs.getInt(10), // UserID
+                        rs.getString(11), // Image
+                        rs.getInt(12)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
 
     //method to test: ThanhNX
     public static void main(String[] args) {
