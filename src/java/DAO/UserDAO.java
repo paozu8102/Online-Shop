@@ -162,8 +162,8 @@ public class UserDAO extends DBContext {
 
         return list;
     }
-    //get all Blog Setting MinhHC
 
+    //get all Blog Setting MinhHC
     public List<Setting> getAllSettingPost() {
         List<Setting> list = new ArrayList<>();
         String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName\n"
@@ -286,14 +286,13 @@ public class UserDAO extends DBContext {
     //Search setting by name MinhHC
     public List<Setting> searchSettingByName(String txtSearch) {
         List<Setting> list = new ArrayList<>();
-      String sql = "SELECT * " +
-             "FROM ( " +
-             "    SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName " +
-             "    FROM Category " +
-             "    INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID " +
-             ") AS setting " +
-             "WHERE CategoryName LIKE ?;";
-
+        String sql = "SELECT * "
+                + "FROM ( "
+                + "    SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName "
+                + "    FROM Category "
+                + "    INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID "
+                + ") AS setting "
+                + "WHERE CategoryName LIKE ?;";
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
@@ -339,8 +338,6 @@ public class UserDAO extends DBContext {
         }
     }
 
-    
-
     //Change status in table Category MinhHC
     public void ChangeSettingStatusCat(int id, int newStatus) {
 
@@ -361,7 +358,6 @@ public class UserDAO extends DBContext {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
-
 
     //Edit setting category MinhHC
     public void EditSettingCat(int id, int status, String description) {
@@ -867,7 +863,38 @@ public class UserDAO extends DBContext {
         }
     }
 
-//    mehtod to test: ThanhNX
+    //get user info by postID: ThanhNX
+    public User getUserByPostID(String postID) {
+        String command = "SELECT u.UserID,\n"
+                + "	   u.UserName,\n"
+                + "	   u.Gender,\n"
+                + "	   u.PhoneNumber,\n"
+                + "	   u.[Address],\n"
+                + "	   u.Avatar,\n"
+                + "	   u.Email\n"
+                + "FROM Post p JOIN [User] u\n"
+                + "ON p.UserID = u.UserID\n"
+                + "WHERE p.PostID = ?";
+        User user = new User();
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(command);
+            ps.setString(1, postID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user.setUserID(rs.getInt("UserID"));
+                user.setUserName(rs.getString("UserName"));
+                user.setGender(rs.getInt("Gender"));
+                user.setPhoneNumber(rs.getString("PhoneNumber"));
+                user.setAddress(rs.getString("Address"));
+                user.setAvatar(rs.getString("Avatar"));
+                user.setEmail(rs.getString("Email"));
+            }
+        } catch (Exception e) {
+        }
+        return user;
+    }
+
+//    method to test: ThanhNX
     public static void main(String[] args) {
         ArrayList<User> test = new UserDAO().getTopUser();
         for (int i = 0; i < test.size(); i++) {
@@ -884,6 +911,6 @@ public class UserDAO extends DBContext {
         for (User o : listC) {
             System.out.println(o);
         }
-
+        System.out.println(new UserDAO().getUserByPostID("1").toString());
     }
 }

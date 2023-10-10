@@ -25,7 +25,7 @@ public class PostDAO extends DBContext {
                 + "b.PostID,\n"
                 + "b.Title,\n"
                 + "CONVERT(varchar, b.[Date], 103) + ' ' + CONVERT(varchar, b.[Date], 108) AS DateTime,\n"
-                + " CONCAT(SUBSTRING(b.Content, 1, 100), '...') AS Content,\n"
+                + "CONCAT(SUBSTRING(b.Content, 1, 100), '...') AS Content,\n"
                 + "i.ImageUrl,\n"
                 + "u.UserName,\n"
                 + "(\n"
@@ -124,6 +124,7 @@ public class PostDAO extends DBContext {
         return CommentNumber;
     }
 
+    //get all no-reply comment: ThanhNX
     public ArrayList<Comment> getAllRootCommentByPostID(String id) {
         ArrayList<Comment> rootCommentList = new ArrayList<>();
         String command = "SELECT u.UserID,\n"
@@ -198,6 +199,84 @@ public class PostDAO extends DBContext {
         return repCommentList;
     }
 
+    //get category and number of posts each category: ThanhNX
+    public ArrayList<Map<String, String>> getPostNumberPerCategory() {
+        ArrayList<Map<String, String>> dataList = new ArrayList<>();
+        String command = "SELECT c.CategoryID, \n"
+                + "	   c.CategoryName, \n"
+                + "	   COUNT(pc.PostID) AS NumberOfPosts\n"
+                + "FROM Category c\n"
+                + "LEFT JOIN PostCategory pc \n"
+                + "ON c.CategoryID = pc.CategoryID\n"
+                + "JOIN ObjectType ob \n"
+                + "ON c.ObjectTypeID = ob.TypeID\n"
+                + "WHERE ob.TypeName = 'Post'\n"
+                + "GROUP BY c.CategoryID, c.CategoryName\n"
+                + "ORDER BY c.CategoryID;";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(command);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Map<String, String> dataMap = new HashMap<>();
+                dataMap.put("CategoryID", rs.getString("CategoryID"));
+                dataMap.put("CategoryName", rs.getString("CategoryName"));
+                dataMap.put("NumberOfPosts", rs.getString("NumberOfPosts"));
+                dataList.add(dataMap);
+            }
+        } catch (Exception e) {
+        }
+        return dataList;
+    }
+
+    //get 4 recent post except current watching post: ThanhNX
+    public ArrayList<Map<String, String>> getRecentPost(String currentPostID) {
+        ArrayList<Map<String, String>> dataList = new ArrayList<>();
+        String command = "SELECT TOP 4\n"
+                + "b.PostID,\n"
+                + "b.Title,\n"
+                + "CONVERT(varchar, b.[Date], 103) + ' ' + CONVERT(varchar, b.[Date], 108) AS DateTime,\n"
+                + "CONCAT(SUBSTRING(b.Content, 1, 100), '...') AS Content,\n"
+                + "i.ImageUrl,\n"
+                + "u.UserName,\n"
+                + "(\n"
+                + "SELECT COUNT(*)\n"
+                + "FROM Comment AS c\n"
+                + "WHERE c.TypeID = 2\n"
+                + "AND c.ObjectID = b.PostID\n"
+                + ") AS CommentNumber\n"
+                + "FROM Post AS b\n"
+                + "LEFT JOIN\n"
+                + "(\n"
+                + "SELECT ObjectID, MIN(ImageUrl) AS ImageUrl\n"
+                + "FROM [Image]\n"
+                + "GROUP BY ObjectID, TypeID\n"
+                + "HAVING TypeID = 2\n"
+                + ") AS i\n"
+                + "ON b.PostID = i.ObjectID\n"
+                + "JOIN [User] AS u\n"
+                + "ON u.UserID = b.UserID\n"
+                + "WHERE b.PostID != ?\n"
+                + "ORDER BY b.[Date] DESC;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(command);
+            st.setString(1, currentPostID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Map<String, String> dataMap = new HashMap<>();
+                dataMap.put("BlogID", rs.getString("PostID"));
+                dataMap.put("Title", rs.getString("Title"));
+                dataMap.put("DateTime", rs.getString("DateTime"));
+                dataMap.put("Content", rs.getString("Content"));
+                dataMap.put("ImageUrl", rs.getString("ImageUrl"));
+                dataMap.put("UserName", rs.getString("UserName"));
+                dataMap.put("CommentNumber", rs.getString("CommentNumber"));
+                dataList.add(dataMap);
+            }
+        } catch (Exception e) {
+        }
+        return dataList;
+    }
+
     public static void main(String[] args) {
         ArrayList<Comment> dataList = new PostDAO().getAllRootCommentByPostID("1");
         for (int i = 0; i < dataList.size(); i++) {
@@ -206,6 +285,11 @@ public class PostDAO extends DBContext {
         ArrayList<ArrayList<Comment>> repcomment = new PostDAO().getAllRepComment(dataList);
         for (int i = 0; i < repcomment.size(); i++) {
             System.out.println(repcomment.get(i).size());
+        }
+
+        ArrayList<Map<String, String>> dataList2 = new PostDAO().getPostNumberPerCategory();
+        for (int i = 0; i < dataList2.size(); i++) {
+            System.out.println(dataList2.get(i).toString());
         }
     }
 }

@@ -582,11 +582,13 @@ CREATE TABLE PostCategory(
 INSERT INTO [dbo].[PostCategory]
            ([PostID]
            ,[CategoryID])
-     VALUES(1, 11),
-		   (2, 8),
-		   (3, 8),
-		   (4, 11),
-		   (4, 9);
+     VALUES(1, (SELECT c.CategoryID FROM Category c WHERE c.CategoryName = 'Life and art')),
+		   (1, (SELECT c.CategoryID FROM Category c WHERE c.CategoryName = 'Sharing')),
+		   (2, (SELECT c.CategoryID FROM Category c WHERE c.CategoryName = 'Q&A')),
+		   (3, (SELECT c.CategoryID FROM Category c WHERE c.CategoryName = 'Q&A')),
+		   (4, (SELECT c.CategoryID FROM Category c WHERE c.CategoryName = 'Life and art')),
+		   (4, (SELECT c.CategoryID FROM Category c WHERE c.CategoryName = 'Introduce product')),
+		   (4, (SELECT c.CategoryID FROM Category c WHERE c.CategoryName = 'Sharing'))
 --DATA UNTILL NOW IS SYNCHRONIZED
 
 --add column for comment table

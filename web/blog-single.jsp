@@ -26,21 +26,21 @@
 	  </nav>
     <!-- END nav -->
 <style>
-.slider-container {
+.slider-container1 {
   position: relative;
   width: 100%; /* Set your desired fixed width */
   height: 400px; /* Set your desired fixed height */
   overflow: hidden;
 }
 
-.slider {
+.slider1 {
   display: flex;
   width: 100%;
   height: 100%;
   transition: transform 0.5s ease-in-out;
 }
 
-.slide {
+.slide1 {
   flex: 0 0 100%;
   height: 100%;
   overflow: hidden;
@@ -52,7 +52,7 @@ img {
   object-fit: contain;
 }
 
-.slider-nav {
+.slider-nav1 {
   top: 50%;
   left: 0;
   right: 0;
@@ -62,7 +62,7 @@ img {
   background-color: none;
 }
 
-.prev-btn, .next-btn {
+.prev-btn1, .next-btn1 {
   background: #82AE46;
   color: #fff;
   border: none;
@@ -71,11 +71,18 @@ img {
   font-size: 18px;
 }
 
-.slide-number {
+.slide-number1 {
   color: black;
   font-size: 18px;
-  
 }
+
+.invisible-text {
+    color: transparent; /* Make the text transparent */
+  }
+  
+.unselectable {
+    user-select: none; /* Prevent text selection */
+  }
 </style>
     
 <script>
@@ -87,7 +94,7 @@ function changeSlide(n) {
 }
 
 function showSlide(n) {
-  let slides = document.querySelectorAll(".slide");
+  let slides = document.querySelectorAll(".slide1");
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}
   for (let i = 0; i < slides.length; i++) {
@@ -101,8 +108,28 @@ function showSlide(n) {
 }
 
 function updateSlideNumber(n) {
-  let slideNumber = document.querySelector(".slide-number");
+  let slideNumber = document.querySelector(".slide-number1");
   slideNumber.textContent = n;
+}
+
+function showAndHideReply(){
+  var elements = document.querySelectorAll('.children');
+  var y = document.getElementById('hideShow');
+  if (y.textContent == "Hide Reply") {
+    y.textContent = "Show Reply";
+  }
+  else if (y.textContent == "Show Reply") {
+    y.textContent = "Hide Reply";
+  }
+  for (var i = 0; i < elements.length; i++) {
+    var x = elements[i];
+    if (x.style.display === "none") {
+    x.style.display = "block";
+    } else {
+    x.style.display = "none";
+  }
+  }
+  
 }
 </script>
 
@@ -124,30 +151,32 @@ function updateSlideNumber(n) {
               <h2 class="mb-3" style="font-weight: bold">${post.Title}</h2>
           
 <c:if test="${fn:length(imageList) > 0}">    
-<div class="slider-container">
-  <div class="slider">
+<div class="slider-container1">
+  <div class="slider1">
       <c:forEach items="${imageList}" var="image">
-          <div class="slide">
+          <div class="slide1">
             <img src="${image.getImageUrl()}">
           </div>
       </c:forEach>
   </div>
 </div>
-<div class="slider-nav">
-    <button class="prev-btn" onclick="changeSlide(-1)">&#10094;</button>
-    <span class="slide-number">1</span><span class="slide-number">/${fn:length(imageList)}</span>
-    <button class="next-btn" onclick="changeSlide(1)">&#10095;</button>
+<div class="slider-nav1">
+    <button class="prev-btn1" onclick="changeSlide(-1)">&#10094;</button>
+    <span class="slide-number1">1</span><span class="slide-number1">/${fn:length(imageList)}</span>
+    <button class="next-btn1" onclick="changeSlide(1)">&#10095;</button>
 </div>
 </c:if> 
             <p style="font-size: 30px; color: black">${post.Content}</p>
             <hr>
-            <div class="about-author d-flex p-4 bg-light">
+            <div class="about-author d-flex p-4 bg-light" style="height: 200px">
               <div class="bio align-self-md-center mr-4">
-                <img src="images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4">
+                  <img style="height: 300px; width: auto" src="${user.getAvatar()}" alt="Image placeholder" class="img-fluid mb-4">
               </div>
               <div class="desc align-self-md-center">
-                <h3>Lance Smith</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+                  <h3 style="padding-top: 80px">${user.getUserName()}</h3>
+                <p class="invisible-text unselectable">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, 
+                    autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero 
+                </p>
               </div>
             </div>
 
@@ -165,7 +194,10 @@ function updateSlideNumber(n) {
                     <h3>${rootCommentList[loop.index].getUserName()}</h3>
                     <div class="meta">${rootCommentList[loop.index].getCommentDate()}</div>
                     <p>${rootCommentList[loop.index].getCommentContent()}</p>
-                    <p><a href="#" class="reply">Reply</a></p>
+                    <p style="display: inline"><a href="#" class="reply">Reply</a></p>
+                    <c:if test="${fn:length(repCommentList[loop.index])>0}">
+                        <p style="display: inline"><a id="hideShow" href="javascript:showAndHideReply();" class="reply">Hide Reply</a></p>
+                    </c:if>
                   </div>
                   <c:if test="${fn:length(repCommentList[loop.index])>0}">
                   <c:forEach items="${repCommentList[loop.index]}" var="repComment">
@@ -231,51 +263,32 @@ function updateSlideNumber(n) {
             <div class="sidebar-box ftco-animate">
             	<h3 class="heading">Categories</h3>
               <ul class="categories">
-                <li><a href="#">Vegetables <span>(12)</span></a></li>
-                <li><a href="#">Fruits <span>(22)</span></a></li>
-                <li><a href="#">Juice <span>(37)</span></a></li>
-                <li><a href="#">Dries <span>(42)</span></a></li>
+                <c:forEach items="${cateAndPostNumList}" var="object">
+                    <li><a href="#">${object.CategoryName}<span>(${object.NumberOfPosts})</span></a></li>
+                </c:forEach>
               </ul>
             </div>
 
             <div class="sidebar-box ftco-animate">
-              <h3 class="heading">Recent Blog</h3>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+              <h3 class="heading">Recent Post</h3>
+              <c:forEach items="${recentPostList}" var="object">
+                  <div class="block-21 mb-4 d-flex" style="border: groove; padding: 5px;">
+                <c:if test="${object.ImageUrl ne null}">
+                <a class="blog-img mr-4" style="background-image: url(${object.ImageUrl});"></a>
+                </c:if>
                 <div class="text">
-                  <h3 class="heading-1"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+                  <h3 class="heading-1"><a href="<%=path%>/PostSingle?id=${object.BlogID}">${object.Title}</a></h3>
                   <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> April 09, 2019</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                    <div><a href="<%=path%>/PostSingle?id=${object.BlogID}"><span class="icon-calendar"></span>${object.DateTime}</a></div>
+                    <div><a href="<%=path%>/PostSingle?id=${object.BlogID}"><span class="icon-person"></span>${object.UserName}</a></div>
+                    <div><a href="<%=path%>/PostSingle?id=${object.BlogID}"><span class="icon-chat"></span>${object.CommentNumber}</a></div>
                   </div>
                 </div>
               </div>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading-1"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> April 09, 2019</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_3.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading-1"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                  <div class="meta">
-                    <div><a href="#"><span class="icon-calendar"></span> April 09, 2019</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                  </div>
-                </div>
-              </div>
+              </c:forEach>
             </div>
 
-            <div class="sidebar-box ftco-animate">
+<!--            <div class="sidebar-box ftco-animate">
               <h3 class="heading">Tag Cloud</h3>
               <div class="tagcloud">
                 <a href="#" class="tag-cloud-link">fruits</a>
@@ -287,7 +300,7 @@ function updateSlideNumber(n) {
                 <a href="#" class="tag-cloud-link">pepper</a>
                 <a href="#" class="tag-cloud-link">eggplant</a>
               </div>
-            </div>
+            </div>-->
 
             <div class="sidebar-box ftco-animate">
               <h3 class="heading">Paragraph</h3>
