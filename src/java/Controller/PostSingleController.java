@@ -6,8 +6,10 @@ package Controller;
 
 import DAO.ImageDAO;
 import DAO.PostDAO;
+import DAO.UserDAO;
 import Model.Comment;
 import Model.Image;
+import Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,13 +51,18 @@ public class PostSingleController extends HttpServlet{
                 rootCommentList = postDAO.getAllRootCommentByPostID(id);
                 repCommentList = postDAO.getAllRepComment(rootCommentList);
             }
-            
+            ArrayList<Map<String, String>> cateAndPostNumList = postDAO.getPostNumberPerCategory();
+            ArrayList<Map<String, String>> recentPostList = new PostDAO().getRecentPost(id);
+            User postUser = new UserDAO().getUserByPostID(id);
             
             req.setAttribute("imageList", imageList);
             req.setAttribute("post", postData);
             req.setAttribute("CommentNumber", commentNumber);
             req.setAttribute("rootCommentList", rootCommentList);
             req.setAttribute("repCommentList", repCommentList);
+            req.setAttribute("cateAndPostNumList", cateAndPostNumList);
+            req.setAttribute("recentPostList", recentPostList);
+            req.setAttribute("user", postUser);
             
             req.getRequestDispatcher("blog-single.jsp").forward(req, resp);
         }

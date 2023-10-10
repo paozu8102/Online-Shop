@@ -34,7 +34,7 @@ public class DBContext {
     private final String dbName = "SWP391_Group3";
     private final String portNumber = "1433";
     private  String userID = "sa";
-    private  String password = "123";
+    private  String password = "123456";
     
     public static void main(String[] args){
         try{
