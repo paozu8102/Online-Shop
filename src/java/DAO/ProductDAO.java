@@ -772,7 +772,7 @@ public class ProductDAO extends DBContext {
 
     public List<Category> getProductCate() {
         List<Category> list = new ArrayList<>();
-        String sql = "Select * from Category where ObjectTypeID =1;";
+        String sql = "Select * from Category where ObjectTypeID =1 and Status = 1;";
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
@@ -800,7 +800,7 @@ public class ProductDAO extends DBContext {
 
     public List<Category> getProductTopic() {
         List<Category> list = new ArrayList<>();
-        String sql = "Select * from Category where ObjectTypeID =3;";
+        String sql = "Select * from Category where ObjectTypeID =3 and status =1";
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
