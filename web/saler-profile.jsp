@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -30,6 +31,75 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+        <style>
+            body{
+                margin-top:20px;
+                background-color:#f2f6fc;
+                color:#69707a;
+            }
+            .img-account-profile {
+                height: 10rem;
+            }
+            .rounded-circle {
+                border-radius: 50% !important;
+            }
+            .card {
+                box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
+            }
+            .card .card-header {
+                font-weight: 500;
+            }
+            .card-header:first-child {
+                border-radius: 0.35rem 0.35rem 0 0;
+            }
+            .card-header {
+                padding: 1rem 1.35rem;
+                margin-bottom: 0;
+                background-color: rgba(33, 40, 50, 0.03);
+                border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+            }
+            .form-control, .dataTable-input {
+                display: block;
+                width: 100%;
+                padding: 0.875rem 1.125rem;
+                font-size: 0.875rem;
+                font-weight: 400;
+                line-height: 1;
+                color: #69707a;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid #c5ccd6;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                border-radius: 0.35rem;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+            .nav-borders .nav-link.active {
+                color: #0061f2;
+                border-bottom-color: #0061f2;
+            }
+            .nav-borders .nav-link {
+                color: #69707a;
+                border-bottom-width: 0.125rem;
+                border-bottom-style: solid;
+                border-bottom-color: transparent;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                padding-left: 0;
+                padding-right: 0;
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+            #avatar {
+                border-radius: 50%;
+                width: 10rem;
+                height: 10rem;
+                object-fit: cover;
+            }
+
+        </style>
     </head>
 
     <body>
@@ -69,42 +139,7 @@
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
-                    <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                        <ul class="navbar-nav d-none d-md-block d-lg-none">
-                            <li class="nav-item">
-                                <a class="nav-toggler nav-link waves-effect waves-light text-white"
-                                   href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                            </li>
-                        </ul>
-                        <!-- ============================================================== -->
-                        <!-- Right side toggle and nav items -->
-                        <!-- ============================================================== -->
-                        <ul class="navbar-nav ms-auto d-flex align-items-center">
-
-                            <!-- ============================================================== -->
-                            <!-- Search -->
-                            <!-- ============================================================== -->
-                            <li class=" in">
-                                <form role="search" class="app-search d-none d-md-block me-3">
-                                    <input type="text" placeholder="Search..." class="form-control mt-0">
-                                    <a href="" class="active">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                </form>
-                            </li>
-                            <!-- ============================================================== -->
-                            <!-- User profile and search -->
-                            <!-- ============================================================== -->
-                            <li>
-                                <a class="profile-pic" href="#">
-                                    <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                         class="img-circle"><span class="text-white font-medium">Sign Out</span></a>
-                            </li>
-                            <!-- ============================================================== -->
-                            <!-- User profile and search -->
-                            <!-- ============================================================== -->
-                        </ul>
-                    </div>
+              
                 </nav>
             </header>
             <!-- ============================================================== -->
@@ -169,7 +204,7 @@
                 <div class="page-breadcrumb bg-white">
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <h4 class="page-title">Profile</h4>
+                            <h4 class="page-title">Your Profile</h4>
                         </div>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -192,15 +227,15 @@
                                 <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/img1.jpg">
                                     <div class="overlay-box">
                                         <div class="user-content">
-                                            <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg"
-                                                                              class="thumb-lg img-circle" alt="img"></a>
+                                            <img id="avatar" class="thumb-lg img-circle" src="${user.getAvatar()}" alt="">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="user-btm-box mt-5 d-md-flex justify-content-center">
                                     <div class="form-group mb-4">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success">Update Avatar</button>
+                                            <button class="btn btn-primary" type="button" id="fileButton" data-toggle="tooltip" data-placement="top" title="Upload your image">Upload new image</button>
+                    <input type="file" id="fileInput" name="imageFile" onchange="uploadImage()" style="display: none;" />
                                         </div>
                                     </div>
                                 </div>
@@ -211,40 +246,53 @@
                         <div class="col-lg-8 col-xlg-9 col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-horizontal form-material">
+                                    <form action="updatesaler" enctype="multipart/form-data" class="form-horizontal form-material">
+                                        <input type="hidden" value="${user.getUserID()}" name="id"/>
+                                        <input type="hidden" id="imageName" value="${user.getAvatar().replace("images/avatar/","")}" name="imageName"/>
                                         <div class="form-group mb-4">
                                             <label class="col-md-12 p-0">Full Name</label>
                                             <div class="col-md-12 border-bottom p-0">
-                                                <input type="text" placeholder=""
-                                                       class="form-control p-0 border-0"> </div>
+                                                <input class="form-control p-0 border-0" id="inputUsername" name="username" type="text" oninput="checkLength()" pattern="^(?:[A-Z][a-zA-Z\s]*){1,50}$" required title="Cannot null, Begin word with upper character, length between 0 -50" placeholder="Enter your username" value="${user.getUserName()}"> </div>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label class="col-md-12 p-0">Phone No</label>
+                               <label class="col-md-12 p-0" for="inputGender">Gender</label>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <div style="flex: 1;">
+                                        <input type="radio" id="male" name="gender" value="male" ${(user.getGender() == 1) ? 'checked' : ''}>
+                                        <label for="male">Male</label>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <input type="radio" id="female" name="gender" value="female"  ${(user.getGender() == 1) ? '' : 'checked'}> 
+                                        <label for="female">Female</label>
+                                    </div>
+                                </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0" for="inputLastName">Phone Number</label>
                                             <div class="col-md-12 border-bottom p-0">
-                                                <input type="text" placeholder=""
-                                                       class="form-control p-0 border-0">
+                                                <input class="form-control p-0 border-0" name="phonenumber" id="inputLastName" type="text" required="" pattern="[0-9]{10}" title="Please enter 10 digits with no spaces." placeholder="Enter your Phone Number" placeholder="Enter your Phone Number" value="${user.getPhoneNumber()}">
                                             </div>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label for="example-email" class="col-md-12 p-0">Address</label>
+                                            <label class="col-md-12 p-0" for="inputOrgName">Address</label>
                                             <div class="col-md-12 border-bottom p-0">
-                                                <input type="text" placeholder=""
+                                                <input name="address" id="inputOrgName" required  type="text" placeholder="Enter your Address" value="${user.getAddress()}"
                                                        class="form-control p-0 border-0" 
-                                                       id="example-email">
+                                                       >
                                             </div>
                                         </div>
                                         <div class="form-group mb-4">
-                                            <label class="col-md-12 p-0">Email</label>
+                                            <label class="col-md-12 p-0" for="inputEmailAddress">Email address</label>
                                             <div class="col-md-12 border-bottom p-0">
-                                                <input type="text" placeholder=""
+                                                <input name="email" id="inputEmailAddress" readonly type="email" placeholder="Enter your email address" value="${user.getEmail()}"
                                                        class="form-control p-0 border-0">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group mb-4">
-                                                    <button class="btn btn-success mx-1">Update Profile</button>
-                                                    <button class="btn btn-success mx-1">Change Password</button>
+                                                    <button class="btn btn-success mx-1" type="submit" data-toggle="tooltip" data-placement="top" title="Save all">Save changes</button>
+                                                    <a class="btn btn-success mx-1" href="change-user-password.jsp" data-toggle="tooltip" data-placement="top" title="Change Password">Change Password</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -298,6 +346,58 @@
         <script src="js/sidebarmenu.js"></script>
         <!--Custom JavaScript -->
         <script src="js/custom.js"></script>
+        <script>
+    // Get references to the button and file input elements
+    const fileButton = document.getElementById('fileButton');
+    const fileInput = document.getElementById('fileInput');
+    const avatarImg = document.getElementById('avatar');
+    const formData = new FormData();
+    const imageUpdateName = document.getElementById('imageName');
+
+    // Add a click event listener to the button
+    fileButton.addEventListener('click', function () {
+        // Trigger a click event on the file input when the button is clicked
+        fileInput.click();
+    });
+
+    // Function to handle image upload
+    function uploadImage() {
+        if (fileInput.files.length !== 0) {
+            formData.append('imageFile', fileInput.files[0]);
+            
+            // Validate the selected image here
+            const selectedFile = fileInput.files[0];
+            // Check if the selected file is an image (JPG or PNG)
+            if (!/\.(jpg|png)$/i.test(selectedFile.name)) {
+                alert('Please select a valid image file (JPG or PNG).');
+                return;
+            }
+            // Check if the file size is within the allowed limit (5MB)
+            const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+            if (selectedFile.size > maxSize) {
+                alert('The selected image file is too large. Please choose a smaller image.');
+                return;
+            }
+            // Perform the image upload if it passes validation
+            fetch(`/SWP391_SE1729_Group3/changeavatar`, {
+                method: 'POST',
+                body: formData
+            });
+
+            setTimeout(function () {
+                if (formData.get('imageFile').name !== 'undefined') {
+                    avatarImg.src = `images/avatar/` + formData.get('imageFile').name;
+                    imageUpdateName.value = formData.get('imageFile').name;
+                    formData.delete('imageFile');
+                }
+            }, 2000);
+        }
+    }
+
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
     </body>
 
 </html>
