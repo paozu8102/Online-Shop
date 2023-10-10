@@ -210,9 +210,237 @@
             }
             .your-ul-class {
                 margin-right: 50px;
-    list-style-type: none;
-    /* Add any other styling you want for the list here */
-}
+                list-style-type: none;
+                /* Add any other styling you want for the list here */
+            }
+
+            .wrapper {
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .filter-price {
+                width: 220px;
+                border: 0;
+                padding: 0;
+                margin: 0;
+            }
+
+            .price-title {
+                position: relative;
+                color: #fff;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+                background: #82ae46;
+                padding:10px;
+            }
+
+            .price-container {
+                display: flex;
+                border: 1px solid #ccc;
+                padding: 5px;
+                margin-left: 40px;
+                width:120px;
+            }
+
+            .price-field {
+                position: relative;
+                width: 100%;
+                height: 36px;
+                box-sizing: border-box;
+                padding-top: 15px;
+                padding-left: 0px;
+            }
+
+            .price-field input[type=range] {
+                position: absolute;
+            }
+
+            /* Reset style for input range */
+
+            .price-field input[type=range] {
+                width: 100%;
+                height: 7px;
+                border: 1px solid #000;
+                outline: 0;
+                box-sizing: border-box;
+                border-radius: 5px;
+                pointer-events: none;
+                -webkit-appearance: none;
+                background: #82ae46;
+            }
+
+            .price-field input[type=range]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+            }
+
+            .price-field input[type=range]:active,
+            .price-field input[type=range]:focus {
+                outline: 0;
+            }
+
+            .price-field input[type=range]::-ms-track {
+                width: 188px;
+                height: 2px;
+                border: 0;
+                outline: 0;
+                box-sizing: border-box;
+                border-radius: 5px;
+                pointer-events: none;
+                background: transparent;
+                border-color: transparent;
+                color: red;
+                border-radius: 5px;
+            }
+
+            /* Style toddler input range */
+
+            .price-field input[type=range]::-webkit-slider-thumb {
+                /* WebKit/Blink */
+                position: relative;
+                -webkit-appearance: none;
+                margin: 0;
+                border: 0;
+                outline: 0;
+                border-radius: 50%;
+                height: 10px;
+                width: 10px;
+                margin-top: -4px;
+                background-color: #fff;
+                cursor: pointer;
+                cursor: pointer;
+                pointer-events: all;
+                z-index: 100;
+            }
+
+            .price-field input[type=range]::-moz-range-thumb {
+                /* Firefox */
+                position: relative;
+                appearance: none;
+                margin: 0;
+                border: 0;
+                outline: 0;
+                border-radius: 50%;
+                height: 10px;
+                width: 10px;
+                margin-top: -5px;
+                background-color: #fff;
+                cursor: pointer;
+                cursor: pointer;
+                pointer-events: all;
+                z-index: 100;
+            }
+
+            .price-field input[type=range]::-ms-thumb  {
+                /* IE */
+                position: relative;
+                appearance: none;
+                margin: 0;
+                border: 0;
+                outline: 0;
+                border-radius: 50%;
+                height: 10px;
+                width: 10px;
+                margin-top: -5px;
+                background-color: #242424;
+                cursor: pointer;
+                cursor: pointer;
+                pointer-events: all;
+                z-index: 100;
+            }
+
+            /* Style track input range */
+
+            .price-field input[type=range]::-webkit-slider-runnable-track {
+                /* WebKit/Blink */
+                width: 188px;
+                height: 2px;
+                cursor: pointer;
+                background: #555;
+                border-radius: 5px;
+            }
+
+            .price-field input[type=range]::-moz-range-track {
+                /* Firefox */
+                width: 188px;
+                height: 2px;
+                cursor: pointer;
+                background: #242424;
+                border-radius: 5px;
+            }
+
+            .price-field input[type=range]::-ms-track {
+                /* IE */
+                width: 188px;
+                height: 2px;
+                cursor: pointer;
+                background: #242424;
+                border-radius: 5px;
+            }
+
+            /* Style for input value block */
+
+            .price-wrap {
+                display: flex;
+                color: #242424;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+                margin-bottom: 0px;
+            }
+
+            .price-wrap-1,
+            .price-wrap-2 {
+                display: flex;
+                margin-left: 0px;
+            }
+
+            .price-title {
+                margin-right: 5px;
+            }
+
+            .price-wrap_line {
+                margin: 6px 0px 5px 5px;
+            }
+
+            .price-wrap #one,
+            .price-wrap #two {
+                width: 30px;
+                text-align: right;
+                margin: 0;
+                padding: 0;
+                margin-right: 2px;
+                background:  0;
+                border: 0;
+                outline: 0;
+                color: #242424;
+                font-family: 'Karla', 'Arial', sans-serif;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+            }
+
+            .price-wrap label {
+                text-align: right;
+                margin-top: 6px;
+                padding-left: 5px;
+            }
+
+            /* Style for active state input */
+
+            .price-field input[type=range]:hover::-webkit-slider-thumb {
+                box-shadow: 0 0 0 0.5px #242424;
+                transition-duration: 0.3s;
+            }
+
+            .price-field input[type=range]:active::-webkit-slider-thumb {
+                box-shadow: 0 0 0 0.5px #242424;
+                transition-duration: 0.3s;
+            }
 
         </style>
         <title>Palette Joy - Bring art to your home</title>
@@ -364,7 +592,7 @@
                                         <option value="desc" style="color: #82ae46;"
                                                 ${param.sortprice == 'desc' ? 'selected' : ''}>High to Low</option>
                                     </select>
-                                  
+
                                 </form>
                             </li>
                             <li>
@@ -376,7 +604,7 @@
                                         <option value="desc" style="color: #82ae46;"
                                                 ${param.sortname == 'desc' ? 'selected' : ''}>Z -> A</option>
                                     </select>
-                                  
+
                                 </form>
                             </li>
                             <li>
@@ -413,22 +641,45 @@
                         <div class="col-sm-12">
                             <div class="side border mb-1">
                                 <h3>Discount</h3>
-                                 <div class="your-ul-class">
-                                    <li><a href="categoryv?pack=16&type=vanguard">5 Cards</a></li>
-                                    <li><a href="categoryv?pack=17&type=vanguard">6 Cards</a></li>
-                                    <li><a href="categoryv?pack=18&type=vanguard">7 Cards</a></li>
-                               </div>
+                                <div class="your-ul-class">
+                                    <li><a href="shop?discountmin=0&discountmax=20">0-20%</a></li>
+                                    <li><a href="shop?discountmin=20&discountmax=40">20-40%</a></li>
+                                    <li><a href="shop?discountmin=40&discountmax=60">40-60%</a></li>
+                                    <li><a href="shop?discountmin=60&discountmax=80">60-80%</a></li>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="side border mb-1">
                                 <h3>Boxs</h3>
-                                <ul>
-                                    <li><a href="categoryv?box=19&type=vanguard">12 Packs</a></li>
-                                    <li><a href="categoryv?box=20&type=vanguard">15 Packs</a></li>
-                                    <li><a href="categoryv?box=21&type=vanguard">16 Packs</a></li>
+                                <form action="shop" method="post">
+                                    <div class="wrapper">
+                                        <fieldset class="filter-price">
 
-                                </ul>
+                                            <div class="price-field">
+                                                <input name="minprice" type="range" min="0" max="1000" value="300" id="lower">
+                                                <input name="maxprice" type="range" min="0" max="1000" value="800" id="upper">
+                                            </div>
+                                            <div class="price-wrap">
+                                                <button type="submit" class="price-title">FILTER</button>
+                                                <div class="price-container">
+                                                    <div class="price-wrap-1">
+
+                                                        <label for="one">$</label>
+                                                        <input id="one">
+                                                    </div>
+                                                    <div class="price-wrap_line">-</div>
+                                                    <div class="price-wrap-2">
+                                                        <label for="two">$</label>
+                                                        <input id="two">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                </form>
                             </div>
 
 
@@ -537,5 +788,41 @@
                         this.form.submit();
                     }
                     ;
+
+                    var lowerSlider = document.querySelector('#lower');
+                    var upperSlider = document.querySelector('#upper');
+
+                    document.querySelector('#two').value = upperSlider.value;
+                    document.querySelector('#one').value = lowerSlider.value;
+
+                    var lowerVal = parseInt(lowerSlider.value);
+                    var upperVal = parseInt(upperSlider.value);
+
+                    upperSlider.oninput = function () {
+                        lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+
+                        if (upperVal < lowerVal + 4) {
+                            lowerSlider.value = upperVal - 4;
+                            if (lowerVal === lowerSlider.min) {
+                                upperSlider.value = 4;
+                            }
+                        }
+                        document.querySelector('#two').value = this.value;
+                    };
+
+                    lowerSlider.oninput = function () {
+                        lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+                        if (lowerVal > upperVal - 4) {
+                            upperSlider.value = lowerVal + 4;
+                            if (upperVal === upperSlider.max) {
+                                lowerSlider.value = parseInt(upperSlider.max) - 4;
+                            }
+                        }
+                        document.querySelector('#one').value = this.value;
+                    }
+                    ;
             </script>
+            
             <%@include file="template/footer.jsp" %>        
