@@ -49,6 +49,9 @@ public class ShopController extends HttpServlet {
         String maxheight = request.getParameter("maxheight");
         String discountmin = request.getParameter("discountmin");
         String discountmax = request.getParameter("discountmax");
+             String txtSearch = request.getParameter("txt");
+    
+        
         String indexPage = request.getParameter("index");
         if (indexPage == null) {
             indexPage = "1";
@@ -88,7 +91,11 @@ public class ShopController extends HttpServlet {
             list = c.FilterPriceProduct(minprice, maxprice);
         } else if (minwidth != null) {
             list = c.FilterSizeProduct(minwidth, maxwidth, minheight, maxheight);
-        } else {
+        } 
+        else if (txtSearch != null) {
+          list = c.searchProductByName(txtSearch);
+        } 
+        else {
 
             list = c.getAllProduct(index);
             request.setAttribute("endP", endPage);

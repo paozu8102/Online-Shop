@@ -641,7 +641,7 @@
                             </li>
                             <li>
                                 <div style="display: inline-block; margin-left: 10px">
-                                    <form action="searchproduct" method="post" class="search-form">
+                                    <form action="shop" method="post" class="search-form">
                                         <div class="search-container">
                                             <input name="txt" type="text"  placeholder="Search" >
                                             <button type="submit"><i class="icon-search" style="color: white;"></i></button>
