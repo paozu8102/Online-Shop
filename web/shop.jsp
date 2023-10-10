@@ -651,14 +651,14 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="side border mb-1">
-                                <h3>Boxs</h3>
+                                <h3>Price</h3>
                                 <form action="shop" method="post">
                                     <div class="wrapper">
                                         <fieldset class="filter-price">
 
                                             <div class="price-field">
-                                                <input name="minprice" type="range" min="0" max="1000" value="300" id="lower">
-                                                <input name="maxprice" type="range" min="0" max="1000" value="800" id="upper">
+                                                <input type="range" min="0" max="1000" value="300" id="lower">
+                                                <input  type="range" min="0" max="1000" value="800" id="upper">
                                             </div>
                                             <div class="price-wrap">
                                                 <button type="submit" class="price-title">FILTER</button>
@@ -666,12 +666,12 @@
                                                     <div class="price-wrap-1">
 
                                                         <label for="one">$</label>
-                                                        <input id="one">
+                                                        <input name="minprice"  id="one">
                                                     </div>
                                                     <div class="price-wrap_line">-</div>
                                                     <div class="price-wrap-2">
                                                         <label for="two">$</label>
-                                                        <input id="two">
+                                                        <input name="maxprice" id="two">
 
                                                     </div>
                                                 </div>
