@@ -243,7 +243,7 @@
                 display: flex;
                 border: 1px solid #ccc;
                 padding: 5px;
-                margin-left: 40px;
+                margin-right: 40px;
                 width:120px;
             }
 
@@ -397,6 +397,7 @@
             .price-wrap-2 {
                 display: flex;
                 margin-left: 0px;
+                
             }
 
             .price-title {
@@ -423,7 +424,38 @@
                 line-height: 1.2em;
                 font-weight: 400;
             }
-
+ .price-wrap #minWidth,
+            .price-wrap #maxWidth {
+                width: 30px;
+                text-align: right;
+                margin: 0;
+                padding: 0;
+                margin-right: 2px;
+                background:  0;
+                border: 0;
+                outline: 0;
+                color: #242424;
+                font-family: 'Karla', 'Arial', sans-serif;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+            }
+             .price-wrap #minHeight,
+            .price-wrap #maxHeight {
+                width: 30px;
+                text-align: right;
+                margin: 0;
+                padding: 0;
+                margin-right: 2px;
+                background:  0;
+                border: 0;
+                outline: 0;
+                color: #242424;
+                font-family: 'Karla', 'Arial', sans-serif;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+            }
             .price-wrap label {
                 text-align: right;
                 margin-top: 6px;
@@ -661,12 +693,12 @@
                                                 <input  type="range" min="0" max="1000" value="800" id="upper">
                                             </div>
                                             <div class="price-wrap">
-                                                <button type="submit" class="price-title">FILTER</button>
+                                               
                                                 <div class="price-container">
                                                     <div class="price-wrap-1">
 
                                                         <label for="one">$</label>
-                                                        <input name="minprice"  id="one">
+                                                        <input name="minprice" id="one">
                                                     </div>
                                                     <div class="price-wrap_line">-</div>
                                                     <div class="price-wrap-2">
@@ -675,6 +707,7 @@
 
                                                     </div>
                                                 </div>
+                                                 <button type="submit" class="price-title">FILTER</button>
                                             </div>
                                         </fieldset>
                                     </div>
@@ -685,6 +718,64 @@
 
 
                         </div>
+                        <div class="col-sm-12">
+                            <div class="side border mb-1">
+                                <h3>Size</h3>
+                                <form action="shop" method="post">
+                                    <div class="wrapper">
+                                        <fieldset class="filter-price">
+                                            <h5>Width</h5>
+                                            <div class="price-field">
+                                                <input type="range" min="0" max="100" value="20" id="widthLower">
+                                                <input type="range" min="0" max="100" value="50" id="widthUpper">
+                                            </div>
+                                            <div class="price-wrap">
+                                             
+                                              <div class="price-container" > 
+                                                    <div class="price-wrap-1">
+                                                       
+                                                        <input name="minwidth" id="minWidth">
+                                                
+                                                    </div>
+                                                    <div class="price-wrap_line">-</div>
+                                                    <div class="price-wrap-2">
+                                                        
+                                                        <input name="maxwidth" id="maxWidth">
+                                                        <label for="two">cm</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                     <h5>Height</h5>
+                                        <fieldset class="filter-price">
+                                           
+                                            <div class="price-field">
+                                                <input type="range" min="0" max="100" value="20" id="heightLower">
+                                                <input type="range" min="0" max="100" value="50" id="heightUpper">
+                                            </div>
+                                            <div class="price-wrap">
+                                                
+                                                <div class="price-container">
+                                                    <div class="price-wrap-1">
+                                                       
+                                                        <input name="minheight" id="minHeight">
+                                                    </div>
+                                                    <div class="price-wrap_line">-</div>
+                                                    <div class="price-wrap-2">
+                                                       
+                                                        <input name="maxheight" id="maxHeight">
+                                                             <label for="two">cm</label>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="price-title">FILTER</button>
+                                            </div>
+                                        </fieldset>
+                                    
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-lg-9 col-xl-9">
                         <div class="row row-pb-md">
@@ -823,6 +914,77 @@
                         document.querySelector('#one').value = this.value;
                     }
                     ;
+
+
+
             </script>
-            
+<script>
+    // JavaScript for width range sliders
+    var widthLowerSlider = document.querySelector('#widthLower');
+    var widthUpperSlider = document.querySelector('#widthUpper');
+
+    // JavaScript for height range sliders
+    var heightLowerSlider = document.querySelector('#heightLower');
+    var heightUpperSlider = document.querySelector('#heightUpper');
+
+    // Initialize width inputs
+    document.querySelector('#minWidth').value = widthLowerSlider.value;
+    document.querySelector('#maxWidth').value = widthUpperSlider.value;
+
+    // Initialize height inputs
+    document.querySelector('#minHeight').value = heightLowerSlider.value;
+    document.querySelector('#maxHeight').value = heightUpperSlider.value;
+
+    // Add event listeners for width sliders
+    widthLowerSlider.oninput = function () {
+         lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+                        if (lowerVal > upperVal - 4) {
+                            upperSlider.value = lowerVal + 4;
+                            if (upperVal === upperSlider.max) {
+                                lowerSlider.value = parseInt(upperSlider.max) - 4;
+                            }
+                        }
+                        document.querySelector('#minWidth').value = this.value;
+    };
+
+    widthUpperSlider.oninput = function () {
+        lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+
+                        if (upperVal < lowerVal + 4) {
+                            lowerSlider.value = upperVal - 4;
+                            if (lowerVal === lowerSlider.min) {
+                                upperSlider.value = 4;
+                            }
+                        }
+                        document.querySelector('#maxWidth').value = this.value;
+    };
+
+    // Add event listeners for height sliders
+    heightLowerSlider.oninput = function () {
+         lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+                        if (lowerVal > upperVal - 4) {
+                            upperSlider.value = lowerVal + 4;
+                            if (upperVal === upperSlider.max) {
+                                lowerSlider.value = parseInt(upperSlider.max) - 4;
+                            }
+                        }
+                        document.querySelector('#minHeight').value = this.value;
+    };
+
+    heightUpperSlider.oninput = function () {
+            lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+
+                        if (upperVal < lowerVal + 4) {
+                            lowerSlider.value = upperVal - 4;
+                            if (lowerVal === lowerSlider.min) {
+                                upperSlider.value = 4;
+                            }
+                        }
+                        document.querySelector('#maxHeight').value = this.value;
+    };
+</script>
             <%@include file="template/footer.jsp" %>        
