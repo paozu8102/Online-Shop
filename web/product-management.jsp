@@ -188,12 +188,12 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">Basic Table</h3>
+                            <h3 class="box-title">Product Table</h3>
                             <div class="table-responsive">
                                 <table class="table text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">ProductID</th>
                                             <th class="border-top-0">Product Name</th>
                                             <th class="border-top-0">Price</th>
                                             <th class="border-top-0">Description</th>
@@ -201,6 +201,7 @@
                                             <th class="border-top-0">Width</th>
                                             <th class="border-top-0">Quantity</th>
                                             <th class="border-top-0">Discount</th>
+                                            <th class="border-top-0">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -213,6 +214,16 @@
                                             <td>54</td>
                                             <td>2</td>
                                             <td>50</td>
+                                            <td class="total">
+                                                <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3601/3601685.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/709/709519.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    </td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
@@ -223,6 +234,16 @@
                                             <td>54</td>
                                             <td>2</td>
                                             <td>50</td>
+                                            <td class="total">
+                                                <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3601/3601685.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/709/709519.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    </td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -233,6 +254,16 @@
                                             <td>54</td>
                                             <td>2</td>
                                             <td>50</td>
+                                            <td class="total">
+                                                <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3601/3601685.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/709/709519.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    </td>
                                         </tr>
                                         <tr>
                                             <td>4</td>
@@ -243,6 +274,16 @@
                                             <td>54</td>
                                             <td>2</td>
                                             <td>50</td>
+                                            <td class="total">
+                                                <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3601/3601685.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/709/709519.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    </td>
                                         </tr>
                                         <tr>
                                             <td>5</td>
@@ -253,6 +294,16 @@
                                             <td>54</td>
                                             <td>2</td>
                                             <td>50</td>
+                                            <td class="total">
+                                                <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3601/3601685.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/709/709519.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    </td>
                                         </tr>
                                         <tr>
                                             <td>6</td>
@@ -263,6 +314,17 @@
                                             <td>54</td>
                                             <td>2</td>
                                             <td>50</td>
+                                            <td class="total">
+                                                <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/3601/3601685.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                 
+                                                    <a href="#" data-toggle="modal" data-target="#editUser" data-email="${o.email}" data-name="${o.userName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/709/709519.png"
+                                                         alt="Mô tả ảnh" width="20" height="20">
+                                                </a>
+                                                    </td>
                                         </tr>
                                     </tbody>
                                 </table>

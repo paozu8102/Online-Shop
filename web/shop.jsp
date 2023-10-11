@@ -139,6 +139,7 @@
                 margin-top: 8px;
                 font-size: 10px;
 
+
             }
 
             .search-container button {
@@ -155,33 +156,323 @@
                 background: #82ae46;
             }
 
-            
 
-.sorting {
-    display: flex; /* Use flexbox to align items in a row */
-    align-items: center; /* Vertically center items in the flex container */
-    gap: 20px; /* Space between the two forms */
-}
 
-/* Style the select elements */
-form select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    border-radius: 5px;
-    outline: none;
-}
+            .sorting {
+                display: flex; /* Use flexbox to align items in a row */
+                align-items: center; /* Vertically center items in the flex container */
+                gap: 20px; /* Space between the two forms */
+            }
 
-/* Style the select arrow */
-form select::after {
-    content: "\25BC"; /* Unicode down arrow character */
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
+            /* Style the select elements */
+            form select {
+                padding: 10px;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                border-radius: 5px;
+                outline: none;
+            }
 
+            /* Style the select arrow */
+            form select::after {
+                content: "\25BC"; /* Unicode down arrow character */
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+            .product-category {
+                width: 100%; /* Set the width to 100% to expand to the full available width */
+                /* You can also add other CSS properties to style the menu, such as background color, padding, etc. */
+            }
+
+            .side{
+                padding: 1em;
+                width: 250px;
+                float: left ;
+                h3{
+                    font-size: 14px;
+                    text-transform: uppercase;
+
+                    margin-bottom: 20px;
+                }
+                ul{
+                    li{
+                        font-size: 14px;
+                    }
+
+                }
+            }
+            .custom-container {
+                max-width: 1200px; /* Adjust the width as per your preference */
+                margin: 0 auto; /* Center the container horizontally */
+            }
+            .your-ul-class {
+                margin-right: 50px;
+                list-style-type: none;
+                /* Add any other styling you want for the list here */
+            }
+
+            .wrapper {
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .filter-price {
+                width: 220px;
+                border: 0;
+                padding: 0;
+                margin: 0;
+            }
+
+            .price-title {
+                position: relative;
+                color: #fff;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+                background: #82ae46;
+                padding:10px;
+            }
+
+            .price-container {
+                display: flex;
+                border: 1px solid #ccc;
+                padding: 5px;
+                margin-right: 40px;
+                width:120px;
+            }
+
+            .price-field {
+                position: relative;
+                width: 100%;
+                height: 36px;
+                box-sizing: border-box;
+                padding-top: 15px;
+                padding-left: 0px;
+            }
+
+            .price-field input[type=range] {
+                position: absolute;
+            }
+
+            /* Reset style for input range */
+
+            .price-field input[type=range] {
+                width: 100%;
+                height: 7px;
+                border: 1px solid #000;
+                outline: 0;
+                box-sizing: border-box;
+                border-radius: 5px;
+                pointer-events: none;
+                -webkit-appearance: none;
+                background: #82ae46;
+            }
+
+            .price-field input[type=range]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+            }
+
+            .price-field input[type=range]:active,
+            .price-field input[type=range]:focus {
+                outline: 0;
+            }
+
+            .price-field input[type=range]::-ms-track {
+                width: 188px;
+                height: 2px;
+                border: 0;
+                outline: 0;
+                box-sizing: border-box;
+                border-radius: 5px;
+                pointer-events: none;
+                background: transparent;
+                border-color: transparent;
+                color: red;
+                border-radius: 5px;
+            }
+
+            /* Style toddler input range */
+
+            .price-field input[type=range]::-webkit-slider-thumb {
+                /* WebKit/Blink */
+                position: relative;
+                -webkit-appearance: none;
+                margin: 0;
+                border: 0;
+                outline: 0;
+                border-radius: 50%;
+                height: 10px;
+                width: 10px;
+                margin-top: -4px;
+                background-color: #fff;
+                cursor: pointer;
+                cursor: pointer;
+                pointer-events: all;
+                z-index: 100;
+            }
+
+            .price-field input[type=range]::-moz-range-thumb {
+                /* Firefox */
+                position: relative;
+                appearance: none;
+                margin: 0;
+                border: 0;
+                outline: 0;
+                border-radius: 50%;
+                height: 10px;
+                width: 10px;
+                margin-top: -5px;
+                background-color: #fff;
+                cursor: pointer;
+                cursor: pointer;
+                pointer-events: all;
+                z-index: 100;
+            }
+
+            .price-field input[type=range]::-ms-thumb  {
+                /* IE */
+                position: relative;
+                appearance: none;
+                margin: 0;
+                border: 0;
+                outline: 0;
+                border-radius: 50%;
+                height: 10px;
+                width: 10px;
+                margin-top: -5px;
+                background-color: #242424;
+                cursor: pointer;
+                cursor: pointer;
+                pointer-events: all;
+                z-index: 100;
+            }
+
+            /* Style track input range */
+
+            .price-field input[type=range]::-webkit-slider-runnable-track {
+                /* WebKit/Blink */
+                width: 188px;
+                height: 2px;
+                cursor: pointer;
+                background: #555;
+                border-radius: 5px;
+            }
+
+            .price-field input[type=range]::-moz-range-track {
+                /* Firefox */
+                width: 188px;
+                height: 2px;
+                cursor: pointer;
+                background: #242424;
+                border-radius: 5px;
+            }
+
+            .price-field input[type=range]::-ms-track {
+                /* IE */
+                width: 188px;
+                height: 2px;
+                cursor: pointer;
+                background: #242424;
+                border-radius: 5px;
+            }
+
+            /* Style for input value block */
+
+            .price-wrap {
+                display: flex;
+                color: #242424;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+                margin-bottom: 0px;
+            }
+
+            .price-wrap-1,
+            .price-wrap-2 {
+                display: flex;
+                margin-left: 0px;
+                
+            }
+
+            .price-title {
+                margin-right: 5px;
+            }
+
+            .price-wrap_line {
+                margin: 6px 0px 5px 5px;
+            }
+
+            .price-wrap #one,
+            .price-wrap #two {
+                width: 30px;
+                text-align: right;
+                margin: 0;
+                padding: 0;
+                margin-right: 2px;
+                background:  0;
+                border: 0;
+                outline: 0;
+                color: #242424;
+                font-family: 'Karla', 'Arial', sans-serif;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+            }
+ .price-wrap #minWidth,
+            .price-wrap #maxWidth {
+                width: 30px;
+                text-align: right;
+                margin: 0;
+                padding: 0;
+                margin-right: 2px;
+                background:  0;
+                border: 0;
+                outline: 0;
+                color: #242424;
+                font-family: 'Karla', 'Arial', sans-serif;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+            }
+             .price-wrap #minHeight,
+            .price-wrap #maxHeight {
+                width: 30px;
+                text-align: right;
+                margin: 0;
+                padding: 0;
+                margin-right: 2px;
+                background:  0;
+                border: 0;
+                outline: 0;
+                color: #242424;
+                font-family: 'Karla', 'Arial', sans-serif;
+                font-size: 14px;
+                line-height: 1.2em;
+                font-weight: 400;
+            }
+            .price-wrap label {
+                text-align: right;
+                margin-top: 6px;
+                padding-left: 5px;
+            }
+
+            /* Style for active state input */
+
+            .price-field input[type=range]:hover::-webkit-slider-thumb {
+                box-shadow: 0 0 0 0.5px #242424;
+                transition-duration: 0.3s;
+            }
+
+            .price-field input[type=range]:active::-webkit-slider-thumb {
+                box-shadow: 0 0 0 0.5px #242424;
+                transition-duration: 0.3s;
+            }
 
         </style>
         <title>Palette Joy - Bring art to your home</title>
@@ -308,112 +599,255 @@ form select::after {
         </div>
 
         <section class="ftco-section">
-            <div class="container">
+            <div class="custom-container">
                 <div class="row justify-content-center">
-                    <div class="col-md-10 mb-5 text-center">
+
+                    <div class="col-md-10 col-lg-12 mb-5 text-center">
                         <ul class="product-category">
-                            <li><a href="#" class="active">All</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruits</a></li>
-                            <li><a href="#">Juice</a></li>
-                            <li><a href="#">Dried</a></li>
-                            <div style="display: inline-block; margin-left: 10px">
-                                <form action="searchproduct" method="post" class="search-form">
-                                    <div class="search-container">
-                                        <input name="txt" type="text"  placeholder="Search">
-                                        <button type="submit"><i class="icon-search" style="color: white;"></i></button>
-                                    </div>
+                            <li>
+                                <a href="shop" class="${param.promat == null ? 'active' : ''}">All</a>
+                            </li>
+                            <c:forEach items="${listC}" var="c">
+                                <li>
+                                    <a href="shop?promat=${c.categoryID}" class="${param.promat == c.categoryID ? 'active' : ''}">
+                                        ${c.categoryName}
+                                    </a>
+                                </li>
+                            </c:forEach>
+
+                            <li>
+                                <form action="shop" method="post">
+                                    <select name="sortprice" id="sortprice" style="color: #82ae46;">
+                                        <option value="" style="color: #82ae46;">Sort By Price</option>
+                                        <option value="asc" style="color: #82ae46;"
+                                                ${param.sortprice == 'asc' ? 'selected' : ''}>Low to High</option>
+                                        <option value="desc" style="color: #82ae46;"
+                                                ${param.sortprice == 'desc' ? 'selected' : ''}>High to Low</option>
+                                    </select>
+
                                 </form>
-                            </div>
-                             <div class="sorting">
-                            <form action="shop" method="post">
-                            <select name="sortprice" id="sortprice">
-                                <option value="">Sort By Price</option>
-                                <option value="asc">Low to High</option>
-                                <option value="desc">High to Low</option>
-                            </select>
+                            </li>
+                            <li>
+                                <form action="shop" method="post">
+                                    <select name="sortname" id="sortname" style="color: #82ae46;">
+                                        <option value="" style="color: #82ae46;">Sort By Name</option>
+                                        <option value="asc" style="color: #82ae46;"
+                                                ${param.sortname == 'asc' ? 'selected' : ''}>A -> Z</option>
+                                        <option value="desc" style="color: #82ae46;"
+                                                ${param.sortname == 'desc' ? 'selected' : ''}>Z -> A</option>
+                                    </select>
+
                                 </form>
-                            
-                            <form action="shop" method="post">
-                            <select name="sortname" id="sortname">
-                                <option value="">Sort By Name</option>
-                                <option value="asc">A -> Z</option>
-                                <option value="desc">Z -> A</option>
-                            </select>
-                                </form>
-                        </div>
+                            </li>
+                            <li>
+                                <div style="display: inline-block; margin-left: 10px">
+                                    <form action="shop" method="post" class="search-form">
+                                        <div class="search-container">
+                                            <input name="txt" type="text"  placeholder="Search" >
+                                            <button type="submit"><i class="icon-search" style="color: white;"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
                         </ul>
-                       
+
                     </div>
                 </div>
                 <div class="row">
-                    <c:forEach items="${listP}" var="o">
-                        <div class="col-md-6 col-lg-3 ftco-animate">
-                            <div class="product">
-                                <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="img-prod">
+                    <div class="col-lg-3 col-xl-3">
 
-                                    <div style="width: 345px; height: 234px; overflow: hidden;">
-                                        <img src="images/${o.image}" alt="Colorlib Template" style="width: 100%; height: 100%; object-fit: cover;">
-                                    </div>
+                        <div class="col-sm-12">
+                            <div class="side border mb-1">
+                                <h3>Painting Topic</h3>
 
-                                    <c:if test="${o.discount != 0}">
-                                        <span class="status">${o.discount}%</span>
-                                    </c:if>
-                                    <div class="overlay"></div>
-                                </a>
-                                <div class="text py-3 pb-4 px-3 text-center">
-                                    <h3><a href="detail?pid=${o.productID}&cid=${o.cateID}">${o.productName}</a></h3>
-                                    <div class="d-flex">
-                                        <div class="pricing">
-                                            <c:if test="${o.discount == 0}">
-                                                <p class="price"><span class="price-sale">$${o.price}</span></p>
-                                            </c:if>
-                                            <c:if test="${o.discount != 0}">
-                                                <p class="price"><span class="mr-2 price-dc">$${o.price}</span><span class="price-sale">$${o.price-o.price*o.discount/100}</span></p>
-                                            </c:if>
-                                        </div>
-                                    </div>
-                                    <div class="bottom-area d-flex px-3">
-                                        <div class="m-auto d-flex">
-                                            <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                                <span><i class="ion-ios-menu"></i></span>
-                                            </a>
-                                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-                                                <span><i class="ion-ios-cart"></i></span>
-                                            </a>
-                                            <a href="#" class="heart d-flex justify-content-center align-items-center">
-                                                <span><i class="ion-ios-heart"></i></span>
-                                            </a>
-                                        </div>
-                                    </div>
+
+
+                                <div class="your-ul-class">
+                                    <c:forEach items="${listT}" var="t">
+                                        <li><a href="shop?protopic=${t.categoryID}">${t.categoryName}</a></li>
+                                        </c:forEach>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="side border mb-1">
+                                <h3>Discount</h3>
+                                <div class="your-ul-class">
+                                    <li><a href="shop?discountmin=0&discountmax=20">0-20%</a></li>
+                                    <li><a href="shop?discountmin=20&discountmax=40">20-40%</a></li>
+                                    <li><a href="shop?discountmin=40&discountmax=60">40-60%</a></li>
+                                    <li><a href="shop?discountmin=60&discountmax=80">60-80%</a></li>
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
-                </div>
+                        <div class="col-sm-12">
+                            <div class="side border mb-1">
+                                <h3>Price</h3>
+                                <form action="shop" method="post">
+                                    <div class="wrapper">
+                                        <fieldset class="filter-price">
 
-                <div class="row mt-5">
-                    <div class="col text-center">
-                        <div class="block-27">
-                            <ul>
-                                <c:if test="${tag > 1}">
-                                    <li><a href="shop?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
-                                        </c:if>
+                                            <div class="price-field">
+                                                <input type="range" min="0" max="1000" value="300" id="lower">
+                                                <input  type="range" min="0" max="1000" value="800" id="upper">
+                                            </div>
+                                            <div class="price-wrap">
+                                               
+                                                <div class="price-container">
+                                                    <div class="price-wrap-1">
 
-                                <c:forEach begin="1" end="${endP}" var="i">
-                                    <li class="${tag == i ? 'active' : ''}">
-                                        <a href="shop?index=${i}">${i}</a>
-                                    </li>
-                                </c:forEach>
+                                                        <label for="one">$</label>
+                                                        <input name="minprice" id="one">
+                                                    </div>
+                                                    <div class="price-wrap_line">-</div>
+                                                    <div class="price-wrap-2">
+                                                        <label for="two">$</label>
+                                                        <input name="maxprice" id="two">
 
-                                <c:if test="${tag < endP}">
-                                    <li><a href="shop?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
-                                        </c:if>
-                            </ul>
+                                                    </div>
+                                                </div>
+                                                 <button type="submit" class="price-title">FILTER</button>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                </form>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="side border mb-1">
+                                <h3>Size</h3>
+                                <form action="shop" method="post">
+                                    <div class="wrapper">
+                                        <fieldset class="filter-price">
+                                            <h5>Width</h5>
+                                            <div class="price-field">
+                                                <input type="range" min="0" max="100" value="20" id="widthLower">
+                                                <input type="range" min="0" max="100" value="50" id="widthUpper">
+                                            </div>
+                                            <div class="price-wrap">
+                                             
+                                              <div class="price-container" > 
+                                                    <div class="price-wrap-1">
+                                                       
+                                                        <input name="minwidth" id="minWidth">
+                                                
+                                                    </div>
+                                                    <div class="price-wrap_line">-</div>
+                                                    <div class="price-wrap-2">
+                                                        
+                                                        <input name="maxwidth" id="maxWidth">
+                                                        <label for="two">cm</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                     <h5>Height</h5>
+                                        <fieldset class="filter-price">
+                                           
+                                            <div class="price-field">
+                                                <input type="range" min="0" max="100" value="20" id="heightLower">
+                                                <input type="range" min="0" max="100" value="50" id="heightUpper">
+                                            </div>
+                                            <div class="price-wrap">
+                                                
+                                                <div class="price-container">
+                                                    <div class="price-wrap-1">
+                                                       
+                                                        <input name="minheight" id="minHeight">
+                                                    </div>
+                                                    <div class="price-wrap_line">-</div>
+                                                    <div class="price-wrap-2">
+                                                       
+                                                        <input name="maxheight" id="maxHeight">
+                                                             <label for="two">cm</label>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="price-title">FILTER</button>
+                                            </div>
+                                        </fieldset>
+                                    
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-9 col-xl-9">
+                        <div class="row row-pb-md">
+
+                            <c:forEach items="${listP}" var="o">
+                                <div class="col-md-4 ftco-animate">
+                                    <div class="product">
+                                        <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="img-prod">
+
+                                            <div style="width: 345px; height: 234px; overflow: hidden;">
+                                                <img src="images/${o.image}" alt="Colorlib Template" style="width: 100%; height: 100%; object-fit: cover;">
+                                            </div>
+
+                                            <c:if test="${o.discount != 0}">
+                                                <span class="status">${o.discount}%</span>
+                                            </c:if>
+                                            <div class="overlay"></div>
+                                        </a>
+                                        <div class="text py-3 pb-4 px-3 text-center">
+                                            <h3><a href="detail?pid=${o.productID}&cid=${o.cateID}">${o.productName}</a></h3>
+                                            <div class="d-flex">
+                                                <div class="pricing">
+                                                    <c:if test="${o.discount == 0}">
+                                                        <p class="price"><span class="price-sale">$${o.price}</span></p>
+                                                    </c:if>
+                                                    <c:if test="${o.discount != 0}">
+                                                        <p class="price"><span class="mr-2 price-dc">$${o.price}</span><span class="price-sale">$${o.price-o.price*o.discount/100}</span></p>
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                            <div class="bottom-area d-flex px-3">
+                                                <div class="m-auto d-flex">
+                                                    <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                                        <span><i class="ion-ios-menu"></i></span>
+                                                    </a>
+                                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                        <span><i class="ion-ios-cart"></i></span>
+                                                    </a>
+                                                    <a href="#" class="heart d-flex justify-content-center align-items-center">
+                                                        <span><i class="ion-ios-heart"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+
+
+                            <div class="col text-center">
+                                <div class="block-27">
+                                    <ul>
+                                        <c:if test="${tag > 1}">
+                                            <li><a href="shop?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                                </c:if>
+
+                                        <c:forEach begin="1" end="${endP}" var="i">
+                                            <li class="${tag == i ? 'active' : ''}">
+                                                <a href="shop?index=${i}">${i}</a>
+                                            </li>
+                                        </c:forEach>
+
+                                        <c:if test="${tag < endP}">
+                                            <li><a href="shop?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                                </c:if>
+                                    </ul>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
 
         <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
@@ -435,14 +869,122 @@ form select::after {
             </div>
         </section>
         <footer class="ftco-footer ftco-section">
-                <script>
+            <script>
 
-            document.getElementById("sortprice").onchange = function () {
-                this.form.submit();
-            };
+                    document.getElementById("sortprice").onchange = function () {
+                        this.form.submit();
+                    };
 
-            document.getElementById("sortname").onchange = function () {
-                this.form.submit();
-            };
-        </script>
+                    document.getElementById("sortname").onchange = function () {
+                        this.form.submit();
+                    }
+                    ;
+
+                    var lowerSlider = document.querySelector('#lower');
+                    var upperSlider = document.querySelector('#upper');
+
+                    document.querySelector('#two').value = upperSlider.value;
+                    document.querySelector('#one').value = lowerSlider.value;
+
+                    var lowerVal = parseInt(lowerSlider.value);
+                    var upperVal = parseInt(upperSlider.value);
+
+                    upperSlider.oninput = function () {
+                        lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+
+                        if (upperVal < lowerVal + 4) {
+                            lowerSlider.value = upperVal - 4;
+                            if (lowerVal === lowerSlider.min) {
+                                upperSlider.value = 4;
+                            }
+                        }
+                        document.querySelector('#two').value = this.value;
+                    };
+
+                    lowerSlider.oninput = function () {
+                        lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+                        if (lowerVal > upperVal - 4) {
+                            upperSlider.value = lowerVal + 4;
+                            if (upperVal === upperSlider.max) {
+                                lowerSlider.value = parseInt(upperSlider.max) - 4;
+                            }
+                        }
+                        document.querySelector('#one').value = this.value;
+                    }
+                    ;
+
+
+
+            </script>
+<script>
+    // JavaScript for width range sliders
+    var widthLowerSlider = document.querySelector('#widthLower');
+    var widthUpperSlider = document.querySelector('#widthUpper');
+
+    // JavaScript for height range sliders
+    var heightLowerSlider = document.querySelector('#heightLower');
+    var heightUpperSlider = document.querySelector('#heightUpper');
+
+    // Initialize width inputs
+    document.querySelector('#minWidth').value = widthLowerSlider.value;
+    document.querySelector('#maxWidth').value = widthUpperSlider.value;
+
+    // Initialize height inputs
+    document.querySelector('#minHeight').value = heightLowerSlider.value;
+    document.querySelector('#maxHeight').value = heightUpperSlider.value;
+
+    // Add event listeners for width sliders
+    widthLowerSlider.oninput = function () {
+         lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+                        if (lowerVal > upperVal - 4) {
+                            upperSlider.value = lowerVal + 4;
+                            if (upperVal === upperSlider.max) {
+                                lowerSlider.value = parseInt(upperSlider.max) - 4;
+                            }
+                        }
+                        document.querySelector('#minWidth').value = this.value;
+    };
+
+    widthUpperSlider.oninput = function () {
+        lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+
+                        if (upperVal < lowerVal + 4) {
+                            lowerSlider.value = upperVal - 4;
+                            if (lowerVal === lowerSlider.min) {
+                                upperSlider.value = 4;
+                            }
+                        }
+                        document.querySelector('#maxWidth').value = this.value;
+    };
+
+    // Add event listeners for height sliders
+    heightLowerSlider.oninput = function () {
+         lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+                        if (lowerVal > upperVal - 4) {
+                            upperSlider.value = lowerVal + 4;
+                            if (upperVal === upperSlider.max) {
+                                lowerSlider.value = parseInt(upperSlider.max) - 4;
+                            }
+                        }
+                        document.querySelector('#minHeight').value = this.value;
+    };
+
+    heightUpperSlider.oninput = function () {
+            lowerVal = parseInt(lowerSlider.value);
+                        upperVal = parseInt(upperSlider.value);
+
+                        if (upperVal < lowerVal + 4) {
+                            lowerSlider.value = upperVal - 4;
+                            if (lowerVal === lowerSlider.min) {
+                                upperSlider.value = 4;
+                            }
+                        }
+                        document.querySelector('#maxHeight').value = this.value;
+    };
+</script>
             <%@include file="template/footer.jsp" %>        
