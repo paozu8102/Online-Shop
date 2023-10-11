@@ -310,7 +310,7 @@
 		                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span>${object.CommentNumber}</a></div>
 		                </div>
 		                <h3 class="heading"><a href="<%=path%>/PostSingle?id=${object.BlogID}">${object.Title}</a></h3>
-		                <p>${object.Content}</p>
+                                <p>${object.Content}</p>
 		                <p><a href="<%=path%>/PostSingle?id=${object.BlogID}" class="btn btn-primary py-2 px-3">Read more</a></p>
 		              </div>
 		            </div>

@@ -83,6 +83,26 @@ img {
 .unselectable {
     user-select: none; /* Prevent text selection */
   }
+  
+.reply-box {
+    display: none;
+}
+
+.btn:hover {
+    background-color: #82AE46;
+}
+
+.btn{
+    border-style: groove;
+    border-color: #82AE46;
+}
+
+.comment-container {
+        max-height: 400px; /* Set your desired fixed height */
+        overflow-y: scroll; /* Enable vertical scrollbar if necessary */
+        border: 1px solid #ccc; /* Add a border or customize styling as needed */
+        padding: 10px;
+    }
 </style>
     
 <script>
@@ -112,8 +132,8 @@ function updateSlideNumber(n) {
   slideNumber.textContent = n;
 }
 
-function showAndHideReply(){
-  var elements = document.querySelectorAll('.children');
+function showAndHideReply(id){
+  var elements = document.querySelectorAll('.'+id);
   var y = document.getElementById('hideShow');
   if (y.textContent == "Hide Reply") {
     y.textContent = "Show Reply";
@@ -129,8 +149,24 @@ function showAndHideReply(){
     x.style.display = "none";
   }
   }
-  
 }
+
+function showReply(replyBoxId, bottom) {
+    var replyBox = document.getElementById(replyBoxId);
+        if (!replyBox.style.display || replyBox.style.display === "none") {
+            replyBox.style.display = "block";
+        } else {
+            replyBox.style.display = "none";
+        }
+    if (bottom == "true") {
+        scrollToBottom();
+    }
+}
+
+function scrollToBottom() {
+        var commentContainer = document.getElementById('commentContainer');
+        commentContainer.scrollTop = commentContainer.scrollHeight;
+    }
 </script>
 
 <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
@@ -180,10 +216,19 @@ function showAndHideReply(){
               </div>
             </div>
 
-
+            <c:set var="user" value="${sessionScope.user}"/>
             <div class="pt-5 mt-5">
               <h3 class="mb-5">${CommentNumber} ${CommentNumber > 1 ? "Comments":"Comment"}</h3>
-              <c:if test="${CommentNumber > 0}">
+              
+              <div style="margin-bottom: 30px;">
+                <textarea style="width: 100%; font-size: 20px; margin-top: -30px;" class="reply-text" placeholder="Enter your comment here..."></textarea>
+                <div class="btn-container">
+                    <button style="font-size: 18px" type="submit" class="btn" id="submitBtn${loop.index}">Submit</button>
+                </div>
+              </div>
+              
+        <c:if test="${CommentNumber > 0}">
+            <div class="comment-container" id="commentContainer">
               <c:forEach items="${rootCommentList}" varStatus="loop">
               <ul class="comment-list">
                 <li class="comment">
@@ -191,65 +236,83 @@ function showAndHideReply(){
                     <img src="${rootCommentList[loop.index].getAvatar()}" alt="Image placeholder">
                   </div>
                   <div class="comment-body">
-                    <h3>${rootCommentList[loop.index].getUserName()}</h3>
+                     <c:choose>
+                              <c:when test="${user.getUserID() eq rootCommentList[loop.index].getUserID()}">
+                                  <h3>You</h3>
+                              </c:when>
+                              <c:otherwise>
+                                  <h3>${rootCommentList[loop.index].getUserName()}</h3>
+                              </c:otherwise>
+                     </c:choose>
                     <div class="meta">${rootCommentList[loop.index].getCommentDate()}</div>
                     <p>${rootCommentList[loop.index].getCommentContent()}</p>
-                    <p style="display: inline"><a href="#" class="reply">Reply</a></p>
+                    <p style="display: inline">
+                        <c:choose>
+                            <c:when test="${loop.last && fn:length(repCommentList[loop.index]) == 0}">
+                                <a href="javascript:showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'true');" class="reply">Reply</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="javascript:showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'false');" class="reply">Reply</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
                     <c:if test="${fn:length(repCommentList[loop.index])>0}">
-                        <p style="display: inline"><a id="hideShow" href="javascript:showAndHideReply();" class="reply">Hide Reply</a></p>
+                        <p style="display: inline"><a id="hideShow" href="javascript:showAndHideReply('rep'+'${rootCommentList[loop.index].getCommentID()}');" class="reply">Hide Reply</a></p>
                     </c:if>
+                    <div id="replyBox${rootCommentList[loop.index].getCommentID()}" class="reply-box" >
+                        <textarea style="width: 100%" class="reply-text" placeholder="Enter your reply here..."></textarea>
+                        <div class="btn-container">
+                            <button type="submit" class="btn" id="submitBtn${loop.index}">Submit</button>
+                            <button onclick="showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'false');" class="btn" id="cancelBtn${loop.index}">Cancel</button>
+                        </div>
+                    </div>
                   </div>
                   <c:if test="${fn:length(repCommentList[loop.index])>0}">
-                  <c:forEach items="${repCommentList[loop.index]}" var="repComment">
-                  <ul class="children">
+                  <c:forEach items="${repCommentList[loop.index]}" var="repComment" varStatus="repIndex">
+                  <ul class="children rep${rootCommentList[loop.index].getCommentID()}">
                     <li class="comment">
                       <div class="vcard bio">
                         <img src="${repComment.getAvatar()}" alt="Image placeholder">
                       </div>
                       <div class="comment-body">
-                        <h3>${repComment.getUserName()}</h3>
+                          <c:choose>
+                              <c:when test="${user.getUserID() eq repComment.getUserID()}">
+                                  <h3>You</h3>
+                              </c:when>
+                              <c:otherwise>
+                                  <h3>${repComment.getUserName()}</h3>
+                              </c:otherwise>
+                          </c:choose>
                         <div class="meta">${repComment.getCommentDate()}</div>
                         <p>${repComment.getCommentContent()}</p>
-                        <p><a href="#" class="reply">Reply</a></p>
+                        <c:choose>
+                            <c:when test="${repIndex.last && loop.last}">
+                                <p><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'true');" class="reply">Reply</a></p>
+                            </c:when>
+                            <c:otherwise>
+                                <p><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'false');" class="reply">Reply</a></p>
+                            </c:otherwise>
+                        </c:choose>
+                        <div class="reply-box" id="replyBox${repComment.getCommentID()}">
+                            <textarea style="width: 100%" class="reply-text" placeholder="Enter your reply here..."></textarea>
+                            <div class="btn-container">
+                            <button class="btn" id="submitBtn${loop.index}">Submit</button>
+                            <button onclick="showReply('replyBox'+'${repComment.getCommentID()}', 'false');" class="btn" id="cancelBtn${loop.index}">Cancel</button>
+                            </div>
+                        </div>
                       </div>
-
-                    </li>                      
+                    </li>
                   </ul>
                   </c:forEach>
                   </c:if>  
                 </li>
               </ul>
               </c:forEach>
-              </c:if>
-              <!-- END comment-list -->
-              
-              <div class="comment-form-wrap pt-5">
-                <h3 class="mb-5">Leave a comment</h3>
-                <form action="#" class="p-5 bg-light">
-                  <div class="form-group">
-                    <label for="name">Name *</label>
-                    <input type="text" class="form-control" id="name">
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" class="form-control" id="email">
-                  </div>
-                  <div class="form-group">
-                    <label for="website">Website</label>
-                    <input type="url" class="form-control" id="website">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
-                  </div>
-
-                </form>
-              </div>
             </div>
+        </c:if>
+              <!-- END comment-list -->
+            </div>
+                
           </div> <!-- .col-md-8 -->
           <div class="col-lg-4 sidebar ftco-animate">
             <div class="sidebar-box">
