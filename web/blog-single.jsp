@@ -424,6 +424,13 @@ function scrollToElement() {
   
 }
 
+function submitDeleteForm(formId) {
+    var form = document.getElementById(formId);
+    if (confirm('Are you sure you want to delete the comment?')) {
+        form.submit();
+    }
+}
+
 // Call the function when the page loads
 window.addEventListener("load", scrollToElement);
 document.addEventListener("DOMContentLoaded", scrollToElement);
@@ -511,10 +518,10 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                     <p style="display: inline">
                         <c:choose>
                             <c:when test="${loop.last && fn:length(repCommentList[loop.index]) == 0}">
-                                <a href="javascript:showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'true');" class="reply">Reply</a>
+                                <a style="display: inline" href="javascript:showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'true');" class="reply">Reply</a>
                             </c:when>
                             <c:otherwise>
-                                <a href="javascript:showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'false');" class="reply">Reply</a>
+                                <a style="display: inline" href="javascript:showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'false');" class="reply">Reply</a>
                             </c:otherwise>
                         </c:choose>
                     </p>
@@ -522,7 +529,12 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                         <p style="display: inline"><a id="hideShow${rootCommentList[loop.index].getCommentID()}" href="javascript:showAndHideReply('rep'+'${rootCommentList[loop.index].getCommentID()}', 'hideShow'+'${rootCommentList[loop.index].getCommentID()}');" class="reply">Hide Reply</a></p>
                     </c:if>
                     <c:if test="${user.getUserID() eq rootCommentList[loop.index].getUserID()}">
-                        <a style="display: inline;" href="#" class="reply">Delete</a>
+                    <form id="delete${rootCommentList[loop.index].getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
+                        <input type="hidden" name="action" value="commentDelete">
+                        <input type="hidden" name="objectID" value="${param.id}">
+                        <input type="hidden" name="commentID" value="${rootCommentList[loop.index].getCommentID()}">
+                        <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${rootCommentList[loop.index].getCommentID()}');">Delete</a>
+                    </form>
                     </c:if>
                 <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep');">
                     <div id="replyBox${rootCommentList[loop.index].getCommentID()}" class="reply-box" >
@@ -565,7 +577,12 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                             </c:otherwise>
                         </c:choose>
                         <c:if test="${user.getUserID() eq repComment.getUserID()}">
-                            <a style="display: inline;" href="#" class="reply">Delete</a>
+                        <form onsubmit="saveScrollPositions('commentRep');" id="delete${repComment.getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
+                            <input type="hidden" name="action" value="commentDelete">
+                            <input type="hidden" name="objectID" value="${param.id}">
+                            <input type="hidden" name="commentID" value="${repComment.getCommentID()}">
+                            <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${repComment.getCommentID()}');">Delete</a>
+                        </form>
                         </c:if>
                     <form action="your_controller_url_here" method="post">
                         <div class="reply-box" id="replyBox${repComment.getCommentID()}">
@@ -641,10 +658,10 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
               </div>
             </div>-->
 
-            <div class="sidebar-box ftco-animate">
+<!--            <div class="sidebar-box ftco-animate">
               <h3 class="heading">Paragraph</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
-            </div>
+            </div>-->
           </div>
 
         </div>

@@ -33,9 +33,9 @@ public class CommentDAO extends DBContext {
         }
         return rowAffected;
     }
-    
+
     //function to add a reply comment: ThanhNX
-    public int addRepComment(int userID, int postID, String content, int commentRepID){
+    public int addRepComment(int userID, int postID, String content, int commentRepID) {
         int rowAffected = 0;
         String command = "INSERT INTO [dbo].[Comment]\n"
                 + "           ([UserID]\n"
@@ -51,6 +51,22 @@ public class CommentDAO extends DBContext {
             st.setInt(2, postID);
             st.setString(3, content);
             st.setInt(4, commentRepID);
+            rowAffected = st.executeUpdate();
+        } catch (Exception e) {
+        }
+        return rowAffected;
+    }
+
+    //function to delete a comment: ThanhNX
+    public int deleteComment(int commentID) {
+        int rowAffected = 0;
+        String command = "DELETE FROM Comment \n"
+                + "WHERE CommentID = ? \n"
+                + "OR CommentRepID = ?";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(command);
+            st.setInt(1, commentID);
+            st.setInt(2, commentID);
             rowAffected = st.executeUpdate();
         } catch (Exception e) {
         }

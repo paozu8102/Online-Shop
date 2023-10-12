@@ -20,18 +20,22 @@ public class CommentController extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        int userID = Integer.valueOf(req.getParameter("userID"));
-        int objectID = Integer.valueOf(req.getParameter("objectID"));
+        String userID = req.getParameter("userID");
+        String objectID = req.getParameter("objectID");
         String content = req.getParameter("content");
         CommentDAO commentDAO = new CommentDAO();
         if (action.equals("comment")) {
-            commentDAO.addComment(userID, objectID, content);
+            commentDAO.addComment(Integer.valueOf(userID), Integer.valueOf(objectID), content);
         }
         else if (action.equals("commentRep")) {
             int commentRepID = Integer.valueOf(req.getParameter("commentRepID"));
-            commentDAO.addRepComment(userID, objectID, content, commentRepID);
+            commentDAO.addRepComment(Integer.valueOf(userID), Integer.valueOf(objectID), content, commentRepID);
         }
-        resp.sendRedirect(req.getContextPath()+"/PostSingle?id="+objectID);
+        else if (action.equals("commentDelete")) {
+            int commentDeleteID = Integer.valueOf(req.getParameter("commentID"));
+            commentDAO.deleteComment(commentDeleteID);
+        }
+        resp.sendRedirect(req.getContextPath()+"/PostSingle?id="+Integer.valueOf(objectID));
     }
 
     @Override
