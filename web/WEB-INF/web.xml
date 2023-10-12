@@ -20,6 +20,10 @@
         <servlet-name>ErrorServlet</servlet-name>
         <jsp-file>/error.jsp</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>CommentServlet</servlet-name>
+        <servlet-class>Controller.CommentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ThanhServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>ErrorServlet</servlet-name>
         <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentServlet</servlet-name>
+        <url-pattern>/comment</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
