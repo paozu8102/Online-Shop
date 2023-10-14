@@ -5,6 +5,7 @@
 package Controller;
 
 import DAO.ProductDAO;
+import Model.Cart;
 
 import Model.Category;
 import Model.Product;
@@ -13,9 +14,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -51,7 +54,7 @@ public class ShopController extends HttpServlet {
         String discountmax = request.getParameter("discountmax");
              String txtSearch = request.getParameter("txt");
     
-        
+               
         String indexPage = request.getParameter("index");
         if (indexPage == null) {
             indexPage = "1";
@@ -66,6 +69,7 @@ public class ShopController extends HttpServlet {
             endPage++;
         }
         List<Product> list;
+      
         if ("all".equals(sortprice) || "all".equals(sortname)) {
             list = c.getAllProduct(index);
             request.setAttribute("endP", endPage);
@@ -102,6 +106,19 @@ public class ShopController extends HttpServlet {
             request.setAttribute("tag", index);
         }
 
+Cookie[] arr = request.getCookies();
+        String txt = "";
+        if (arr != null) {
+            for (Cookie o : arr) {
+                if (o.getName().equals("cart")) {
+                    txt += o.getValue();
+
+                }
+            }
+        }
+        Cart t = new Cart();
+        LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
+        request.setAttribute("cartlist", cartlist);
         request.setAttribute("listP", list);
         List<Category> listC = c.getProductCate();
         List<Category> listT = c.getProductTopic();

@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList" %>
 <%@page import="Model.Product" %>
@@ -567,7 +569,7 @@
                                 <a class="dropdown-item" href="shop">Shop</a>
                                 <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
                                 <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                                <a class="dropdown-item" href="cart.jsp">Cart</a>
+                                <a class="dropdown-item" href="cart">Cart</a>
                                 <a class="dropdown-item" href="checkout.jsp">Checkout</a>
                             </div>
                         </li>
@@ -579,7 +581,9 @@
                             <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
                             <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
                             </c:if>
-                        <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                         
+
+                        <li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[${cartlist.size()}]</a></li>
 
                     </ul>
                 </div>
@@ -811,7 +815,7 @@
                                                     <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                                         <span><i class="ion-ios-menu"></i></span>
                                                     </a>
-                                                    <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                    <a href="buy?id=${o.productID}" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                         <span><i class="ion-ios-cart"></i></span>
                                                     </a>
                                                     <a href="#" class="heart d-flex justify-content-center align-items-center">

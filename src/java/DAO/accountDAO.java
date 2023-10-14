@@ -15,6 +15,34 @@ import java.util.logging.Logger;
 
 public class accountDAO extends DBContext{
 
+    
+    
+    public Account getAcount(String user,String pass){
+            String sql="select * from Account"
+                    + "where email = ? and password=?";
+            try{
+                PreparedStatement st=getConnection().prepareStatement(sql);
+                st.setString(1, user);
+                st.setString(2, pass);
+                ResultSet rs=st.executeQuery();
+                if(rs.next()){
+                    return new Account(rs.getString(1),
+                                      rs.getString(2),
+                                      rs.getInt(3),
+                                      rs.getInt(4));
+                                      
+                }
+            } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }         
+            return null;
+        }    
+
+
     public Account findUserByEmail(String emailAddress) throws Exception {
         try {
             String sql = "SELECT * FROM [Account] where Email = ?";
