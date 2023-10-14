@@ -8,7 +8,7 @@
               	<a class="dropdown-item" href="shop">Shop</a>
               	<a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
                 <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                <a class="dropdown-item" href="cart.jsp">Cart</a>
+                <a class="dropdown-item" href="cart">Cart</a>
                 <a class="dropdown-item" href="checkout.jsp">Checkout</a>
               </div>
             </li>
@@ -20,7 +20,7 @@
                                                                  <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
                                     <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
                                                             </c:if>
-	          <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
 	        </ul>
 	      </div>
@@ -28,7 +28,7 @@
 	  </nav>
     <!-- END nav -->
 
-
+    <form name="f" action="" method="post">
     <section class="ftco-section">
     	<div class="container">
     		<div class="row">
@@ -65,10 +65,7 @@
 						<div class="row mt-4">
 							<div class="col-md-6">
 								<div class="form-group d-flex">
-		              <div class="select-wrap">
-	                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-	                 
-	                </div>
+
 		            </div>
 							</div>
 							<div class="w-100"></div>
@@ -78,7 +75,8 @@
 	                   <i class="ion-ios-remove"></i>
 	                	</button>
 	            		</span>
-	             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+ <input type="number" id="quantity" name="num" class="form-control input-number" value="1" min="1" max="${detail.quantity}" oninput="if (this.value > ${detail.quantity}) this.value = ${detail.quantity}">
+                        
 	             	<span class="input-group-btn ml-2">
 	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
 	                     <i class="ion-ios-add"></i>
@@ -88,7 +86,7 @@
 	          	<div class="w-100"></div>
 	          	
           	</div>
-          	<p><a href="cart.jsp" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+       	       <p class="addtocart"><a onclick="buy('${detail.productID}','${detail.cateID}')"value="Buy item" class="btn btn-primary btn-addtocart white">Add to Cart <i class="icon-shopping-cart"></i></a></p>
     			</div>
     		</div>
     	</div>
@@ -104,6 +102,7 @@
           </div>
         </div>   		
     	</div>
+        
     	<div class="container">
     		<div class="row">
                <c:forEach items="${listP}" var="o">
@@ -137,7 +136,7 @@
                             <a href="detail?pid=${o.productID}&cid=${o.cateID}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
                                 <span><i class="ion-ios-menu"></i></span>
                             </a>
-                            <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                            <a href="buy?id=${o.productID}" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                 <span><i class="ion-ios-cart"></i></span>
                             </a>
                             <a href="#" class="heart d-flex justify-content-center align-items-center">
@@ -154,6 +153,7 @@
     		</div>
     	</div>
     </section>
+                        </form>
     <script>
 // script.js
 // script.js
@@ -218,7 +218,35 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+	
     </script>
+           <script>
+                document.querySelector('.quantity-left-minus').addEventListener('click', function () {
+                    var quantityInput = document.getElementById('quantity');
+                    var currentValue = parseInt(quantityInput.value);
+
+                    if (currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                    }
+                });
+
+                document.querySelector('.quantity-right-plus').addEventListener('click', function () {
+                    var quantityInput = document.getElementById('quantity');
+                    var currentValue = parseInt(quantityInput.value);
+
+                    if (currentValue < ${detail.quantity}) {
+                        quantityInput.value = currentValue + 1;
+                    }
+                });
+              
+            </script>
+     <script type="text/javascript">
+                function buy(id,cid) {
+                    var m = document.f.num.value;
+                    document.f.action = "addtocart?id=" + id + "&num=" + m + "&cid=" + cid;
+                    document.f.submit();
+                }
+            </script>
          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <%@include file="template/footerJS.jsp" %>

@@ -5,10 +5,11 @@
 
 package Controller;
 
+
+import DAO.ImageDAO;
 import DAO.ProductDAO;
 import Model.Cart;
-import Model.Category;
-
+import Model.Image;
 import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,15 +19,14 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.util.List;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="BuyServlet", urlPatterns={"/buy"})
-public class BuyServlet extends HttpServlet {
+@WebServlet(name="AddToCartServlet", urlPatterns={"/addtocart"})
+public class AddToCartServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,15 +35,11 @@ public class BuyServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    String pid = request.getParameter("id");
-        String quantity = "1";
-     
-       
-           
-        
+        response.setContentType("text/html;charset=UTF-8");
+        String pid = request.getParameter("id");
+        String quantity = request.getParameter("num");
         Cookie[] cart = request.getCookies();
         Cart t = new Cart();
         String txt = "";
@@ -68,20 +64,34 @@ public class BuyServlet extends HttpServlet {
                 txt = txt + "/" + pid + ":" + quantity;
             }
         }
-         
-        
-       //Xử lí phần tử trùng lặp và thêm quantity
+            //Xử lí phần tử trùng lặp và thêm quantity
         txt = t.processString(txt);
       
+         if(t.getQuantityById(txt, pid)>numStore){
+           txt = t.updateCartQuantity(txt, pid, numStore);
+              
+         }
+      
+ 
         //Add cookie
         Cookie c = new Cookie("cart", txt);
         c.setMaxAge(365 * 24 * 60 * 60);
 
         response.addCookie(c);
-        response.sendRedirect("shop");
-}
 
+        
+        String cateID = request.getParameter("cid");
 
+       
+         List<Product> list = dao.getRelatedProduct(pid,cateID);
+        Product pd = dao.getProductByID(pid);
+      ImageDAO i = new ImageDAO();
+      List<Image> listI = i.getProductImage(pid);
+        request.setAttribute("listP", list);
+        request.setAttribute("listI", listI);
+        request.setAttribute("detail", pd);
+        request.getRequestDispatcher("product-single.jsp").forward(request, response);
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

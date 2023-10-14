@@ -56,7 +56,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${cartlistPage}" var="i">
+                            <c:forEach items="${cartlistPage}" var="i" varStatus="loop">
                                 <tr class="text-center">
                                     <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 
@@ -64,48 +64,53 @@
 
                                     <td class="product-name">
                                         <h3>${i.key.productName}</h3>
-                                       
+
                                     </td>
 
                                     <td class="price">$<fmt:formatNumber pattern="##.#" value="${i.key.price-i.key.price*i.key.discount/100}"/></td>
 
                                     <td class="quantity">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                        </div>
+
+                                   <div style="display: flex; align-items: center;">
+  <button style="margin-right: 5px;"><a href="cart?num=-1&pid=${i.key.productID}">-</a></button>
+  <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="${i.value}" min="1" max="${i.key.quantity}" readonly>
+  <button style="margin-left: 5px;"><a href="cart?num=1&pid=${i.key.productID}">+</a></button>
+</div>
+
+
                                     </td>
 
                                     <td class="total">$<fmt:formatNumber pattern="##.#" value="${(i.key.price-i.key.price*i.key.discount/100)*i.value}"/></td>
                                 </tr><!-- END TR-->
                             </c:forEach> 
-                           
+
                         </tbody>
                     </table>
                 </div>
             </div>
-                  
-<div class="col text-center" style="margin-top: 30px;">
-                                <div class="block-27">
-                                    <ul>
-                                        <c:if test="${tag > 1}">
-                                            <li><a href="cart?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
-                                                </c:if>
 
-                                        <c:forEach begin="1" end="${endP}" var="i">
-                                            <li class="${tag == i ? 'active' : ''}">
-                                                <a href="cart?index=${i}">${i}</a>
-                                            </li>
-                                        </c:forEach>
+            <div class="col text-center" style="margin-top: 30px;">
+                <div class="block-27">
+                    <ul>
+                        <c:if test="${tag > 1}">
+                            <li><a href="cart?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                </c:if>
 
-                                        <c:if test="${tag < endP}">
-                                            <li><a href="cart?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
-                                                </c:if>
-                                    </ul>
+                        <c:forEach begin="1" end="${endP}" var="i">
+                            <li class="${tag == i ? 'active' : ''}">
+                                <a href="cart?index=${i}">${i}</a>
+                            </li>
+                        </c:forEach>
 
-                                </div>
-                            </div>
+                        <c:if test="${tag < endP}">
+                            <li><a href="cart?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                </c:if>
+                    </ul>
+
+                </div>
+            </div>
         </div>
-         
+
         <div class="row justify-content-end">
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
@@ -162,9 +167,12 @@
                         <span>$17.60</span>
                     </p>
                 </div>
-                <p><a href="checkout.jsp" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                <p><a href="checkout.jsp" id="checkoutButton" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+
+
             </div>
         </div>
     </div>
 </section>
+
 <%@include file="template/footerJS.jsp" %>

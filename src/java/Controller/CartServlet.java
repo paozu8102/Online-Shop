@@ -58,7 +58,10 @@ public class CartServlet extends HttpServlet {
     throws ServletException, IOException {
     HttpSession session = request.getSession();  
     Account acc = (Account) session.getAttribute("account");
-
+ String pid = request.getParameter("pid");
+        String quantity_raw = request.getParameter("num");
+         ProductDAO dao = new ProductDAO();
+        Product p = dao.getProductByID(pid);
     Cookie[] arr = request.getCookies();
     String txt = "";
     if (arr != null) {
@@ -69,15 +72,38 @@ public class CartServlet extends HttpServlet {
         }
     }
 
-    Cart t = new Cart();
+    Cart t = new Cart(); 
+    
+    
+    try {
+
+                int quantity = Integer.parseInt(quantity_raw);
+            int numStore=p.getQuantity();
+                if (quantity ==1 && t.getQuantityById(txt, pid)<numStore) {
+                    txt = t.addQuantityToProduct(txt, pid, quantity);
+                } else if(quantity == -1 && t.getQuantityById(txt,pid)>1){
+                     txt = t.addQuantityToProduct(txt, pid, quantity);
+                }else if(quantity == -1 && t.getQuantityById(txt,pid)<=1) {
+                    txt = t.removeProductinCart(txt, pid);
+
+                } else{
+                  
+                }
+                
+            } catch (Exception e) {
+            }
+    if (!txt.equals("")) {
+            Cookie c = new Cookie("cart", txt);
+            c.setMaxAge(365 * 24 * 60 * 60);
+
+            response.addCookie(c);
+        }
     LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
     request.setAttribute("cartlist", cartlist);
 
     // Pagination parameters
     int recordsPerPage = 10; // Number of records per page (you can adjust this)
     int tag = 1; // Default page number
-
-    // Get index parameter from request to determine the current page
     if (request.getParameter("index") != null) {
         tag = Integer.parseInt(request.getParameter("index"));
     }
@@ -98,7 +124,6 @@ public class CartServlet extends HttpServlet {
     // Calculate the number of pages for pagination
     int endP = (int) Math.ceil((double) cartlist.size() / recordsPerPage);
     request.setAttribute("endP", endP);
-
     request.getRequestDispatcher("cart.jsp").forward(request, response);
 }
 
@@ -115,7 +140,7 @@ public class CartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String pid = request.getParameter("pid");
-        String quantity_raw = request.getParameter("quantity");
+        String quantity_raw = request.getParameter("num");
         String type = request.getParameter("type");
 
         Cart t = new Cart();
