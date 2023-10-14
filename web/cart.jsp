@@ -56,7 +56,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${cartlist}" var="i">
+                            <c:forEach items="${cartlistPage}" var="i">
                                 <tr class="text-center">
                                     <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 
@@ -83,7 +83,29 @@
                     </table>
                 </div>
             </div>
+                  
+<div class="col text-center" style="margin-top: 30px;">
+                                <div class="block-27">
+                                    <ul>
+                                        <c:if test="${tag > 1}">
+                                            <li><a href="cart?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                                </c:if>
+
+                                        <c:forEach begin="1" end="${endP}" var="i">
+                                            <li class="${tag == i ? 'active' : ''}">
+                                                <a href="cart?index=${i}">${i}</a>
+                                            </li>
+                                        </c:forEach>
+
+                                        <c:if test="${tag < endP}">
+                                            <li><a href="cart?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                                </c:if>
+                                    </ul>
+
+                                </div>
+                            </div>
         </div>
+         
         <div class="row justify-content-end">
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">

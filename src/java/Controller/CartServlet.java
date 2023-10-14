@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller;
 
 import DAO.ProductDAO;
@@ -18,66 +17,95 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="CartServlet", urlPatterns={"/cart"})
+@WebServlet(name = "CartServlet", urlPatterns = {"/cart"})
 public class CartServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      
 
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+    HttpSession session = request.getSession();  
+    Account acc = (Account) session.getAttribute("account");
 
-        HttpSession session = request.getSession();  
-        Account acc = (Account) session.getAttribute("account");
-
-        Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
-
-                }
+    Cookie[] arr = request.getCookies();
+    String txt = "";
+    if (arr != null) {
+        for (Cookie o : arr) {
+            if (o.getName().equals("cart")) {
+                txt += o.getValue();
             }
         }
-        Cart t = new Cart();
-        LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
-        request.setAttribute("cartlist", cartlist);
+    }
+
+    Cart t = new Cart();
+    LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
+    request.setAttribute("cartlist", cartlist);
+
+    // Pagination parameters
+    int recordsPerPage = 10; // Number of records per page (you can adjust this)
+    int tag = 1; // Default page number
+
+    // Get index parameter from request to determine the current page
+    if (request.getParameter("index") != null) {
+        tag = Integer.parseInt(request.getParameter("index"));
+    }
+
+    // Calculate the starting record index
+    int startIndex = (tag - 1) * recordsPerPage;
+
+    // Calculate the ending record index
+    int endIndex = Math.min(startIndex + recordsPerPage, cartlist.size());
+
+    // Create a sublist for the current page
+    List<Map.Entry<Product, Integer>> cartlistPage = new ArrayList<>(cartlist.entrySet())
+                                                        .subList(startIndex, endIndex);
+
+    request.setAttribute("cartlistPage", cartlistPage);
+    request.setAttribute("tag", tag);
+
+    // Calculate the number of pages for pagination
+    int endP = (int) Math.ceil((double) cartlist.size() / recordsPerPage);
+    request.setAttribute("endP", endP);
+
+    request.getRequestDispatcher("cart.jsp").forward(request, response);
+}
 
 
-
-        request.getRequestDispatcher("cart.jsp").forward(request, response);
-    } 
-
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -85,14 +113,14 @@ public class CartServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-       String pid = request.getParameter("pid");
+            throws ServletException, IOException {
+        String pid = request.getParameter("pid");
         String quantity_raw = request.getParameter("quantity");
         String type = request.getParameter("type");
 
         Cart t = new Cart();
         ProductDAO dao = new ProductDAO();
-      
+
         Product p = dao.getProductByID(pid);
         //Lấy cookie
         Cookie[] arr = request.getCookies();
@@ -109,8 +137,7 @@ public class CartServlet extends HttpServlet {
         }
         if (type != null) {
             txt = t.removeProductinCart(txt, pid);
-          
-            
+
         } else {
 
             //Update quantity
@@ -118,14 +145,13 @@ public class CartServlet extends HttpServlet {
 
                 int quantity = Integer.parseInt(quantity_raw);
 
-                if (quantity > 0 && quantity<=p.getQuantity()) {
+                if (quantity > 0 && quantity <= p.getQuantity()) {
                     txt = t.updateCartQuantity(txt, pid, quantity);
-                }else if(quantity>=p.getQuantity()){
-                   
-                }  
-                else {
+                } else if (quantity >= p.getQuantity()) {
+
+                } else {
                     txt = t.removeProductinCart(txt, pid);
-                      
+
                 }
             } catch (Exception e) {
             }
@@ -138,8 +164,10 @@ public class CartServlet extends HttpServlet {
             response.addCookie(c);
         }
     }
-    /** 
+
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
