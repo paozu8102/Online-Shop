@@ -24,6 +24,10 @@
         <servlet-name>CommentServlet</servlet-name>
         <servlet-class>Controller.CommentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PostServlet</servlet-name>
+        <servlet-class>Controller.PostController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ThanhServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>CommentServlet</servlet-name>
         <url-pattern>/comment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostServlet</servlet-name>
+        <url-pattern>/Posts</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

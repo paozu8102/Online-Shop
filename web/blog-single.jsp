@@ -343,6 +343,10 @@ img {
         border: 1px solid #ccc; /* Add a border or customize styling as needed */
         padding: 10px;
     }
+    
+    #seemore:hover {
+        text-decoration: underline;
+    }
 </style>
     
 <script>
@@ -391,13 +395,17 @@ function showAndHideReply(idComment, idButton){
   }
 }
 
-function showReply(replyBoxId, bottom) {
+function showReply(replyBoxId, bottom, userName) {
     var replyBox = document.getElementById(replyBoxId);
         if (!replyBox.style.display || replyBox.style.display === "none") {
             replyBox.style.display = "block";
         } else {
             replyBox.style.display = "none";
         }
+    var textarea = replyBox.querySelector("textarea");
+    if (textarea) {
+        textarea.value = "Reply to "+userName+": ";
+    }
     if (bottom == "true") {
         scrollToBottom();
     }
@@ -483,6 +491,10 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
             </div>
 
             <c:set var="user" value="${sessionScope.user}"/>
+            <c:if test="${user eq null}">
+                <h3 class="mb-5" style="margin-top: 40px">You need to log in to comment</h3>
+            </c:if>
+            <c:if test="${user ne null}">
             <div class="pt-5 mt-5">
               <h3 class="mb-5">${CommentNumber} ${CommentNumber > 1 ? "Comments":"Comment"} </h3>
             <form action="comment" method="post" onsubmit="saveScrollPositions('comment');">
@@ -498,7 +510,7 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
             </form>
         <c:if test="${CommentNumber > 0}">
             <div class="comment-container" id="commentContainer">
-              <c:forEach items="${rootCommentList}" varStatus="loop">
+                <c:forEach items="${rootCommentList}" varStatus="loop" var="comment">
               <ul class="comment-list">
                 <li class="comment">
                   <div class="vcard bio">
@@ -518,10 +530,10 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                     <p style="display: inline">
                         <c:choose>
                             <c:when test="${loop.last && fn:length(repCommentList[loop.index]) == 0}">
-                                <a style="display: inline" href="javascript:showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'true');" class="reply">Reply</a>
+                                <a style="display: inline" href="javascript:showReply('replyBox'+'${comment.getCommentID()}', 'true', '${comment.getUserName()}');" class="reply">Reply</a>
                             </c:when>
                             <c:otherwise>
-                                <a style="display: inline" href="javascript:showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'false');" class="reply">Reply</a>
+                                <a style="display: inline" href="javascript:showReply('replyBox'+'${comment.getCommentID()}', 'false', '${comment.getUserName()}');" class="reply">Reply</a>
                             </c:otherwise>
                         </c:choose>
                     </p>
@@ -533,7 +545,7 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                         <input type="hidden" name="action" value="commentDelete">
                         <input type="hidden" name="objectID" value="${param.id}">
                         <input type="hidden" name="commentID" value="${rootCommentList[loop.index].getCommentID()}">
-                        <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${rootCommentList[loop.index].getCommentID()}');">Delete</a>
+                        <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${comment.getCommentID()}');">Delete</a>
                     </form>
                     </c:if>
                 <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep');">
@@ -603,19 +615,20 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
               </c:forEach>
             </div>
         </c:if>
+        </div>
+        </c:if>
               <!-- END comment-list -->
-            </div>
                 
           </div> <!-- .col-md-8 -->
           <div class="col-lg-4 sidebar ftco-animate">
-            <div class="sidebar-box">
+<!--            <div class="sidebar-box">
               <form action="#" class="search-form">
                 <div class="form-group">
                   <span class="icon ion-ios-search"></span>
                   <input type="text" class="form-control" placeholder="Search...">
                 </div>
               </form>
-            </div>
+            </div>-->
             <div class="sidebar-box ftco-animate">
             	<h3 class="heading">Categories</h3>
               <ul class="categories">
@@ -642,6 +655,7 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                 </div>
               </div>
               </c:forEach>
+              <h3 id="seemore" style="color: #82AE46; cursor: pointer"><a href="">See more post</a></h3>
             </div>
 
 <!--            <div class="sidebar-box ftco-animate">

@@ -277,6 +277,57 @@ public class PostDAO extends DBContext {
         return dataList;
     }
 
+    //get all post: ThanhNX
+    public ArrayList<Map<String, String>> getAllPosts(String searchKey) {
+        ArrayList<Map<String, String>> dataList = new ArrayList<>();
+        String parameter = "%" + searchKey + "%";
+        String command = "SELECT b.PostID,\n"
+                + "b.Title,\n"
+                + "CONVERT(varchar, b.[Date], 103) + ' ' + CONVERT(varchar, b.[Date], 108) AS DateTime,\n"
+                + "CONCAT(SUBSTRING(b.Content, 1, 100), '...') AS Content,\n"
+                + "i.ImageUrl,\n"
+                + "u.UserName,\n"
+                + "(\n"
+                + "SELECT COUNT(*)\n"
+                + "FROM Comment AS c\n"
+                + "WHERE c.TypeID = 2\n"
+                + "AND c.ObjectID = b.PostID\n"
+                + ") AS CommentNumber\n"
+                + "FROM Post AS b\n"
+                + "LEFT JOIN\n"
+                + "(\n"
+                + "SELECT ObjectID, MIN(ImageUrl) AS ImageUrl\n"
+                + "FROM [Image]\n"
+                + "GROUP BY ObjectID, TypeID\n"
+                + "HAVING TypeID = 2\n"
+                + ") AS i\n"
+                + "ON b.PostID = i.ObjectID\n"
+                + "JOIN [User] AS u\n"
+                + "ON u.UserID = b.UserID\n"
+                + "WHERE LOWER(b.Title) LIKE ?\n"
+                + "	  OR LOWER(b.Content) LIKE ?\n"
+                + "ORDER BY [View] DESC;";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(command);
+            ps.setString(1, parameter);
+            ps.setString(2, parameter);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Map<String, String> dataMap = new HashMap<>();
+                dataMap.put("BlogID", rs.getString("PostID"));
+                dataMap.put("Title", rs.getString("Title"));
+                dataMap.put("DateTime", rs.getString("DateTime"));
+                dataMap.put("Content", rs.getString("Content"));
+                dataMap.put("ImageUrl", rs.getString("ImageUrl"));
+                dataMap.put("UserName", rs.getString("UserName"));
+                dataMap.put("CommentNumber", rs.getString("CommentNumber"));
+                dataList.add(dataMap);
+            }
+        } catch (Exception e) {
+        }
+        return dataList;
+    }
+
     public static void main(String[] args) {
         ArrayList<Comment> dataList = new PostDAO().getAllRootCommentByPostID("1");
         for (int i = 0; i < dataList.size(); i++) {
