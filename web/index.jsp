@@ -20,7 +20,7 @@
               	<a class="dropdown-item" href="shop">Shop</a>
               	<a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
                 <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                <a class="dropdown-item" href="cart.jsp">Cart</a>
+                <a class="dropdown-item" href="cart">Cart</a>
                 <a class="dropdown-item" href="checkout.jsp">Checkout</a>
               </div>
                 <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
@@ -41,7 +41,7 @@
               	<a class="dropdown-item" href="shop">Shop</a>
               	<a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
                 <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                <a class="dropdown-item" href="cart.jsp">Cart</a>
+                <a class="dropdown-item" href="cart">Cart</a>
                 <a class="dropdown-item" href="checkout.jsp">Checkout</a>
               </div>
                 <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
@@ -70,7 +70,7 @@
                                     <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
                         </c:if>
                                </c:if>     
-	          <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -199,14 +199,14 @@
 									<div class="text text-center">
 										<h2>Palette Joy</h2>
 										<p>Bring the beauty to every home</p>
-										<p><a href="shop.jsp" class="btn btn-primary">Shop now</a></p>
+										<p><a href="shop" class="btn btn-primary">Shop now</a></p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/cate1.jpg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="shop.jsp">Oil Painting</a></h2>
+										<h2 class="mb-0"><a href="shop">Oil Painting</a></h2>
 									</div>
 								</div>
 								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/cate2.png);">

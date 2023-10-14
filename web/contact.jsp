@@ -6,7 +6,7 @@
               	<a class="dropdown-item" href="shop.jsp">Shop</a>
               	<a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
                 <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                <a class="dropdown-item" href="cart.jsp">Cart</a>
+                <a class="dropdown-item" href="cart">Cart</a>
                 <a class="dropdown-item" href="checkout.jsp">Checkout</a>
               </div>
             </li>
@@ -18,7 +18,7 @@
                                                                  <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
                                     <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
                                                             </c:if>
-	          <li class="nav-item cta cta-colored"><a href="cart.jsp" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
 	        </ul>
 	      </div>
