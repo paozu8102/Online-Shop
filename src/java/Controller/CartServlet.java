@@ -140,8 +140,9 @@ public class CartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String pid = request.getParameter("pid");
-        String quantity_raw = request.getParameter("num");
-        String type = request.getParameter("type");
+
+        
+
 
         Cart t = new Cart();
         ProductDAO dao = new ProductDAO();
@@ -160,34 +161,46 @@ public class CartServlet extends HttpServlet {
                 }
             }
         }
-        if (type != null) {
+       
             txt = t.removeProductinCart(txt, pid);
 
-        } else {
-
-            //Update quantity
-            try {
-
-                int quantity = Integer.parseInt(quantity_raw);
-
-                if (quantity > 0 && quantity <= p.getQuantity()) {
-                    txt = t.updateCartQuantity(txt, pid, quantity);
-                } else if (quantity >= p.getQuantity()) {
-
-                } else {
-                    txt = t.removeProductinCart(txt, pid);
-
-                }
-            } catch (Exception e) {
-            }
-        }
+       
 //Tao cookie mới
         if (!txt.equals("")) {
             Cookie c = new Cookie("cart", txt);
-            c.setMaxAge(2 * 24 * 60 * 60);
+            c.setMaxAge(365 * 24 * 60 * 60);
 
             response.addCookie(c);
         }
+         LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
+    request.setAttribute("cartlist", cartlist);
+
+    // Pagination parameters
+    int recordsPerPage = 10; // Number of records per page (you can adjust this)
+    int tag = 1; // Default page number
+    if (request.getParameter("index") != null) {
+        tag = Integer.parseInt(request.getParameter("index"));
+    }
+
+    // Calculate the starting record index
+    int startIndex = (tag - 1) * recordsPerPage;
+
+    // Calculate the ending record index
+    int endIndex = Math.min(startIndex + recordsPerPage, cartlist.size());
+
+    // Create a sublist for the current page
+    List<Map.Entry<Product, Integer>> cartlistPage = new ArrayList<>(cartlist.entrySet())
+                                                        .subList(startIndex, endIndex);
+
+    request.setAttribute("cartlistPage", cartlistPage);
+    request.setAttribute("tag", tag);
+
+    // Calculate the number of pages for pagination
+    int endP = (int) Math.ceil((double) cartlist.size() / recordsPerPage);
+    request.setAttribute("endP", endP);
+    request.getRequestDispatcher("cart.jsp").forward(request, response);
+        
+        
     }
 
     /**

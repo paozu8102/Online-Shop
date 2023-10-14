@@ -58,31 +58,46 @@
                         <tbody>
                             <c:forEach items="${cartlistPage}" var="i" varStatus="loop">
                                 <tr class="text-center">
-                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                                    <td class="product-remove">
+    <a href="javascript:void(0);" onclick="submitDeleteForm()">
+        <span class="ion-ios-close"></span>
+    </a>
+</td>
 
-                                    <td class="image-prod"><div class="img" style="background-image:url(images/${i.key.image});"></div></td>
+<form id="delete-form" action="cart" method="post" style="display: none;">
+    <input type="hidden" name="pid" id="delete-pid" value="${i.key.productID}">
+</form>
 
-                                    <td class="product-name">
-                                        <h3>${i.key.productName}</h3>
+<script>
+function submitDeleteForm() {
+    var form = document.getElementById("delete-form");
+    form.submit();
+}
+</script>
 
-                                    </td>
+                            <td class="image-prod"><div class="img" style="background-image:url(images/${i.key.image});"></div></td>
 
-                                    <td class="price">$<fmt:formatNumber pattern="##.#" value="${i.key.price-i.key.price*i.key.discount/100}"/></td>
+                            <td class="product-name">
+                                <h3>${i.key.productName}</h3>
 
-                                    <td class="quantity">
+                            </td>
 
-                                   <div style="display: flex; align-items: center;">
-  <button style="margin-right: 5px;"><a href="cart?num=-1&pid=${i.key.productID}">-</a></button>
-  <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="${i.value}" min="1" max="${i.key.quantity}" readonly>
-  <button style="margin-left: 5px;"><a href="cart?num=1&pid=${i.key.productID}">+</a></button>
-</div>
+                            <td class="price">$<fmt:formatNumber pattern="##.#" value="${i.key.price-i.key.price*i.key.discount/100}"/></td>
+
+                            <td class="quantity">
+
+                                <div style="display: flex; align-items: center;">
+                                    <button style="margin-right: 5px;"><a href="cart?num=-1&pid=${i.key.productID}">-</a></button>
+                                    <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="${i.value}" min="1" max="${i.key.quantity}" readonly>
+                                    <button style="margin-left: 5px;"><a href="cart?num=1&pid=${i.key.productID}">+</a></button>
+                                </div>
 
 
-                                    </td>
+                            </td>
 
-                                    <td class="total">$<fmt:formatNumber pattern="##.#" value="${(i.key.price-i.key.price*i.key.discount/100)*i.value}"/></td>
-                                </tr><!-- END TR-->
-                            </c:forEach> 
+                            <td class="total">$<fmt:formatNumber pattern="##.#" value="${(i.key.price-i.key.price*i.key.discount/100)*i.value}"/></td>
+                            </tr><!-- END TR-->
+                        </c:forEach> 
 
                         </tbody>
                     </table>
