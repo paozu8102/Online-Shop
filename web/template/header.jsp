@@ -33,7 +33,7 @@
         function navigateToOtherPage() {
             // Save the current scroll position before navigating
             saveScrollPosition();
-    
+        }
     </script>
 <style>
 body {
