@@ -5,7 +5,10 @@
 package DAO;
 
 import DBcontext.DBContext;
+import Model.Comment;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -71,5 +74,26 @@ public class CommentDAO extends DBContext {
         } catch (Exception e) {
         }
         return rowAffected;
+    }
+     //retrieve the 5 recent comments: BaoMV
+    public ArrayList<Comment> getRecentComment() {
+        ArrayList<Comment> listComment = new ArrayList<>();
+        String sql = "select top 5 * from [SWP391_Group3].[dbo].[Comment] order by CommentDate desc";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                int comid = rs.getInt(1);
+                int uid = rs.getInt(2);
+                int typeid = rs.getInt(3);
+                int objectid = rs.getInt(4);
+                String content = rs.getString(5);
+                String date = rs.getString(6);
+                listComment.add(new Comment(comid, uid, typeid, objectid, content, date));
+            }
+        } catch (Exception e) {
+            System.out.println("getRecentComment: " + e.getMessage());
+        }
+        return listComment;
     }
 }
