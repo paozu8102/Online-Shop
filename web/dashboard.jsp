@@ -217,7 +217,7 @@
                     <!-- RECENT SALES -->
                     <!-- ============================================================== -->
                     <div class="row">
-                        <div class="col-md-12 col-lg-6 col-sm-12">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
                             <div class="white-box">
                                 <div class="d-md-flex mb-3">
                                     <h3 class="box-title mb-0">Top 3 best seller Categories</h3>
@@ -243,32 +243,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-12 col-lg-6 col-sm-12">
-                            <div class="white-box">
-                                <div class="d-md-flex mb-3">
-                                    <h3 class="box-title mb-0">Top 3 best seller Type</h3>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table no-wrap">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-top-0">#</th>
-                                                <th class="border-top-0">Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${listTopType}" var="type">
-                                                <tr>
-                                                    <td>${type.split("-")[0]}</td>
-                                                    <td>${type.split("-")[1]}</td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                     <!-- ============================================================== -->
                     <!-- PRODUCTS YEARLY SALES -->
@@ -346,7 +321,7 @@
                                     'Banned Account'
                                 ],
                                 datasets: [{
-                                        label: 'My First Dataset',
+                                        label: 'Total',
                                         data: [${listCountAccount.get(1)}, ${listCountAccount.get(0)}],
                                         backgroundColor: [
                                             '#88F460',
@@ -365,75 +340,6 @@
                             new Chart(cs, config);
                         </script>
 
-                        <!-- ============================================================== -->
-                        <!-- Recent Comments -->
-                        <!-- ============================================================== -->
-                        <div class="row" style="padding-right: 0">
-                            <!-- .col -->
-                            <div class="col-md-12 col-lg-12 col-sm-12" style="padding-right: 0">
-                                <div class="card white-box p-0">
-                                    <div class="card-body">
-                                        <h3 class="box-title mb-0">Recent Comments</h3>
-                                    </div>
-                                    <div class="comment-widgets">
-                                        <%
-                                            ArrayList<Comment> listComment = (ArrayList<Comment>) request.getAttribute("listComment");
-                                            for(Comment comment : listComment) {
-                                        %>
-                                        <!-- Comment Row -->
-                                        <div class="d-flex flex-row comment-row p-3 mt-0">
-                                            <div class="p-2"><img src="<%=(new UserDAO()).getUser(comment.getUserID()).getAvatar()%>" alt="user" width="50" class="rounded-circle"></div>
-                                            <div class="comment-text ps-2 ps-md-3 w-100">
-                                                <h5 class="font-medium"><%=(new UserDAO()).getUser(comment.getUserID()).getUserName()%></h5>
-                                                <span class="mb-3 d-block"><%=comment.getCommentContent()%></span>
-                                                <div class="comment-footer d-md-flex align-items-center">
-                                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0"><%=comment.getCommentDate()%></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <%}%>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- /.col -->
-                            <div class="col-md-12 col-lg-12 col-sm-12" style="padding-right: 0"> 
-                                <div class="card white-box p-0">
-                                    <div class="card-body">
-                                        <h3 class="box-title mb-0">Recent Posts</h3>
-                                    </div>
-                                    <div class="comment-widgets">
-                                        <%
-                                            ArrayList<Post> listPost = (ArrayList<Post>) request.getAttribute("listPost");
-                                            for(Post post : listPost) {
-                                        %>
-                                        <!-- Comment Row -->
-                                        <div class="d-flex flex-row comment-row p-3 mt-0">
-                                            <div class="p-2"><img src="<%=(new UserDAO()).getUser(post.getUserID()).getAvatar()%>" alt="user" width="50" class="rounded-circle"></div>
-                                            <div class="comment-text ps-2 ps-md-3 w-100">
-                                                <h5 class="font-medium"><%=(new UserDAO()).getUser(post.getUserID()).getUserName()%></h5>
-                                                <span class="mb-3 d-block"><%=post.getTitle()%></span>
-                                                <div class="comment-footer d-md-flex align-items-center">
-                                                    <c:if test="<%=post.getStatusID().equals(String.valueOf(1))%>">
-                                                        <%=post.getStatusID().equals(String.valueOf(1))%>
-                                                        <span class="badge bg-primary rounded">Waiting</span>
-                                                    </c:if>
-                                                    <c:if test="<%=post.getStatusID().equals(String.valueOf(2))%>">
-                                                        <span class="badge bg-success rounded">Approved</span>
-                                                    </c:if>
-                                                    <c:if test="<%=post.getStatusID().equals(String.valueOf(3))%>">
-                                                        <span class="badge rounded bg-danger">Denied</span>
-                                                    </c:if>
-
-
-                                                    <div class="text-muted fs-2 ms-auto mt-2 mt-md-0"><%=post.getDate()%></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <%}%>
-                                    </div>
-                                </div>
-                            </div>
 
                             <!-- /.col -->
                         </div>

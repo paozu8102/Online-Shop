@@ -217,7 +217,7 @@
                         <div class="col-sm-12">
                             <div class="white-box">
                                 <div style="display: flex; justify-content: space-between; align-items: center">
-                                    <h3 class="box-title">Basic Table</h3>
+                                    <h3 class="box-title"></h3>
                                     <a href="crudslider?mode=add" style="border: 1px solid; padding: 0.5rem 1rem; border-radius: 20px"> 
                                         Add new
                                     </a>

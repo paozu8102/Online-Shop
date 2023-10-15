@@ -54,32 +54,4 @@ public class CategoryDAO extends DBcontext.DBContext {
         }
         return new Category();
     }
-    // retrieve the top three types (object types) with the highest order totals: BaoMV
-    public ArrayList<String> getTopType() {
-        String sql = "select top 3 TypeID, TypeName, count(TypeID) as sumary\n"
-                + "  from\n"
-                + "  (select o.ProductID, count(o.ProductID) as total, c.CategoryID, ot.TypeID, ot.TypeName \n"
-                + "  from OrderDetail o, Category c, ProductCategory p, ObjectType ot\n"
-                + "  where p.CategoryID = c.CategoryID and o.ProductID = p.ProductID and ot.TypeID = c.ObjectTypeID\n"
-                + "  group by o.ProductID, c.CategoryID, ot.TypeName, ot.TypeID ) d\n"
-                + "  group by TypeName, TypeID\n"
-                + "  order by sumary desc";
-        ArrayList<String> listTopType = new ArrayList<>();
-        try {
-            PreparedStatement ps = getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String name = rs.getString(2);
-                String id = rs.getString(1);
-                listTopType.add(id + "-" + name);
-            }
-        } catch (Exception e) {
-            System.out.println("getTopType: " + e.getMessage());
-        }
-        while (listTopType.size() < 3) {            
-            listTopType.add("no data-no data");
-        }
-        return listTopType;
-    }
-
 }

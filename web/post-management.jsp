@@ -250,22 +250,7 @@
                                                 <td>
                                                     <input type="radio" name="statusid" value="3" ${statusid eq '3' ? 'checked' : ''}> Denied
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Post Type: </td>
-                                                <td>
-                                                    <c:set value="${0}" var="i"/>
-                                                    <c:forEach items="${posttypeList}" var="pt">
-                                                        <c:set value="${i+1}" var="i"/>
-                                                        <span style="margin-right: 50px">
-                                                            <input type="radio" name="posttypeid" value="${pt}" ${pt eq posttypeid ? 'checked' : ''}>${pt}
-                                                        </span>
-                                                        <c:if test="${i % 5 == 0}">
-                                                            <br>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </td>
-                                            </tr>
+                                            </tr>                                           
                                             <tr>
                                                 <td>Date: </td>
                                                 <td>
@@ -309,7 +294,7 @@
                         <div class="col-sm-12">
                             <div class="white-box">
                                 <div style="display: flex; justify-content: space-between; align-items: center">
-                                    <h3 class="box-title">Basic Table</h3>
+                                    <h3 class="box-title"></h3>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table text-nowrap">

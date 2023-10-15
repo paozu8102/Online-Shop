@@ -75,10 +75,7 @@ public class DashboardController extends HttpServlet {
         ArrayList<String> listCountAccount = acAO.getTotalAccountByStatus();
         
         ArrayList<String> listStatus = postDAO.getTotalPostByStatus();
-        ArrayList<Comment> listComment = commentDAO.getRecentComment();
-        ArrayList<Post> listPost = postDAO.getRecentPost();
         ArrayList<Category> listCategory = categoryDAO.getTopCategory();
-        ArrayList<String> listTopType = categoryDAO.getTopType();
         LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
         String filter = request.getParameter("filter");
         if(filter == null || filter.isEmpty() ||  filter.equals("1")) {
@@ -101,10 +98,7 @@ public class DashboardController extends HttpServlet {
         
         
         request.setAttribute("listStatus", listStatus);
-        request.setAttribute("listComment", listComment);
-        request.setAttribute("listPost", listPost);
         request.setAttribute("listCategory", listCategory);
-        request.setAttribute("listTopType", listTopType);
         request.setAttribute("listCountAccount", listCountAccount);
         request.setAttribute("listCountAccount", listCountAccount);
         request.setAttribute("listTotal", listTotal);

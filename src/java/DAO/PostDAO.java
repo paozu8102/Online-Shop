@@ -476,30 +476,6 @@ public class PostDAO extends DBContext {
         }
         return listStatus;
     }
-    //get most 5 recent posts: BaoMV
-    public ArrayList<Post> getRecentPost() {
-        ArrayList<Post> listPost = new ArrayList<>();
-        UserDAO udao = new UserDAO();
-        String sql = "select top 5 * from [SWP391_Group3].[dbo].[Post] order by [Date] desc";
-        try {
-            PreparedStatement ps = getConnection().prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String postid = rs.getString(1);
-                String title = rs.getString(2);
-                String Content = rs.getString(3);
-                String Date = rs.getString(4);
-                String UserID = rs.getString(5);
-                String StatusID = rs.getString(6);
-                String PostType = rs.getString(7);
-                String View = rs.getString(8);
-                listPost.add(new Post(postid, title, Content, Date, UserID, StatusID, PostType, View));
-            }
-        } catch (Exception e) {
-            System.out.println("getRecentPost: " + e.getMessage());
-        }
-        return listPost;
-    }
     public static void main(String[] args) {
         ArrayList<Comment> dataList = new PostDAO().getAllRootCommentByPostID("1");
         for (int i = 0; i < dataList.size(); i++) {
