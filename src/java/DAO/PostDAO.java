@@ -328,6 +328,7 @@ public class PostDAO extends DBContext {
         }
         return dataList;
     }
+
     //retrieves a list of posts based on search criteria, pagination, and sorting order: BaoMV
     public ArrayList<Post> getAllPost(String searchID, String index, String sql2, String order) {
         ArrayList<Post> listPost = new ArrayList<>();
@@ -359,6 +360,7 @@ public class PostDAO extends DBContext {
         }
         return listPost;
     }
+
     //get post sattus: BaoMV
     public String getPostStatusName(String statusID) {
         switch (statusID) {
@@ -369,6 +371,7 @@ public class PostDAO extends DBContext {
         }
         return "Denied";
     }
+
     //calculates the total number of posts based on search criteria and sorting order: BaoMV
     public int getTotalPost(String searchID, String sql2, String order) {
         String sql = "SELECT * FROM [SWP391_Group3].[dbo].[Post] p, [User] u where p.UserID = u.UserID and "
@@ -389,6 +392,7 @@ public class PostDAO extends DBContext {
         }
         return count;
     }
+
     //delete a post: BaoMV
     public void deletePost(String id) {
         String sql = "delete from [SWP391_Group3].[dbo].[Post] where PostID = ?";
@@ -400,6 +404,7 @@ public class PostDAO extends DBContext {
             System.out.println("deletePost: " + e.getMessage());
         }
     }
+
     //get post by id:BaoMV
     public Post getPostById(String id) {
         String sql = "select * from [SWP391_Group3].[dbo].[Post] where PostID = ?";
@@ -424,6 +429,7 @@ public class PostDAO extends DBContext {
         }
         return new Post();
     }
+
     //update a post: BaoMV
     public void updatePost(String id, String title, String content, String statusId, String postType) {
         String sql = "update [SWP391_Group3].[dbo].[Post] set title=?, content=?, statusId=?, postType = ? where PostID = ?";
@@ -440,6 +446,7 @@ public class PostDAO extends DBContext {
             System.out.println("updatePost: " + e.getMessage());
         }
     }
+
     // get all post type: BaoMV
     public ArrayList<Integer> getAllPostType() {
         String sql = "select distinct posttype from post";
@@ -456,6 +463,7 @@ public class PostDAO extends DBContext {
         }
         return listPostType;
     }
+
     //get total number of posts in each status category: BaoMV
     public ArrayList<String> getTotalPostByStatus() {
         String sql = "select ps.statusid, count(p.PostID) as 'total' \n"
@@ -476,6 +484,25 @@ public class PostDAO extends DBContext {
         }
         return listStatus;
     }
+
+    //get all postID by category: ThanhNX
+    public ArrayList<Integer> getPostIDByCategory(int category) {
+        ArrayList<Integer> idList = new ArrayList<>();
+        String command = "SELECT p.PostID\n"
+                + "FROM PostCategory p\n"
+                + "WHERE p.CategoryID = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(command);
+            ps.setInt(1, category);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                idList.add(rs.getInt("PostID"));
+            }
+        } catch (Exception e) {
+        }
+        return idList;
+    }
+
     public static void main(String[] args) {
         ArrayList<Comment> dataList = new PostDAO().getAllRootCommentByPostID("1");
         for (int i = 0; i < dataList.size(); i++) {
@@ -489,6 +516,11 @@ public class PostDAO extends DBContext {
         ArrayList<Map<String, String>> dataList2 = new PostDAO().getPostNumberPerCategory();
         for (int i = 0; i < dataList2.size(); i++) {
             System.out.println(dataList2.get(i).toString());
+        }
+        
+        ArrayList<Integer> test3 = new PostDAO().getPostIDByCategory(13);
+        for (int i = 0; i < test3.size(); i++) {
+            System.out.println(test3.get(i));
         }
     }
 }
