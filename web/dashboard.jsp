@@ -216,35 +216,7 @@
                     <!-- ============================================================== -->
                     <!-- RECENT SALES -->
                     <!-- ============================================================== -->
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12">
-                            <div class="white-box">
-                                <div class="d-md-flex mb-3">
-                                    <h3 class="box-title mb-0">Top 3 best seller Categories</h3>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table no-wrap">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-top-0">#</th>
-                                                <th class="border-top-0">Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${listCategory}" var="cate">
-                                                <tr>
-                                                    <td>${cate.getCategoryID()}</td>
-                                                    <td>${cate.getCategoryName()}</td>
-                                                </tr>
-                                            </c:forEach>
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
+                    
                     <!-- ============================================================== -->
                     <!-- PRODUCTS YEARLY SALES -->
                     <!-- ============================================================== -->
@@ -339,7 +311,7 @@
                             };
                             new Chart(cs, config);
                         </script>
-
+                        
 
                             <!-- /.col -->
                         </div>
