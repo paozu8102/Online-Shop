@@ -85,20 +85,16 @@
                             <!-- Search -->
                             <!-- ============================================================== -->
                             <li class=" in">
-                                <form role="search" class="app-search d-none d-md-block me-3">
-                                    <input type="text" placeholder="Search..." class="form-control mt-0">
-                                    <a href="" class="active">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                </form>
+                                
                             </li>
                             <!-- ============================================================== -->
                             <!-- User profile and search -->
                             <!-- ============================================================== -->
                             <li>
                                 <a class="profile-pic" href="admin-profile.jsp">
-                                    <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                         class="img-circle"><span class="text-white font-medium">Sign Out</span></a>
+                                    <img src="${sessionScope.user.getAvatar()}" alt="user-img" width="36"
+                                         class="img-circle"></a>
+                                <a href="logout" style="padding-right: 20px"><span class="text-white font-medium">Sign Out</span></a>
                             </li>
                             <!-- ============================================================== -->
                             <!-- User profile and search -->
@@ -121,33 +117,33 @@
                         <ul id="sidebarnav">
                             <!-- User Profile-->
                             <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.jsp"
-                                aria-expanded="false">
-                                <i class="far fa-clock" aria-hidden="true"></i>
-                                <span class="hide-menu">Statistic</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-profile.jsp"
-                                aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="hide-menu">Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="slider-management.jsp"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Slider Management</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="post-management.jsp"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Post Management</span>
-                            </a>
-                        </li>
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin"
+                                   aria-expanded="false">
+                                    <i class="far fa-clock" aria-hidden="true"></i>
+                                    <span class="hide-menu">Statistic</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="admin-profile.jsp"
+                                   aria-expanded="false">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="hide-menu">Profile</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manageslide"
+                                   aria-expanded="false">
+                                    <i class="fa fa-table" aria-hidden="true"></i>
+                                    <span class="hide-menu">Slider Management</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="managepost"
+                                   aria-expanded="false">
+                                    <i class="fa fa-table" aria-hidden="true"></i>
+                                    <span class="hide-menu">Post Management</span>
+                                </a>
+                            </li>
 
                         </ul>
 
@@ -192,15 +188,16 @@
                                 <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/img1.jpg">
                                     <div class="overlay-box">
                                         <div class="user-content">
-                                            <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg"
+                                            <a href="javascript:void(0)"><img id="avatar" src="${sessionScope.user.getAvatar()}"
                                                                               class="thumb-lg img-circle" alt="img"></a>
+                                            <input type="file" id="fileInput" name="imageFile" onchange="uploadImage()" style="display: none;" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="user-btm-box mt-5 d-md-flex justify-content-center">
                                     <div class="form-group mb-4">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success">Update Avatar</button>
+                                            <button class="btn btn-success" id="fileButton">Update Avatar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -211,18 +208,42 @@
                         <div class="col-lg-8 col-xlg-9 col-md-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-horizontal form-material">
+                                    <form class="form-horizontal form-material" action="updateuser" enctype="multipart/form-data" method="post">
+                                        <input type="hidden" value="${user.getUserID()}" name="id"/>
+                                        <input type="hidden" value="admin" name="mode"/>
+                                        <input type="hidden" id="imageName" value="${sessionScope.user.getAvatar().replace("images/avatar/","")}" name="imageName"/>
                                         <div class="form-group mb-4">
-                                            <label class="col-md-12 p-0">Full Name</label>
+                                            <label class="col-md-12 p-0">Username: </label>
                                             <div class="col-md-12 border-bottom p-0">
                                                 <input type="text" placeholder=""
-                                                       class="form-control p-0 border-0"> </div>
+                                                       class="form-control p-0 border-0"
+                                                       oninput="checkLength()" pattern="^(?:[A-Z][a-zA-Z\s]*){1,50}$" 
+                                                       required 
+                                                       name="username"
+                                                       title="Cannot null, Begin word with upper character, length between 0 -50"
+                                                       value="${sessionScope.user.getUserName()}"> </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label class="small mb-1" for="inputGender">Gender</label>
+                                            <div style="display: flex; justify-content: space-between; margin-top: 20px">
+                                                <div style="flex: 1;">
+                                                    <input type="radio" id="male" name="gender" value="male" ${(sessionScope.user.getGender() == 1) ? 'checked' : ''}>
+                                                    <label for="male">Male</label>
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <input type="radio" id="female" name="gender" value="female"  ${(sessionScope.user.getGender() == 1) ? '' : 'checked'}> 
+                                                    <label for="female">Female</label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label class="col-md-12 p-0">Phone No</label>
                                             <div class="col-md-12 border-bottom p-0">
                                                 <input type="text" placeholder=""
-                                                       class="form-control p-0 border-0">
+                                                       class="form-control p-0 border-0" 
+                                                       pattern="[0-9]{10}" title="Please enter 10 digits with no spaces."
+                                                       value="${sessionScope.user.getPhoneNumber()}"
+                                                       name="phonenumber">
                                             </div>
                                         </div>
                                         <div class="form-group mb-4">
@@ -230,21 +251,21 @@
                                             <div class="col-md-12 border-bottom p-0">
                                                 <input type="text" placeholder=""
                                                        class="form-control p-0 border-0" 
-                                                       id="example-email">
+                                                       id="example-email" value="${sessionScope.user.getAddress()}" name="address">
                                             </div>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label class="col-md-12 p-0">Email</label>
                                             <div class="col-md-12 border-bottom p-0">
                                                 <input type="text" placeholder=""
-                                                       class="form-control p-0 border-0">
+                                                       class="form-control p-0 border-0" name="email" readonly value="${sessionScope.user.getEmail()}">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group mb-4">
-                                                    <button class="btn btn-success mx-1">Update Profile</button>
-                                                    <button class="btn btn-success mx-1">Change Password</button>
+                                                    <button type="submit" class="btn btn-success mx-1">Update Profile</button>
+                                                    <a href="change-user-password.jsp" class="btn btn-success mx-1">Change Password</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -298,6 +319,55 @@
         <script src="js/sidebarmenu.js"></script>
         <!--Custom JavaScript -->
         <script src="js/custom.js"></script>
+
+        <script>
+                                                // Get references to the button and file input elements
+                                                const fileButton = document.getElementById('fileButton');
+                                                const fileInput = document.getElementById('fileInput');
+                                                const avatarImg = document.getElementById('avatar');
+                                                const formData = new FormData();
+                                                const imageUpdateName = document.getElementById('imageName');
+
+                                                // Add a click event listener to the button
+                                                fileButton.addEventListener('click', function () {
+                                                    // Trigger a click event on the file input when the button is clicked
+                                                    fileInput.click();
+                                                });
+
+                                                // Function to handle image upload
+                                                function uploadImage() {
+                                                    if (fileInput.files.length !== 0) {
+                                                        formData.append('imageFile', fileInput.files[0]);
+
+                                                        // Validate the selected image here
+                                                        const selectedFile = fileInput.files[0];
+                                                        // Check if the selected file is an image (JPG or PNG)
+                                                        if (!/\.(jpg|png)$/i.test(selectedFile.name)) {
+                                                            alert('Please select a valid image file (JPG or PNG).');
+                                                            return;
+                                                        }
+                                                        // Check if the file size is within the allowed limit (5MB)
+                                                        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                                                        if (selectedFile.size > maxSize) {
+                                                            alert('The selected image file is too large. Please choose a smaller image.');
+                                                            return;
+                                                        }
+                                                        // Perform the image upload if it passes validation
+                                                        fetch(`/SWP391_SE1729_Group3/changeavatar`, {
+                                                            method: 'POST',
+                                                            body: formData
+                                                        });
+
+                                                        setTimeout(function () {
+                                                            if (formData.get('imageFile').name !== 'undefined') {
+                                                                avatarImg.src = `images/avatar/` + formData.get('imageFile').name;
+                                                                imageUpdateName.value = formData.get('imageFile').name;
+                                                                formData.delete('imageFile');
+                                                            }
+                                                        }, 2000);
+                                                    }
+                                                }
+        </script>
     </body>
 
 </html>

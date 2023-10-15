@@ -5,7 +5,10 @@
 package DAO;
 
 import DBcontext.DBContext;
+import Model.Comment;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *

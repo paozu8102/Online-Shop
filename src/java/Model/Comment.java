@@ -15,10 +15,10 @@ public class Comment {
     private int CommentID;
     private String CommentDate;
     private String CommentContent;
-
+    
     public Comment() {
     }
-
+      
     public Comment(int UserID, String Avatar, String UserName, int CommentID, String CommentDate, String CommentContent) {
         this.UserID = UserID;
         this.Avatar = Avatar;
