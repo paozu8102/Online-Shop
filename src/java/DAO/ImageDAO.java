@@ -79,5 +79,95 @@ public class ImageDAO extends DBContext {
 
         return list;
     }
-
+    //retrieve a list of images with a TypeID of 3(slider) from the database: BaoMV
+    public ArrayList<Image> getAllImageWithType3(String searchID, String index) {
+        ArrayList<Image> imageList = new ArrayList<>();
+        String sql = "select * from [SWP391_Group3].[dbo].[Image] where [TypeID] = 3 and ImageID like '%" + searchID +"%'  order by ImageID offset ? rows fetch next 9 rows only";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            int page = Integer.parseInt(index);
+            ps.setInt(1, (page-1) * 9);
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                int id = rs.getInt(1);
+                int typeid = rs.getInt(2);
+                int objectid = rs.getInt(3);
+                String url = rs.getString(4);
+                imageList.add(new Image(id, typeid, objectid, url));
+            }
+        } catch (Exception e) {
+            System.out.println("getAllImageWithType3: " + e.getMessage());
+        }
+        return imageList;
+    }
+    //deletes an image: BaoMV
+    public void deleteImage(String id) {
+        String sql = "delete from [SWP391_Group3].[dbo].[Image] where [ImageId] = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("deleteImage: " + e.getMessage());
+        }
+    }
+    //calculates the total number of images with a TypeID of 3(slider): BaoMV
+    public int getTotalImageByTypeId3(String searchID) {
+        String sql = "select * from [SWP391_Group3].[dbo].[Image] where [TypeID] = 3 and ImageID like '%" + searchID +"%'  order by ImageID";
+        int count = 0;
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                count++;
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalImageByTypeId3: " + e.getMessage());
+        }
+        return count;
+    }
+    //retrieves an image by ID: BaoMV
+    public Image getImageById(String id) {
+        String sql = "select * from [SWP391_Group3].[dbo].[Image] where [TypeID] = 3 and ImageID = ?";
+        Image image = new Image();
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {                
+                int typeid = rs.getInt(2);
+                int objectid = rs.getInt(3);
+                String url = rs.getString(4);
+                return new Image(Integer.parseInt(id), typeid, objectid, url);
+            }
+        } catch (Exception e) {
+            System.out.println("getAllImageWithType3: " + e.getMessage());
+        }
+        return image;
+    }
+    
+    //update an image: BaoMV
+    public void updateImage(String id, String imageURL) {
+        String sql = "update [SWP391_Group3].[dbo].[Image] set [ImageUrl] = ? where [ImageID] = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(2, id);
+            ps.setString(1, imageURL);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("updateImage: " + e.getMessage());
+        }
+    }
+    //add a new image: BaoMV
+    public void addNew(String imageURL) {
+        String sql = "insert into [SWP391_Group3].[dbo].[Image] values (3,0,?)";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, imageURL);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addNew: " + e.getMessage());
+        }
+    }
 }
