@@ -6,6 +6,7 @@ package DAO;
 
 import DBcontext.DBContext;
 import Model.Comment;
+import Model.Post;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -327,7 +328,178 @@ public class PostDAO extends DBContext {
         }
         return dataList;
     }
+    //retrieves a list of posts based on search criteria, pagination, and sorting order: BaoMV
+    public ArrayList<Post> getAllPost(String searchID, String index, String sql2, String order) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        UserDAO udao = new UserDAO();
+        String sql = "SELECT * FROM [SWP391_Group3].[dbo].[Post] p, [User] u where p.UserID = u.UserID and "
+                + "("
+                + "PostID like '%" + searchID + "%' "
+                + "or UserName like '%" + searchID + "%' "
+                + "or Title like '%" + searchID + "%' "
+                + ")" + sql2 + " order by " + order + "PostID offset ? rows fetch next 9 rows only";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            int page = Integer.parseInt(index);
+            ps.setInt(1, (page - 1) * 9);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String postid = rs.getString(1);
+                String title = rs.getString(2);
+                String Content = rs.getString(3);
+                String Date = rs.getString(4);
+                String UserID = udao.getUser(Integer.parseInt(rs.getString(5))).getUserName();
+                String StatusID = getPostStatusName(rs.getString(6));
+                String PostType = rs.getString(7);
+                String View = rs.getString(8);
+                listPost.add(new Post(postid, title, Content, Date, UserID, StatusID, PostType, View));
+            }
+        } catch (Exception e) {
+            System.out.println("getAllPost: " + e.getMessage());
+        }
+        return listPost;
+    }
+    //get post sattus: BaoMV
+    public String getPostStatusName(String statusID) {
+        switch (statusID) {
+            case "1":
+                return "Waiting";
+            case "2":
+                return "Approved";
+        }
+        return "Denied";
+    }
+    //calculates the total number of posts based on search criteria and sorting order: BaoMV
+    public int getTotalPost(String searchID, String sql2, String order) {
+        String sql = "SELECT * FROM [SWP391_Group3].[dbo].[Post] p, [User] u where p.UserID = u.UserID and "
+                + "("
+                + "PostID like '%" + searchID + "%'"
+                + "or UserName like '%" + searchID + "%'"
+                + "or Title like '%" + searchID + "%'"
+                + ")" + sql2 + " order by " + order + "PostID";
+        int count = 0;
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalPost: " + e.getMessage());
+        }
+        return count;
+    }
+    //delete a post: BaoMV
+    public void deletePost(String id) {
+        String sql = "delete from [SWP391_Group3].[dbo].[Post] where PostID = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("deletePost: " + e.getMessage());
+        }
+    }
+    //get post by id:BaoMV
+    public Post getPostById(String id) {
+        String sql = "select * from [SWP391_Group3].[dbo].[Post] where PostID = ?";
+        UserDAO udao = new UserDAO();
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String postid = rs.getString(1);
+                String title = rs.getString(2);
+                String Content = rs.getString(3);
+                String Date = rs.getString(4);
+                String UserID = udao.getUser(Integer.parseInt(rs.getString(5))).getUserName();
+                String StatusID = getPostStatusName(rs.getString(6));
+                String PostType = rs.getString(7);
+                String View = rs.getString(8);
+                return new Post(postid, title, Content, Date, UserID, StatusID, PostType, View);
+            }
+        } catch (Exception e) {
+            System.out.println("getPostById: " + e.getMessage());
+        }
+        return new Post();
+    }
+    //update a post: BaoMV
+    public void updatePost(String id, String title, String content, String statusId, String postType) {
+        String sql = "update [SWP391_Group3].[dbo].[Post] set title=?, content=?, statusId=?, postType = ? where PostID = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(5, id);
+            ps.setString(1, title);
+            ps.setString(2, content);
+            ps.setString(3, statusId);
+            ps.setString(4, postType);
+            ps.executeUpdate();
 
+        } catch (Exception e) {
+            System.out.println("updatePost: " + e.getMessage());
+        }
+    }
+    // get all post type: BaoMV
+    public ArrayList<Integer> getAllPostType() {
+        String sql = "select distinct posttype from post";
+        ArrayList<Integer> listPostType = new ArrayList<>();
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listPostType.add(rs.getInt(1));
+            }
+
+        } catch (Exception e) {
+            System.out.println("getAllPostType: " + e.getMessage());
+        }
+        return listPostType;
+    }
+    //get total number of posts in each status category: BaoMV
+    public ArrayList<String> getTotalPostByStatus() {
+        String sql = "select ps.statusid, count(p.PostID) as 'total' \n"
+                + "  from Post p right join PostStatus ps \n"
+                + "  on p.StatusID = ps.StatusID\n"
+                + "  group by ps.StatusID \n"
+                + "  order by statusid";
+        ArrayList<String> listStatus = new ArrayList<>();
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int count = rs.getInt(2);
+                listStatus.add(count + "");
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalPostByStatus: " + e.getMessage());
+        }
+        return listStatus;
+    }
+    //get most 5 recent posts: BaoMV
+    public ArrayList<Post> getRecentPost() {
+        ArrayList<Post> listPost = new ArrayList<>();
+        UserDAO udao = new UserDAO();
+        String sql = "select top 5 * from [SWP391_Group3].[dbo].[Post] order by [Date] desc";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String postid = rs.getString(1);
+                String title = rs.getString(2);
+                String Content = rs.getString(3);
+                String Date = rs.getString(4);
+                String UserID = rs.getString(5);
+                String StatusID = rs.getString(6);
+                String PostType = rs.getString(7);
+                String View = rs.getString(8);
+                listPost.add(new Post(postid, title, Content, Date, UserID, StatusID, PostType, View));
+            }
+        } catch (Exception e) {
+            System.out.println("getRecentPost: " + e.getMessage());
+        }
+        return listPost;
+    }
     public static void main(String[] args) {
         ArrayList<Comment> dataList = new PostDAO().getAllRootCommentByPostID("1");
         for (int i = 0; i < dataList.size(); i++) {
