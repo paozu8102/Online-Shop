@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
             	<h3 class="heading">Categories</h3>
               <ul class="categories">
                 <c:forEach items="${cateAndPostNumList}" var="object">
-                    <li><a href="#">${object.CategoryName}<span>(${object.NumberOfPosts})</span></a></li>
+                    <li><a href="<%=path%>/PostSingle?cate=${object.CategoryID}">${object.CategoryName}<span>(${object.NumberOfPosts})</span></a></li>
                 </c:forEach>
               </ul>
             </div>
