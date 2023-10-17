@@ -553,7 +553,7 @@
                         <!-- ============================================================== -->
                         <!-- Logo -->
                         <!-- ============================================================== -->
-                        <a class="navbar-brand" href="statistic" style="text-decoration: none; font-size: 19px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
+                        <a class="navbar-brand" href="saler-dashboard.jsp" style="text-decoration: none; font-size: 19px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
                         <!-- ============================================================== -->
                         <!-- End Logo -->
                         <!-- ============================================================== -->
@@ -685,43 +685,7 @@
                         <div class="col-sm-12">
                             <div class="white-box">
                                 <h3 class="box-title">Product Table</h3>
-                                <ul class="product-category">
 
-                            <li>
-                                <form action="manage" method="get">
-                                    <select name="sortprice" id="sortprice" style="color: #82ae46;">
-                                        <option value="" style="color: #82ae46;">Sort By Price</option>
-                                        <option value="asc" style="color: #82ae46;"
-                                                ${param.sortprice == 'asc' ? 'selected' : ''}>Low to High</option>
-                                        <option value="desc" style="color: #82ae46;"
-                                                ${param.sortprice == 'desc' ? 'selected' : ''}>High to Low</option>
-                                    </select>
-
-                                </form>
-                            </li>
-                            <li>
-                                <form action="manage" method="get">
-                                    <select name="sortname" id="sortname" style="color: #82ae46;">
-                                        <option value="" style="color: #82ae46;">Sort By Name</option>
-                                        <option value="asc" style="color: #82ae46;"
-                                                ${param.sortname == 'asc' ? 'selected' : ''}>A -> Z</option>
-                                        <option value="desc" style="color: #82ae46;"
-                                                ${param.sortname == 'desc' ? 'selected' : ''}>Z -> A</option>
-                                    </select>
-
-                                </form>
-                            </li>
-                            <li>
-                                <div style="display: inline-block; margin-left: 10px">
-                                    <form action="manage" method="get" class="search-form">
-                                        <div class="search-container">
-                                            <input name="txt" type="text"  placeholder="Search" >
-                                            <button type="submit"><i class="icon-search" style="color: white;"></i></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
-                        </ul>
                                 <div class="table-responsive">
                                     <table class="table text-nowrap">
                                         <thead>
@@ -734,13 +698,11 @@
                                                 <th class="border-top-0">Quantity</th>
                                                 <th class="border-top-0">Discount</th>
                                                 <th class="border-top-0">Status</th>
-                                                <th class="border-top-0">Action</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
                                             <c:forEach items="${listP}" var="i">
-                                            <form action="productstatus" method="post">
                                                 <tr>
                                                 <input type="hidden" name="id" value="${i.productID}">
                                                 <input type="hidden" name="status" value="${i.status}">
@@ -753,26 +715,11 @@
                                                 <td>${i.discount}</td>
 
                                                 <td  class="price" style="color: ${i.status == 1 ? 'green' : 'red'}">${i.status == 1 ? 'Active' : 'Blocked'}</td>
-                                                <td class="total">
-                                                    <a href="#" data-toggle="modal" data-target="#editProduct" data-id="${i.productID}" data-name="${i.productName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/3601/3601685.png"
-                                                             alt="Mô tả ảnh" width="20" height="20">
-                                                    </a>
-
-
-                                                    <button type="submit" style="background-color: white !important; color: ${i.status == 0 ? 'green' : 'red'} !important;">
-                                                        ${i.status == 0 ? 'Active' : 'Block'}
-                                                    </button>
-
-
-                                                </td>
                                                 </tr>
-                                            </form>
                                         </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -780,17 +727,17 @@
                                 <div class="block-27">
                                     <ul>
                                         <c:if test="${tag > 1}">
-                                            <li><a href="manage?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                            <li><a href="activeproduct?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
                                                 </c:if>
 
                                         <c:forEach begin="1" end="${endP}" var="i">
                                             <li class="${tag == i ? 'active' : ''}">
-                                                <a href="manage?index=${i}">${i}</a>
+                                                <a href="activeproduct?index=${i}">${i}</a>
                                             </li>
                                         </c:forEach>
 
                                         <c:if test="${tag < endP}">
-                                            <li><a href="manage?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                            <li><a href="activeproduct?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
                                                 </c:if>
                                     </ul>
 
@@ -829,17 +776,6 @@
         <!-- ============================================================== -->
         <!-- All Jquery -->
         <!-- ============================================================== -->
-        <script>
-
-                    document.getElementById("sortprice").onchange = function () {
-                        this.form.submit();
-                    };
-
-                    document.getElementById("sortname").onchange = function () {
-                        this.form.submit();
-                    }
-                    ;
-                    </script>
         <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap tether Core JavaScript -->
         <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>

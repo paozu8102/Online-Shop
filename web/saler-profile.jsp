@@ -121,12 +121,12 @@
             <!-- Topbar header - style you can find in pages.scss -->
             <!-- ============================================================== -->
             <header class="topbar" data-navbarbg="skin5">
-                <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <nav class="navbar top-navbar navbar-expand-md navbar-dark" style="background-color: #82ae46;">
                     <div class="navbar-header" data-logobg="skin6">
                         <!-- ============================================================== -->
                         <!-- Logo -->
                         <!-- ============================================================== -->
-                        <a class="navbar-brand" href="saler-dashboard.jsp" style="text-decoration: none; font-size: 24px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
+                        <a class="navbar-brand" href="statistic" style="text-decoration: none; font-size: 24px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
                         <!-- ============================================================== -->
                         <!-- End Logo -->
                         <!-- ============================================================== -->
@@ -139,7 +139,7 @@
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
-              
+
                 </nav>
             </header>
             <!-- ============================================================== -->
@@ -155,34 +155,45 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <!-- User Profile-->
-                            <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="saler-dashboard.jsp"
-                                aria-expanded="false">
-                                <i class="far fa-clock" aria-hidden="true"></i>
-                                <span class="hide-menu">Statistic</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="saler-profile.jsp"
-                                aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="hide-menu">Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="product-management.jsp"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Product Management</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="order-management.jsp"
-                                aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Order Management</span>
-                            </a>
-                        </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="statistic" aria-expanded="false">
+                                    <i class="fa fa-chart-bar" aria-hidden="true"></i>
+                                    <span class="hide-menu">Statistic</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="salerprofile"
+                                   aria-expanded="false">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="hide-menu">Profile</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manage"
+                                   aria-expanded="false">
+                                    <i class="fa fa-table" aria-hidden="true"></i>
+                                    <span class="hide-menu">Product Management</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="order-management.jsp" aria-expanded="false">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="hide-menu">Order Management</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="javascript:history.back()" aria-expanded="false">
+                                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                    <span class="hide-menu">Return</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="home" aria-expanded="false">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span class="hide-menu">Return Home</span>
+                                </a>
+                            </li>
 
                         </ul>
 
@@ -235,7 +246,7 @@
                                     <div class="form-group mb-4">
                                         <div class="col-sm-12">
                                             <button class="btn btn-primary" type="button" id="fileButton" data-toggle="tooltip" data-placement="top" title="Upload your image">Upload new image</button>
-                    <input type="file" id="fileInput" name="imageFile" onchange="uploadImage()" style="display: none;" />
+                                            <input type="file" id="fileInput" name="imageFile" onchange="uploadImage()" style="display: none;" />
                                         </div>
                                     </div>
                                 </div>
@@ -255,17 +266,17 @@
                                                 <input class="form-control p-0 border-0" id="inputUsername" name="username" type="text" oninput="checkLength()" pattern="^(?:[A-Z][a-zA-Z\s]*){1,50}$" required title="Cannot null, Begin word with upper character, length between 0 -50" placeholder="Enter your username" value="${user.getUserName()}"> </div>
                                         </div>
                                         <div class="form-group mb-4">
-                               <label class="col-md-12 p-0" for="inputGender">Gender</label>
-                                <div style="display: flex; justify-content: space-between;">
-                                    <div style="flex: 1;">
-                                        <input type="radio" id="male" name="gender" value="male" ${(user.getGender() == 1) ? 'checked' : ''}>
-                                        <label for="male">Male</label>
-                                    </div>
-                                    <div style="flex: 1;">
-                                        <input type="radio" id="female" name="gender" value="female"  ${(user.getGender() == 1) ? '' : 'checked'}> 
-                                        <label for="female">Female</label>
-                                    </div>
-                                </div>
+                                            <label class="col-md-12 p-0" for="inputGender">Gender</label>
+                                            <div style="display: flex; justify-content: space-between;">
+                                                <div style="flex: 1;">
+                                                    <input type="radio" id="male" name="gender" value="male" ${(user.getGender() == 1) ? 'checked' : ''}>
+                                                    <label for="male">Male</label>
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <input type="radio" id="female" name="gender" value="female"  ${(user.getGender() == 1) ? '' : 'checked'}> 
+                                                    <label for="female">Female</label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label class="col-md-12 p-0" for="inputLastName">Phone Number</label>
@@ -347,57 +358,57 @@
         <!--Custom JavaScript -->
         <script src="js/custom.js"></script>
         <script>
-    // Get references to the button and file input elements
-    const fileButton = document.getElementById('fileButton');
-    const fileInput = document.getElementById('fileInput');
-    const avatarImg = document.getElementById('avatar');
-    const formData = new FormData();
-    const imageUpdateName = document.getElementById('imageName');
+                                                // Get references to the button and file input elements
+                                                const fileButton = document.getElementById('fileButton');
+                                                const fileInput = document.getElementById('fileInput');
+                                                const avatarImg = document.getElementById('avatar');
+                                                const formData = new FormData();
+                                                const imageUpdateName = document.getElementById('imageName');
 
-    // Add a click event listener to the button
-    fileButton.addEventListener('click', function () {
-        // Trigger a click event on the file input when the button is clicked
-        fileInput.click();
-    });
+                                                // Add a click event listener to the button
+                                                fileButton.addEventListener('click', function () {
+                                                    // Trigger a click event on the file input when the button is clicked
+                                                    fileInput.click();
+                                                });
 
-    // Function to handle image upload
-    function uploadImage() {
-        if (fileInput.files.length !== 0) {
-            formData.append('imageFile', fileInput.files[0]);
-            
-            // Validate the selected image here
-            const selectedFile = fileInput.files[0];
-            // Check if the selected file is an image (JPG or PNG)
-            if (!/\.(jpg|png)$/i.test(selectedFile.name)) {
-                alert('Please select a valid image file (JPG or PNG).');
-                return;
-            }
-            // Check if the file size is within the allowed limit (5MB)
-            const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-            if (selectedFile.size > maxSize) {
-                alert('The selected image file is too large. Please choose a smaller image.');
-                return;
-            }
-            // Perform the image upload if it passes validation
-            fetch(`/SWP391_SE1729_Group3/changeavatar`, {
-                method: 'POST',
-                body: formData
-            });
+                                                // Function to handle image upload
+                                                function uploadImage() {
+                                                    if (fileInput.files.length !== 0) {
+                                                        formData.append('imageFile', fileInput.files[0]);
 
-            setTimeout(function () {
-                if (formData.get('imageFile').name !== 'undefined') {
-                    avatarImg.src = `images/avatar/` + formData.get('imageFile').name;
-                    imageUpdateName.value = formData.get('imageFile').name;
-                    formData.delete('imageFile');
-                }
-            }, 2000);
-        }
-    }
+                                                        // Validate the selected image here
+                                                        const selectedFile = fileInput.files[0];
+                                                        // Check if the selected file is an image (JPG or PNG)
+                                                        if (!/\.(jpg|png)$/i.test(selectedFile.name)) {
+                                                            alert('Please select a valid image file (JPG or PNG).');
+                                                            return;
+                                                        }
+                                                        // Check if the file size is within the allowed limit (5MB)
+                                                        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                                                        if (selectedFile.size > maxSize) {
+                                                            alert('The selected image file is too large. Please choose a smaller image.');
+                                                            return;
+                                                        }
+                                                        // Perform the image upload if it passes validation
+                                                        fetch(`/SWP391_SE1729_Group3/changeavatar`, {
+                                                            method: 'POST',
+                                                            body: formData
+                                                        });
 
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
+                                                        setTimeout(function () {
+                                                            if (formData.get('imageFile').name !== 'undefined') {
+                                                                avatarImg.src = `images/avatar/` + formData.get('imageFile').name;
+                                                                imageUpdateName.value = formData.get('imageFile').name;
+                                                                formData.delete('imageFile');
+                                                            }
+                                                        }, 2000);
+                                                    }
+                                                }
+
+                                                $(document).ready(function () {
+                                                    $('[data-toggle="tooltip"]').tooltip();
+                                                });
+        </script>
     </body>
 
 </html>
