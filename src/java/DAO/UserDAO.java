@@ -45,6 +45,27 @@ public class UserDAO extends DBContext {
         }
         return topUser;
     }
+    //Change status in Product HoangNH
+    public void ChangeSettingStatusProduct(int id, int newStatus) {
+
+        String sql = "UPDATE Product SET Status = ? WHERE ProductID = ?";
+
+        // Thay categoryId bằng giá trị thích hợp
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+            st.setInt(1, newStatus);
+            st.setInt(2, id);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+    }
+
 
     //method to get role list from a user list: ThanhNX
     public ArrayList<String> getRoleList(ArrayList<User> users) {
