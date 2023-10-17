@@ -1,6 +1,5 @@
-﻿CREATE DATABASE SWP391_Group3
-GO
-use [SWP391_Group3]
+﻿
+use [SWP391_Group33]
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
 RoleName VARCHAR(50) NOT NULL
@@ -115,6 +114,7 @@ INSERT INTO [dbo].[Product]
            ,[View]
            ,[Discount]
            ,[UserID])
+		   ,[Status])
 VALUES ('Beautiful Painting', 100.00,	'A stunning painting that brings freshness and brightness with vibrant colors and exquisite details. It reflects artistic talent and meticulous investment in every brushstroke, providing a sense of comfort and relaxation when looked upon',	50.0,	45.0,	1,	0,	0,	2, 1),
 	   ('Landscape Artwork', 75.00,	'A breathtaking landscape painting that captures the serenity of nature. The vibrant colors and intricate brushstrokes bring to life a picturesque scene of rolling hills, a tranquil lake, and a colorful sunset. This masterpiece is an invitation to immerse yourself in the beauty of the outdoors, creating a sense of peace and wonder with every gaze. Perfect for those seeking a connection with nature within the comfort of their own space',	50.0,	25.0,	1,	0,	20,	3, 1),
 	   ('Artistic Expression', 120.00,	'An awe-inspiring artwork that delves into the depths of artistic expression. With a mesmerizing blend of vibrant and subtle colors, meticulously crafted brushstrokes, and a harmonious composition, this painting invites the viewer into a world where creativity knows no bounds. The intricate details and thoughtful use of light and shadow create a visual narrative that captivates the imagination, allowing one to explore the depths of their own creativity. Each glance at this masterpiece reveals new layers of meaning and emotions, making it a timeless piece for art enthusiasts and connoisseurs.',	36.0,	24.0,	1,	0,	15.0,	7, 1),
