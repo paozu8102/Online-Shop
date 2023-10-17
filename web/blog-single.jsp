@@ -655,27 +655,10 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                 </div>
               </div>
               </c:forEach>
-              <h3 id="seemore" style="color: #82AE46; cursor: pointer"><a href="">See more post</a></h3>
+              <h3 id="seemore" style="color: #82AE46; cursor: pointer"><a href="<%=path%>/Posts">See more post</a></h3>
             </div>
 
-<!--            <div class="sidebar-box ftco-animate">
-              <h3 class="heading">Tag Cloud</h3>
-              <div class="tagcloud">
-                <a href="#" class="tag-cloud-link">fruits</a>
-                <a href="#" class="tag-cloud-link">tomatoe</a>
-                <a href="#" class="tag-cloud-link">mango</a>
-                <a href="#" class="tag-cloud-link">apple</a>
-                <a href="#" class="tag-cloud-link">carrots</a>
-                <a href="#" class="tag-cloud-link">orange</a>
-                <a href="#" class="tag-cloud-link">pepper</a>
-                <a href="#" class="tag-cloud-link">eggplant</a>
-              </div>
-            </div>-->
 
-<!--            <div class="sidebar-box ftco-animate">
-              <h3 class="heading">Paragraph</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
-            </div>-->
           </div>
 
         </div>

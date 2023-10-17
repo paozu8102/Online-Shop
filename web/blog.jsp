@@ -99,12 +99,29 @@ document.addEventListener('DOMContentLoaded', function() {
               </form>
             </div>
             <div class="sidebar-box ftco-animate">
-            	<h3 class="heading">Categories</h3>
-              <ul class="categories">
+                <h3 style="display: inline; margin-right: 30px" class="heading">Categories:</h3>
+<!--              <ul class="categories">
                 <c:forEach items="${cateAndPostNumList}" var="object">
                     <li><a href="<%=path%>/Posts?cate=${object.CategoryID}">${object.CategoryName}<span>(${object.NumberOfPosts})</span></a></li>
                 </c:forEach>
-              </ul>
+              </ul>-->
+        <select style="display: inline" id="category" name="category">
+            <option value="category1">Category 1</option>
+            <option value="category2">Category 2</option>
+            <option value="category3">Category 3</option>
+            <option value="category4">Category 4</option>
+        </select>
+
+<div style="margin-top: 15px; float: left">
+        <h3 class="heading" style="">From:</h3>
+        <input style="ma" type="date" id="birthdaytime1" name="birthdaytime">
+</div>
+<div style="margin-top: 15px; margin-left: 15px">
+        <h3 class="heading" style="" >To:</h3>
+        <input style="" type="date" id="birthdaytime2" name="birthdaytime">
+</div>
+
+
             </div>
 
             <div class="sidebar-box ftco-animate">
