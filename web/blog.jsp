@@ -32,6 +32,24 @@
     }
 </style>
 <script>
+function setMaxDate(id){
+    var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+   dd = '0' + dd;
+}
+
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById(id).setAttribute("max", today);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   const searchForm = document.getElementById('searchForm');
   const searchInput = document.getElementById('searchInput');
@@ -112,13 +130,13 @@ document.addEventListener('DOMContentLoaded', function() {
             <option value="category4">Category 4</option>
         </select>
 
-<div style="margin-top: 15px; float: left">
-        <h3 class="heading" style="">From:</h3>
-        <input style="ma" type="date" id="birthdaytime1" name="birthdaytime">
+<div style="margin-top: 30px; float: left;">
+        <h3 class="heading" style="margin-bottom: 10px;">From:</h3>
+        <input onkeydown="return false;" onclick="setMaxDate('dateinput1')" type="date" id="dateinput1" name="dateinput1">
 </div>
-<div style="margin-top: 15px; margin-left: 15px">
-        <h3 class="heading" style="" >To:</h3>
-        <input style="" type="date" id="birthdaytime2" name="birthdaytime">
+<div style="margin-top: 30px; padding-left: 20px">
+        <h3 class="heading" style="margin-bottom: 10px;" >To:</h3>
+        <input onkeydown="return false;" onclick="setMaxDate('dateinput2')" type="date" id="dateinput2" name="dateinput2">
 </div>
 
 

@@ -582,10 +582,10 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                         <p>${repComment.getCommentContent()}</p>
                         <c:choose>
                             <c:when test="${repIndex.last && loop.last}">
-                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'true');" class="reply">Reply</a></p>
+                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'true', '${repComment.getUserName()}');" class="reply">Reply</a></p>
                             </c:when>
                             <c:otherwise>
-                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'false');" class="reply">Reply</a></p>
+                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'false', '${repComment.getUserName()}');" class="reply">Reply</a></p>
                             </c:otherwise>
                         </c:choose>
                         <c:if test="${user.getUserID() eq repComment.getUserID()}">
@@ -596,13 +596,17 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                             <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${repComment.getCommentID()}');">Delete</a>
                         </form>
                         </c:if>
-                    <form action="your_controller_url_here" method="post">
+                    <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep');">
                         <div class="reply-box" id="replyBox${repComment.getCommentID()}">
-                            <textarea style="width: 100%" class="reply-text" placeholder="Enter your reply here..."></textarea>
-                            <div class="btn-container">
+                            <input type="hidden" name="action" value="commentRep">
+                            <input type="hidden" name="userID" value="${user.getUserID()}">
+                            <input type="hidden" name="objectID" value="${param.id}">
+                            <input type="hidden" name="commentRepID" value="${rootCommentList[loop.index].getCommentID()}">
+                            <textarea name="content" style="width: 100%" class="reply-text" placeholder="Enter your reply here..."></textarea>
+                          <div class="btn-container">
                             <button type="submit" class="btn" id="submitBtn${loop.index}">Submit</button>
-                            <button type="button" onclick="showReply('replyBox'+'${repComment.getCommentID()}', 'false');" class="btn" id="cancelBtn${loop.index}">Cancel</button>
-                            </div>
+                            <button type="button" onclick="showReply('replyBox'+'${repComment.getCommentID()}', 'false', '${repComment.getUserName()}');" class="btn" id="cancelBtn${loop.index}">Cancel</button>
+                          </div>
                         </div>
                     </form>
                       </div>

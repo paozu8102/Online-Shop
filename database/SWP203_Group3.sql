@@ -1,5 +1,7 @@
-﻿
-
+﻿CREATE DATABASE SWP391_Group3
+GO
+USE SWP391_Group3;
+GO
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
 RoleName VARCHAR(50) NOT NULL
@@ -474,7 +476,7 @@ VALUES (2, 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Li
 	   (2, 1, 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Les_Demoiselles_d%27Avignon.jpg/1024px-Les_Demoiselles_d%27Avignon.jpg'),
 	   (2, 4, 'https://thehousethatlarsbuilt.com/wp-content/uploads/2017/09/layered-fan-wall-piece-diy-9.jpg'),
 	   (2, 4, 'https://cdn.sanity.io/images/cctd4ker/production/7a66ca4beaee92042c71f884be97561d0576116f-1080x1080.jpg?w=3840&q=75&fit=clip&auto=format'),
-	   (2, 4, 'https://c8.alamy.com/comp/2A36MNE/coffee-doodle-with-ornament-its-about-equipment-and-economic-business-of-coffee-shop-decoration-with-nature-black-and-white-drawing-lines-art-good-2A36MNE.jpg')
+	   (2, 4, 'https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/08/ve-tranh-phong-canh-don-gian-2-2.jpg')
 
 --add data for Product Category table
 INSERT INTO [dbo].[ProductCategory]
