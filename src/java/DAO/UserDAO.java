@@ -882,6 +882,30 @@ public class UserDAO extends DBContext {
         }
         return userID;
     }
+    
+    //get user base on userID using string: Baomv
+    public User getUser(String id) {
+        String sql = "select * from [user] where UserID = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int userID = rs.getInt(1);
+                String username = rs.getString(2);
+                int gender = rs.getBoolean(3) ? 1 : 0;
+                String PhoneNumber = rs.getString(4);
+                String Address = rs.getString(5);
+                String Avatar = rs.getString(6);
+                String Email = rs.getString(7);
+                User user = new User(userID, username, gender, PhoneNumber, Address, Avatar, Email);
+                return user;
+            }
+        } catch (Exception e) {
+            System.out.println("getUser: " + e.getMessage());
+        }
+        return new User();
+    }
 
     //update user information: Baomv
     public void updateUser(User user) {
