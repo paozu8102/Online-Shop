@@ -65,6 +65,27 @@ public class UserDAO extends DBContext {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
+//Hoang NH
+    public void updateSaler(User user) {
+        String sql = "update [User] SET [UserName] = ?\n"
+                + "      ,[Gender] = ?\n"
+                + "      ,[PhoneNumber] = ?\n"
+                + "      ,[Address] = ?\n"
+                + "      ,[Avatar] = ?\n"
+                + "      where userid = ?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setString(1, user.getUserName());
+            ps.setInt(2, user.getGender());
+            ps.setString(3, user.getPhoneNumber());
+            ps.setString(4, user.getAddress());
+            ps.setString(5, user.getAvatar());
+            ps.setString(6, user.getUserID() + "");
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("updateImage: " + e.getMessage());
+        }
+    }
 
 
     //method to get role list from a user list: ThanhNX
