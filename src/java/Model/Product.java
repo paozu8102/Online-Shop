@@ -19,6 +19,7 @@ public class Product {
     private int View;
     private double Discount;
     private int UserID;
+    private int Status;
     private String Image;
     private int CateID;
     public Product() {
@@ -37,6 +38,20 @@ public class Product {
         this.UserID = UserID;
     }
 
+    public Product(int ProductID, String ProductName, double Price, String Description, double Height, double Width, int Quantity, int View, double Discount, int UserID, int Status) {
+        this.ProductID = ProductID;
+        this.ProductName = ProductName;
+        this.Price = Price;
+        this.Description = Description;
+        this.Height = Height;
+        this.Width = Width;
+        this.Quantity = Quantity;
+        this.View = View;
+        this.Discount = Discount;
+        this.UserID = UserID;
+        this.Status = Status;
+    }
+
     public Product(int ProductID, String ProductName, double Price, String Description, double Height, double Width, int Quantity, int View, double Discount, int UserID, String Image, int CateID) {
         this.ProductID = ProductID;
         this.ProductName = ProductName;
@@ -51,6 +66,23 @@ public class Product {
         this.Image = Image;
         this.CateID = CateID;
     }
+
+    public Product(int ProductID, String ProductName, double Price, String Description, double Height, double Width, int Quantity, int View, double Discount, int UserID, String Image, int CateID, int Status) {
+        this.ProductID = ProductID;
+        this.ProductName = ProductName;
+        this.Price = Price;
+        this.Description = Description;
+        this.Height = Height;
+        this.Width = Width;
+        this.Quantity = Quantity;
+        this.View = View;
+        this.Discount = Discount;
+        this.UserID = UserID;
+        this.Status = Status;
+        this.Image = Image;
+        this.CateID = CateID;
+    }
+
 
  
 
@@ -133,7 +165,13 @@ public class Product {
     public void setUserID(int UserID) {
         this.UserID = UserID;
     }
+    public int getStatus() {
+        return Status;
+    }
 
+    public void setStatus(int Status) {
+        this.Status = Status;
+    }
     public String getImage() {
         return Image;
     }
@@ -152,7 +190,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "ProductID=" + ProductID + ", ProductName=" + ProductName + ", Price=" + Price + ", Description=" + Description + ", Height=" + Height + ", Width=" + Width + ", Quantity=" + Quantity + ", View=" + View + ", Discount=" + Discount + ", UserID=" + UserID + ", Image=" + Image + '}';
+        return "Product{" + "ProductID=" + ProductID + ", ProductName=" + ProductName + ", Price=" + Price + ", Description=" + Description + ", Height=" + Height + ", Width=" + Width + ", Quantity=" + Quantity + ", View=" + View + ", Discount=" + Discount + ", UserID=" + UserID +", Status=" + Status + ", Image=" + Image + '}';
     }
 
    
