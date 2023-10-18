@@ -90,7 +90,25 @@ public class UpdateUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String imageUrl = "images/avatar/";
+        int userId = Integer.parseInt(request.getParameter("id"));
+        String username = request.getParameter("username");
+        int gender = request.getParameter("gender").equals("male")?1:0;
+        String phonenumber = request.getParameter("phonenumber");
+        String address = request.getParameter("address");
+        String imageName = request.getParameter("imageName");
+        if(imageName.contains("http")) {
+            imageName = ((User)request.getSession().getAttribute("user")).getAvatar();
+            imageUrl = "";
+        }
+        String email = request.getParameter("email");
+        
+        
+
+        User user = new User(userId, username, gender, phonenumber, address, imageUrl + imageName, email);
+        request.getSession().setAttribute("user", user);
+        (new UserDAO()).updateUser(user);
+        request.getRequestDispatcher("admin-profile.jsp").forward(request, response);
     }
 
     /** 

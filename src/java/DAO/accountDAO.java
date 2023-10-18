@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.util.ArrayList;
 
 public class accountDAO extends DBContext{
 
@@ -112,5 +112,30 @@ public class accountDAO extends DBContext{
         } catch (SQLException ex) {
             Logger.getLogger(accountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    //get total account by status: BaoMV
+    public ArrayList<String> getTotalAccountByStatus() {
+        String sql = "SELECT Status, COUNT(Status)\n"
+                + "  FROM [SWP391_Group3].[dbo].[Account]\n"
+                + "  group by Status\n"
+                + "  order by Status";
+        ArrayList<String> result = new ArrayList<>();
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                result.add(rs.getInt(2) + "");
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalAccountByStatus: " + e.getMessage());
+        }
+        if(result.isEmpty()) {
+            result.add("0");
+            result.add("0");
+        }
+        else if(result.size() == 1) {
+            result.add("0");
+        }
+        return result;
     }
 }

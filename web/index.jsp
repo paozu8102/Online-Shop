@@ -313,10 +313,16 @@
 		              </div>
 		            </div>
             </div>
-        </c:forEach>
-        
-        
+        </c:forEach>  
     </div>
+   <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section ftco-animate text-center" style="margin-top: -50px">
+            <a href="<%=path%>/Posts">
+            <span style="font-size: 45px; margin-top: -50px; text-decoration: underline; cursor: pointer" class="subheading">Visit our forum</span>
+            </a>
+        </div>
+    </div>
+    <hr>
 
     <section class="ftco-section testimony-section" style="margin-top: -100px">
       <div class="container">

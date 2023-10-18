@@ -102,8 +102,13 @@ if (r == null || r.isEmpty()) {
     cookie.setMaxAge(24 * 60 * 60);  // 1 day in seconds
 }
 response.addCookie(cookie);
-
-            response.sendRedirect("home");
+if(c.getRoleID() == 2){
+    response.sendRedirect("statistic");
+}if(c.getRoleID() == 1){
+    response.sendRedirect("admin");
+}else{
+    response.sendRedirect("home");
+}
         }
         } catch (Exception ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);

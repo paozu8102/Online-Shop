@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/UserDAO.java</file>
             <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/CommentController.java</file>
             <file>file:/C:/Users/admin/Documents/master1/web/blog.jsp</file>
@@ -49,6 +50,10 @@
             <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/AddSetting.java</file>
             <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/CommentDAO.java</file>
             <file>file:/C:/Users/admin/Documents/master1/web/css/bootstrap.min.css</file>
+=======
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/PostController.java</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/blog.jsp</file>
+>>>>>>> 6642c3ae3aecb484cadbc52a2d30c26bc1ad74b3
         </group>
     </open-files>
 </project-private>
