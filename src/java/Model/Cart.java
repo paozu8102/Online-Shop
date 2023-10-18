@@ -111,34 +111,40 @@ public class Cart {
     }
 
     public String getQuantityBypid(String input, String[] ids) {
+    // Create a map to store ID-Quantity pairs
+    Map<String, Integer> map = new HashMap<>();
 
-        Map<String, Integer> map = new HashMap<>();
-
-        // Chuyển chuỗi sang map
-        String[] parts = input.split("/");
-        for (String part : parts) {
-            String[] split = part.split(":");
+    // Split the input string into parts and populate the map
+    String[] parts = input.split("/");
+    for (String part : parts) {
+        String[] split = part.split(":");
+        if (split.length == 2) {
             String id = split[0];
             int qty = Integer.parseInt(split[1]);
             map.put(id, qty);
         }
-
-        // Lấy ra các phần tử có id trùng với ids
-        String result = "";
-        for (String id : ids) {
-            Integer qty = map.get(id);
-            if (qty != null) {
-                result += id + ":" + qty + "/";
-            }
-        }
-
-        if (!result.isEmpty()) {
-            result = result.substring(0, result.length() - 1);
-        }
-
-        return result;
-
     }
+
+    // Initialize a result string
+    String result = "";
+
+    // Iterate over the provided IDs
+    for (String id : ids) {
+        Integer qty = map.get(id);
+        if (qty != null) {
+            // If a matching ID is found, add it to the result string
+            result += id + ":" + qty + "/";
+        }
+    }
+
+    // Remove the trailing slash if the result is not empty
+    if (!result.isEmpty()) {
+        result = result.substring(0, result.length() - 1);
+    }
+
+    return result;
+}
+
     public int getQuantityById(String input, String id) {
         if (input == null || input.isEmpty()) {
             return 0; // Return 0 if the input is empty or null
