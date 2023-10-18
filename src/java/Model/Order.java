@@ -9,19 +9,28 @@ package Model;
  * @author admin
  */
 public class Order {
-          private int id;
-      private String date;
-      private int cusid;
-      private double totalmoney;
+
+    private int id;
+    private String date;
+    private int cusid;
+    private double totalmoney;
+    private String customername;
+    private String address;
+    private String phonenumber;
+    private String status;
 
     public Order() {
     }
 
-    public Order(int id, String date, int cusid, double totalmoney) {
+    public Order(int id, String date, int cusid, double totalmoney, String customername, String address, String phonenumber, String status) {
         this.id = id;
         this.date = date;
         this.cusid = cusid;
         this.totalmoney = totalmoney;
+        this.customername = customername;
+        this.address = address;
+        this.phonenumber = phonenumber;
+        this.status = status;
     }
 
     public int getId() {
@@ -56,9 +65,38 @@ public class Order {
         this.totalmoney = totalmoney;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" + "id=" + id + ", date=" + date + ", cusid=" + cusid + ", totalmoney=" + totalmoney + '}';
+    public String getCustomername() {
+        return customername;
     }
+
+    public void setCustomername(String customername) {
+        this.customername = customername;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+   
 
 }

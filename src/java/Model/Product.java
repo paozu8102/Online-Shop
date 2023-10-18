@@ -77,6 +77,13 @@ public class Product {
     public void setPrice(double Price) {
         this.Price = Price;
     }
+      public double getPriceSale() {
+        return Price-Price*Discount/100;
+    }
+
+    public void setPriceSale(double Price) {
+        this.Price = Price-Price*Discount/100;
+    }
 
     public String getDescription() {
         return Description;
