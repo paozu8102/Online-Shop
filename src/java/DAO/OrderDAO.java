@@ -21,46 +21,46 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.time.LocalDateTime;
 public class OrderDAO extends DBContext {
 
-    public void addOrder(int userid, double totalPrice ,String customername, String address, String phonenumber) {
-        LocalDate curDate = java.time.LocalDate.now();
-        String date = curDate.toString();
+    public void addOrder(int userid, double totalPrice, String customername, String address, String phonenumber) {
+    LocalDateTime curDate = LocalDateTime.now();  // Use LocalDateTime
+    String date = curDate.toString();
 
-        String sql = "INSERT INTO Orders (UserID, OrderDate,  TotalPrice, CustomerName, PhoneNumber, Address, Status)\n"
-                + "VALUES\n"
-                + "    (?, ?,?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO Orders (UserID, OrderDate, TotalPrice, CustomerName, PhoneNumber, Address, Status)\n"
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try {
-            PreparedStatement st = getConnection().prepareStatement(sql);
-            st.setInt(1, userid);
-            st.setString(2, date);
-            st.setDouble(3, totalPrice);
-              st.setString(4, customername);
-            st.setString(5, phonenumber);
-st.setString(6, address);
-st.setString(7, "pending processing");
-            st.executeUpdate();
-
-        } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-        } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
-        }
+    try {
+        PreparedStatement st = getConnection().prepareStatement(sql);
+        st.setInt(1, userid);
+        st.setString(2, date);
+        st.setDouble(3, totalPrice);
+        st.setString(4, customername);
+        st.setString(5, phonenumber);
+        st.setString(6, address);
+        st.setString(7, "pending processing");
+        st.executeUpdate();
+    } catch (SQLException e) {
+        // Handle SQL exception
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+    } catch (Exception e) {
+        // Handle other exceptions
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
     }
+}
+
 
    public void addOrderDetails(int oid, int pid, double price, int quantity) {
-    String sql = "INSERT INTO OrderDetail (OrderID, ProductID, Price, Quantity) VALUES (?,?,?,?)";
+    String sql = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity,Price ) VALUES (?,?,?,?)";
 
     try {
          PreparedStatement st = getConnection().prepareStatement(sql);
         st.setInt(1, oid); 
         st.setInt(2, pid); 
-        st.setDouble(3, price); 
-        st.setInt(4, quantity);
+        st.setInt(3, quantity);
+        st.setDouble(4, price); 
+       
 
         st.executeUpdate();
         
@@ -93,24 +93,15 @@ st.setString(7, "pending processing");
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
 }
-public Order getOrderLatest() {
+public int getOrderIdLatest() {
        
-        String sql = "select Top 1 * from orders";
+      String sql = "SELECT TOP 1 OrderID FROM Orders ORDER BY OrderID DESC";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-              Order o = new Order(rs.getInt(1),
-                      rs.getString(2),
-                      rs.getInt(3),
-                      rs.getFloat(4),
-                      rs.getString(5),
-                        rs.getString(6),
-              rs.getString(7),
-              rs.getString(8));
-
-                    
+    int o = rs.getInt(1);
                return o;
             }
         } catch (SQLException e) {
@@ -120,7 +111,7 @@ public Order getOrderLatest() {
             // Handle other exceptions
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
-        return null;
+        return 0;
     }
 
 

@@ -26,6 +26,8 @@ import jakarta.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -187,24 +189,28 @@ public class CheckoutController extends HttpServlet {
 
         // tao order
         try{
-            int totalPrice  = Integer.parseInt(totalPrice_raw);           
+           double totalPrice = Double.parseDouble(totalPrice_raw);
+           
             od.addOrder(user.getUserID(), totalPrice, name, address, phonenumber);  
          
-            Order o = od.getOrderLatest();
+            int o = od.getOrderIdLatest();
             
             for (Map.Entry<Product, Integer> entry : pList.entrySet()) {
                 Product p = entry.getKey();
                 int quantity = entry.getValue();
                 double price = p.getPriceSale()*quantity;
                 
-               od.addOrderDetails(o.getId(),p.getProductID(),price,quantity);
+               od.addOrderDetails(o,p.getProductID(),price,quantity);
                 od.updateProductQuantity(p.getProductID(), quantity);
             }
              
              
-        }catch(Exception e){
+        
+        }catch (Exception e) {
+    Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+    e.printStackTrace(); 
+}
             
-            }
 
        response.sendRedirect("order-complete.jsp");
 
