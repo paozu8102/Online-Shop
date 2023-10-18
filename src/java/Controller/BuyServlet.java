@@ -40,10 +40,6 @@ public class BuyServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     String pid = request.getParameter("id");
         String quantity = "1";
-     
-       
-           
-        
         Cookie[] cart = request.getCookies();
         Cart t = new Cart();
         String txt = "";
@@ -68,8 +64,7 @@ public class BuyServlet extends HttpServlet {
                 txt = txt + "/" + pid + ":" + quantity;
             }
         }
-         
-        
+
        //Xử lí phần tử trùng lặp và thêm quantity
         txt = t.processString(txt);
       
