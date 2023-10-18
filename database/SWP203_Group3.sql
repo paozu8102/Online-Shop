@@ -205,10 +205,15 @@ INSERT INTO [dbo].[ProductImage]
 			(7,	'https://www.evergreenartcafe.co.uk/cdn/shop/products/EnchantedLand.jpg?v=1643283516')
 
 CREATE TABLE Orders(
-OrderID INT NOT NULL PRIMARY KEY,
+OrderID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 UserID INT NOT NULL,
 OrderDate DATETIME NOT NULL,
 TotalPrice FLOAT NOT NULL,
+CustomerName VARCHAR(MAX) NOT NULL,
+PhoneNumber VARCHAR(20) NOT NULL,
+Address VARCHAR(MAX) NOT NULL,
+Status VARCHAR(MAX) NOT NULL,
+
 FOREIGN KEY (UserID) REFERENCES  [User](UserID)
 )
 CREATE TABLE OrderDetail(
@@ -268,7 +273,6 @@ CREATE TABLE [Image](
 	ObjectID INT,--id of the object
 	ImageUrl VARCHAR(MAX)
 );
-
 
 
 --re-insert for Image table
