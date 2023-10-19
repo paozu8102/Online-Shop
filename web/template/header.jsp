@@ -36,6 +36,7 @@
         }
     </script>
 <style>
+    
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
@@ -132,6 +133,36 @@ body {
     opacity: 1; /* Độ mờ tối thiểu */
     background-color: gray;
 }
+
+    /* CSS for increasing spacing between <span> elements */
+    .billing-form p span {
+        margin-right: 10px; /* You can adjust the value as needed */
+    }
+
+
+.icon-addcart {
+            color: #82ae46;
+            display: block;
+            margin-bottom: 40px;
+        }
+        
+        .icon-addcart span {
+            width: 200px;
+            height: 200px;
+            display: table;
+            margin: 0 auto;
+              border-radius: 50%;
+              border: 2px solid #82ae46;
+            background: lighten(#000, 98%);
+            
+          
+        }
+        
+        .icon-addcart i {
+            display: table-cell;
+            vertical-align: middle;
+            font-size: 100px;
+        }
 
 
 

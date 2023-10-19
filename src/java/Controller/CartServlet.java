@@ -98,6 +98,8 @@ public class CartServlet extends HttpServlet {
 
             response.addCookie(c);
         }
+    
+    
     LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
     request.setAttribute("cartlist", cartlist);
 
@@ -141,13 +143,8 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         String pid = request.getParameter("pid");
 
-        
-
-
         Cart t = new Cart();
-        ProductDAO dao = new ProductDAO();
 
-        Product p = dao.getProductByID(pid);
         //Lấy cookie
         Cookie[] arr = request.getCookies();
         String txt = "";

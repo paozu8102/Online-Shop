@@ -8,15 +8,18 @@ package Controller;
 
 import DAO.ImageDAO;
 import DAO.ProductDAO;
+import Model.Cart;
 import Model.Image;
 import Model.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -49,6 +52,19 @@ public class DetailControl extends HttpServlet {
         Product p = dao.getProductByID(id);
       ImageDAO c = new ImageDAO();
       List<Image> listI = c.getProductImage(id);
+      Cookie[] arr = request.getCookies();
+        String txt = "";
+        if (arr != null) {
+            for (Cookie o : arr) {
+                if (o.getName().equals("cart")) {
+                    txt += o.getValue();
+
+                }
+            }
+        }
+        Cart t = new Cart();
+        LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
+        request.setAttribute("cartlist", cartlist);
         request.setAttribute("listP", list);
         request.setAttribute("listI", listI);
         request.setAttribute("detail", p);

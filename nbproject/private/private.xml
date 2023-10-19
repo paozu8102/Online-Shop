@@ -3,10 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/PostController.java</file>
             <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/blog.jsp</file>
             <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/DAO/PostDAO.java</file>
             <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/blog-single.jsp</file>
+=======
+            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/CheckoutController.java</file>
+            <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/OrderDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master1/web/checkout.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/Order.java</file>
+>>>>>>> da36107f666aa02d8a2921c9ef4a3ca5e514ee4f
         </group>
     </open-files>
 </project-private>

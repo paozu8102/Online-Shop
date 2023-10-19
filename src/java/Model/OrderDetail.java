@@ -9,10 +9,10 @@ package Model;
  * @author admin
  */
 public class OrderDetail {
-          private int oid,pid;
-      private int quantity;
-      private double price;
-
+    private int oid, pid;
+    private int quantity;
+    private double price;
+ 
     public OrderDetail() {
     }
 
@@ -55,9 +55,8 @@ public class OrderDetail {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "OrderDetail{" + "oid=" + oid + ", pid=" + pid + ", quantity=" + quantity + ", price=" + price + '}';
-    }
+    
+
+    
 
 }

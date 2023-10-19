@@ -53,27 +53,32 @@
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
+                                <th>&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <c:set var="count" value="1" /> 
                             <c:forEach items="${cartlistPage}" var="i" varStatus="loop">
                                 <tr class="text-center">
-                                    <td class="product-remove">
-    <a href="javascript:void(0);" onclick="submitDeleteForm()">
-        <span class="ion-ios-close"></span>
-    </a>
-</td>
 
-<form id="delete-form" action="cart" method="post" style="display: none;">
-    <input type="hidden" name="pid" id="delete-pid" value="${i.key.productID}">
-</form>
 
-<script>
-function submitDeleteForm() {
-    var form = document.getElementById("delete-form");
-    form.submit();
-}
-</script>
+                                    <td>
+
+
+                                        <span class="custom-checkbox">
+                                            <input type="checkbox" id="checkbox${count}" name="options[]" value="${i.key.productID}">
+                                            <label for="checkbox${count}"></label>
+
+                                        </span>
+
+                                    </td>
+
+                            <script>
+                                function submitDeleteForm() {
+                                    var form = document.getElementById("delete-form");
+                                    form.submit();
+                                }
+                            </script>
 
                             <td class="image-prod"><div class="img" style="background-image:url(images/${i.key.image});"></div></td>
 
@@ -96,7 +101,18 @@ function submitDeleteForm() {
                             </td>
 
                             <td class="total">$<fmt:formatNumber pattern="##.#" value="${(i.key.price-i.key.price*i.key.discount/100)*i.value}"/></td>
+
+                            <td class="product-remove">
+                                <a href="javascript:void(0);" onclick="submitDeleteForm()">
+                                    <span class="ion-ios-close"></span>
+                                </a>
+                            </td>
+                            <form id="delete-form" action="cart" method="post" style="display: none;">
+                                <input type="hidden" name="pid" id="delete-pid" value="${i.key.productID}">
+                            </form>
+
                             </tr><!-- END TR-->
+
                         </c:forEach> 
 
                         </tbody>
@@ -126,68 +142,42 @@ function submitDeleteForm() {
             </div>
         </div>
 
-        <div class="row justify-content-end">
-            <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-                <div class="cart-total mb-3">
-                    <h3>Coupon Code</h3>
-                    <p>Enter your coupon code if you have one</p>
-                    <form action="#" class="info">
-                        <div class="form-group">
-                            <label for="">Coupon code</label>
-                            <input type="text" class="form-control text-left px-3" placeholder="">
-                        </div>
-                    </form>
-                </div>
-                <p><a href="checkout.jsp" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
-            </div>
-            <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-                <div class="cart-total mb-3">
-                    <h3>Estimate shipping and tax</h3>
-                    <p>Enter your destination to get a shipping estimate</p>
-                    <form action="#" class="info">
-                        <div class="form-group">
-                            <label for="">Country</label>
-                            <input type="text" class="form-control text-left px-3" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="country">State/Province</label>
-                            <input type="text" class="form-control text-left px-3" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="country">Zip/Postal Code</label>
-                            <input type="text" class="form-control text-left px-3" placeholder="">
-                        </div>
-                    </form>
-                </div>
-                <p><a href="checkout.jsp" class="btn btn-primary py-3 px-4">Estimate</a></p>
-            </div>
-            <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
-                <div class="cart-total mb-3">
-                    <h3>Cart Totals</h3>
-                    <p class="d-flex">
-                        <span>Subtotal</span>
-                        <span>$20.60</span>
-                    </p>
-                    <p class="d-flex">
-                        <span>Delivery</span>
-                        <span>$0.00</span>
-                    </p>
-                    <p class="d-flex">
-                        <span>Discount</span>
-                        <span>$3.00</span>
-                    </p>
-                    <hr>
-                    <p class="d-flex total-price">
-                        <span>Total</span>
-                        <span>$17.60</span>
-                    </p>
-                </div>
-                <p><a href="checkout.jsp" id="checkoutButton" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+        
+       
+                            <p style="text-align: center; margin-top: 20px;"><a href="javascript:void(0);" id="checkoutButton" class="btn btn-primary py-3 px-4" onclick="sendData()">Proceed to Checkout</a></p>
+<a style="display: block; text-align: center; margin-top: 20px;" href="shop">Shop more product</a>
+
 
 
             </div>
         </div>
     </div>
 </section>
+<script>
+      function sendData() {
+        var checkboxes = document.querySelectorAll('input[name="options[]"]:checked');
+        var values = Array.from(checkboxes).map(function (checkbox) {
+            return checkbox.value;
+        });
+ if (values.length > 0) {
+        var form = document.createElement('form');
+        form.method = 'GET';
+        form.action = 'checkout';
 
+        values.forEach(function (value) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'selectedItems';
+            input.value = value;
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
+    }else {
+            alert('Please select at least one item to proceed.');
+        }
+    }
+
+</script> 
 <%@include file="template/footerJS.jsp" %>
