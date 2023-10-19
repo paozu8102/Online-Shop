@@ -67,6 +67,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+function checkDatesAndSubmit() {
+    var dateInput1 = new Date(document.getElementById("dateinput1").value);
+    var dateInput2 = new Date(document.getElementById("dateinput2").value);
+
+    if (dateInput1 > dateInput2) {
+        // First date is after the second date, show an alert
+        alert("From date cannot be after To date.");
+    } else {
+        // Dates are valid, submit the form
+        var form = document.getElementById("myForm");
+        form.submit();
+    }
+}
 </script>
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
       <div class="container">
@@ -108,15 +122,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
           </div> <!-- .col-md-8 -->
           <div class="col-lg-4 sidebar ftco-animate">
+        <form id="myForm" method="get" action="Posts" class="search-form">
             <div class="sidebar-box">
-              <form id="searchForm" method="get" action="Posts" class="search-form">
                 <div class="form-group">
                   <span style="cursor: pointer;" id="searchIcon" class="icon ion-ios-search"></span>
                   <input value="${searchKey}" id="searchInput" name="searchKey" type="text" class="form-control" placeholder="Search...">
                 </div>
-              </form>
             </div>
-            <div class="sidebar-box ftco-animate">
+                <div style="border: solid" class="sidebar-box ftco-animate">
                 <h3 style="display: inline; margin-right: 30px" class="heading">Categories:</h3>
 <!--              <ul class="categories">
                 <c:forEach items="${cateAndPostNumList}" var="object">
@@ -124,23 +137,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 </c:forEach>
               </ul>-->
         <select style="display: inline" id="category" name="category">
-            <option value="category1">Category 1</option>
-            <option value="category2">Category 2</option>
-            <option value="category3">Category 3</option>
-            <option value="category4">Category 4</option>
+            <option ${category eq "All"?"selected":""} value="All">All</option>
+            <c:forEach items="${cateAndPostNumList}" var="object">
+                <option ${category eq object.CategoryName?"selected":""} value="${object.CategoryName}">${object.CategoryName}</option>
+            </c:forEach>
         </select>
+        <div style="margin-top: 40px; float: left; margin-right: 15px">
+            <h3 class="heading" style="margin-bottom: 5px;">From:</h3>
+            <input value="${date1}" style="width: 130px;" onkeydown="return false;" onclick="setMaxDate('dateinput1')" type="date" id="dateinput1" name="dateinput1">
+        </div>
+        <div style="margin-top: 40px; margin-left: 20px;">
+            <h3 class="heading" style="margin-bottom: 5px;" >To:</h3>
+            <input value="${date2}" style="width: 130px" onkeydown="return false;" onclick="setMaxDate('dateinput2')" type="date" id="dateinput2" name="dateinput2">
+        </div>
 
-<div style="margin-top: 30px; float: left;">
-        <h3 class="heading" style="margin-bottom: 10px;">From:</h3>
-        <input onkeydown="return false;" onclick="setMaxDate('dateinput1')" type="date" id="dateinput1" name="dateinput1">
-</div>
-<div style="margin-top: 30px; padding-left: 20px">
-        <h3 class="heading" style="margin-bottom: 10px;" >To:</h3>
-        <input onkeydown="return false;" onclick="setMaxDate('dateinput2')" type="date" id="dateinput2" name="dateinput2">
-</div>
-
-
-            </div>
+        <div style="margin-top: 50px">
+            <h3 style="display: inline; margin-right: 10px;" class="heading">Sort by:</h3>
+            <select style="display: inline;" id="category" name="sortElement">
+                <option ${sortElement eq "[CommentNumber]"?"selected":""} value="[CommentNumber]">Popularity</option>
+                <option ${sortElement eq "[Date]"?"selected":""} value="[Date]">Date</option>
+            </select>
+            
+            <select name="sortOrder" style="display: inline" id="category">
+                <option ${sortOrder eq "ASC"?"selected":""} value="ASC">Asc</option>
+                <option ${sortOrder eq "DESC"?"selected":""} value="DESC">Desc</option>
+            </select>
+        </div>
+    <p style="margin-top: 20px; color: black"><a onclick="checkDatesAndSubmit();" class="btn btn-primary py-2 px-3">Filter</a></p>
+    </div>
+    </form>
 
             <div class="sidebar-box ftco-animate">
               <h3 class="heading">Recent Post</h3>
@@ -161,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
               </c:forEach>
             </div>
 
-            <div class="sidebar-box ftco-animate">
+<!--            <div class="sidebar-box ftco-animate">
               <h3 class="heading">Tag Cloud</h3>
               <div class="tagcloud">
                 <a href="#" class="tag-cloud-link">fruits</a>
@@ -178,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="sidebar-box ftco-animate">
               <h3 class="heading">Paragraph</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
-            </div>
+            </div>-->
           </div>
 
         </div>
