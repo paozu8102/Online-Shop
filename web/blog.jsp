@@ -98,6 +98,9 @@ function checkDatesAndSubmit() {
         <div class="row">
           <div class="col-lg-8 ftco-animate">
 		<div class="row">
+                <c:if test="${fn:length(postList) == 0}">
+                    <h2>There isn't any post for now</h2>
+                </c:if>
                 <c:forEach items="${postList}" var="post">
 			<div class="col-md-12 d-flex ftco-animate">
 		            <div class="blog-entry align-self-stretch d-md-flex">
@@ -137,9 +140,9 @@ function checkDatesAndSubmit() {
                 </c:forEach>
               </ul>-->
         <select style="display: inline" id="category" name="category">
-            <option ${category eq "All"?"selected":""} value="All">All</option>
+            <option ${category eq "0"?"selected":""} value="0">All</option>
             <c:forEach items="${cateAndPostNumList}" var="object">
-                <option ${category eq object.CategoryName?"selected":""} value="${object.CategoryName}">${object.CategoryName}</option>
+                <option ${category eq object.CategoryID?"selected":""} value="${object.CategoryID}">${object.CategoryName}(${object.NumberOfPosts})</option>
             </c:forEach>
         </select>
         <div style="margin-top: 40px; float: left; margin-right: 15px">

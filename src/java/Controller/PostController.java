@@ -51,9 +51,9 @@ public class PostController extends HttpServlet {
         }
         String category = req.getParameter("category");
         if (category == null) {
-            category = "All";
+            category = "0";
         }
-        
+
         String sortElement = req.getParameter("sortElement");
         if (sortElement == null) {
             sortElement = "[CommentNumber]";
@@ -62,11 +62,21 @@ public class PostController extends HttpServlet {
         if (sortOrder == null) {
             sortOrder = "ASC";
         }
-        
+
         PostDAO postDAO = new PostDAO();
         ArrayList<Map<String, String>> postList = postDAO.getAllPosts(searchKey, date1, date2, sortElement, sortOrder);
         ArrayList<Map<String, String>> categoryList = postDAO.getPostNumberPerCategory();
-        
+        ArrayList<Integer> idList = postDAO.getPostIDByCategory(Integer.valueOf(category));
+        if (Integer.valueOf(category) != 0) {
+            Iterator<Map<String, String>> iterator = postList.iterator();
+            while (iterator.hasNext()) {
+                Map<String, String> map = iterator.next();
+                if (!idList.contains(Integer.valueOf(map.get("BlogID")))) {
+                    iterator.remove();
+                }
+            }
+        }
+
         req.setAttribute("postList", postList);
         req.setAttribute("searchKey", searchKey);
         req.setAttribute("category", category);
