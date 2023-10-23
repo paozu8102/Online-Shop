@@ -62,12 +62,15 @@
     				<p class="price"><span>$${detail.price}</span></p>
     				<p>${detail.description}
 						</p>
+                                                <p>${detail.quantity} product left
+						</p>
 						<div class="row mt-4">
 							<div class="col-md-6">
 								<div class="form-group d-flex">
 
 		            </div>
 							</div>
+                                                    
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
 	             	<span class="input-group-btn mr-2">

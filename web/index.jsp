@@ -50,6 +50,7 @@
                         <c:if test="${sessionScope.acc==null}"><li class="nav-item active"><a href="login" class="nav-link">Sign In</a></li></c:if>
                         <c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>
                                                                  <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
+                                                                  <li class="nav-item"><a href="myorder" class="nav-link">My Order</a></li>
                                     <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
                                                             </c:if>
                                      </c:if>

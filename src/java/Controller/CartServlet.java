@@ -63,6 +63,7 @@ public class CartServlet extends HttpServlet {
          ProductDAO dao = new ProductDAO();
         Product p = dao.getProductByID(pid);
     Cookie[] arr = request.getCookies();
+    
     String txt = "";
     if (arr != null) {
         for (Cookie o : arr) {

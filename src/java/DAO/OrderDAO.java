@@ -4,10 +4,11 @@
  */
 package DAO;
 
-
 import DBcontext.DBContext;
 import Model.Account;
 import Model.Order;
+import Model.ProOrder;
+import Model.Setting;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,25 +23,50 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDateTime;
+import java.util.List;
+
 public class OrderDAO extends DBContext {
 
     public void addOrder(int userid, double totalPrice, String customername, String address, String phonenumber) {
-    LocalDateTime curDate = LocalDateTime.now();  // Use LocalDateTime
-    String date = curDate.toString();
+        LocalDateTime curDate = LocalDateTime.now();
+        String date = curDate.toString();
 
-    String sql = "INSERT INTO Orders (UserID, OrderDate, TotalPrice, CustomerName, PhoneNumber, Address, Status)\n"
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Orders (UserID, OrderDate, TotalPrice, CustomerName, PhoneNumber, Address, Status)\n"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, userid);
+            st.setString(2, date);
+            st.setDouble(3, totalPrice);
+            st.setString(4, customername);
+            st.setString(5, phonenumber);
+            st.setString(6, address);
+            st.setString(7, "pending processing");
+            st.executeUpdate();
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+    }
+
+//get total my order minhHC
+public int getTotalMyOrder(int cid) {
+    String sql = "SELECT COUNT(*) \n" +
+"FROM OrderDetail OD\n" +
+"INNER JOIN Orders O ON OD.OrderID = O.OrderID\n" +
+"where UserID=?;";
     try {
         PreparedStatement st = getConnection().prepareStatement(sql);
-        st.setInt(1, userid);
-        st.setString(2, date);
-        st.setDouble(3, totalPrice);
-        st.setString(4, customername);
-        st.setString(5, phonenumber);
-        st.setString(6, address);
-        st.setString(7, "pending processing");
-        st.executeUpdate();
+        st.setInt(1, cid);
+        ResultSet rs = st.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
     } catch (SQLException e) {
         // Handle SQL exception
         Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
@@ -48,61 +74,63 @@ public class OrderDAO extends DBContext {
         // Handle other exceptions
         Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
     }
+    return 0;
 }
 
 
-   public void addOrderDetails(int oid, int pid, double price, int quantity) {
-    String sql = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity,Price ) VALUES (?,?,?,?)";
 
-    try {
-         PreparedStatement st = getConnection().prepareStatement(sql);
-        st.setInt(1, oid); 
-        st.setInt(2, pid); 
-        st.setInt(3, quantity);
-        st.setDouble(4, price); 
-       
 
-        st.executeUpdate();
-        
-    }  catch (SQLException e) {
+    public void addOrderDetails(int oid, int pid, double price, int quantity) {
+        String sql = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity,Price ) VALUES (?,?,?,?)";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, oid);
+            st.setInt(2, pid);
+            st.setInt(3, quantity);
+            st.setDouble(4, price);
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
             // Handle SQL exception
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
-}
+    }
+
     public void updateProductQuantity(int pid, int quantity) {
-  String sql = "update Product set quantity = quantity - ? "
-                        + "where productID = ?";
+        String sql = "update Product set quantity = quantity - ? "
+                + "where productID = ?";
 
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, quantity);
+            st.setInt(2, pid);
 
-    try {
-         PreparedStatement st = getConnection().prepareStatement(sql);
-           st.setInt(1, quantity);
-        st.setInt(2, pid); 
-        
+            st.executeUpdate();
 
-        st.executeUpdate();
-        
-    }  catch (SQLException e) {
+        } catch (SQLException e) {
             // Handle SQL exception
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
             // Handle other exceptions
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
-}
-public int getOrderIdLatest() {
-       
-      String sql = "SELECT TOP 1 OrderID FROM Orders ORDER BY OrderID DESC";
+    }
+
+    public int getOrderIdLatest() {
+
+        String sql = "SELECT TOP 1 OrderID FROM Orders ORDER BY OrderID DESC";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-    int o = rs.getInt(1);
-               return o;
+                int o = rs.getInt(1);
+                return o;
             }
         } catch (SQLException e) {
             // Handle SQL exception
@@ -113,8 +141,107 @@ public int getOrderIdLatest() {
         }
         return 0;
     }
+    //get all inactive setting MinhHC
 
+    public List<ProOrder> getMyOrder(int index) {
+        List<ProOrder> list = new ArrayList<>();
+        String sql = "WITH RankedImages AS (\n"
+                + "    SELECT\n"
+                + "        I.ObjectID AS ProductID,\n"
+                + "        I.ImageUrl,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+                + "    FROM\n"
+                + "        [dbo].[Image] AS I\n"
+                + "    WHERE\n"
+                + "        I.TypeID = 1\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    O.OrderID,\n"
+                + "    O.OrderDate,\n"
+                + "    O.TotalPrice,\n"
+                + "    U.UserName AS ArtistName,\n"
+                + "    O.CustomerName,\n"
+                + "    O.PhoneNumber,\n"
+                + "    O.Address,\n"
+                + "    O.Status,\n"
+                + "    OD.ProductID AS OrderedProductID,\n"
+                + "    RD.ProductName,\n"
+                + "    RD.ProductImage,\n"
+                + "    OD.Quantity,\n"
+                + "    OD.Price\n"
+                + "FROM\n"
+                + "    Orders AS O\n"
+                + "INNER JOIN\n"
+                + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+                + "LEFT JOIN\n"
+                + "    (\n"
+                + "        SELECT\n"
+                + "            P.ProductID,\n"
+                + "            P.ProductName,\n"
+                + "            P.UserID,\n"
+                + "            R.ImageUrl AS ProductImage\n"
+                + "        FROM\n"
+                + "            Product AS P\n"
+                + "        LEFT JOIN\n"
+                + "            RankedImages AS R ON P.ProductID = R.ProductID\n"
+                + "        WHERE\n"
+                + "            R.ImageRank = 1\n"
+                + "    ) AS RD ON OD.ProductID = RD.ProductID\n"
+                + "LEFT JOIN\n"
+                + "    [User] AS U ON RD.UserID = U.UserID\n"
+                + "ORDER BY O.OrderID\n"
+                + "OFFSET ? ROWS \n"
+                + "FETCH NEXT 9 ROWS ONLY;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, (index - 1) * 9);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
 
+                list.add(new ProOrder(rs.getInt("OrderID"),
+                        rs.getString("ProductName"),
+                        rs.getString("ProductImage"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getString("OrderDate"),
+                        rs.getString("ArtistName"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status")
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+public void CancelOrder(int id) {
+
+        String sql = "UPDATE Orders\n" +
+"SET Status = 'cancel'\n" +
+"WHERE OrderID = ?;";
+
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+            st.setInt(1, id);
+           
+
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+    }
     //calculates the total number of orders for each day of the past week: BaoMV
     public LinkedHashMap<String, String> getTotalOrderByWeek() {
         String sql = "WITH DateRange AS (\n"
@@ -159,6 +286,7 @@ public int getOrderIdLatest() {
 
         return listTotal;
     }
+
     //calculates the total number of orders for each day of the past month: BaoMV
     public LinkedHashMap<String, String> getTotalOrderByMonth() {
         String sql = "WITH DateSequence AS (\n"
@@ -205,6 +333,7 @@ public int getOrderIdLatest() {
 
         return listTotal;
     }
+
     //calculates the total number of orders for each day of the past 3 months: BaoMV
     public LinkedHashMap<String, String> getTotalOrderBy3Month() {
         String sql = "WITH Months AS (\n"
@@ -251,6 +380,7 @@ public int getOrderIdLatest() {
 
         return listTotal;
     }
+
     //calculates the total number of orders for each day of the past 6 months: BaoMV
     public LinkedHashMap<String, String> getTotalOrderBy6Month() {
         String sql = "WITH Months AS (\n"
@@ -297,6 +427,7 @@ public int getOrderIdLatest() {
 
         return listTotal;
     }
+
     //calculates the total number of orders for each day of the past year: BaoMV
     public LinkedHashMap<String, String> getTotalOrderByYear() {
         String sql = "WITH Months AS (\n"

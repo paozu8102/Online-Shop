@@ -83,6 +83,12 @@ public class Product {
         this.CateID = CateID;
     }
 
+    public Product(String ProductName, int UserID, String Image) {
+        this.ProductName = ProductName;
+        this.UserID = UserID;
+        this.Image = Image;
+    }
+
 
  
 

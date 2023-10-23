@@ -23,6 +23,8 @@ public class OrderDetail {
         this.price = price;
     }
 
+  
+
     public int getOid() {
         return oid;
     }
