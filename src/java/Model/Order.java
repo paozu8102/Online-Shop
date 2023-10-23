@@ -17,12 +17,12 @@ public class Order {
     private String customername;
     private String address;
     private String phonenumber;
-    private String status;
+    
 
     public Order() {
     }
 
-    public Order(int id, String date, int cusid, double totalmoney, String customername, String address, String phonenumber, String status) {
+    public Order(int id, String date, int cusid, double totalmoney, String customername, String address, String phonenumber) {
         this.id = id;
         this.date = date;
         this.cusid = cusid;
@@ -30,7 +30,6 @@ public class Order {
         this.customername = customername;
         this.address = address;
         this.phonenumber = phonenumber;
-        this.status = status;
     }
 
     public int getId() {
@@ -89,13 +88,7 @@ public class Order {
         this.phonenumber = phonenumber;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  
 
    
 

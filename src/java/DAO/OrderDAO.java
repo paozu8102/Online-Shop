@@ -31,8 +31,8 @@ public class OrderDAO extends DBContext {
         LocalDateTime curDate = LocalDateTime.now();
         String date = curDate.toString();
 
-        String sql = "INSERT INTO Orders (UserID, OrderDate, TotalPrice, CustomerName, PhoneNumber, Address, Status)\n"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Orders (UserID, OrderDate, TotalPrice, CustomerName, PhoneNumber, Address)\n"
+                + "VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
@@ -42,7 +42,7 @@ public class OrderDAO extends DBContext {
             st.setString(4, customername);
             st.setString(5, phonenumber);
             st.setString(6, address);
-            st.setString(7, "pending processing");
+          
             st.executeUpdate();
         } catch (SQLException e) {
             // Handle SQL exception
@@ -81,7 +81,7 @@ public int getTotalMyOrder(int cid) {
 
 
     public void addOrderDetails(int oid, int pid, double price, int quantity) {
-        String sql = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity,Price ) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity,Price, Status) VALUES (?,?,?,?,?)";
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
@@ -89,7 +89,7 @@ public int getTotalMyOrder(int cid) {
             st.setInt(2, pid);
             st.setInt(3, quantity);
             st.setDouble(4, price);
-
+st.setString(5, "pending processing");
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -164,7 +164,7 @@ public int getTotalMyOrder(int cid) {
                 + "    O.CustomerName,\n"
                 + "    O.PhoneNumber,\n"
                 + "    O.Address,\n"
-                + "    O.Status,\n"
+                + "    OD.Status,\n"
                 + "    OD.ProductID AS OrderedProductID,\n"
                 + "    RD.ProductName,\n"
                 + "    RD.ProductImage,\n"
@@ -224,7 +224,7 @@ public int getTotalMyOrder(int cid) {
     }
 public void CancelOrder(int id) {
 
-        String sql = "UPDATE Orders\n" +
+        String sql = "UPDATE OrderDetail\n" +
 "SET Status = 'cancel'\n" +
 "WHERE OrderID = ?;";
 
