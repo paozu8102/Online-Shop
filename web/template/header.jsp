@@ -13,12 +13,12 @@
     //from 11-31: ThanhNX
     // Function to set the scroll position in session storage
         function saveScrollPosition() {
-            sessionStorage.setItem('scrollPosition', window.scrollY);
+            sessionStorage.setItem('scrollPositionHeader', window.scrollY);
         }
 
         // Function to retrieve and restore the scroll position
         function restoreScrollPosition() {
-            var scrollPosition = sessionStorage.getItem('scrollPosition');
+            var scrollPosition = sessionStorage.getItem('scrollPositionHeader');
             if (scrollPosition) {
                 window.scrollTo(0, scrollPosition);
             }

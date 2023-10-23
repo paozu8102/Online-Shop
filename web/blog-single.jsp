@@ -541,7 +541,7 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                         <p style="display: inline"><a id="hideShow${rootCommentList[loop.index].getCommentID()}" href="javascript:showAndHideReply('rep'+'${rootCommentList[loop.index].getCommentID()}', 'hideShow'+'${rootCommentList[loop.index].getCommentID()}');" class="reply">Hide Reply</a></p>
                     </c:if>
                     <c:if test="${user.getUserID() eq rootCommentList[loop.index].getUserID()}">
-                    <form id="delete${rootCommentList[loop.index].getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
+                    <form onsubmit="saveScrollPositions('commentRep');" id="delete${rootCommentList[loop.index].getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
                         <input type="hidden" name="action" value="commentDelete">
                         <input type="hidden" name="objectID" value="${param.id}">
                         <input type="hidden" name="commentID" value="${rootCommentList[loop.index].getCommentID()}">

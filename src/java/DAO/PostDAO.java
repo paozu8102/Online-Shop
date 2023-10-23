@@ -9,9 +9,14 @@ import Model.Comment;
 import Model.Post;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.internet.ParseException;
 
 /**
  *
@@ -279,9 +284,16 @@ public class PostDAO extends DBContext {
     }
 
     //get all post: ThanhNX
-    public ArrayList<Map<String, String>> getAllPosts(String searchKey) {
+    public ArrayList<Map<String, String>> getAllPosts(String searchKey, String dateinput1, String dateinput2, String sortElement, String sortOrder) {
         ArrayList<Map<String, String>> dataList = new ArrayList<>();
-        String parameter = "%" + searchKey + "%";
+        String key = "%" + searchKey + "%";
+        if (!dateinput1.isEmpty()) {
+            dateinput1 = " AND b.[Date] > '"+dateinput1+"' ";
+        }
+        if (!dateinput2.isEmpty()) {
+            dateinput2 = " AND b.[Date] < '"+dateinput2+"' ";
+        }
+        
         String command = "SELECT b.PostID,\n"
                 + "b.Title,\n"
                 + "CONVERT(varchar, b.[Date], 103) + ' ' + CONVERT(varchar, b.[Date], 108) AS DateTime,\n"
@@ -305,13 +317,15 @@ public class PostDAO extends DBContext {
                 + "ON b.PostID = i.ObjectID\n"
                 + "JOIN [User] AS u\n"
                 + "ON u.UserID = b.UserID\n"
-                + "WHERE LOWER(b.Title) LIKE ?\n"
-                + "	  OR LOWER(b.Content) LIKE ?\n"
-                + "ORDER BY [View] DESC;";
+                + "WHERE (LOWER(b.Title) LIKE ?\n"
+                + "	  OR LOWER(b.Content) LIKE ?)\n"
+                + dateinput1
+                + dateinput2
+                + "ORDER BY "+sortElement+" "+sortOrder+";";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
-            ps.setString(1, parameter);
-            ps.setString(2, parameter);
+            ps.setString(1, key);
+            ps.setString(2, key);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Map<String, String> dataMap = new HashMap<>();
@@ -503,6 +517,8 @@ public class PostDAO extends DBContext {
         return idList;
     }
 
+    
+    
     public static void main(String[] args) {
         ArrayList<Comment> dataList = new PostDAO().getAllRootCommentByPostID("1");
         for (int i = 0; i < dataList.size(); i++) {
