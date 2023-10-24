@@ -37,7 +37,6 @@ public class PostController extends HttpServlet {
 
     public void getDataForPostPage(HttpServletRequest req, HttpServletResponse resp) {
         String searchKey = req.getParameter("searchKey");
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date1 = req.getParameter("dateinput1");
         if (date1 == null) {
             date1 = "";
@@ -67,6 +66,7 @@ public class PostController extends HttpServlet {
         ArrayList<Map<String, String>> postList = postDAO.getAllPosts(searchKey, date1, date2, sortElement, sortOrder);
         ArrayList<Map<String, String>> categoryList = postDAO.getPostNumberPerCategory();
         ArrayList<Integer> idList = postDAO.getPostIDByCategory(Integer.valueOf(category));
+        ArrayList<Map<String, String>> recentPostList = new PostDAO().getRecentPost("0");
         if (Integer.valueOf(category) != 0) {
             Iterator<Map<String, String>> iterator = postList.iterator();
             while (iterator.hasNext()) {
@@ -77,6 +77,7 @@ public class PostController extends HttpServlet {
             }
         }
 
+        req.setAttribute("recentPostList", recentPostList);
         req.setAttribute("postList", postList);
         req.setAttribute("searchKey", searchKey);
         req.setAttribute("category", category);

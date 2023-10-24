@@ -51,6 +51,7 @@ public class PostDAO extends DBContext {
                 + "ON b.PostID = i.ObjectID\n"
                 + "JOIN [User] AS u\n"
                 + "ON u.UserID = b.UserID\n"
+                + "WHERE b.StatusID = 2\n"
                 + "ORDER BY [View] DESC;";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
@@ -78,7 +79,8 @@ public class PostDAO extends DBContext {
                 + "	   b.Title, \n"
                 + "	   b.Content\n"
                 + "FROM Post b\n"
-                + "WHERE b.PostID = ?";
+                + "WHERE b.PostID = ?\n"
+                + "AND b.StatusID = 2";
         try {
             PreparedStatement st = getConnection().prepareStatement(command);
             st.setString(1, id);
@@ -96,7 +98,7 @@ public class PostDAO extends DBContext {
         return dataMap;
     }
 
-    //add one view to a blog: ThanhNX
+    //add one view to a post: ThanhNX
     public void addViewToPost(String id) {
         String command = "UPDATE Post\n"
                 + "SET [View] = [View] + 1\n"
@@ -216,7 +218,9 @@ public class PostDAO extends DBContext {
                 + "ON c.CategoryID = pc.CategoryID\n"
                 + "JOIN ObjectType ob \n"
                 + "ON c.ObjectTypeID = ob.TypeID\n"
-                + "WHERE ob.TypeName = 'Post'\n"
+                + "JOIN Post p\n"
+                + "ON p.PostID = pc.PostID\n"
+                + "WHERE ob.TypeName = 'Post' AND p.StatusID = 2\n"
                 + "GROUP BY c.CategoryID, c.CategoryName\n"
                 + "ORDER BY c.CategoryID;";
         try {
@@ -261,7 +265,7 @@ public class PostDAO extends DBContext {
                 + "ON b.PostID = i.ObjectID\n"
                 + "JOIN [User] AS u\n"
                 + "ON u.UserID = b.UserID\n"
-                + "WHERE b.PostID != ?\n"
+                + "WHERE b.PostID != ? AND b.StatusID = 2\n"
                 + "ORDER BY b.[Date] DESC;";
         try {
             PreparedStatement st = getConnection().prepareStatement(command);
@@ -288,12 +292,12 @@ public class PostDAO extends DBContext {
         ArrayList<Map<String, String>> dataList = new ArrayList<>();
         String key = "%" + searchKey + "%";
         if (!dateinput1.isEmpty()) {
-            dateinput1 = " AND b.[Date] > '"+dateinput1+"' ";
+            dateinput1 = " AND b.[Date] > '" + dateinput1 + "' ";
         }
         if (!dateinput2.isEmpty()) {
-            dateinput2 = " AND b.[Date] < '"+dateinput2+"' ";
+            dateinput2 = " AND b.[Date] < '" + dateinput2 + "' ";
         }
-        
+
         String command = "SELECT b.PostID,\n"
                 + "b.Title,\n"
                 + "CONVERT(varchar, b.[Date], 103) + ' ' + CONVERT(varchar, b.[Date], 108) AS DateTime,\n"
@@ -321,7 +325,8 @@ public class PostDAO extends DBContext {
                 + "	  OR LOWER(b.Content) LIKE ?)\n"
                 + dateinput1
                 + dateinput2
-                + "ORDER BY "+sortElement+" "+sortOrder+";";
+                + "AND b.StatusID = 2 \n"
+                + "ORDER BY " + sortElement + " " + sortOrder + ";";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
             ps.setString(1, key);
@@ -504,12 +509,13 @@ public class PostDAO extends DBContext {
         ArrayList<Integer> idList = new ArrayList<>();
         String command = "SELECT p.PostID\n"
                 + "FROM PostCategory p\n"
-                + "WHERE p.CategoryID = ?";
+                + "WHERE p.CategoryID = ?\n"
+                + "AND b.StatusID = 2";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
             ps.setInt(1, category);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 idList.add(rs.getInt("PostID"));
             }
         } catch (Exception e) {
@@ -517,8 +523,6 @@ public class PostDAO extends DBContext {
         return idList;
     }
 
-    
-    
     public static void main(String[] args) {
         ArrayList<Comment> dataList = new PostDAO().getAllRootCommentByPostID("1");
         for (int i = 0; i < dataList.size(); i++) {
@@ -533,7 +537,7 @@ public class PostDAO extends DBContext {
         for (int i = 0; i < dataList2.size(); i++) {
             System.out.println(dataList2.get(i).toString());
         }
-        
+
         ArrayList<Integer> test3 = new PostDAO().getPostIDByCategory(13);
         for (int i = 0; i < test3.size(); i++) {
             System.out.println(test3.get(i));
