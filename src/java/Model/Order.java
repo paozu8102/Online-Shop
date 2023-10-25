@@ -13,8 +13,18 @@ public class Order {
       private String date;
       private int cusid;
       private double totalmoney;
+      private int Status;
+      private User user;
 
     public Order() {
+    }
+
+    public Order(int id, String date, int cusid, double totalmoney, int Status) {
+        this.id = id;
+        this.date = date;
+        this.cusid = cusid;
+        this.totalmoney = totalmoney;
+        this.Status = Status;
     }
 
     public Order(int id, String date, int cusid, double totalmoney) {
@@ -56,9 +66,23 @@ public class Order {
         this.totalmoney = totalmoney;
     }
 
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int Status) {
+        this.Status = Status;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "id=" + id + ", date=" + date + ", cusid=" + cusid + ", totalmoney=" + totalmoney + '}';
+        return "Order{" + "id=" + id + ", date=" + date + ", cusid=" + cusid + ", totalmoney=" + totalmoney + ", Status=" + Status + '}';
     }
 
 }

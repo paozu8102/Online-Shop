@@ -8,7 +8,11 @@ import DBcontext.DBContext;
 import Model.Comment;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,6 +62,33 @@ public class CommentDAO extends DBContext {
         } catch (Exception e) {
         }
         return rowAffected;
+    }
+
+    public List<Comment> getAllCommentPrd() {
+        List<Comment> list = new ArrayList<>();
+        String sql = "SELECT [User].UserName, Avatar, CommentContent "
+                + "FROM [User] INNER JOIN Comment ON Comment.UserID = [User].UserID "
+                + "WHERE TypeID = ?";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, 1);
+            ResultSet rs = st.executeQuery();
+             while (rs.next()) {
+                Comment p = new Comment();
+                p.setUserName(rs.getString("UserName"));
+                p.setAvatar(rs.getString("Avatar"));
+                p.setCommentContent(rs.getString("CommentContent"));
+                list.add(p);
+
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+        return list;
     }
 
     //function to delete a comment: ThanhNX
