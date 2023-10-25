@@ -4,16 +4,16 @@
  */
 package DAO;
 
-<<<<<<< HEAD
+
 import Model.Order;
 import Model.Product;
-=======
+
 import DBcontext.DBContext;
 import Model.Account;
 import Model.Order;
 import Model.ProOrder;
 import Model.Setting;
->>>>>>> 32c8775e83638ada5464a660e4dcf3afeb98e58d
+
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,15 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-<<<<<<< HEAD
 
-/**
- *
- * @author Admin
- */
-public class OrderDAO extends DBcontext.DBContext {
-
-=======
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -256,7 +248,7 @@ public void CancelOrder(int id) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
->>>>>>> 32c8775e83638ada5464a660e4dcf3afeb98e58d
+
     //calculates the total number of orders for each day of the past week: BaoMV
     public LinkedHashMap<String, String> getTotalOrderByWeek() {
         String sql = "WITH DateRange AS (\n"
@@ -517,46 +509,46 @@ public void CancelOrder(int id) {
         return daysOfWeek;
     }
 
-    public List<Order> getManageProduct() {
-    List<Order> list = new ArrayList<>();
-    String sql = "SELECT Orders.OrderID AS id, CAST(Orders.OrderDate AS DATE) AS date, " +
-                 "Orders.UserID AS cusid, Orders.TotalPrice AS totalmoney, " +
-                 "Orders.[Status] AS Status, [User].UserName " +
-                 "FROM Orders " +
-                 "INNER JOIN [User] ON Orders.UserID = [User].UserID";
-
-    try {
-        PreparedStatement st = getConnection().prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
-
-        while (rs.next()) {
-            Order order = new Order();
-            order.setId(rs.getInt("id"));
-            order.setDate(rs.getString("date"));
-            order.setCusid(rs.getInt("cusid"));
-            order.setTotalmoney(rs.getDouble("totalmoney"));
-            order.setStatus(rs.getInt("Status"));
-
-            // Create a User object and set the username
-            User user = new User();
-            user.setUserName(rs.getString("UserName"));
-
-            // Set the User object in the Order
-            order.setUser(user);
-
-            // Add the order to the list
-            list.add(order);
-        }
-    } catch (SQLException e) {
-        // Handle SQL exception
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-    } catch (Exception e) {
-        // Handle other exceptions
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
-    }
-
-    return list;
-}
+//    public List<Order> getManageProduct() {
+//    List<Order> list = new ArrayList<>();
+//    String sql = "SELECT Orders.OrderID AS id, CAST(Orders.OrderDate AS DATE) AS date, " +
+//                 "Orders.UserID AS cusid, Orders.TotalPrice AS totalmoney, " +
+//                 "Orders.[Status] AS Status, [User].UserName " +
+//                 "FROM Orders " +
+//                 "INNER JOIN [User] ON Orders.UserID = [User].UserID";
+//
+//    try {
+//        PreparedStatement st = getConnection().prepareStatement(sql);
+//        ResultSet rs = st.executeQuery();
+//
+//        while (rs.next()) {
+//            Order order = new Order();
+//            order.setId(rs.getInt("id"));
+//            order.setDate(rs.getString("date"));
+//            order.setCusid(rs.getInt("cusid"));
+//            order.setTotalmoney(rs.getDouble("totalmoney"));
+//            order.setStatus(rs.getInt("Status"));
+//
+//            // Create a User object and set the username
+//            User user = new User();
+//            user.setUserName(rs.getString("UserName"));
+//
+//            // Set the User object in the Order
+//            order.setUser(user);
+//
+//            // Add the order to the list
+//            list.add(order);
+//        }
+//    } catch (SQLException e) {
+//        // Handle SQL exception
+//        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+//    } catch (Exception e) {
+//        // Handle other exceptions
+//        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+//    }
+//
+//    return list;
+//}
 
 
     public static void main(String[] args) {

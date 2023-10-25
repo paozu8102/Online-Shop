@@ -92,12 +92,12 @@ public class Statistics extends HttpServlet {
         }
         listM= cM.getAllCommentPrd();
         listP = c.getAllProductNoIndex(u.getUserID());
-        list = orderDAO.getManageProduct();
+        
         int total = c.getTotalProductCountByUserId(u.getUserID());
         int totalorder = c.getTotalOrderProductCountByUserId(u.getUserID());
         int totalprice = c.getTotalPriceByUserId(u.getUserID());
         request.setAttribute("listM", listM);
-        request.setAttribute("listO", list);
+       
         request.setAttribute("listCountAccount", listCountAccount);
         request.setAttribute("listCountAccount", listCountAccount);
         request.setAttribute("listTotal", listTotal);
