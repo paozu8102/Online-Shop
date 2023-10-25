@@ -192,6 +192,7 @@
                         <!-- Save changes button-->
                         <button class="btn btn-primary" type="submit" data-toggle="tooltip" data-placement="top" title="Save all">Save changes</button>
                         <a class="btn btn-primary" href="change-user-password.jsp" data-toggle="tooltip" data-placement="top" title="Change Password">Change Password</a>
+                        <a class="btn btn-primary" href="<%=path%>/PostCreate" data-toggle="tooltip" data-placement="top" title="Create Post">Create A Post</a>
                     </form>
                 </div>
             </div>

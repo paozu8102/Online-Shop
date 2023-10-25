@@ -1,5 +1,7 @@
-﻿
-
+﻿CREATE DATABASE SWP391_Group3
+GO
+USE SWP391_Group3;
+GO
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
 RoleName VARCHAR(50) NOT NULL
@@ -207,10 +209,15 @@ INSERT INTO [dbo].[ProductImage]
 			(7,	'https://www.evergreenartcafe.co.uk/cdn/shop/products/EnchantedLand.jpg?v=1643283516')
 
 CREATE TABLE Orders(
-OrderID INT NOT NULL PRIMARY KEY,
+OrderID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 UserID INT NOT NULL,
 OrderDate DATETIME NOT NULL,
-TotalPrice FLOAT NOT NULL,
+TotalPrice DECIMAL NOT NULL,
+CustomerName VARCHAR(MAX) NOT NULL,
+PhoneNumber VARCHAR(20) NOT NULL,
+Address VARCHAR(MAX) NOT NULL,
+
+
 FOREIGN KEY (UserID) REFERENCES  [User](UserID)
 )
 CREATE TABLE OrderDetail(
@@ -221,6 +228,9 @@ Price DECIMAL,
 PRIMARY KEY(OrderID, ProductID),
 FOREIGN KEY (OrderID) REFERENCES [Orders](OrderID),
 FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
+Status VARCHAR(MAX) NOT NULL,
+ExpDate DATETIME,
+DelDate DATETIME
 )
 CREATE TABLE ProductComment(
 CommentID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -270,7 +280,6 @@ CREATE TABLE [Image](
 	ObjectID INT,--id of the object
 	ImageUrl VARCHAR(MAX)
 );
-
 
 
 --re-insert for Image table
@@ -474,7 +483,7 @@ VALUES (2, 1, 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Li
 	   (2, 1, 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Les_Demoiselles_d%27Avignon.jpg/1024px-Les_Demoiselles_d%27Avignon.jpg'),
 	   (2, 4, 'https://thehousethatlarsbuilt.com/wp-content/uploads/2017/09/layered-fan-wall-piece-diy-9.jpg'),
 	   (2, 4, 'https://cdn.sanity.io/images/cctd4ker/production/7a66ca4beaee92042c71f884be97561d0576116f-1080x1080.jpg?w=3840&q=75&fit=clip&auto=format'),
-	   (2, 4, 'https://c8.alamy.com/comp/2A36MNE/coffee-doodle-with-ornament-its-about-equipment-and-economic-business-of-coffee-shop-decoration-with-nature-black-and-white-drawing-lines-art-good-2A36MNE.jpg')
+	   (2, 4, 'https://hoanghamobile.com/tin-tuc/wp-content/uploads/2023/08/ve-tranh-phong-canh-don-gian-2-2.jpg')
 
 --add data for Product Category table
 INSERT INTO [dbo].[ProductCategory]

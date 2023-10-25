@@ -62,7 +62,7 @@ public class PostSingleController extends HttpServlet{
             req.setAttribute("repCommentList", repCommentList);
             req.setAttribute("cateAndPostNumList", cateAndPostNumList);
             req.setAttribute("recentPostList", recentPostList);
-            req.setAttribute("user", postUser);
+            req.setAttribute("userPost", postUser);
             
             req.getRequestDispatcher("blog-single.jsp").forward(req, resp);
         }

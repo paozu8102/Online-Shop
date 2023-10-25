@@ -5,29 +5,29 @@
 
 package Controller;
 
-
-import DAO.ImageDAO;
-import DAO.ProductDAO;
-import Model.Cart;
-import Model.Image;
-import Model.Product;
+import DAO.OrderDAO;
+import DAO.UserDAO;
+import Model.Account;
+import Model.Order;
+import Model.ProOrder;
+import Model.Setting;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.LinkedHashMap;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="DetailControl", urlPatterns={"/detail"})
-public class DetailControl extends HttpServlet {
+@WebServlet(name="MyOrderServlet", urlPatterns={"/myorder"})
+public class MyOrderServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -39,36 +39,32 @@ public class DetailControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+  HttpSession session = request.getSession();
+        Account a = (Account) session.getAttribute("acc");
+        User user = (User) session.getAttribute("user");
         
-        
-        
-        
-        
-        
-        String cateID = request.getParameter("cid");
-        String id = request.getParameter("pid");
-        ProductDAO dao = new ProductDAO();
-         List<Product> list = dao.getRelatedProduct(id,cateID);
-        Product p = dao.getProductByID(id);
-      ImageDAO c = new ImageDAO();
-      List<Image> listI = c.getProductImage(id);
-      Cookie[] arr = request.getCookies();
-        String txt = "";
-        if (arr != null) {
-            for (Cookie o : arr) {
-                if (o.getName().equals("cart")) {
-                    txt += o.getValue();
+        if (a.getRoleID() != 3) {
+    return;
+}
 
-                }
-            }
+        String indexPage = request.getParameter("index");
+        if (indexPage == null) {
+            indexPage = "1";
+
         }
-        Cart t = new Cart();
-        LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
-        request.setAttribute("cartlist", cartlist);
-        request.setAttribute("listP", list);
-        request.setAttribute("listI", listI);
-        request.setAttribute("detail", p);
-        request.getRequestDispatcher("product-single.jsp").forward(request, response);
+        int index = Integer.parseInt(indexPage);
+        OrderDAO c = new OrderDAO();
+        int count = c.getTotalMyOrder(user.getUserID());
+        int endPage = count / 9;
+        if (count % 9 != 0) {
+            endPage++;
+        }
+        List<ProOrder> listO = c.getMyOrder(index);
+        request.setAttribute("listO", listO);
+        request.setAttribute("endP", endPage);
+        request.setAttribute("tag", index);
+        request.getRequestDispatcher("myorder.jsp").forward(request, response);
+
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -93,10 +89,26 @@ public class DetailControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String oid = request.getParameter("oid");
+    int id = 0; // Default value
+
+    if (oid != null && !oid.isEmpty()) {
+        try {
+            id = Integer.parseInt(oid);
+            OrderDAO c = new OrderDAO();
+            c.CancelOrder(id);
+        } catch (NumberFormatException e) {
+            // Handle the case where the "oid" parameter is not a valid integer
+            // You can log an error or provide a response indicating the invalid input.
+        }
     }
+
+    // Redirect to the appropriate page (whether cancellation succeeded or not).
+    response.sendRedirect("myorder");
+}
+
 
     /** 
      * Returns a short description of the servlet.

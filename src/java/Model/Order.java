@@ -9,16 +9,29 @@ package Model;
  * @author admin
  */
 public class Order {
+<<<<<<< HEAD
           private int id;
       private String date;
       private int cusid;
       private double totalmoney;
       private int Status;
       private User user;
+=======
+
+    private int id;
+    private String date;
+    private int cusid;
+    private double totalmoney;
+    private String customername;
+    private String address;
+    private String phonenumber;
+    
+>>>>>>> 32c8775e83638ada5464a660e4dcf3afeb98e58d
 
     public Order() {
     }
 
+<<<<<<< HEAD
     public Order(int id, String date, int cusid, double totalmoney, int Status) {
         this.id = id;
         this.date = date;
@@ -28,10 +41,16 @@ public class Order {
     }
 
     public Order(int id, String date, int cusid, double totalmoney) {
+=======
+    public Order(int id, String date, int cusid, double totalmoney, String customername, String address, String phonenumber) {
+>>>>>>> 32c8775e83638ada5464a660e4dcf3afeb98e58d
         this.id = id;
         this.date = date;
         this.cusid = cusid;
         this.totalmoney = totalmoney;
+        this.customername = customername;
+        this.address = address;
+        this.phonenumber = phonenumber;
     }
 
     public int getId() {
@@ -66,6 +85,7 @@ public class Order {
         this.totalmoney = totalmoney;
     }
 
+<<<<<<< HEAD
     public int getStatus() {
         return Status;
     }
@@ -83,6 +103,34 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" + "id=" + id + ", date=" + date + ", cusid=" + cusid + ", totalmoney=" + totalmoney + ", Status=" + Status + '}';
+=======
+    public String getCustomername() {
+        return customername;
+>>>>>>> 32c8775e83638ada5464a660e4dcf3afeb98e58d
     }
+
+    public void setCustomername(String customername) {
+        this.customername = customername;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+  
+
+   
 
 }

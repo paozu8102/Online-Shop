@@ -18,67 +18,91 @@ import Model.Product;
  */
 public class Cart {
 
-    public LinkedHashMap<Product, Integer> getCart(String txt) {
-        ProductDAO pd = new ProductDAO();
-        LinkedHashMap<Product, Integer> historyMap = new LinkedHashMap<>();
+   public LinkedHashMap<Product, Integer> getCart(String txt) {
+    // Khởi tạo một đối tượng ProductDAO để thao tác với sản phẩm
+    ProductDAO pd = new ProductDAO();
+    
+    // Khởi tạo một LinkedHashMap để lưu trữ lịch sử mua hàng (Product và số lượng)
+    LinkedHashMap<Product, Integer> historyMap = new LinkedHashMap<>();
 
-        try {
-            if (txt != null && txt.length() != 0) {
-                String[] s = txt.split("/");
+    try {
+        // Kiểm tra nếu chuỗi txt không null và không rỗng
+        if (txt != null && txt.length() != 0) {
+            // Tách chuỗi txt thành mảng các phần tử sử dụng dấu '/'
+            String[] s = txt.split("/");
 
-                for (String i : s) {
-                    String[] n = i.split(":");
+            // Duyệt qua từng phần tử trong mảng s
+            for (String i : s) {
+                // Tách mỗi phần tử con thành mảng sử dụng dấu ':'
+                String[] n = i.split(":");
 
-                    if (n.length == 2) {
-                        String pid = n[0];
-                        int quantity = Integer.parseInt(n[1]);
+                // Kiểm tra nếu mảng con có đúng 2 phần tử
+                if (n.length == 2) {
+                    String pid = n[0];
+                    int quantity = Integer.parseInt(n[1]);
 
-                        Product p = pd.getProductByID(pid);
+                    // Lấy thông tin sản phẩm từ cơ sở dữ liệu bằng id (pid)
+                    Product p = pd.getProductByID(pid);
 
-                        if (p != null) {
-                            historyMap.put(p, quantity);
-                        }
+                    // Nếu sản phẩm tồn tại
+                    if (p != null) {
+                        // Đặt sản phẩm và số lượng vào lịch sử mua hàng
+                        historyMap.put(p, quantity);
                     }
                 }
             }
-        } catch (NumberFormatException e) {
-            // Handle the NumberFormatException here if needed.
-            e.printStackTrace();
         }
-
-        return historyMap;
+    } catch (NumberFormatException e) {
+        // Xử lý NumberFormatException ở đây nếu cần thiết.
+        e.printStackTrace();
     }
 
-    // xử lí id trùng lặp
-    public String processString(String input) {
+    // Trả về LinkedHashMap lịch sử mua hàng
+    return historyMap;
+}
 
-        Map<String, Integer> map = new HashMap<>();
 
-        String[] parts = input.split("/");
-        for (String part : parts) {
-            String[] s = part.split(":");
+   public String processString(String input) {
+    // Khởi tạo một HashMap để lưu trữ các cặp key-value
+    Map<String, Integer> map = new HashMap<>();
+    
+    // Tách chuỗi input thành mảng các phần tử sử dụng dấu '/'
+    String[] parts = input.split("/");
+    for (String part : parts) {
+        // Tách mỗi phần tử con thành mảng sử dụng dấu ':'
+        String[] s = part.split(":");
+        
+        // Kiểm tra nếu mảng con có đúng 2 phần tử
+        if (s.length == 2) {
             String id = s[0];
             int qty = Integer.parseInt(s[1]);
-
+            
+            // Nếu id đã tồn tại trong map, cộng thêm qty vào giá trị hiện tại
             if (map.containsKey(id)) {
                 qty += map.get(id);
             }
-
+            
+            // Cập nhật hoặc thêm id và giá trị qty vào map
             map.put(id, qty);
         }
-
-        String result = "";
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            result += entry.getKey() + ":" + entry.getValue() + "/";
-        }
-
-        // Kiểm tra nếu chuỗi kết quả không rỗng thì loại bỏ ký tự '/' cuối cùng
-        if (!result.isEmpty()) {
-            result = result.substring(0, result.length() - 1);
-        }
-
-        return result;
     }
+    
+    // Tạo một StringBuilder để xây dựng chuỗi kết quả
+    StringBuilder result = new StringBuilder();
+    for (Map.Entry<String, Integer> entry : map.entrySet()) {
+        // Thêm mỗi cặp key-value vào chuỗi kết quả, ngăn cách bằng ':'
+        result.append(entry.getKey()).append(":").append(entry.getValue()).append("/");
+    }
+    
+    // Kiểm tra nếu chuỗi kết quả có độ dài lớn hơn 0, loại bỏ dấu '/' ở cuối
+    if (result.length() > 0) {
+        result.deleteCharAt(result.length() - 1);
+    }
+    
+    // Trả về chuỗi kết quả dưới dạng String
+    return result.toString();
+}
+
 
     public String updateCartQuantity(String input, String pid, int newQty) {
 
@@ -112,36 +136,42 @@ public class Cart {
 
     public String getQuantityBypid(String input, String[] ids) {
 
-        Map<String, Integer> map = new HashMap<>();
+    Map<String, Integer> map = new HashMap<>();
 
-        // Chuyển chuỗi sang map
-        String[] parts = input.split("/");
-        for (String part : parts) {
-            String[] split = part.split(":");
+    
+    String[] parts = input.split("/");
+    for (String part : parts) {
+        String[] split = part.split(":");
+        if (split.length == 2) {
             String id = split[0];
             int qty = Integer.parseInt(split[1]);
             map.put(id, qty);
         }
-
-        // Lấy ra các phần tử có id trùng với ids
-        String result = "";
-        for (String id : ids) {
-            Integer qty = map.get(id);
-            if (qty != null) {
-                result += id + ":" + qty + "/";
-            }
-        }
-
-        if (!result.isEmpty()) {
-            result = result.substring(0, result.length() - 1);
-        }
-
-        return result;
-
     }
+
+ 
+    String result = "";
+
+  
+    for (String id : ids) {
+        Integer qty = map.get(id);
+        if (qty != null) {
+            
+            result += id + ":" + qty + "/";
+        }
+    }
+
+
+    if (!result.isEmpty()) {
+        result = result.substring(0, result.length() - 1);
+    }
+
+    return result;
+}
+
     public int getQuantityById(String input, String id) {
         if (input == null || input.isEmpty()) {
-            return 0; // Return 0 if the input is empty or null
+            return 0; 
         }
 
         Map<String, Integer> map = new HashMap<>();
@@ -155,11 +185,11 @@ public class Cart {
             map.put(productId, quantity);
         }
 
-        // Check if the product with the specified ID is in the cart
+        
         if (map.containsKey(id)) {
-            return map.get(id); // Return the quantity of the product
+            return map.get(id); 
         } else {
-            return 0; // Return 0 if the product is not in the cart
+            return 0; 
         }
     }
 

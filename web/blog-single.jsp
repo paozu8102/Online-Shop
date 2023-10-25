@@ -239,7 +239,7 @@ function navigateToOtherPage() {
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-<li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="<%=path%>/home" class="nav-link">Home</a></li>
 	          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -476,21 +476,26 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
     <button class="next-btn1" onclick="changeSlide(1)">&#10095;</button>
 </div>
 </c:if> 
+            <c:set var="user" value="${sessionScope.user}"/>
             <p style="font-size: 30px; color: black">${post.Content}</p>
             <hr>
             <div class="about-author d-flex p-4 bg-light" style="height: 200px">
               <div class="bio align-self-md-center mr-4">
-                  <img style="height: 300px; width: auto" src="${user.getAvatar()}" alt="Image placeholder" class="img-fluid mb-4">
+                  <img style="height: 300px; width: auto" src="${userPost.getAvatar()}" alt="Image placeholder" class="img-fluid mb-4">
               </div>
               <div class="desc align-self-md-center">
-                  <h3 style="padding-top: 80px">${user.getUserName()}</h3>
+                  <c:if test="${user.getUserID() eq userPost.getUserID()}">
+                      <h3 style="padding-top: 80px">You</h3>
+                  </c:if>
+                  <c:if test="${user.getUserID() ne userPost.getUserID()}">
+                      <h3 style="padding-top: 80px">${userPost.getUserName()}</h3>
+                  </c:if>
                 <p class="invisible-text unselectable">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, 
                     autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero 
                 </p>
               </div>
             </div>
 
-            <c:set var="user" value="${sessionScope.user}"/>
             <c:if test="${user eq null}">
                 <h3 class="mb-5" style="margin-top: 40px">You need to log in to comment</h3>
             </c:if>
@@ -541,7 +546,7 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                         <p style="display: inline"><a id="hideShow${rootCommentList[loop.index].getCommentID()}" href="javascript:showAndHideReply('rep'+'${rootCommentList[loop.index].getCommentID()}', 'hideShow'+'${rootCommentList[loop.index].getCommentID()}');" class="reply">Hide Reply</a></p>
                     </c:if>
                     <c:if test="${user.getUserID() eq rootCommentList[loop.index].getUserID()}">
-                    <form id="delete${rootCommentList[loop.index].getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
+                    <form onsubmit="saveScrollPositions('commentRep');" id="delete${rootCommentList[loop.index].getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
                         <input type="hidden" name="action" value="commentDelete">
                         <input type="hidden" name="objectID" value="${param.id}">
                         <input type="hidden" name="commentID" value="${rootCommentList[loop.index].getCommentID()}">
@@ -582,10 +587,10 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                         <p>${repComment.getCommentContent()}</p>
                         <c:choose>
                             <c:when test="${repIndex.last && loop.last}">
-                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'true');" class="reply">Reply</a></p>
+                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'true', '${repComment.getUserName()}');" class="reply">Reply</a></p>
                             </c:when>
                             <c:otherwise>
-                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'false');" class="reply">Reply</a></p>
+                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'false', '${repComment.getUserName()}');" class="reply">Reply</a></p>
                             </c:otherwise>
                         </c:choose>
                         <c:if test="${user.getUserID() eq repComment.getUserID()}">
@@ -596,13 +601,17 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                             <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${repComment.getCommentID()}');">Delete</a>
                         </form>
                         </c:if>
-                    <form action="your_controller_url_here" method="post">
+                    <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep');">
                         <div class="reply-box" id="replyBox${repComment.getCommentID()}">
-                            <textarea style="width: 100%" class="reply-text" placeholder="Enter your reply here..."></textarea>
-                            <div class="btn-container">
+                            <input type="hidden" name="action" value="commentRep">
+                            <input type="hidden" name="userID" value="${user.getUserID()}">
+                            <input type="hidden" name="objectID" value="${param.id}">
+                            <input type="hidden" name="commentRepID" value="${rootCommentList[loop.index].getCommentID()}">
+                            <textarea name="content" style="width: 100%" class="reply-text" placeholder="Enter your reply here..."></textarea>
+                          <div class="btn-container">
                             <button type="submit" class="btn" id="submitBtn${loop.index}">Submit</button>
-                            <button type="button" onclick="showReply('replyBox'+'${repComment.getCommentID()}', 'false');" class="btn" id="cancelBtn${loop.index}">Cancel</button>
-                            </div>
+                            <button type="button" onclick="showReply('replyBox'+'${repComment.getCommentID()}', 'false', '${repComment.getUserName()}');" class="btn" id="cancelBtn${loop.index}">Cancel</button>
+                          </div>
                         </div>
                     </form>
                       </div>
@@ -655,27 +664,10 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                 </div>
               </div>
               </c:forEach>
-              <h3 id="seemore" style="color: #82AE46; cursor: pointer"><a href="">See more post</a></h3>
+              <h3 id="seemore" style="color: #82AE46; cursor: pointer"><a href="<%=path%>/Posts">See more post</a></h3>
             </div>
 
-<!--            <div class="sidebar-box ftco-animate">
-              <h3 class="heading">Tag Cloud</h3>
-              <div class="tagcloud">
-                <a href="#" class="tag-cloud-link">fruits</a>
-                <a href="#" class="tag-cloud-link">tomatoe</a>
-                <a href="#" class="tag-cloud-link">mango</a>
-                <a href="#" class="tag-cloud-link">apple</a>
-                <a href="#" class="tag-cloud-link">carrots</a>
-                <a href="#" class="tag-cloud-link">orange</a>
-                <a href="#" class="tag-cloud-link">pepper</a>
-                <a href="#" class="tag-cloud-link">eggplant</a>
-              </div>
-            </div>-->
 
-<!--            <div class="sidebar-box ftco-animate">
-              <h3 class="heading">Paragraph</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
-            </div>-->
           </div>
 
         </div>

@@ -445,12 +445,7 @@ public class UserDAO extends DBContext {
 
     //get total setting minhHC
     public int getTotalSetting() {
-        String sql = "SELECT COUNT(*) AS TotalCount\n"
-                + "FROM (\n"
-                + "    SELECT CategoryID AS ID, CategoryName AS Name, 'Product Category' AS Type, Status, Description FROM Category\n"
-                + "    UNION\n"
-                + "    SELECT TypeID AS ID, TypeName AS Name, 'Product Type' AS Type, Status, Description FROM Type\n"
-                + ") AS CombinedData;";
+        String sql = "SELECT COUNT(*) from category";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             ResultSet rs = st.executeQuery();

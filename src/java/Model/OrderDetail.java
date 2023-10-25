@@ -9,18 +9,31 @@ package Model;
  * @author admin
  */
 public class OrderDetail {
-          private int oid,pid;
-      private int quantity;
-      private double price;
-
+    private int oid, pid;
+    private int quantity;
+    private double price;
+ private String status;
+ private String expDate;
+private String delDate;
     public OrderDetail() {
     }
 
-    public OrderDetail(int oid, int pid, int quantity, double price) {
+    public OrderDetail(int oid, int pid, int quantity, double price, String status) {
         this.oid = oid;
         this.pid = pid;
         this.quantity = quantity;
         this.price = price;
+        this.status = status;
+    }
+
+    public OrderDetail(int oid, int pid, int quantity, double price, String status, String expDate, String delDate) {
+        this.oid = oid;
+        this.pid = pid;
+        this.quantity = quantity;
+        this.price = price;
+        this.status = status;
+        this.expDate = expDate;
+        this.delDate = delDate;
     }
 
     public int getOid() {
@@ -55,9 +68,32 @@ public class OrderDetail {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "OrderDetail{" + "oid=" + oid + ", pid=" + pid + ", quantity=" + quantity + ", price=" + price + '}';
+    public String getStatus() {
+        return status;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getExpDate() {
+        return expDate;
+    }
+
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    public String getDelDate() {
+        return delDate;
+    }
+
+    public void setDelDate(String delDate) {
+        this.delDate = delDate;
+    }
+
+  
+
+    
 
 }

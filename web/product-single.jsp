@@ -20,7 +20,7 @@
                                                                  <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
                                     <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
                                                             </c:if>
-	          <li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[${cartlist.size()}]</a></li>
 
 	        </ul>
 	      </div>
@@ -62,12 +62,15 @@
     				<p class="price"><span>$${detail.price}</span></p>
     				<p>${detail.description}
 						</p>
+                                                <p>${detail.quantity} product left
+						</p>
 						<div class="row mt-4">
 							<div class="col-md-6">
 								<div class="form-group d-flex">
 
 		            </div>
 							</div>
+                                                    
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
 	             	<span class="input-group-btn mr-2">

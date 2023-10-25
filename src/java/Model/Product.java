@@ -83,6 +83,12 @@ public class Product {
         this.CateID = CateID;
     }
 
+    public Product(String ProductName, int UserID, String Image) {
+        this.ProductName = ProductName;
+        this.UserID = UserID;
+        this.Image = Image;
+    }
+
 
  
 
@@ -108,6 +114,13 @@ public class Product {
 
     public void setPrice(double Price) {
         this.Price = Price;
+    }
+      public double getPriceSale() {
+        return Price-Price*Discount/100;
+    }
+
+    public void setPriceSale(double Price) {
+        this.Price = Price-Price*Discount/100;
     }
 
     public String getDescription() {

@@ -94,7 +94,7 @@ public class LoginController extends HttpServlet {
             User user = (new UserDAO()).getUser(userID);
             session.setAttribute("user", user);
             session.setAttribute("acc", c);
-            session.setMaxInactiveInterval(1800);
+            session.setMaxInactiveInterval(7200);
 Cookie cookie = new Cookie("rem", r);
 if (r == null || r.isEmpty()) {
     cookie.setMaxAge(0);
