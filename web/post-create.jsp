@@ -8,110 +8,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
   </head>
   <body>
-    <div class="container">
-      <div class="wrapper">
-        <section class="post">
-          <header>Create Post</header>
-          <form action="#">
-            <div class="content">
-              <img src="icons/logo.png" alt="logo">
-              <div class="details">
-                <p>CodingNepal</p>
-                <div class="privacy">
-                  <span>Categories</span>
-                  <i class="fas fa-caret-down"></i>
-                </div>
-              </div>
-            </div>
-            <textarea placeholder="What's on your mind?" spellcheck="false" required></textarea>
-            <div class="options">
-              <p>Add images to Your Post</p>
-              <ul class="list">
-                <li><img src="images/gallery.jpg" alt="gallery"></li>
-              </ul>
-            </div>
-            <button>Post</button>
-          </form>
-        </section>
-        <section class="audience">
-          <header>
-            <div class="arrow-back"><i class="fas fa-arrow-left"></i></div>
-            <p>Select Categories</p>
-          </header>
-          <div class="content">
-            <p>What category will your post is?</p>
-            <span>You can choose as many category as you want</span>
-          </div>
-          <ul class="list">
-            <li>
-              <div class="column">
-                <div class="details">
-                  <p>Public</p>
-                  <span>Anyone on or off Facebook</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            <li class="active">
-              <div class="column">
-                <div class="icon"><i class="fas fa-user-friends"></i></div>
-                <div class="details">
-                  <p>Friends</p>
-                  <span>Your friends on Facebook</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-user"></i></div>
-                <div class="details">
-                  <p>Specific</p>
-                  <span>Only show to some friends</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-lock"></i></div>
-                <div class="details">
-                  <p>Only me</p>
-                  <span>Only you can see your post</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-cog"></i></div>
-                <div class="details">
-                  <p>Custom</p>
-                  <span>Include and exclude friends</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-          </ul>
-        </section>
-      </div>
-    </div>
-
-    <script>
-      const container = document.querySelector(".container"),
-      privacy = container.querySelector(".post .privacy"),
-      arrowBack = container.querySelector(".audience .arrow-back");
-
-      privacy.addEventListener("click", () => {
-        container.classList.add("active");
-      });
-
-      arrowBack.addEventListener("click", () => {
-        container.classList.remove("active");
-      });
-    </script>
 <style>
-	/* Import Google Font - Poppins */
+/* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -384,7 +283,128 @@ form textarea:valid ~ button:hover{
   border-radius: inherit;
 }
 .list li.active .radio::before{
-  backgro
-    </style>
+  background: #4599FF;
+}
+
+input[type='checkbox'] {
+    -webkit-appearance:none;
+    width:25px;
+    height:25px;
+    background:white;
+    border-radius:50%;
+/*    border:2px solid #555;*/
+}
+input[type='checkbox']:checked {
+    background: black;
+}
+</style>
+    <div class="container">
+      <div class="wrapper">
+        <section class="post">
+          <header>Create Post</header>
+          <form action="#">
+            <div class="content">
+              <img src="${user.getAvatar()}" alt="logo">
+              <div class="details">
+                <p>${user.getUserName()}</p>
+                <div class="privacy">
+                  <span>Categories</span>
+                  <i class="fas fa-caret-down"></i>
+                </div>
+              </div>
+            </div>
+            <textarea placeholder="What's on your mind?" spellcheck="false" required></textarea>
+            <div class="options">
+              <p>Add images to Your Post</p>
+              <ul class="list">
+                <li><img src="images/gallery.jpg" alt="gallery"></li>
+              </ul>
+            </div>
+            <button>Post</button>
+          </form>
+        </section>
+        <section class="audience">
+          <header>
+            <div class="arrow-back"><i class="fas fa-arrow-left"></i></div>
+            <p>Select Categories</p>
+          </header>
+          <div class="content">
+            <p>What category will your post is?</p>
+            <span>You can choose as many category as you want</span>
+          </div>
+          <ul class="list">
+              
+            <li>
+              <div class="column">
+                <div class="details">
+                  <p>Public</p>
+                  <span>Anyone on or off Facebook</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </li>
+            
+            <li>
+              <div class="column">
+                <div class="details">
+                  <p>Friends</p>
+                  <span>Your friends on Facebook</span>
+                </div>
+              </div>
+              <input type="checkbox" id="checkbox" name="checkbox">
+            </li>
+            
+            <li>
+              <div class="column">
+                <div class="icon"><i class="fas fa-user"></i></div>
+                <div class="details">
+                  <p>Specific</p>
+                  <span>Only show to some friends</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </li>
+            
+            <li>
+              <div class="column">
+                <div class="icon"><i class="fas fa-lock"></i></div>
+                <div class="details">
+                  <p>Only me</p>
+                  <span>Only you can see your post</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </li>
+            
+            <li>
+              <div class="column">
+                <div class="icon"><i class="fas fa-cog"></i></div>
+                <div class="details">
+                  <p>Custom</p>
+                  <span>Include and exclude friends</span>
+                </div>
+              </div>
+              <div class="radio"></div>
+            </li>
+            
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      const container = document.querySelector(".container"),
+      privacy = container.querySelector(".post .privacy"),
+      arrowBack = container.querySelector(".audience .arrow-back");
+
+      privacy.addEventListener("click", () => {
+        container.classList.add("active");
+      });
+
+      arrowBack.addEventListener("click", () => {
+        container.classList.remove("active");
+      });
+    </script>
+
   </body>
 </html>

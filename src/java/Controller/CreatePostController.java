@@ -4,17 +4,19 @@
  */
 package Controller;
 
+import Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
  *
  * @author Nhat Anh
  */
-public class CreatePostController extends HttpServlet{
+public class CreatePostController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,8 +24,18 @@ public class CreatePostController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        getDataForCreatePostPage(req, resp);
+    }
+
+    public void getDataForCreatePostPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
+        }
         
+        req.setAttribute("user", user);
         req.getRequestDispatcher("post-create.jsp").forward(req, resp);
     }
-    
+
 }
