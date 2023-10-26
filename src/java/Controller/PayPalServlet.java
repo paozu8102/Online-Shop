@@ -40,8 +40,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
-@WebServlet(name = "CheckoutController", urlPatterns = {"/checkout"})
-public class CheckoutController extends HttpServlet {
+@WebServlet(name = "PayPalServlet", urlPatterns = {"/paypalcheckout"})
+public class PayPalServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,98 +55,7 @@ public class CheckoutController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CheckoutController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CheckoutController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Cart t = new Cart();
-       
-        HttpSession session = request.getSession();
-        String[] selectedItems = request.getParameterValues("selectedItems");
-       
-    User user = (User) session.getAttribute("user");
-        
-
-       if(user!=null){
-           request.setAttribute("user", user);
-      
-        //Lay sản phẩm sẽ mua  
-        String txt = "";
-        LinkedHashMap<Product, Integer> pList = new LinkedHashMap<>();
-      Cookie[] arr = request.getCookies();
-            // Lấy các sản phẩm trong cart
-            if (arr != null) {
-                for (Cookie o : arr) {
-                    if (o.getName().equals("cart")) {
-                        txt += o.getValue();
-
-                    }
-                    // Xóa cookie check out
-                    if (o.getName().equals("checkout")) {
-                        o.setMaxAge(0);
-                        response.addCookie(o);
-                    }
-                }
-            }
-            // Trường hợp chọn các ô checkbox
-            if (selectedItems != null && selectedItems.length > 0) {
-                txt = t.getQuantityBypid(txt, selectedItems);
-            }
-
-            pList = t.getCart(txt);
-
-          
-        
-        //Tạo cookie checkout
-        Cookie c = new Cookie("checkout", txt);
-        c.setMaxAge(2 * 24 * 60 * 60);
-
-        response.addCookie(c);
-
-        request.setAttribute("pList", pList);
-       
-        request.getRequestDispatcher("checkout.jsp").forward(request, response);
-  }
-      else{
-          response.sendRedirect("login.jsp");
-          
-      }
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+     
         String address = request.getParameter("address");
         String phonenumber = request.getParameter("phone");      
         String totalPrice_raw = request.getParameter("total");
@@ -221,6 +130,36 @@ public class CheckoutController extends HttpServlet {
 
        response.sendRedirect("order-complete.jsp");
 
+        }
+    
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+          processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+     processRequest(request, response);
     }
 
     /**

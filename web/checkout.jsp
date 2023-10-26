@@ -1,5 +1,7 @@
 <%@include file="template/header.jsp" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="https://www.paypal.com/sdk/js?client-id=AV7LmUldlsdqpSWgHyWSJHiW-fZFHJoEys_YXJqbmSefiuT4XL9Qb25FI-UokdBzLsRPXSD0f0FpOR7-"></script>
+
 <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
 <li class="nav-item active dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
@@ -129,26 +131,15 @@
 
                         </div>
                     </div>
-                    <div class="col-md-12">
+                 
                         <div class="cart-detail p-3 p-md-4">
                             <h3 class="billing-heading mb-4">Payment Method</h3>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                          <input type="radio" name="optradio" value="Bank-transfer" class="mr-2">Bank Transfer
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                       <input type="radio" name="optradio" value="Cash-on-delivery" class="mr-2">Cash on delivery
-                                    </div>
-                                </div>
-                            </div>
-                          
-                         
-                            <p><a href="#" class="btn btn-primary py-3 px-4" id="place-order-button">Place an order</a></p>
+
+                         <div id="paypal-button-container"></div>
+
+                          <p><a href="#" class="btn btn-primary paypal-like-button" id="place-order-button">Cash Delivery</a></p>
+
+
                         </div>
                     </div>
                                         
@@ -159,25 +150,23 @@
     </div>
 </section> <!-- .section -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const placeOrderButton = document.getElementById("place-order-button");
-        const radioButtons = document.querySelectorAll('input[type="radio"][name="optradio"]');
-
-        placeOrderButton.addEventListener("click", function (event) {
-            // Find the selected radio button
-            const selectedRadioButton = Array.from(radioButtons).find(radio => radio.checked);
-
-            if (selectedRadioButton) {
-                if (selectedRadioButton.value === "Cash-on-delivery") {
-                    // Submit the form for "Cash on Delivery"
-                    document.getElementById("checkout").submit();
-                } else {
-                    // Do nothing for "Direct Bank Transfer"
-                }
-            } else {
-                // No radio button selected; you can add error handling here
-            }
-        });
-    });
+  paypal.Buttons({
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: ${total} 
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      return actions.order.capture().then(function(details) {
+    document.getElementById('checkout').submit();
+      });
+    }
+  }).render('#paypal-button-container');
 </script>
+
+
 <%@include file="template/footerJS.jsp" %>
