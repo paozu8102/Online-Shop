@@ -164,6 +164,22 @@ body {
             font-size: 100px;
         }
 
+.paypal-like-button {
+    background-color: #003087; /* Match the PayPal button background color */
+    color: #ffffff; /* Match the PayPal button text color */
+    border: 1px solid #003087; /* Match the PayPal button border color */
+    font-weight: bold;
+    padding: 10px 20px; /* Adjust padding to match PayPal button */
+    text-decoration: none;
+    display: inline-block;
+}
+
+.paypal-like-button:hover {
+    background-color: #001f5a; /* Change background color on hover */
+    border: 1px solid #001f5a; /* Change border color on hover */
+    color: #ffffff; /* Change text color on hover */
+}
+
 
 
 

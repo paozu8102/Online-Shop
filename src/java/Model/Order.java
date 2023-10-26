@@ -32,6 +32,14 @@ public class Order {
         this.phonenumber = phonenumber;
     }
 
+    public Order(int id, double totalmoney, String customername, String address, String phonenumber) {
+        this.id = id;
+        this.totalmoney = totalmoney;
+        this.customername = customername;
+        this.address = address;
+        this.phonenumber = phonenumber;
+    }
+
     public int getId() {
         return id;
     }

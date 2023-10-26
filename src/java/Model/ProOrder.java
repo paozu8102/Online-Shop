@@ -42,6 +42,15 @@ public class ProOrder {
         this.status = status;
     }
 
+    public ProOrder(int cusid, double price, String customername, String address, String phonenumber) {
+        this.price = price;
+        this.cusid = cusid;
+        this.customername = customername;
+        this.address = address;
+        this.phonenumber = phonenumber;
+    }
+
+  
     public int getOid() {
         return oid;
     }

@@ -3,39 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/LoginController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/UserDAO.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/DBcontext/DBContext.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/CheckoutController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/OrderDAO.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/checkout.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/MyOrderServlet.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/Product.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/User.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/OrderDetail.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/AddToCartServlet.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/setting-management.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/CartServlet.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/ProOrder.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/SettingControl.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/BuyServlet.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/user-management.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/myorder.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/index.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/Order.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/product-single.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/Cart.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/order-complete.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/cart.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/ProductDAO.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/user-profile.jsp</file>
-=======
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/PostController.java</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/blog.jsp</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/DAO/PostDAO.java</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/blog-single.jsp</file>
->>>>>>> c830a907860dfc1450792a80cc52e8c2310fedeb
+            <file>file:/C:/Users/admin/Documents/master/web/checkout.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/ProOrder.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/saler-profile.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/web/template/header.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/web/user-profile.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/web/product-single.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/PaymentServices.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/Order.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/confirm.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/PayPalServlet.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/saler-dashboard.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/CheckoutController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/error.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/CRUDSliderController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/OrderDetail.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/ChangeUserStatus.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/template/footerJS.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/web/cart.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/AddSetting.java</file>
         </group>
     </open-files>
 </project-private>
