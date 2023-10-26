@@ -95,8 +95,9 @@ function checkDatesAndSubmit() {
 
     <section class="ftco-section ftco-degree-bg">
       <div class="container">
+        <h3>Posts</h3>
         <div class="row">
-          <div class="col-lg-8 ftco-animate">
+            <div class="col-lg-8 ftco-animate" style="overflow: auto; height: 1200px; border: 1px solid">
 		<div class="row">
                 <c:if test="${fn:length(postList) == 0}">
                     <h2>There isn't any post for now</h2>

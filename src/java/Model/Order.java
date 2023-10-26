@@ -10,6 +10,7 @@ package Model;
  */
 public class Order {
 
+
     private int id;
     private String date;
     private int cusid;
@@ -17,12 +18,15 @@ public class Order {
     private String customername;
     private String address;
     private String phonenumber;
-    
+    private User user;
+
 
     public Order() {
     }
 
+
     public Order(int id, String date, int cusid, double totalmoney, String customername, String address, String phonenumber) {
+
         this.id = id;
         this.date = date;
         this.cusid = cusid;
@@ -72,9 +76,6 @@ public class Order {
         this.totalmoney = totalmoney;
     }
 
-    public String getCustomername() {
-        return customername;
-    }
 
     public void setCustomername(String customername) {
         this.customername = customername;
@@ -94,6 +95,14 @@ public class Order {
 
     public void setPhonenumber(String phonenumber) {
         this.phonenumber = phonenumber;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
   

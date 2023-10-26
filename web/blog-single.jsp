@@ -239,7 +239,7 @@ function navigateToOtherPage() {
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-<li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="<%=path%>/home" class="nav-link">Home</a></li>
 	          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -476,21 +476,26 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
     <button class="next-btn1" onclick="changeSlide(1)">&#10095;</button>
 </div>
 </c:if> 
+            <c:set var="user" value="${sessionScope.user}"/>
             <p style="font-size: 30px; color: black">${post.Content}</p>
             <hr>
             <div class="about-author d-flex p-4 bg-light" style="height: 200px">
               <div class="bio align-self-md-center mr-4">
-                  <img style="height: 300px; width: auto" src="${user.getAvatar()}" alt="Image placeholder" class="img-fluid mb-4">
+                  <img style="height: 300px; width: auto" src="${userPost.getAvatar()}" alt="Image placeholder" class="img-fluid mb-4">
               </div>
               <div class="desc align-self-md-center">
-                  <h3 style="padding-top: 80px">${user.getUserName()}</h3>
+                  <c:if test="${user.getUserID() eq userPost.getUserID()}">
+                      <h3 style="padding-top: 80px">You</h3>
+                  </c:if>
+                  <c:if test="${user.getUserID() ne userPost.getUserID()}">
+                      <h3 style="padding-top: 80px">${userPost.getUserName()}</h3>
+                  </c:if>
                 <p class="invisible-text unselectable">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, 
                     autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero 
                 </p>
               </div>
             </div>
 
-            <c:set var="user" value="${sessionScope.user}"/>
             <c:if test="${user eq null}">
                 <h3 class="mb-5" style="margin-top: 40px">You need to log in to comment</h3>
             </c:if>

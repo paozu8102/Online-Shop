@@ -22,7 +22,7 @@ import java.io.InputStream;
  *
  * @author Admin
  */
-@WebServlet(name="UpdateUserController", urlPatterns={"/updatesaler"})
+@WebServlet(name="UpdateSalerController", urlPatterns={"/updatesaler"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
@@ -76,7 +76,7 @@ public class UpdateSalerProfile extends HttpServlet {
 
         User user = new User(userId, username, gender, phonenumber, address, imageUrl + imageName, email);
         request.getSession().setAttribute("user", user);
-        (new UserDAO()).updateUser(user);
+        (new UserDAO()).updateSaler(user);
         request.getRequestDispatcher("salerprofile").forward(request, response);
     } 
 
