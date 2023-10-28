@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/admin/Documents/ducle/src/java/Model/User.java</file>
             <file>file:/C:/Users/admin/Documents/ducle/src/java/Controller/DashboardController.java</file>
             <file>file:/C:/Users/admin/Documents/ducle/src/java/Controller/SearchSetting.java</file>
@@ -15,6 +16,84 @@
             <file>file:/C:/Users/admin/Documents/ducle/src/java/Controller/LoginController.java</file>
             <file>file:/C:/Users/admin/Documents/ducle/src/java/Controller/LogoutController.java</file>
             <file>file:/C:/Users/admin/Documents/ducle/web/product-management.jsp</file>
+=======
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/CRUDPostController.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/bootstrap/dist/css/bootstrap-utilities.rtl.min.css</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/EditUserController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/PostController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/DAO/ProductDAO.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/product-management.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/CRUDSliderController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/SlideManagerController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/SignUpController.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/scss/core/topbar/header.scss</file>
+            <file>file:/D:/prj391_SWP_17299/web/WEB-INF/web.xml</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/UserController.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/bootstrap/dist/css/bootstrap.min.css</file>
+            <file>file:/D:/prj391_SWP_17299/nbproject/build-impl.xml</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/AddUser.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/MyOrderServlet.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/ChangeSettingStatus.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/PostSingleController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/SalerProfile.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/dashboard.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/web/active-product.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/DetailControl.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/DAO/UserDAO.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Model/Account.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/order-management.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Model/Product.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/DAO/OrderDAO.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/forgotPasswordController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/ChangeProductStatus.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/scss/core/scafholdings/scafholding.scss</file>
+            <file>file:/D:/prj391_SWP_17299/web/setting-management.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/UploadAvatarController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/UpdateSalerProfile.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/EditSettingController.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/saler-profile.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/LoginController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/DAO/accountDAO.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/DAO/CategoryDAO.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/BlockProduct.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/DBcontext/DBContext.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/block-product.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/CheckoutController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/ChangePasswordController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/AddSetting.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/ActiveProduct.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/product-single.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/web/bootstrap/dist/css/bootstrap-utilities.css</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/LogoutController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/DAO/CommentDAO.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/CreatePostController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/ShopController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/SearchUser.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/SettingControl.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/index.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/UserProfileController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/SignupWithEmail.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/BuyServlet.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/DashboardController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/CartServlet.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/saler-dashboard.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/web/post-create.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/ManageProduct.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/UpdateUserController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/SignUpForArtist.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/Statistics.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/ChangeUserStatus.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/SearchSetting.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/DBcontext/Mail.java</file>
+            <file>file:/D:/prj391_SWP_17299/web/admin-profile.jsp</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/CommentController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Model/User.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/PostManagerController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/AddToCartServlet.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Model/Comment.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Controller/HomeController.java</file>
+            <file>file:/D:/prj391_SWP_17299/src/java/Model/Order.java</file>
+>>>>>>> 81751253e5b8ecd1c0a6ac1968f86172586f85ff
         </group>
     </open-files>
 </project-private>
