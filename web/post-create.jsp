@@ -311,25 +311,11 @@ input[type='checkbox']:checked {
   position: relative;
 }
 
-/* Style for the remove button (X) */
-.remove-button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  cursor: pointer;
-  background: rgba(255, 0, 0, 0.7);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  padding: 5px;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 0;
-}
-
-.image-container img{
-    height: 80%;
-    width: auto;
+.image-container input{
+    height: 100%;
+    width: 100%; 
+    position: relative;
+    padding: 5px;
 }
 
 .image-container{
@@ -344,7 +330,7 @@ input[type='checkbox']:checked {
     cursor: pointer;
 }
 </style>
-    <div class="container">
+<div class="container" style="overflow-y: scroll;">
       <div class="wrapper">
         <section class="post">
           <header>Create Post</header>
@@ -368,13 +354,10 @@ input[type='checkbox']:checked {
               </ul>
               
             </div>
-            <div id="imageList" style="margin-top: 20px; overflow-x: scroll; width: 100%; white-space: nowrap">
-                <div class="image-container" id="image1">
-                    <div onclick="removeElement('image1');" class="close-button">&times;</div>
-                    <img src="images/about.jpg" alt="Snow" style="width:100%; position: relative">
-                </div>
-        </div>
-            <button>Post</button>
+            <div  id="imageList" style="margin-top: 20px; overflow-x: scroll; width: 100%; white-space: nowrap; display: none">
+                
+            </div>
+            <button onclick="checkAndSubmit();return false;">Post</button>
           </form>
         </section>
         <section class="audience">
@@ -396,7 +379,7 @@ input[type='checkbox']:checked {
                   <span style="width: 100%;">${cate.Description}</span>
                 </div>
               </div>
-                  <input value="${cate.CategoryID}" type="checkbox" id="checkbox" name="checkbox">
+                  <input value="${cate.CategoryID}" type="checkbox" id="checkbox" name="category" multiple="true;">
             </li>
             </c:forEach>
           </ul>
@@ -407,11 +390,37 @@ input[type='checkbox']:checked {
 
   </body>
   <script>
+  function checkAndSubmit() {
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  var atLeastOneChecked = false;
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked) {
+      atLeastOneChecked = true;
+      break; // No need to continue checking once one is found.
+    }
+  }
+  if (atLeastOneChecked) {
+    // At least one checkbox is checked, so you can submit the form.
+    document.getElementById('myForm').submit();
+  } else {
+    // No checkboxes are checked, so show an alert to the user.
+    alert('Please select at least one category.');
+  }
+}
+
+  
   function removeElement(id){
       const elementToRemove = document.getElementById(id);
       elementToRemove.remove();
+      const motherDiv = document.getElementById('imageList');
+      const subDivs = motherDiv.querySelectorAll('div'); // Change 'div' to the appropriate selector for your sub divs
+      if (subDivs.length === 0) {
+          motherDiv.style.display = 'none'; // Hide the mother div
+          var mainElement = document.querySelector(".container");
+          mainElement.style.height = "450px";
+      }
   }
-  
       const container = document.querySelector(".container"),
       privacy = container.querySelector(".post .privacy"),
       arrowBack = container.querySelector(".audience .arrow-back");
@@ -427,16 +436,10 @@ input[type='checkbox']:checked {
 const input = document.getElementById('imageInput');
 let timeout = null;
 let dialogopen = false;
-function checkFiles(run) {
-  dialogopen = false;
-  //console.log("File count:", input.files.length);
-  if(input.files.length > 0){
-  alert(input.files.length);
-  }
-}
+
 input.addEventListener('change', () => {
   clearTimeout(timeout);
-  checkFiles(input.files.length);
+  checkFiles();
 });
 input.addEventListener('click', () => {
   clearTimeout(timeout);
@@ -448,7 +451,7 @@ window.addEventListener('focus', () => {
     input.files = null;
     
     clearTimeout(timeout);
-    timeout = setTimeout(checkFiles(input.files.length), 100);
+    timeout = setTimeout(checkFiles(), 100);
   }
 });
       
@@ -456,5 +459,56 @@ window.addEventListener('focus', () => {
           document.getElementById("imageInput").click();
       }
 
-    </script>
+function addImage(imageLink){
+    const now = new Date();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const uniqueId = minutes+''+seconds;
+    
+    const imageContainer = document.createElement('div');
+    imageContainer.classList.add('image-container');
+    imageContainer.id = uniqueId;
+    
+    const closeButton = document.createElement('div');
+    closeButton.classList.add('close-button');
+    closeButton.textContent = '×';
+    closeButton.onclick = function () {
+        removeElement(uniqueId);
+    };
+    
+    const inputImage = document.createElement('input');
+    inputImage.type = 'image';
+    inputImage.src = imageLink;
+    inputImage.alt = 'Submit';
+    inputImage.name = 'image';
+    inputImage.multiple = true;
+    inputImage.onclick = function () {
+      return false;  
+    };
+    
+    imageContainer.appendChild(closeButton);
+    imageContainer.appendChild(inputImage);
+    const imageList = document.getElementById('imageList');
+    imageList.appendChild(imageContainer);
+}
+
+function checkFiles() {
+  dialogopen = false;
+  if(input.files.length > 0){
+      const motherDiv = document.getElementById('imageList');
+      const images = input.files;
+      const reader = new FileReader();
+      motherDiv.style.display = 'block'; // show the mother div
+      var mainElement = document.querySelector(".container");
+      mainElement.style.height = "450px";
+      for (let i = 0; i < images.length; i++) {
+          var image = images[i];
+          reader.onload = function () {
+            addImage(reader.result);
+          };
+          reader.readAsDataURL(image);
+    }
+  }
+}
+</script>
 </html>
