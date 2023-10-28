@@ -631,6 +631,12 @@
                                     <span class="hide-menu">Order Management</span>
                                 </a>
                             </li>
+                              <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customercontrol" aria-expanded="false">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="hide-menu">Customer Management</span>
+                                </a>
+                            </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="javascript:history.back()" aria-expanded="false">
                                     <i class="fa fa-arrow-left" aria-hidden="true"></i>

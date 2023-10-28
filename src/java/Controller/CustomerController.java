@@ -4,9 +4,11 @@
  */
 package Controller;
 
+import Model.Role;
+
 import DAO.UserDAO;
 import Model.Account;
-import Model.Setting;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,8 +23,8 @@ import java.util.List;
  *
  * @author admin
  */
-@WebServlet(name = "SettingControl", urlPatterns = {"/settingcontrol"})
-public class SettingControl extends HttpServlet {
+@WebServlet(name = "CustomerController", urlPatterns = {"/customercontrol"})
+public class CustomerController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +40,11 @@ public class SettingControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("acc");
-        if (a.getRoleID() != 1) {
+        User u = (User) session.getAttribute("user");
+        int uid = u.getUserID();
+        if (a.getRoleID() != 2) {
             return;
         }
-
         String indexPage = request.getParameter("index");
         if (indexPage == null) {
             indexPage = "1";
@@ -49,40 +52,44 @@ public class SettingControl extends HttpServlet {
         }
         int index = Integer.parseInt(indexPage);
         UserDAO c = new UserDAO();
-        int count = c.getTotalSetting();
+        int count = c.getTotalCustomer(uid);
         int endPage = count / 9;
         if (count % 9 != 0) {
             endPage++;
         }
-        String settingtype = request.getParameter("settingtype");
-        String settingstatus = request.getParameter("settingstatus");
-        String sortname = request.getParameter("sortname");
-        List<Setting> listC = null;
 
-        if ("all".equals(settingtype) || "all".equals(settingstatus)) {
-            listC = c.getAllSetting(index);
+        String userstatus = request.getParameter("userstatus");
+        String sortname = request.getParameter("sortname");
+        String city = request.getParameter("city");
+        
+        List<User> listU = null;
+int customerCount = c.getTotalCustomer(uid);
+        if ("all".equals(userstatus)) {
+            listU = c.getAllCustomer(uid, index);
             request.setAttribute("endP", endPage);
             request.setAttribute("tag", index);
-        } else if ("type".equals(settingtype)) {
-            listC = c.getAllSettingTyp();
-        } else if ("category".equals(settingtype)) {
-            listC = c.getAllSettingCat();
-        } else if ("post".equals(settingtype)) {
-            listC = c.getAllSettingPost();
-        } else if ("active".equals(settingstatus)) {
-            listC = c.getSettingActive();
-        } else if ("inactive".equals(settingstatus)) {
-            listC = c.getSettingInactive();
+        } else if ("active".equals(userstatus)) {
+            listU = c.getAllCustomerActive(uid);
+             customerCount = listU.size();
+        } else if ("blocked".equals(userstatus)) {
+            listU = c.getAllCustomerBlock(uid);
+             customerCount = listU.size();
+            
         } else if (sortname != null) {
-            listC = c.getSettingNameSort(sortname);
+            listU = c.getUserNameSort(sortname);
+             customerCount = listU.size();
+        } else if (city != null) {
+            city = city.replace("+", " ");
+            listU = c.getAllCustomerCity(uid, city);
+             customerCount = listU.size();
         } else {
-            listC = c.getAllSetting(index);
+            listU = c.getAllCustomer(uid, index);
             request.setAttribute("endP", endPage);
             request.setAttribute("tag", index);
         }
-        request.setAttribute("listC", listC);
-
-        request.getRequestDispatcher("setting-management.jsp").forward(request, response);
+        request.setAttribute("listU", listU);
+ request.setAttribute("total", customerCount);
+        request.getRequestDispatcher("customer-management.jsp").forward(request, response);
 
     }
 
@@ -112,7 +119,6 @@ public class SettingControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
 
     }
 

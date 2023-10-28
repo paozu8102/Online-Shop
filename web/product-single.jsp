@@ -78,7 +78,8 @@
 	                   <i class="ion-ios-remove"></i>
 	                	</button>
 	            		</span>
- <input type="number" id="quantity" name="num" class="form-control input-number" value="1" min="1" max="${detail.quantity}" oninput="if (this.value > ${detail.quantity}) this.value = ${detail.quantity}">
+<input type="number" id="quantity" name="num" class="form-control input-number" value="1" min="1" max="${detail.quantity}" oninput="if (this.value < 1) this.value = 1; if (this.value > ${detail.quantity}) this.value = ${detail.quantity};">
+
                         
 	             	<span class="input-group-btn ml-2">
 	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">

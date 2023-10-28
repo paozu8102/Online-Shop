@@ -5,20 +5,26 @@
 
 package Controller;
 
+import DAO.OrderDAO;
 import DAO.UserDAO;
+import Model.ProOrder;
+import Model.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
- * @author admin
+ * @author Acer
  */
-@WebServlet(name="EditUserController", urlPatterns={"/edituser"})
-public class EditUserController extends HttpServlet {
+@WebServlet(name="CustomerDetail", urlPatterns={"/customer"})
+public class CustomerDetail extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,9 +36,18 @@ public class EditUserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SalerProfile</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SalerProfile at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,7 +61,31 @@ public class EditUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+               HttpSession session = request.getSession();
+    User user = (User) session.getAttribute("user");
+    int sellid = user.getUserID();
+    String cid = request.getParameter("cid");
+     UserDAO c = new UserDAO();
+      OrderDAO o = new OrderDAO();
+     User customer = c.getCustomerByID(cid);
+        request.setAttribute("customer", customer);
+String indexPage = request.getParameter("index");
+        if (indexPage == null) {
+            indexPage = "1";
+
+        }
+        int index = Integer.parseInt(indexPage);
+         
+        int count = o.getTotalCustomerOrder(cid, sellid);
+        int endPage = count / 9;
+        if (count % 9 != 0) {
+            endPage++;
+        }
+        List<ProOrder> listO = o.getCustomerOrder(index, cid, sellid );
+        request.setAttribute("listO", listO);
+        request.setAttribute("endP", endPage);
+        request.setAttribute("tag", index);
+        request.getRequestDispatcher("customer-detail.jsp").forward(request, response);
     } 
 
     /** 
@@ -59,19 +98,7 @@ public class EditUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         
-        String statusString =request.getParameter("status");
-        String email =request.getParameter("email");
-        
-        int status;
-        if(statusString.equals("Active")){
-            status= 1;
-        } else status =0;
-        UserDAO dao = new UserDAO();
-         
-        dao.ChangeUserStatus(email ,status);
-        
-         response.sendRedirect("usercontrol");
+        processRequest(request, response);
     }
 
     /** 

@@ -62,23 +62,23 @@ UserID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 UserName VARCHAR(50) NOT NULL,
 Gender BIT ,
 PhoneNumber VARCHAR(20) NOT NULL,
-Address VARCHAR(MAX),
+Address NVARCHAR(MAX),
 Avatar VARCHAR(MAX),
 Email VARCHAR(50) NOT NULL
 
 FOREIGN KEY (Email) REFERENCES Account(Email)
 )
 INSERT INTO [User] (UserName, Gender, PhoneNumber, Address, Avatar, Email)
-VALUES ('Ducle', 1, '0903020202', '123 Le Loi Street, Hai Chau Ward, Hai Chau District, Da Nang', 'https://bizweb.dktcdn.net/100/438/408/files/anh-dep-3d-yodyvn4.jpg?v=1683534900596', 'ducle2002@gmail.com'),
-('Thien', 1, '0912345678', '456 Nguyen Hue Street, Ben Nghe Ward, District 1, Ho Chi Minh City', 'https://genzrelax.com/wp-content/uploads/2022/03/anh-dai-dien-dep-1.jpg', 'thien02@gmail.com'),
-('Long', 1, '0923456789', '789 Ly Thuong Kiet Street, Tran Hung Dao Ward, Hoan Kiem District, Hanoi', 'https://khoinguonsangtao.vn/wp-content/uploads/2022/05/anh-avatar-dep-ngau-hinh-dai-dien-510x560.jpg', 'long03@gmail.com'),
-('Son', 1, '0934567890', '321 Le Thanh Tong Street, Ngo Quyen Ward, Hong Bang District, Hai Phong', 'https://pgddttieucan.edu.vn/wp-content/uploads/2022/08/1660864210_Anh-Avatar-Dep-Cute-Chat-Ngau-Lam-Hinh-Dai-Dien-696x619.jpg', 'son04@gmail.com'),
-('Quan', 1, '0945678912', '567 Phan Dinh Phung Street, Bui Hanh Ward, Hong Bang District, Hai Phong', 'https://top10kontum.com/wp-content/uploads/2022/10/anh-dai-dien-zalo-y-nghia-2.jpg', 'quan05@gmail.com'),
-('Hoang', 1, '0956789123', '890 Hung Vuong Street, Vinh City, Nghe An Province', 'https://digitalfuture.vn/wp-content/uploads/2022/03/Top-555-Anh-dai-dien-dep-den-xieu-long-cho.jpg', 'hoang06@gmail.com'),
-('Minh', 1, '0967891234', '234 Ho Xuan Huong Street, Truong Thi Ward, Hue City, Thua Thien Hue Province', 'https://antimatter.vn/wp-content/uploads/2022/04/avatar-trang-zalo.jpg', 'minh07@gmail.com'),
-('Nam', 1, '0978912345', '678 Tran Phu Street, Hai Tan Ward, Hai An District, Hai Phong', 'https://freenice.net/wp-content/uploads/2021/08/anh-dai-dien-avatar-dep.jpg', 'kkkk08@gmail.com'),
-('Bao', 1, '0989123456', '135 Le Duan Street, Thanh Binh Ward, Rach Gia City, Kien Giang Province', 'https://phunugioi.com/wp-content/uploads/2020/01/anh-dai-dien-co-gai-quay-lung.jpg', 'bao09@gmail.com'),
-('Thanh', 1, '0991234567', '987 Nguyen Van Cu Street, An Hoa Ward, Rach Gia City, Kien Giang Province', 'https://i.pinimg.com/736x/94/9b/8d/949b8d8d9229693ba9d53b054b738e2a.jpg', 'thanh10@gmail.com');
+VALUES ('Ducle', 1, '0903020202', N'123 Đường Lê Lợi, Phường Hải Châu, Quận Hải Châu, Đà Nẵng', 'https://bizweb.dktcdn.net/100/438/408/files/anh-dep-3d-yodyvn4.jpg?v=1683534900596', 'ducle2002@gmail.com'),
+('Thien', 1, '0912345678', N'456 Đường Nguyễn Huệ, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh', 'https://genzrelax.com/wp-content/uploads/2022/03/anh-dai-dien-dep-1.jpg', 'thien02@gmail.com'),
+('Long', 1, '0923456789', N'789 Đường Lý Thường Kiệt, Phường Trần Hưng Đạo, Quận Hoàn Kiếm, Hà Nội', 'https://khoinguonsangtao.vn/wp-content/uploads/2022/05/anh-avatar-dep-ngau-hinh-dai-dien-510x560.jpg', 'long03@gmail.com'),
+('Son', 1, '0934567890', N'321 Đường Lê Thanh Tông, Phường Ngô Quyền, Quận Hồng Bàng, Hải Phòng', 'https://pgddttieucan.edu.vn/wp-content/uploads/2022/08/1660864210_Anh-Avatar-Dep-Cute-Chat-Ngau-Lam-Hinh-Dai-Dien-696x619.jpg', 'son04@gmail.com'),
+('Quan', 1, '0945678912', N'567 Đường Phan Đình Phùng, Phường Bùi Hạnh, Quận Hồng Bàng, Hải Phòng', 'https://top10kontum.com/wp-content/uploads/2022/10/anh-dai-dien-zalo-y-nghia-2.jpg', 'quan05@gmail.com'),
+('Hoang', 1, '0956789123', N'890 Đường Hùng Vương, Thành phố Vinh, Tỉnh Nghệ An', 'https://digitalfuture.vn/wp-content/uploads/2022/03/Top-555-Anh-dai-dien-dep-den-xieu-long-cho.jpg', 'hoang06@gmail.com'),
+('Minh', 1, '0967891234', N'234 Đường Hồ Xuân Huong, Phường Trường Thi, Thành phố Huế, Tỉnh Thừa Thiên Huế', 'https://antimatter.vn/wp-content/uploads/2022/04/avatar-trang-zalo.jpg', 'minh07@gmail.com'),
+('Nam', 1, '0978912345', N'678 Đường Trần Phú, Phường Hải Tân, Quận Hải An, Hải Phòng', 'https://freenice.net/wp-content/uploads/2021/08/anh-dai-dien-avatar-dep.jpg', 'kkkk08@gmail.com'),
+('Bao', 1, '0989123456', N'135 Đường Lê Duẩn, Phường Thanh Bình, Thành phố Rạch Giá, Tỉnh Kiên Giang', 'https://phunugioi.com/wp-content/uploads/2020/01/anh-dai-dien-co-gai-quay-lung.jpg', 'bao09@gmail.com'),
+('Thanh', 1, '0991234567', N'987 Đường Nguyễn Văn Cử, Phường An Hòa, Thành phố Rạch Giá, Tỉnh Kiên Giang', 'https://i.pinimg.com/736x/94/9b/8d/949b8d8d9229693ba9d53b054b738e2a.jpg', 'thanh10@gmail.com');
 
 CREATE TABLE Post(
 PostID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -213,10 +213,10 @@ OrderID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 UserID INT NOT NULL,
 OrderDate DATETIME NOT NULL,
 TotalPrice DECIMAL NOT NULL,
-CustomerName VARCHAR(MAX) NOT NULL,
+CustomerName NVARCHAR(MAX) NOT NULL,
 PhoneNumber VARCHAR(20) NOT NULL,
-Address VARCHAR(MAX) NOT NULL,
-
+Address NVARCHAR(MAX) NOT NULL,
+Payment VARCHAR(MAX) NOT NULL
 
 FOREIGN KEY (UserID) REFERENCES  [User](UserID)
 )

@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.Account;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -58,11 +59,10 @@ public class LogoutController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
        HttpSession session = request.getSession();
-        Account c = (Account)session.getAttribute("acc");
-        if(c!=null){
+       
             session.removeAttribute("acc");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
+            session.removeAttribute("user");
+      response.sendRedirect("home");
     } 
 
     /** 

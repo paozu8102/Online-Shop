@@ -5,9 +5,7 @@
 
 package Controller;
 
-import DAO.ImageDAO;
 import DAO.PostDAO;
-import Model.Image;
 import Model.Post;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -48,7 +48,17 @@ public class User extends Account {
         this.RoleID = RoleID;
 
     }
+ public User(int UserID, String UserName,String Email, String PhoneNumber, int Status) {
+        this.UserID = UserID;
+        this.UserName = UserName;
+        
+        this.PhoneNumber = PhoneNumber;
+        
+        this.Email = Email;
+        this.Status = Status;
+       
 
+    }
     public int getUserID() {
         return UserID;
     }

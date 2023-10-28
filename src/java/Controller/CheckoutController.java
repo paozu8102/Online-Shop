@@ -5,32 +5,22 @@
 package Controller;
 
 import DAO.OrderDAO;
-import DAO.ProductDAO;
-import DAO.accountDAO;
-import Model.Account;
 import Model.Cart;
-import Model.Order;
 import Model.Product;
 import Model.User;
-
-
-import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
-
+import java.io.IOException;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 
 @WebServlet(name = "CheckoutController", urlPatterns = {"/checkout"})
 public class CheckoutController extends HttpServlet {
@@ -143,7 +133,7 @@ public class CheckoutController extends HttpServlet {
         String phonenumber = request.getParameter("phone");      
         String totalPrice_raw = request.getParameter("total");
         String name = request.getParameter("customername");
-
+  String payment = request.getParameter("payment");
         Cart t = new Cart();
         OrderDAO od = new OrderDAO();
 
@@ -184,14 +174,13 @@ public class CheckoutController extends HttpServlet {
                 response.addCookie(c);
             }
 
-        }
-       
-
-        // tao order
+        }   double totalPrice = Double.parseDouble(totalPrice_raw);
+if("cod".equals(payment)){
         try{
-           double totalPrice = Double.parseDouble(totalPrice_raw);
+          
            
-            od.addOrder(user.getUserID(), totalPrice, name, address, phonenumber);  
+            od.addOrder(user.getUserID(), totalPrice, name, address, phonenumber, "COD");
+
          
             int o = od.getOrderIdLatest();
             
@@ -207,10 +196,35 @@ public class CheckoutController extends HttpServlet {
              
         
         }catch (Exception e) {
-    Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+    
     e.printStackTrace(); 
+    
 }
+}else {
+      try{
+          
+           
+                   od.addOrder(user.getUserID(), totalPrice, name, address, phonenumber, "Online");
+         
+            int o = od.getOrderIdLatest();
             
+            for (Map.Entry<Product, Integer> entry : pList.entrySet()) {
+                Product p = entry.getKey();
+                int quantity = entry.getValue();
+                double price = p.getPriceSale()*quantity;
+                
+               od.addOrderDetails(o,p.getProductID(),price,quantity);
+                od.updateProductQuantity(p.getProductID(), quantity);
+            }
+             
+             
+        
+        }catch (Exception e) {
+    
+    e.printStackTrace(); 
+    
+}
+}
 
        response.sendRedirect("order-complete.jsp");
 

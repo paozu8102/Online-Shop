@@ -77,6 +77,7 @@ public class Statistics extends HttpServlet {
         User u = (User) session.getAttribute("user");
         ArrayList<String> listCountAccount = acAO.getTotalProductByStatus(u.getUserID());
         LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
+        LinkedHashMap<String, String> listTotalRevenue = new LinkedHashMap<>();
         List<Order> list;
         List<Product> listP;
         List<Comment> listM;
@@ -90,6 +91,17 @@ public class Statistics extends HttpServlet {
         } else if (filter.equals("4")) {
             listTotal = orderDAO.getTotalOrderByYear();
         }
+        String revenue = request.getParameter("revenue");
+        if (revenue == null || revenue.isEmpty() || revenue.equals("1")) {
+            listTotalRevenue = orderDAO.getTotalPriceByMonth();
+        } else if (revenue.equals("2")) {
+            listTotalRevenue = orderDAO.getTotalPriceBy3Months();
+        } else if (revenue.equals("3")) {
+            listTotalRevenue = orderDAO.getTotalPriceBy6Months();
+        } else if (revenue.equals("4")) {
+            listTotalRevenue = orderDAO.getTotalPriceByYear();
+        }
+        
         listM= cM.getAllCommentPrd();
         listP = c.getAllProductNoIndex(u.getUserID());
         
@@ -106,6 +118,8 @@ public class Statistics extends HttpServlet {
         request.setAttribute("totalO", totalorder);
         request.setAttribute("totalP", total);
         request.setAttribute("listP", listP);
+        request.setAttribute("revenue", revenue);
+        request.setAttribute("listTotalRevenue", listTotalRevenue);
         request.getRequestDispatcher("saler-dashboard.jsp").forward(request, response);
     }
 
@@ -120,7 +134,6 @@ public class Statistics extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

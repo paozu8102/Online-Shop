@@ -5,20 +5,25 @@
 
 package Controller;
 
+
 import DAO.UserDAO;
+import Model.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author admin
  */
-@WebServlet(name="EditUserController", urlPatterns={"/edituser"})
-public class EditUserController extends HttpServlet {
+@WebServlet(name="SearchCustomer", urlPatterns={"/searchcustomer"})
+public class SearchCustomer extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,9 +35,19 @@ public class EditUserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
+        String txtSearch = request.getParameter("txt");
+          HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("user");
+        int customerCount = 0;
+        int uid = u.getUserID();
+        UserDAO dao =new UserDAO();
+        List<User> list = dao.SearchCustomer(uid, txtSearch);
+        customerCount = list.size();
+        request.setAttribute("listU", list);
+        request.setAttribute("total", customerCount);
+        request.getRequestDispatcher("customer-management.jsp").forward(request, response);
         
+       
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,19 +74,7 @@ public class EditUserController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-         
-        String statusString =request.getParameter("status");
-        String email =request.getParameter("email");
-        
-        int status;
-        if(statusString.equals("Active")){
-            status= 1;
-        } else status =0;
-        UserDAO dao = new UserDAO();
-         
-        dao.ChangeUserStatus(email ,status);
-        
-         response.sendRedirect("usercontrol");
+        processRequest(request, response);
     }
 
     /** 
