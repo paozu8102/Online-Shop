@@ -1,4 +1,5 @@
 <%@include file="template/header.jsp" %>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
 <li class="nav-item active dropdown">
@@ -26,7 +27,7 @@
 </div>
 </nav>
 <!-- END nav -->
-
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
     <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -94,7 +95,7 @@
                                     <td class="total">
                                         <a href="#" data-toggle="modal" data-target="#editOrder" 
                                            data-productname="${i.productname}" 
-                                          
+                                           data-productimage="${i.productimage}" 
                                            data-quantity="${i.quantity}" 
                                            data-price="${i.price}" 
                                            data-date="${i.date}" 
@@ -103,7 +104,11 @@
                                            data-address="${i.address}" 
                                            data-phonenumber="${i.phonenumber}" 
                                            data-status="${i.status}"
-                                           data-oid="${i.oid}">
+                                           data-oid="${i.oid}"
+                                           data-payment="${i.payment}"
+                                           data-expdate="${i.expDate}"
+                                           data-deldate="${i.delDate}"
+                                           >
 
 
 
@@ -118,30 +123,30 @@
                         </tbody>
                     </table>
                 </div>
-                   <div class="col text-center" style="margin-top: 30px;">
-                <div class="block-27">
-                    <ul>
-                        <c:if test="${tag > 1}">
-                            <li><a href="myorder?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
-                                </c:if>
+                <div class="col text-center" style="margin-top: 30px;">
+                    <div class="block-27">
+                        <ul>
+                            <c:if test="${tag > 1}">
+                                <li><a href="myorder?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                    </c:if>
 
-                        <c:forEach begin="1" end="${endP}" var="i">
-                            <li class="${tag == i ? 'active' : ''}">
-                                <a href="myorder?index=${i}">${i}</a>
-                            </li>
-                        </c:forEach>
+                            <c:forEach begin="1" end="${endP}" var="i">
+                                <li class="${tag == i ? 'active' : ''}">
+                                    <a href="myorder?index=${i}">${i}</a>
+                                </li>
+                            </c:forEach>
 
-                        <c:if test="${tag < endP}">
-                            <li><a href="myorder?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
-                                </c:if>
-                    </ul>
+                            <c:if test="${tag < endP}">
+                                <li><a href="myorder?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                    </c:if>
+                        </ul>
 
+                    </div>
                 </div>
             </div>
         </div>
-            </div>
 
-         
+
 
 
 
@@ -149,8 +154,9 @@
         <a style="display: block; text-align: center; margin-top: 20px;" href="shop">Shop more product</a>
 
 
+
         <div id="editOrder" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <form action="myorder" method="post">
                         <div class="modal-header">
@@ -158,100 +164,162 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                              
-                              <input type="hidden" name="oid" >
-                            </div>
-                            <div class="form-group">
-                                <label>Date</label>
-                                <p name="date" style="color: black;" ></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Product Name</label>
-                                <p name="productname" style="color: black;"></p>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Quantity </label>
-                                <p name="quantity" style="color: black;"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Price</label>
-                                <p name="price" style="color: black;"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Name</label>
-                                <p name="customername" style="color: black;"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <p name="address" style="color: black;"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <p name="phonenumber" style="color: black;"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Shop</label>
-                                <p name="sellname" style="color: black;"></p>
-                            </div>
-                            <div class="form-group">
-                                <label>Status</label>
-                                <p name="status" style="color: black;"></p>
-                            </div>
+                            <div class="row">
+                                   <div class="form-group">
 
+                                <input type="hidden" name="oid" >
+                            </div>
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Product Name</label>
+                                        <p name="productname" style="color: black;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quantity</label>
+                                        <p name="quantity" style="color: black;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                        <p name="price" style="color: black;"></p>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Shop</label>
+                                        <p name="sellname" style="color: black;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <p name="status" style="color: black;"></p>
+                                    </div>
+                                       <div class="form-group">
+                                        <label>Payment Method</label>
+                                        <p name="payment" style="color: black;"></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Order Date</label>
+                                        <p name="date" style="color: black;"></p>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Expected Date</label>
+                                        <p name="expDate" style="color: black;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Delivery Date</label>
+                                        <p name="delDate" style="color: black;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <p name="customername" style="color: black;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <p name="address" style="color: black;"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <p name="phonenumber" style="color: black;"></p>
+                                    </div>
+                                  
+                                </div>
+                               
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
-                           <input type="submit" class="btn btn-success" value="Cancel This Order" style="background-color: red;" onclick="return confirmCancellation();">
+                                   <input type="submit" id="cancelButton" class="btn btn-success" value="Cancel This Order" style="background-color: red;" onclick="return confirmCancellation();">
+<div id="cancellationMessage" style="color: red;"></div>
 
-
-
+                        
+                            
                         </div>
                     </form>
                 </div>
             </div>
         </div>
 
-</div>
+
+    </div>
 
 
 </section>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
     $('a[data-target="#editOrder"]').click(function () {
-        var productname = $(this).data('productname');
-        var quantity = $(this).data('quantity');
-        var price = $(this).data('price');
-        var date = $(this).data('date');
-        var sellname = $(this).data('sellname');
-        var customername = $(this).data('customername');
-        var address = $(this).data('address');
-        var phonenumber = $(this).data('phonenumber');
         var status = $(this).data('status');
-var oid = $(this).data('oid');
-        
-        $('#editOrder p[name="productname"]').text(productname);
-        $('#editOrder p[name="quantity"]').text(quantity);
-        $('#editOrder p[name="price"]').text(price);
-        $('#editOrder p[name="date"]').text(date);
-        $('#editOrder p[name="sellname"]').text(sellname);
-        $('#editOrder p[name="customername"]').text(customername);
-        $('#editOrder p[name="address"]').text(address);
-        $('#editOrder p[name="phonenumber"]').text(phonenumber);
+        var expdate = $(this).data('expdate') || "Unknown";
+        var deldate = $(this).data('deldate') || "Unknown";
+
         $('#editOrder p[name="status"]').text(status);
-         $('#editOrder input[name="oid"]').val(oid);
+        $('#editOrder p[name="expDate"]').text(expdate);
+        $('#editOrder p[name="delDate"]').text(deldate);
+
+        var cancelButton = $('#cancelButton');
+        if (status === 'cancel') {
+            cancelButton.hide();
+            $('#cancellationMessage').text("This Order is canceled");
+        } else {
+            cancelButton.show();
+            $('#cancellationMessage').text(""); // Reset the message
+        }
     });
+</script>
+
+<script>
+                       $(document).ready(function() {
+    var status = $('#editOrder p[name="status"]').text();
+    if (status === 'cancel') {
+        $('input[type="submit"]').hide();
+    }
+});
+
+                    </script>
+<script>
+                                $('a[data-target="#editOrder"]').click(function () {
+                                    var productname = $(this).data('productname');
+                                    var quantity = $(this).data('quantity');
+                                    var price = $(this).data('price');
+                                    var date = $(this).data('date');
+                                    var sellname = $(this).data('sellname');
+                                    var customername = $(this).data('customername');
+                                    var address = $(this).data('address');
+                                    var phonenumber = $(this).data('phonenumber');
+                                    var status = $(this).data('status');
+                                    var payment = $(this).data('payment');
+                                    var oid = $(this).data('oid');
+                                    var expdate = $(this).data('expdate') || "Unknown";
+                                    var deldate = $(this).data('deldate') || "Unknown";
+                                    
+
+
+                                    $('#editOrder p[name="productname"]').text(productname);
+                                    $('#editOrder p[name="quantity"]').text(quantity);
+                                    $('#editOrder p[name="price"]').text(price);
+                                    $('#editOrder p[name="date"]').text(date);
+                                    $('#editOrder p[name="sellname"]').text(sellname);
+                                    $('#editOrder p[name="customername"]').text(customername);
+                                    $('#editOrder p[name="address"]').text(address);
+                                    $('#editOrder p[name="phonenumber"]').text(phonenumber);
+                                    $('#editOrder p[name="status"]').text(status);
+                                    $('#editOrder input[name="oid"]').val(oid);
+                                    $('#editOrder p[name="payment"]').text(payment);
+                                    $('#editOrder p[name="expDate"]').text(expdate);
+                                    $('#editOrder p[name="delDate"]').text(deldate);
+                              
+
+
+                                });
+
 </script>
 
 
 <script>
-function confirmCancellation() {
-    var confirmation = confirm("Are you sure to cancel this order?");
-    return confirmation;
-}
+    function confirmCancellation() {
+        var confirmation = confirm("Are you sure to cancel this order?");
+        return confirmation;
+    }
 </script>
 
 

@@ -181,48 +181,24 @@
                                         <thead>
                                             <tr>
                                                 <th class="border-top-0">#</th>
-                                                <th class="border-top-0">UserID</th>
-                                                <th class="border-top-0">User Name</th>
+                                                <th class="border-top-0">CustomerID</th>
+                                                <th class="border-top-0">Customer Name</th>
                                                 <th class="border-top-0">Date of Order</th>
+                                                  <th class="border-top-0">Status</th>
+                                            </tr
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
+                                            
                                             <tr>
                                                 <td>1</td>
                                                 <td>2</td>
                                                 <td>Hoang</td>
                                                 <td>23-02-2003</td>
+                                                 <td>Pending</td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>2</td>
-                                                <td>Hoang</td>
-                                                <td>23-02-2003</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>2</td>
-                                                <td>Hoang</td>
-                                                <td>23-02-2003</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>2</td>
-                                                <td>Hoang</td>
-                                                <td>23-02-2003</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>2</td>
-                                                <td>Hoang</td>
-                                                <td>23-02-2003</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>2</td>
-                                                <td>Hoang</td>
-                                                <td>23-02-2003</td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>

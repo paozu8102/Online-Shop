@@ -174,6 +174,83 @@ public class UserDAO extends DBContext {
 
         return list;
     }
+    
+public List<Setting> getSettingNameSort(String sort) {
+    List<Setting> list = new ArrayList<>();
+    String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName "
+            + "FROM Category "
+            + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID "
+            + "ORDER BY Category.CategoryName " + sort;
+
+    try {
+        PreparedStatement st = getConnection().prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        
+        while (rs.next()) {
+            list.add(new Setting(rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(5),
+                    rs.getInt(3),
+                    rs.getString(4)
+            ));
+        }
+    } catch (SQLException e) {
+        // Handle SQL exception
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+    } catch (Exception e) {
+        // Handle other exceptions
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+    }
+
+    return list;
+}
+
+public List<User> getUserNameSort(String sort) {
+    List<User> list = new ArrayList<>();
+    String sql = "SELECT\n"
+            + "    U.UserID,\n"
+            + "    U.UserName,\n"
+            + "    U.Gender,\n"
+            + "    U.PhoneNumber,\n"
+            + "    U.Address,\n"
+            + "    U.Avatar,\n"
+            + "    U.Email,\n"
+            + "    A.Status,\n"
+            + "    A.RoleID\n"
+            + "FROM\n"
+            + "    [User] U\n"
+            + "INNER JOIN\n"
+            + "    Account A ON U.Email = A.Email\n"
+            + "ORDER BY U.UserName " + sort; // Sort by UserName
+
+    try {
+        PreparedStatement st = getConnection().prepareStatement(sql);
+
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            list.add(new User(
+                rs.getInt(1),
+                rs.getString(2),
+                rs.getInt(3),
+                rs.getString(4),
+                rs.getString(5),
+                rs.getString(6),
+                rs.getString(7),
+                rs.getInt(8),
+                rs.getInt(9)
+            ));
+        }
+    } catch (SQLException e) {
+        // Handle SQL exception
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+    } catch (Exception e) {
+        // Handle other exceptions
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+    }
+
+    return list;
+}
+
 
     //get all Category Setting MinhHC
     public List<Setting> getAllSettingCat() {

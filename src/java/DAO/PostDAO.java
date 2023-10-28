@@ -523,6 +523,30 @@ public class PostDAO extends DBContext {
         return idList;
     }
 
+    //get all category of post
+    public ArrayList<Map<String, String>> getPostCategory() {
+        ArrayList<Map<String, String>> dataList = new ArrayList<>();
+        String command = "SELECT c.CategoryID\n"
+                + "	   , c.CategoryName\n"
+                + "	   , c.[Description]\n"
+                + "FROM Category c\n"
+                + "WHERE c.ObjectTypeID = 2\n"
+                + "	  AND c.Status = 1";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(command);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                Map<String, String> dataMap = new HashMap<>();
+                dataMap.put("CategoryID", rs.getString("CategoryID"));
+                dataMap.put("CategoryName", rs.getString("CategoryName"));
+                dataMap.put("Description", rs.getString("Description"));
+                dataList.add(dataMap);
+            }
+        } catch (Exception e) {
+        }
+        return dataList;
+    }
+
     public static void main(String[] args) {
         ArrayList<Comment> dataList = new PostDAO().getAllRootCommentByPostID("1");
         for (int i = 0; i < dataList.size(); i++) {
@@ -533,7 +557,7 @@ public class PostDAO extends DBContext {
             System.out.println(repcomment.get(i).size());
         }
 
-        ArrayList<Map<String, String>> dataList2 = new PostDAO().getPostNumberPerCategory();
+        ArrayList<Map<String, String>> dataList2 = new PostDAO().getPostCategory();
         for (int i = 0; i < dataList2.size(); i++) {
             System.out.println(dataList2.get(i).toString());
         }

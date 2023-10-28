@@ -19,6 +19,7 @@ public class Order {
     private String address;
     private String phonenumber;
     private User user;
+    private String payment;
 
 
     public Order() {
@@ -30,6 +31,26 @@ public class Order {
         this.id = id;
         this.date = date;
         this.cusid = cusid;
+        this.totalmoney = totalmoney;
+        this.customername = customername;
+        this.address = address;
+        this.phonenumber = phonenumber;
+    }
+
+    public Order(int id, String date, int cusid, double totalmoney, String customername, String address, String phonenumber, String payment) {
+        this.id = id;
+        this.date = date;
+        this.cusid = cusid;
+        this.totalmoney = totalmoney;
+        this.customername = customername;
+        this.address = address;
+        this.phonenumber = phonenumber;
+        this.payment = payment;
+    }
+
+
+    public Order(int id, double totalmoney, String customername, String address, String phonenumber) {
+        this.id = id;
         this.totalmoney = totalmoney;
         this.customername = customername;
         this.address = address;
@@ -73,6 +94,10 @@ public class Order {
         this.customername = customername;
     }
 
+    public String getCustomername() {
+        return customername;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -98,6 +123,13 @@ public class Order {
     }
 
   
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
 
    
 

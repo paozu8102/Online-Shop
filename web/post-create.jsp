@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -30,7 +31,7 @@ body{
 }
 .container{
   width: 500px;
-  height: 480px;
+  height: 500px;
   overflow: hidden;
   background: #fff;
   border-radius: 10px;
@@ -292,10 +293,55 @@ input[type='checkbox'] {
     height:25px;
     background:white;
     border-radius:50%;
-/*    border:2px solid #555;*/
+    border:1px solid #82ae46;
 }
 input[type='checkbox']:checked {
-    background: black;
+    background: #82ae46;
+}
+
+.scrollable-container {
+  height: 450px; /* Set the desired height for your scrollable area */
+  overflow: auto; /* This enables the scrollbars when the content overflows */
+}
+
+/* Style for the image thumbnails in the second div */
+.image-thumbnail {
+  display: inline-block;
+  margin: 5px;
+  position: relative;
+}
+
+/* Style for the remove button (X) */
+.remove-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  background: rgba(255, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 0;
+}
+
+.image-container img{
+    height: 80%;
+    width: auto;
+}
+
+.image-container{
+    height: 100%;
+    width: 20%;
+    display: inline-block;
+}
+
+.close-button{
+    font-size: 25px;
+    margin-top: -10px;
+    cursor: pointer;
 }
 </style>
     <div class="container">
@@ -317,9 +363,17 @@ input[type='checkbox']:checked {
             <div class="options">
               <p>Add images to Your Post</p>
               <ul class="list">
-                <li><img src="images/gallery.jpg" alt="gallery"></li>
+                <li><img onclick="openFileDialog();" src="images/gallery.jpg" alt="gallery"></li>
+                <input type="file" id="imageInput" accept="image/*" style="display: none">
               </ul>
+              
             </div>
+            <div id="imageList" style="margin-top: 20px; overflow-x: scroll; width: 100%; white-space: nowrap">
+                <div class="image-container" id="image1">
+                    <div onclick="removeElement('image1');" class="close-button">&times;</div>
+                    <img src="images/about.jpg" alt="Snow" style="width:100%; position: relative">
+                </div>
+        </div>
             <button>Post</button>
           </form>
         </section>
@@ -332,67 +386,32 @@ input[type='checkbox']:checked {
             <p>What category will your post is?</p>
             <span>You can choose as many category as you want</span>
           </div>
+          <div class="scrollable-container">
           <ul class="list">
-              
+            <c:forEach items="${cateList}" var="cate">
             <li>
               <div class="column">
                 <div class="details">
-                  <p>Public</p>
-                  <span>Anyone on or off Facebook</span>
+                  <p>${cate.CategoryName}</p>
+                  <span style="width: 100%;">${cate.Description}</span>
                 </div>
               </div>
-              <div class="radio"></div>
+                  <input value="${cate.CategoryID}" type="checkbox" id="checkbox" name="checkbox">
             </li>
-            
-            <li>
-              <div class="column">
-                <div class="details">
-                  <p>Friends</p>
-                  <span>Your friends on Facebook</span>
-                </div>
-              </div>
-              <input type="checkbox" id="checkbox" name="checkbox">
-            </li>
-            
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-user"></i></div>
-                <div class="details">
-                  <p>Specific</p>
-                  <span>Only show to some friends</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-lock"></i></div>
-                <div class="details">
-                  <p>Only me</p>
-                  <span>Only you can see your post</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            
-            <li>
-              <div class="column">
-                <div class="icon"><i class="fas fa-cog"></i></div>
-                <div class="details">
-                  <p>Custom</p>
-                  <span>Include and exclude friends</span>
-                </div>
-              </div>
-              <div class="radio"></div>
-            </li>
-            
+            </c:forEach>
           </ul>
+          </div>
         </section>
       </div>
     </div>
 
-    <script>
+  </body>
+  <script>
+  function removeElement(id){
+      const elementToRemove = document.getElementById(id);
+      elementToRemove.remove();
+  }
+  
       const container = document.querySelector(".container"),
       privacy = container.querySelector(".post .privacy"),
       arrowBack = container.querySelector(".audience .arrow-back");
@@ -404,7 +423,38 @@ input[type='checkbox']:checked {
       arrowBack.addEventListener("click", () => {
         container.classList.remove("active");
       });
-    </script>
+      
+const input = document.getElementById('imageInput');
+let timeout = null;
+let dialogopen = false;
+function checkFiles(run) {
+  dialogopen = false;
+  //console.log("File count:", input.files.length);
+  if(input.files.length > 0){
+  alert(input.files.length);
+  }
+}
+input.addEventListener('change', () => {
+  clearTimeout(timeout);
+  checkFiles(input.files.length);
+});
+input.addEventListener('click', () => {
+  clearTimeout(timeout);
+  dialogopen = true;
+});
+window.addEventListener('focus', () => {
+  if (dialogopen) {
+    input.value = '';
+    input.files = null;
+    
+    clearTimeout(timeout);
+    timeout = setTimeout(checkFiles(input.files.length), 100);
+  }
+});
+      
+      function openFileDialog(){
+          document.getElementById("imageInput").click();
+      }
 
-  </body>
+    </script>
 </html>

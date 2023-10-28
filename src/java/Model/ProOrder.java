@@ -10,10 +10,9 @@ package Model;
  */
 public class ProOrder {
 
-    
-       private int oid, pid;
-        private String productname;
-        private String productimage;
+    private int oid, pid;
+    private String productname;
+    private String productimage;
     private int quantity;
     private double price;
     private String date;
@@ -24,11 +23,14 @@ public class ProOrder {
     private String address;
     private String phonenumber;
     private String status;
+    private String expDate;
+    private String delDate;
+    private String payment;
 
     public ProOrder() {
     }
 
-    public ProOrder(int oid,String productname, String productimage, int quantity, double price, String date, String sellname, String customername, String address, String phonenumber, String status) {
+    public ProOrder(int oid, String productname, String productimage, int quantity, double price, String date, String sellname, String customername, String address, String phonenumber, String status,String expDate, String delDate, String payment) {
         this.oid = oid;
         this.productname = productname;
         this.productimage = productimage;
@@ -40,6 +42,17 @@ public class ProOrder {
         this.address = address;
         this.phonenumber = phonenumber;
         this.status = status;
+        this.payment = payment;
+            this.expDate = expDate;
+                this.delDate = delDate;
+    }
+
+    public ProOrder(int cusid, double price, String customername, String address, String phonenumber) {
+        this.price = price;
+        this.cusid = cusid;
+        this.customername = customername;
+        this.address = address;
+        this.phonenumber = phonenumber;
     }
 
     public int getOid() {
@@ -154,6 +167,28 @@ public class ProOrder {
         this.status = status;
     }
 
-   
+    public String getExpDate() {
+        return expDate;
+    }
+
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    public String getDelDate() {
+        return delDate;
+    }
+
+    public void setDelDate(String delDate) {
+        this.delDate = delDate;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
 
 }
