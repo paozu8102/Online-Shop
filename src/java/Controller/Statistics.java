@@ -2,10 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller;
 
+import DAO.CommentDAO;
+import DAO.OrderDAO;
 import DAO.ProductDAO;
+import DAO.accountDAO;
+import Model.Comment;
+import Model.Order;
+import Model.Product;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,41 +20,47 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  *
  * @author Acer
  */
-@WebServlet(name="Statistics", urlPatterns={"/statistic"})
+@WebServlet(name = "Statistics", urlPatterns = {"/statistic"})
 public class Statistics extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Statistics</title>");  
+            out.println("<title>Servlet Statistics</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Statistics at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet Statistics at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -57,21 +68,50 @@ public class Statistics extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         ProductDAO c = new ProductDAO();
+        accountDAO acAO = new accountDAO();
+        OrderDAO orderDAO = new OrderDAO();
+        CommentDAO cM = new CommentDAO();
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
+        ArrayList<String> listCountAccount = acAO.getTotalProductByStatus(u.getUserID());
+        LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
+        List<Order> list;
+        List<Product> listP;
+        List<Comment> listM;
+        String filter = request.getParameter("filter");
+        if (filter == null || filter.isEmpty() || filter.equals("1")) {
+            listTotal = orderDAO.getTotalOrderByMonth();
+        } else if (filter.equals("2")) {
+            listTotal = orderDAO.getTotalOrderBy3Month();
+        } else if (filter.equals("3")) {
+            listTotal = orderDAO.getTotalOrderBy6Month();
+        } else if (filter.equals("4")) {
+            listTotal = orderDAO.getTotalOrderByYear();
+        }
+        listM= cM.getAllCommentPrd();
+        listP = c.getAllProductNoIndex(u.getUserID());
+        
         int total = c.getTotalProductCountByUserId(u.getUserID());
         int totalorder = c.getTotalOrderProductCountByUserId(u.getUserID());
         int totalprice = c.getTotalPriceByUserId(u.getUserID());
+        request.setAttribute("listM", listM);
+       
+        request.setAttribute("listCountAccount", listCountAccount);
+        request.setAttribute("listCountAccount", listCountAccount);
+        request.setAttribute("listTotal", listTotal);
+        request.setAttribute("filter", filter);
         request.setAttribute("totalR", totalprice);
         request.setAttribute("totalO", totalorder);
         request.setAttribute("totalP", total);
+        request.setAttribute("listP", listP);
         request.getRequestDispatcher("saler-dashboard.jsp").forward(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -79,12 +119,13 @@ public class Statistics extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

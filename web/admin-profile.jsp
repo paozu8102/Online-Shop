@@ -264,7 +264,7 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group mb-4">
-                                                    <button type="submit" class="btn btn-success mx-1">Update Profile</button>
+                                                    <button class="btn btn-success mx-1">Update Profile</button>
                                                     <a href="change-user-password.jsp" class="btn btn-success mx-1">Change Password</a>
                                                 </div>
                                             </div>

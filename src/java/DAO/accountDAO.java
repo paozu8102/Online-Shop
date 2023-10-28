@@ -138,4 +138,35 @@ public class accountDAO extends DBContext{
         }
         return result;
     }
+    //HoangNH
+   public ArrayList<String> getTotalProductByStatus(int userID){
+    String sql = "SELECT Status, COUNT(Status) AS StatusCount\n"
+            + "FROM [Product]\n"
+            + "WHERE UserID = ?\n"
+            + "GROUP BY Status\n";
+    ArrayList<String> result = new ArrayList<>();
+    try {
+        PreparedStatement ps = getConnection().prepareStatement(sql);
+        ps.setInt(1, userID);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            result.add(rs.getInt(2) + "");
+        }
+    }   catch (Exception ex) {
+            Logger.getLogger(accountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    if(result.isEmpty()) {
+            result.add("0");
+            result.add("0");
+        }
+        else if(result.size() == 1) {
+            result.add("0");
+        }
+        return result;
+}
+    public static void main(String[] args) {
+        accountDAO d = new accountDAO();
+        System.out.println(d.getTotalProductByStatus(9));
+    }
 }

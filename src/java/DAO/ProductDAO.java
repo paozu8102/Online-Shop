@@ -369,7 +369,7 @@ public class ProductDAO extends DBContext {
                 + "        Category AS C ON PC.CategoryID = C.CategoryID\n"
                 + ")\n"
                 + "\n"
-                + "SELECT\n"
+                + "SELECT TOP 5\n"
                 + "    P.ProductID,\n"
                 + "    P.ProductName,\n"
                 + "    P.Price,\n"
@@ -393,7 +393,8 @@ public class ProductDAO extends DBContext {
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
                 + "    AND RC.CategoryRank = 1"
-                + "AND P.UserID = ? ";
+                + "AND P.UserID = ? "
+                + "order by ProductID DESC ";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             st.setInt(1, userID);

@@ -76,7 +76,7 @@ public class UpdateSalerProfile extends HttpServlet {
 
         User user = new User(userId, username, gender, phonenumber, address, imageUrl + imageName, email);
         request.getSession().setAttribute("user", user);
-        (new UserDAO()).updateUser(user);
+        (new UserDAO()).updateSaler(user);
         request.getRequestDispatcher("salerprofile").forward(request, response);
     } 
 
