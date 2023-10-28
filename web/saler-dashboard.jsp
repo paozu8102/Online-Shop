@@ -338,47 +338,54 @@
                     <!-- RECENT SALES -->
                     <!-- ============================================================== -->
                     <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12">
+                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                             <div class="white-box">
-                                <div class="d-md-flex mb-3">
-                                    <h3 class="box-title mb-0">Recent Orders</h3>
-                                    <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                                        <select class="form-select shadow-none row border-top">
-                                            <option>March 2021</option>
-                                            <option>April 2021</option>
-                                            <option>May 2021</option>
-                                            <option>June 2021</option>
-                                            <option>July 2021</option>
+                                <h3 class="box-title">Revenue Statistics</h3>
+                                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
+                                    <form  id="revenue" action="statistic">
+                                        <select class="form-select shadow-none row border-top" name="revenue" onchange="submit()">
+                                           
+                                            <option value="1" ${revenue eq '1' ? 'selected' : ''}>1 Month</option>
+                                            <option value="2" ${revenue eq '2' ? 'selected' : ''}>3 Month</option>
+                                            <option value="3" ${revenue eq '3' ? 'selected' : ''}>6 Month</option>
+                                            <option value="4" ${revenue eq '4' ? 'selected' : ''}>1 Year</option>
                                         </select>
-                                    </div>
+                                    </form> 
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table no-wrap">
-                                        <thead>
-                                            <tr>
-                                                <th class="border-top-0">Order ID</th>
-                                                <th class="border-top-0">Date</th>
-                                                <th class="border-top-0">Customer Name</th>
-                                                <th class="border-top-0">Total Price</th>
-                                                <th class="border-top-0">State</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            <c:forEach items="${listO}" var="i">          
-                                                <tr>
-                                                    <td>${i.id}</td>
-                                                    <td>${i.date}</td>
-                                                    <td>${i.user.userName}</td>
-                                                    <td>${i.totalmoney}$</td>
-
-                                                    <td  class="price" style="color: ${i.status == 1 ? 'blue' : 'red'}">${i.status == 1 ? 'On-Going' : 'Canceled'}</td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-
-                                    </table>
+                                <div>
+                                    <canvas id="arChart"></canvas>
                                 </div>
+
+                                <script>
+                                    function submit() {
+                                        document.getElementById('revenue').submit();
+                                    }
+                                </script>
+                                <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ctx = document.getElementById('arChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ${listTotalRevenue.keySet()},
+                datasets: [{
+                    label: 'Revenue Statistical',
+                    data: ${listTotalRevenue.values()},
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
                             </div>
                         </div>
                     </div>

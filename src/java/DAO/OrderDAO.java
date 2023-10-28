@@ -340,6 +340,57 @@ public void CancelOrder(int id) {
 
         return listTotal;
     }
+    //hoangnh
+public LinkedHashMap<String, String> getTotalPriceByMonth() {
+    String sql = "WITH DateSequence AS (\n"
+            + "    SELECT top 1\n"
+            + "        DATEADD(WEEK, DATEDIFF(WEEK, 0, DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0)), 0) AS WeekStart\n"
+            + "    UNION ALL\n"
+            + "    SELECT\n"
+            + "        DATEADD(WEEK, 1, WeekStart)\n"
+            + "    FROM DateSequence\n"
+            + "    WHERE\n"
+            + "        DATEADD(WEEK, 1, WeekStart) < DATEADD(MONTH, 1, DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0))\n"
+            + ")\n"
+            + "SELECT\n"
+            + "    WeekStart,\n"
+            + "    DATEADD(DAY, 6, WeekStart) AS WeekEnd,\n"
+            + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
+            + "FROM\n"
+            + "    DateSequence ds\n"
+            + "LEFT JOIN\n"
+            + "    [Orders] o ON o.OrderDate >= ds.WeekStart AND o.OrderDate < DATEADD(DAY, 7, ds.WeekStart)\n"
+            + "GROUP BY\n"
+            + "    WeekStart\n"
+            + "ORDER BY\n"
+            + "    WeekStart;";
+    
+    LinkedHashMap<String, String> listTotalRevenue = new LinkedHashMap<>();
+    
+    try {
+        PreparedStatement ps = getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            listTotalRevenue.put(
+                "'" + rs.getString(1).split(" ")[0] + " / " + rs.getString(2).split(" ")[0] + "'", 
+                rs.getString(3)
+            );
+        }
+    } catch (Exception e) {
+        System.out.println("getTotalPriceByMonth: " + e.getMessage());
+    }
+    
+    for (Map.Entry<String, String> entry : listTotalRevenue.entrySet()) {
+        Object key = entry.getKey();
+        Object val = entry.getValue();
+        System.out.println(key + " " + val);
+    }
+    
+    System.out.println(listTotalRevenue.keySet());
+    System.out.println(listTotalRevenue.values());
+    
+    return listTotalRevenue;
+}
 
     //calculates the total number of orders for each day of the past 3 months: BaoMV
     public LinkedHashMap<String, String> getTotalOrderBy3Month() {
@@ -387,6 +438,58 @@ public void CancelOrder(int id) {
 
         return listTotal;
     }
+    //hoangnh
+    public LinkedHashMap<String, String> getTotalPriceBy3Months() {
+    String sql = "WITH Months AS (\n"
+            + "    SELECT 0 AS MonthOffset\n"
+            + "    UNION ALL\n"
+            + "    SELECT MonthOffset - 1\n"
+            + "    FROM Months\n"
+            + "    WHERE MonthOffset > -2\n"
+            + ")\n"
+            + "\n"
+            + "SELECT\n"
+            + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())) AS MonthStart,\n"
+            + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE()))) AS MonthEnd,\n"
+            + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
+            + "FROM\n"
+            + "    Months m\n"
+            + "LEFT JOIN\n"
+            + "    [Orders] o ON YEAR(o.OrderDate) = YEAR(EOMONTH(GETDATE(), m.MonthOffset))\n"
+            + "                   AND MONTH(o.OrderDate) = MONTH(EOMONTH(GETDATE(), m.MonthOffset))\n"
+            + "GROUP BY\n"
+            + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())),\n"
+            + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE())))\n"
+            + "ORDER BY\n"
+            + "    MonthStart;";
+    
+    LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
+    
+    try {
+        PreparedStatement ps = getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            listTotal.put(
+                "'" + rs.getString(1).split(" ")[0] + " / " + rs.getString(2).split(" ")[0] + "'", 
+                rs.getString(3)
+            );
+        }
+    } catch (Exception e) {
+        System.out.println("getTotalPriceBy3Months: " + e.getMessage());
+    }
+    
+    for (Map.Entry<String, String> entry : listTotal.entrySet()) {
+        Object key = entry.getKey();
+        Object val = entry.getValue();
+        System.out.println(key + " " + val);
+    }
+    
+    System.out.println(listTotal.keySet());
+    System.out.println(listTotal.values());
+    
+    return listTotal;
+}
+
 
     //calculates the total number of orders for each day of the past 6 months: BaoMV
     public LinkedHashMap<String, String> getTotalOrderBy6Month() {
@@ -434,6 +537,57 @@ public void CancelOrder(int id) {
 
         return listTotal;
     }
+    //hoangnh
+public LinkedHashMap<String, String> getTotalPriceBy6Months() {
+    String sql = "WITH Months AS (\n"
+            + "    SELECT 0 AS MonthOffset\n"
+            + "    UNION ALL\n"
+            + "    SELECT MonthOffset - 1\n"
+            + "    FROM Months\n"
+            + "    WHERE MonthOffset > -5\n"
+            + ")\n"
+            + "\n"
+            + "SELECT\n"
+            + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())) AS MonthStart,\n"
+            + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE()))) AS MonthEnd,\n"
+            + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
+            + "FROM\n"
+            + "    Months m\n"
+            + "LEFT JOIN\n"
+            + "    [Orders] o ON YEAR(o.OrderDate) = YEAR(EOMONTH(GETDATE(), m.MonthOffset))\n"
+            + "                   AND MONTH(o.OrderDate) = MONTH(EOMONTH(GETDATE(), m.MonthOffset))\n"
+            + "GROUP BY\n"
+            + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())),\n"
+            + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE())))\n"
+            + "ORDER BY\n"
+            + "    MonthStart;";
+    
+    LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
+    
+    try {
+        PreparedStatement ps = getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            listTotal.put(
+                "'" + rs.getString(1).split(" ")[0] + " / " + rs.getString(2).split(" ")[0] + "'", 
+                rs.getString(3)
+            );
+        }
+    } catch (Exception e) {
+        System.out.println("getTotalPriceBy6Months: " + e.getMessage());
+    }
+    
+    for (Map.Entry<String, String> entry : listTotal.entrySet()) {
+        Object key = entry.getKey();
+        Object val = entry.getValue();
+        System.out.println(key + " " + val);
+    }
+    
+    System.out.println(listTotal.keySet());
+    System.out.println(listTotal.values());
+    
+    return listTotal;
+}
 
     //calculates the total number of orders for each day of the past year: BaoMV
     public LinkedHashMap<String, String> getTotalOrderByYear() {
@@ -494,6 +648,52 @@ public void CancelOrder(int id) {
 
         return listTotal;
     }
+    public LinkedHashMap<String, String> getTotalPriceByYear() {
+    String sql = "WITH Months AS (\n"
+            + "    SELECT 1 AS MonthIndex\n"
+            + "    UNION ALL\n"
+            + "    SELECT MonthIndex + 1\n"
+            + "    FROM Months\n"
+            + "    WHERE MonthIndex < 12\n"
+            + ")\n"
+            + "\n"
+            + "SELECT\n"
+            + "    DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1) AS YearStart,\n"
+            + "    EOMONTH(DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1)) AS YearEnd,\n"
+            + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
+            + "FROM\n"
+            + "    Months\n"
+            + "LEFT JOIN\n"
+            + "    [Orders] o ON YEAR(o.OrderDate) = YEAR(GETDATE())\n"
+            + "GROUP BY\n"
+            + "    DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1)\n"
+            + "ORDER BY\n"
+            + "    DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1);";
+    
+    LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
+    
+    try {
+        PreparedStatement ps = getConnection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            listTotal.put("'" + rs.getString(1) + "'", rs.getString(3));
+        }
+    } catch (Exception e) {
+        System.out.println("getTotalPriceByYear: " + e.getMessage());
+    }
+    
+    for (Map.Entry<String, String> entry : listTotal.entrySet()) {
+        Object key = entry.getKey();
+        Object val = entry.getValue();
+        System.out.println(key + " " + val);
+    }
+    
+    System.out.println(listTotal.keySet());
+    System.out.println(listTotal.values());
+    
+    return listTotal;
+}
+
 
     public ArrayList<String> getLast7Day() {
         LocalDate currentDate = LocalDate.now();
