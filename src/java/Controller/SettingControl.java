@@ -4,8 +4,6 @@
  */
 package Controller;
 
-
-
 import DAO.UserDAO;
 import Model.Account;
 import Model.Setting;
@@ -35,14 +33,14 @@ public class SettingControl extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("acc");
         if (a.getRoleID() != 1) {
-    return;
-}
+            return;
+        }
 
         String indexPage = request.getParameter("index");
         if (indexPage == null) {
@@ -56,10 +54,34 @@ public class SettingControl extends HttpServlet {
         if (count % 9 != 0) {
             endPage++;
         }
-        List<Setting> listC = c.getAllSetting(index);
+        String settingtype = request.getParameter("settingtype");
+        String settingstatus = request.getParameter("settingstatus");
+        String sortname = request.getParameter("sortname");
+        List<Setting> listC = null;
+
+        if ("all".equals(settingtype) || "all".equals(settingstatus)) {
+            listC = c.getAllSetting(index);
+            request.setAttribute("endP", endPage);
+            request.setAttribute("tag", index);
+        } else if ("type".equals(settingtype)) {
+            listC = c.getAllSettingTyp();
+        } else if ("category".equals(settingtype)) {
+            listC = c.getAllSettingCat();
+        } else if ("post".equals(settingtype)) {
+            listC = c.getAllSettingPost();
+        } else if ("active".equals(settingstatus)) {
+            listC = c.getSettingActive();
+        } else if ("inactive".equals(settingstatus)) {
+            listC = c.getSettingInactive();
+        } else if (sortname != null) {
+            listC = c.getSettingNameSort(sortname);
+        } else {
+            listC = c.getAllSetting(index);
+            request.setAttribute("endP", endPage);
+            request.setAttribute("tag", index);
+        }
         request.setAttribute("listC", listC);
-        request.setAttribute("endP", endPage);
-        request.setAttribute("tag", index);
+
         request.getRequestDispatcher("setting-management.jsp").forward(request, response);
 
     }
@@ -90,27 +112,7 @@ public class SettingControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-   String settingtype = request.getParameter("setting_type");
-String settingstatus = request.getParameter("setting_status");
-UserDAO c = new UserDAO();
-List<Setting> listC = null;
-
-if ("all".equals(settingtype) || "all".equals(settingstatus)) {
-    listC = c.getAllSetting();
-} else if ("type".equals(settingtype)) {
-    listC = c.getAllSettingTyp();
-} else if ("category".equals(settingtype)) {
-    listC = c.getAllSettingCat();
-} else if("post".equals(settingtype)){
-    listC = c.getAllSettingPost();
-} else if ("active".equals(settingstatus)) {
-    listC = c.getSettingActive();
-} else if ("inactive".equals(settingstatus)) {
-    listC = c.getSettingInactive();
-}
-
-request.setAttribute("listC", listC);
-request.getRequestDispatcher("setting-management.jsp").forward(request, response);
+        processRequest(request, response);
 
     }
 
