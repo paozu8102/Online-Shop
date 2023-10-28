@@ -191,4 +191,9 @@ public class ProOrder {
         this.payment = payment;
     }
 
+    @Override
+    public String toString() {
+        return "ProOrder{" + "oid=" + oid + ", pid=" + pid + ", productname=" + productname + ", productimage=" + productimage + ", quantity=" + quantity + ", price=" + price + ", date=" + date + ", cusid=" + cusid + ", sellid=" + sellid + ", sellname=" + sellname + ", customername=" + customername + ", address=" + address + ", phonenumber=" + phonenumber + ", status=" + status + ", expDate=" + expDate + ", delDate=" + delDate + ", payment=" + payment + '}';
+    }
+
 }
