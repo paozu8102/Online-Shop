@@ -33,31 +33,34 @@ import java.util.List;
 
 public class OrderDAO extends DBContext {
 
-    public void addOrder(int userid, double totalPrice, String customername, String address, String phonenumber) {
-        LocalDateTime curDate = LocalDateTime.now();
-        String date = curDate.toString();
+public void addOrder(int userid, double totalPrice, String customername, String address, String phonenumber, String payment) {
+    LocalDateTime curDate = LocalDateTime.now();
+    String date = curDate.toString();
 
-        String sql = "INSERT INTO Orders (UserID, OrderDate, TotalPrice, CustomerName, PhoneNumber, Address)\n"
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO Orders (UserID, OrderDate, TotalPrice, CustomerName, PhoneNumber, Address, Payment)\n"
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try {
-            PreparedStatement st = getConnection().prepareStatement(sql);
-            st.setInt(1, userid);
-            st.setString(2, date);
-            st.setDouble(3, totalPrice);
-            st.setString(4, customername);
-            st.setString(5, phonenumber);
-            st.setString(6, address);
-          
-            st.executeUpdate();
-        } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-        } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
-        }
+    try {
+        PreparedStatement st = getConnection().prepareStatement(sql);
+        st.setInt(1, userid);
+        st.setString(2, date);
+        st.setDouble(3, totalPrice);
+        st.setString(4, customername);
+        st.setString(5, phonenumber);
+        st.setString(6, address);
+        st.setString(7, payment);
+   
+      
+        st.executeUpdate();
+    } catch (SQLException e) {
+        // Handle SQL exception
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+    } catch (Exception e) {
+        // Handle other exceptions
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
     }
+}
+
 
 //get total my order minhHC
 public int getTotalMyOrder(int cid) {
@@ -87,7 +90,7 @@ public int getTotalMyOrder(int cid) {
 
 
     public void addOrderDetails(int oid, int pid, double price, int quantity) {
-        String sql = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity,Price, Status) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity,Price, Status, ExpDate, DelDate) VALUES (?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
@@ -96,6 +99,8 @@ public int getTotalMyOrder(int cid) {
             st.setInt(3, quantity);
             st.setDouble(4, price);
 st.setString(5, "pending processing");
+st.setString(6, null );
+st.setString(7, null );
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -149,85 +154,91 @@ st.setString(5, "pending processing");
     }
     //get all inactive setting MinhHC
 
-    public List<ProOrder> getMyOrder(int index) {
-        List<ProOrder> list = new ArrayList<>();
-        String sql = "WITH RankedImages AS (\n"
-                + "    SELECT\n"
-                + "        I.ObjectID AS ProductID,\n"
-                + "        I.ImageUrl,\n"
-                + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
-                + "    FROM\n"
-                + "        [dbo].[Image] AS I\n"
-                + "    WHERE\n"
-                + "        I.TypeID = 1\n"
-                + ")\n"
-                + "\n"
-                + "SELECT\n"
-                + "    O.OrderID,\n"
-                + "    O.OrderDate,\n"
-                + "    O.TotalPrice,\n"
-                + "    U.UserName AS ArtistName,\n"
-                + "    O.CustomerName,\n"
-                + "    O.PhoneNumber,\n"
-                + "    O.Address,\n"
-                + "    OD.Status,\n"
-                + "    OD.ProductID AS OrderedProductID,\n"
-                + "    RD.ProductName,\n"
-                + "    RD.ProductImage,\n"
-                + "    OD.Quantity,\n"
-                + "    OD.Price\n"
-                + "FROM\n"
-                + "    Orders AS O\n"
-                + "INNER JOIN\n"
-                + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
-                + "LEFT JOIN\n"
-                + "    (\n"
-                + "        SELECT\n"
-                + "            P.ProductID,\n"
-                + "            P.ProductName,\n"
-                + "            P.UserID,\n"
-                + "            R.ImageUrl AS ProductImage\n"
-                + "        FROM\n"
-                + "            Product AS P\n"
-                + "        LEFT JOIN\n"
-                + "            RankedImages AS R ON P.ProductID = R.ProductID\n"
-                + "        WHERE\n"
-                + "            R.ImageRank = 1\n"
-                + "    ) AS RD ON OD.ProductID = RD.ProductID\n"
-                + "LEFT JOIN\n"
-                + "    [User] AS U ON RD.UserID = U.UserID\n"
-                + "ORDER BY O.OrderID\n"
-                + "OFFSET ? ROWS \n"
-                + "FETCH NEXT 9 ROWS ONLY;";
-        try {
-            PreparedStatement st = getConnection().prepareStatement(sql);
-            st.setInt(1, (index - 1) * 9);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-
-                list.add(new ProOrder(rs.getInt("OrderID"),
-                        rs.getString("ProductName"),
-                        rs.getString("ProductImage"),
-                        rs.getInt("Quantity"),
-                        rs.getDouble("Price"),
-                        rs.getString("OrderDate"),
-                        rs.getString("ArtistName"),
-                        rs.getString("CustomerName"),
-                        rs.getString("Address"),
-                        rs.getString("PhoneNumber"),
-                        rs.getString("Status")
-                ));
-            }
-        } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-        } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+  public List<ProOrder> getMyOrder(int index) {
+    List<ProOrder> list = new ArrayList<>();
+    String sql = "WITH RankedImages AS (\n"
+            + "    SELECT\n"
+            + "        I.ObjectID AS ProductID,\n"
+            + "        I.ImageUrl,\n"
+            + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+            + "    FROM\n"
+            + "        [dbo].[Image] AS I\n"
+            + "    WHERE\n"
+            + "        I.TypeID = 1\n"
+            + ")\n"
+            + "\n"
+            + "SELECT\n"
+            + "    O.OrderID,\n"
+            + "    O.OrderDate,\n"
+            + "    O.TotalPrice,\n"
+            + "    U.UserName AS ArtistName,\n"
+            + "    O.CustomerName,\n"
+            + "    O.PhoneNumber,\n"
+            + "    O.Address,\n"
+            + "    OD.Status,\n"
+            + "    OD.ProductID AS OrderedProductID,\n"
+            + "    RD.ProductName,\n"
+            + "    RD.ProductImage,\n"
+            + "    OD.Quantity,\n"
+            + "    OD.Price,\n"
+            + "    OD.ExpDate,\n"
+            + "    OD.DelDate,\n"
+            + "    O.Payment\n" 
+            + "FROM\n"
+            + "    Orders AS O\n"
+            + "INNER JOIN\n"
+            + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+            + "LEFT JOIN\n"
+            + "    (\n"
+            + "        SELECT\n"
+            + "            P.ProductID,\n"
+            + "            P.ProductName,\n"
+            + "            P.UserID,\n"
+            + "            R.ImageUrl AS ProductImage\n"
+            + "        FROM\n"
+            + "            Product AS P\n"
+            + "        LEFT JOIN\n"
+            + "            RankedImages AS R ON P.ProductID = R.ProductID\n"
+            + "        WHERE\n"
+            + "            R.ImageRank = 1\n"
+            + "    ) AS RD ON OD.ProductID = RD.ProductID\n"
+            + "LEFT JOIN\n"
+            + "    [User] AS U ON RD.UserID = U.UserID\n"
+            + "ORDER BY O.OrderID\n"
+            + "OFFSET ? ROWS \n"
+            + "FETCH NEXT 9 ROWS ONLY;";
+    try {
+        PreparedStatement st = getConnection().prepareStatement(sql);
+        st.setInt(1, (index - 1) * 9);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            list.add(new ProOrder(rs.getInt("OrderID"),
+                    rs.getString("ProductName"),
+                    rs.getString("ProductImage"),
+                    rs.getInt("Quantity"),
+                    rs.getDouble("Price"),
+                    rs.getString("OrderDate"),
+                    rs.getString("ArtistName"),
+                    rs.getString("CustomerName"),
+                    rs.getString("Address"),
+                    rs.getString("PhoneNumber"),
+                    rs.getString("Status"),
+                    rs.getString("ExpDate"), // Get expDate
+                    rs.getString("DelDate"), // Get delDate
+                    rs.getString("Payment") // Get payment
+            ));
         }
-
-        return list;
+    } catch (SQLException e) {
+        // Handle SQL exception
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+    } catch (Exception e) {
+        // Handle other exceptions
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
     }
+
+    return list;
+}
+
 public void CancelOrder(int id) {
 
         String sql = "UPDATE OrderDetail\n" +

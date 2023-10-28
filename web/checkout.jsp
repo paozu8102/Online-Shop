@@ -137,7 +137,8 @@
 
                          <div id="paypal-button-container"></div>
 
-                          <p><a href="#" class="btn btn-primary paypal-like-button" id="place-order-button">Cash Delivery</a></p>
+                          <p><a href="" class="btn btn-primary paypal-like-button" id="place-order-button">Cash Delivery</a></p>
+<input type="hidden" name="payment" id="payment" value="">
 
 
                         </div>
@@ -155,7 +156,7 @@
       return actions.order.create({
         purchase_units: [{
           amount: {
-            value: ${total} 
+            value: ${total}
           }
         }]
       });
@@ -166,6 +167,28 @@
       });
     }
   }).render('#paypal-button-container');
+</script>
+<script>
+  // Wait for the document to be fully loaded
+  document.addEventListener("DOMContentLoaded", function() {
+    // Find the "Cash Delivery" button by its ID
+    var cashDeliveryButton = document.getElementById("place-order-button");
+
+    // Add a click event listener to the button
+    cashDeliveryButton.addEventListener("click", function(event) {
+      // Prevent the default behavior of the link (preventing navigation)
+      event.preventDefault();
+
+      // Set the value of the hidden "payment" input field to "cod"
+      var paymentInput = document.getElementById("payment");
+      if (paymentInput) {
+        paymentInput.value = "cod";
+      }
+
+      // Submit the form
+      document.getElementById('checkout').submit();
+    });
+  });
 </script>
 
 

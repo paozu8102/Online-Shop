@@ -151,7 +151,7 @@ public class CheckoutController extends HttpServlet {
         String phonenumber = request.getParameter("phone");      
         String totalPrice_raw = request.getParameter("total");
         String name = request.getParameter("customername");
-
+  String payment = request.getParameter("payment");
         Cart t = new Cart();
         OrderDAO od = new OrderDAO();
 
@@ -193,11 +193,12 @@ public class CheckoutController extends HttpServlet {
             }
 
         }   double totalPrice = Double.parseDouble(totalPrice_raw);
-
+if("cod".equals(payment)){
         try{
           
            
-            od.addOrder(user.getUserID(), totalPrice, name, address, phonenumber);  
+            od.addOrder(user.getUserID(), totalPrice, name, address, phonenumber, "COD");
+
          
             int o = od.getOrderIdLatest();
             
@@ -217,7 +218,31 @@ public class CheckoutController extends HttpServlet {
     e.printStackTrace(); 
     
 }
+}else {
+      try{
+          
+           
+                   od.addOrder(user.getUserID(), totalPrice, name, address, phonenumber, "Online");
+         
+            int o = od.getOrderIdLatest();
             
+            for (Map.Entry<Product, Integer> entry : pList.entrySet()) {
+                Product p = entry.getKey();
+                int quantity = entry.getValue();
+                double price = p.getPriceSale()*quantity;
+                
+               od.addOrderDetails(o,p.getProductID(),price,quantity);
+                od.updateProductQuantity(p.getProductID(), quantity);
+            }
+             
+             
+        
+        }catch (Exception e) {
+    
+    e.printStackTrace(); 
+    
+}
+}
 
        response.sendRedirect("order-complete.jsp");
 
