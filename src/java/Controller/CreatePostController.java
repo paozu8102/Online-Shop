@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DAO.PostDAO;
 import Model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -33,7 +36,9 @@ public class CreatePostController extends HttpServlet {
         if (user == null) {
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
+        ArrayList<Map<String, String>> categoryList = new PostDAO().getPostCategory();
         
+        req.setAttribute("cateList", categoryList);
         req.setAttribute("user", user);
         req.getRequestDispatcher("post-create.jsp").forward(req, resp);
     }
