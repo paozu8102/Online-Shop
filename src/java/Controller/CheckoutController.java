@@ -5,40 +5,22 @@
 package Controller;
 
 import DAO.OrderDAO;
-import DAO.ProductDAO;
-import DAO.accountDAO;
-import Model.Account;
 import Model.Cart;
-import Model.Order;
-import Model.OrderDetail;
-import Model.PaymentServices;
-import Model.ProOrder;
 import Model.Product;
 import Model.User;
-import com.paypal.api.payments.Payment;
-import com.paypal.base.rest.PayPalRESTException;
-
-
-import java.io.IOException;
 import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
 
 @WebServlet(name = "CheckoutController", urlPatterns = {"/checkout"})
 public class CheckoutController extends HttpServlet {
