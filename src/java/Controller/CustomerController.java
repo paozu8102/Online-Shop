@@ -64,6 +64,7 @@ public class CustomerController extends HttpServlet {
         
         List<User> listU = null;
 int customerCount = c.getTotalCustomer(uid);
+
         if ("all".equals(userstatus)) {
             listU = c.getAllCustomer(uid, index);
             request.setAttribute("endP", endPage);

@@ -81,11 +81,11 @@ String indexPage = request.getParameter("index");
         if (count % 9 != 0) {
             endPage++;
         }
-//        List<ProOrder> listO = o.getCustomerOrder(index, cid, sellid );
-//        request.setAttribute("listO", listO);
-//        request.setAttribute("endP", endPage);
-//        request.setAttribute("tag", index);
-//        request.getRequestDispatcher("customer-detail.jsp").forward(request, response);
+        List<ProOrder> listO = o.getCustomerOrder(index, cid, sellid );
+        request.setAttribute("listO", listO);
+        request.setAttribute("endP", endPage);
+        request.setAttribute("tag", index);
+        request.getRequestDispatcher("customer-detail.jsp").forward(request, response);
     } 
 
     /** 
