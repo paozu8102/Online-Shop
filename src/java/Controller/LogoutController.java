@@ -61,7 +61,8 @@ public class LogoutController extends HttpServlet {
         Account c = (Account)session.getAttribute("acc");
         if(c!=null){
             session.removeAttribute("acc");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            session.removeAttribute("user");
+            response.sendRedirect("home");
         }
     } 
 

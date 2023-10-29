@@ -20,7 +20,7 @@ public class Order {
     private String phonenumber;
     private User user;
     private String payment;
-
+    private OrderDetail orderDetail;
 
     public Order() {
     }
@@ -55,6 +55,14 @@ public class Order {
         this.customername = customername;
         this.address = address;
         this.phonenumber = phonenumber;
+    }
+
+    public OrderDetail getOrderDetail() {
+        return orderDetail;
+    }
+
+    public void setOrderDetail(OrderDetail orderDetail) {
+        this.orderDetail = orderDetail;
     }
 
     public int getId() {
@@ -129,6 +137,11 @@ public class Order {
 
     public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" + "id=" + id + ", date=" + date + ", cusid=" + cusid + ", totalmoney=" + totalmoney + ", customername=" + customername + ", address=" + address + ", phonenumber=" + phonenumber + ", user=" + user + ", payment=" + payment + ", orderDetail=" + orderDetail + '}';
     }
 
    
