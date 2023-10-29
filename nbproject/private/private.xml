@@ -3,43 +3,48 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/ShopController.java</file>
             <file>file:/C:/Users/admin/Documents/master/web/admin-profile.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/UserProfileController.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/ManageProduct.java</file>
             <file>file:/C:/Users/admin/Documents/master/web/product-single.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/myorder.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/MyOrderServlet.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/UploadAvatarController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/change-newpassword.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/DAO/ProductDAO.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/UserController.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/DBcontext/DBContext.java</file>
             <file>file:/C:/Users/admin/Documents/master/web/product-management.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/UpdateUserController.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/OrderDetail.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/ActiveProduct.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Model/Product.java</file>
             <file>file:/C:/Users/admin/Documents/master/web/customer-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/change-user-password.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/AddSetting.java</file>
             <file>file:/C:/Users/admin/Documents/master/web/post-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/setting-management.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/web/edit-product.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/template/header.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/admin/Documents/master/web/user-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/AddUser.java</file>
             <file>file:/C:/Users/admin/Documents/master/web/user-profile.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/forgotPassword.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/EditProduct.java</file>
+            <file>file:/C:/Users/admin/Documents/master/web/order-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/confirm.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Model/Category.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/DAO/OrderDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/UpdateSalerProfile.java</file>
             <file>file:/C:/Users/admin/Documents/master/web/wishlist.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/Controller/AddProduct.java</file>
             <file>file:/C:/Users/admin/Documents/master/src/java/DAO/ImageDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master/src/java/Controller/DetailControl.java</file>
             <file>file:/C:/Users/admin/Documents/master/web/cart.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/active-product.jsp</file>
             <file>file:/C:/Users/admin/Documents/master/web/block-product.jsp</file>
-=======
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/post-create.jsp</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/CreatePostController.java</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/DAO/PostDAO.java</file>
->>>>>>> 78b9386169fd4b7ce2113921ec93007c45fed611
         </group>
     </open-files>
 </project-private>

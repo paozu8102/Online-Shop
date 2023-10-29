@@ -778,7 +778,7 @@
 
                                                 <td  class="price" style="color: ${i.status == 1 ? 'green' : 'red'}">${i.status == 1 ? 'Active' : 'Blocked'}</td>
                                                 <td class="total">
-                                                    <a href="#" data-toggle="modal" data-target="#editProduct" data-id="${i.productID}" data-name="${i.productName}" data-phone="${o.phoneNumber}" data-role="${o.roleID}" data-status="${o.status}" data-avatar="${o.avatar}" data-address="${o.address}">
+                                                    <a href="editproduct?pid=${i.productID}" >
                                                         <img src="https://cdn-icons-png.flaticon.com/512/3601/3601685.png"
                                                              alt="Mô tả ảnh" width="20" height="20">
                                                     </a>
@@ -867,37 +867,37 @@
 
 
 
-<div class="form-group1">
-    <label>Image</label>
-    <div id="imagePreview" class="image-container"></div>
-    <input type="file" name="image" id="fileInput" multiple>
-</div>
-<button type="button" class="btn btn-success" id="addImageButton" style="margin-top: 10px;">Add Image</button>
+                                        <div class="form-group1">
+                                            <label>Image</label>
+                                            <div id="imagePreview" class="image-container"></div>
+                                            <input type="file" name="image" id="fileInput" multiple>
+                                        </div>
+                                        <button type="button" class="btn btn-success" id="addImageButton" style="margin-top: 10px;">Add Image</button>
 
-<script>
-    document.getElementById('addImageButton').addEventListener('click', function () {
-        var input = document.createElement('input');
-        input.type = 'file';
-        input.name = 'image';
-        input.multiple = true;
-        input.style.marginTop = '10px';
-        input.style.marginLeft = '52px';
+                                        <script>
+                document.getElementById('addImageButton').addEventListener('click', function () {
+                    var input = document.createElement('input');
+                    input.type = 'file';
+                    input.name = 'image';
+                    input.multiple = true;
+                    input.style.marginTop = '10px';
+                    input.style.marginLeft = '52px';
 
-        // Tạo nút xóa tương ứng với mỗi input
-        var deleteButton = document.createElement('button');
-        deleteButton.type = 'button';
-        deleteButton.textContent = 'Delete';
-        deleteButton.addEventListener('click', function () {
-            // Xóa input và nút xóa khi nút xóa được nhấn
-            input.remove();
-            deleteButton.remove();
-        });
+                    // Tạo nút xóa tương ứng với mỗi input
+                    var deleteButton = document.createElement('button');
+                    deleteButton.type = 'button';
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.addEventListener('click', function () {
+                        // Xóa input và nút xóa khi nút xóa được nhấn
+                        input.remove();
+                        deleteButton.remove();
+                    });
 
-        var formGroup1 = document.querySelector('.form-group1'); // Lấy phần tử .form-group1
-        formGroup1.appendChild(input); // Thêm input vào .form-group1
-        formGroup1.appendChild(deleteButton); // Thêm nút xóa vào .form-group1
-    });
-</script>
+                    var formGroup1 = document.querySelector('.form-group1'); // Lấy phần tử .form-group1
+                    formGroup1.appendChild(input); // Thêm input vào .form-group1
+                    formGroup1.appendChild(deleteButton); // Thêm nút xóa vào .form-group1
+                });
+                                        </script>
 
 
 
@@ -933,9 +933,9 @@
 
 
                                         <div class="form-group">
-                                                <label>Category</label>
+                                            <label>Category</label>
                                             <div class="checkbox-container">
-                                              
+
                                                 <c:forEach items="${listC}" var="i">
                                                     <div class="checkbox-item">
                                                         <input type="checkbox" name="category" value="${i.categoryID}" id="category_${i.categoryID}">
@@ -956,6 +956,10 @@
                             </div>
                         </div>
                     </div>
+
+
+
+
                     <!-- ============================================================== -->
                     <!-- End PAge Content -->
                     <!-- ============================================================== -->
@@ -998,6 +1002,7 @@
                 $('#addProduct').on('hidden.bs.modal', function () {
                     $('body').removeClass('modal-open');
                 });
+          
                 document.getElementById("sortprice").onchange = function () {
                     this.form.submit();
                 };
