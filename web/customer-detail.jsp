@@ -100,6 +100,50 @@
             }
 
         </style>
+          <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesheet" href="css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="css/magnific-popup.css">
+
+        <link rel="stylesheet" href="css/aos.css">
+
+        <link rel="stylesheet" href="css/ionicons.min.css">
+
+        <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+        <link rel="stylesheet" href="css/flaticon.css">
+        <link rel="stylesheet" href="css/icomoon.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords"
+              content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+        <meta name="description"
+              content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+        <meta name="robots" content="noindex,nofollow">
+    
+        <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+        <!-- Custom CSS -->
+        <link href="css/style.min.css" rel="stylesheet">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     </head>
 
     <body>
@@ -126,7 +170,7 @@
                         <!-- ============================================================== -->
                         <!-- Logo -->
                         <!-- ============================================================== -->
-                        <a class="navbar-brand" href="statistic" style="text-decoration: none; font-size: 24px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
+           <a class="navbar-brand" href="statistic" style="text-decoration: none; font-size: 19px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
                         <!-- ============================================================== -->
                         <!-- End Logo -->
                         <!-- ============================================================== -->
@@ -177,15 +221,9 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manageorder" aria-expanded="false">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="order-management.jsp" aria-expanded="false">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <span class="hide-menu">Order Management</span>
-                                </a>
-                            </li>
-                                 <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customercontrol" aria-expanded="false">
-                                    <i class="fa fa-table"" aria-hidden="true"></i>
-                                    <span class="hide-menu">Customer Management</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
@@ -221,7 +259,7 @@
                 <div class="page-breadcrumb bg-white">
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                            <h4 class="page-title">Your Profile</h4>
+                            <h4 class="page-title">Customer ${customer.userID} Profile</h4>
                         </div>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -244,18 +282,11 @@
                                 <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/img1.jpg">
                                     <div class="overlay-box">
                                         <div class="user-content">
-                                            <img id="avatar" class="thumb-lg img-circle" src="${user.getAvatar()}" alt="">
+                                            <img id="avatar" class="thumb-lg img-circle" src="${customer.getAvatar()}" alt="">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="user-btm-box mt-5 d-md-flex justify-content-center">
-                                    <div class="form-group mb-4">
-                                        <div class="col-sm-12">
-                                            <button class="btn btn-primary" type="button" id="fileButton" data-toggle="tooltip" data-placement="top" title="Upload your image">Upload new image</button>
-                                            <input type="file" id="fileInput" name="imageFile" onchange="uploadImage()" style="display: none;" />
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <!-- Column -->
@@ -264,61 +295,135 @@
                             <div class="card">
                                 <div class="card-body">
                                     <form action="updatesaler" enctype="multipart/form-data" class="form-horizontal form-material">
-                                        <input type="hidden" value="${user.getUserID()}" name="id"/>
-                                        <input type="hidden" id="imageName" value="${user.getAvatar().replace("images/avatar/","")}" name="imageName"/>
+                                        <input type="hidden" value="${customer.getUserID()}" name="id"/>
+                                        <input type="hidden" id="imageName" value="${customer.getAvatar().replace("images/avatar/","")}" name="imageName"/>
                                         <div class="form-group mb-4">
                                             <label class="col-md-12 p-0">Full Name</label>
                                             <div class="col-md-12 border-bottom p-0">
-                                                <input class="form-control p-0 border-0" id="inputUsername" name="username" type="text" oninput="checkLength()" pattern="^(?:[A-Z][a-zA-Z\s]*){1,50}$" required title="Cannot null, Begin word with upper character, length between 0 -50" placeholder="Enter your username" value="${user.getUserName()}"> </div>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label class="col-md-12 p-0" for="inputGender">Gender</label>
-                                            <div style="display: flex; justify-content: space-between;">
-                                                <div style="flex: 1;">
-                                                    <input type="radio" id="male" name="gender" value="male" ${(user.getGender() == 1) ? 'checked' : ''}>
-                                                    <label for="male">Male</label>
-                                                </div>
-                                                <div style="flex: 1;">
-                                                    <input type="radio" id="female" name="gender" value="female"  ${(user.getGender() == 1) ? '' : 'checked'}> 
-                                                    <label for="female">Female</label>
-                                                </div>
+                                                ${customer.userName}
                                             </div>
                                         </div>
                                         <div class="form-group mb-4">
+                                            <label class="col-md-12 p-0" for="inputGender">Gender</label>
+                                            <div class="col-md-12 border-bottom p-0">
+                                                ${customer.gender == 1 ? "Male" : "Female"}
+                                            </div>
+
+
+                                        </div>
+
+
+
+                                        <div class="form-group mb-4">
                                             <label class="col-md-12 p-0" for="inputLastName">Phone Number</label>
                                             <div class="col-md-12 border-bottom p-0">
-                                                <input class="form-control p-0 border-0" name="phonenumber" id="inputLastName" type="text" required="" pattern="[0-9]{10}" title="Please enter 10 digits with no spaces." placeholder="Enter your Phone Number" placeholder="Enter your Phone Number" value="${user.getPhoneNumber()}">
+                                                ${customer.getPhoneNumber()}
                                             </div>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label class="col-md-12 p-0" for="inputOrgName">Address</label>
                                             <div class="col-md-12 border-bottom p-0">
-                                                <input name="address" id="inputOrgName" required  type="text" placeholder="Enter your Address" value="${user.getAddress()}"
-                                                       class="form-control p-0 border-0" 
-                                                       >
+                                                ${customer.getAddress()}
+
                                             </div>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label class="col-md-12 p-0" for="inputEmailAddress">Email address</label>
                                             <div class="col-md-12 border-bottom p-0">
-                                                <input name="email" id="inputEmailAddress" readonly type="email" placeholder="Enter your email address" value="${user.getEmail()}"
-                                                       class="form-control p-0 border-0">
+                                                ${customer.getEmail()}
+
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group mb-4">
-                                                    <button class="btn btn-success mx-1" type="submit" data-toggle="tooltip" data-placement="top" title="Save all">Save changes</button>
-                                                    <a class="btn btn-success mx-1" href="change-user-password.jsp" data-toggle="tooltip" data-placement="top" title="Change Password">Change Password</a>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </form>
                                 </div>
                             </div>
                         </div>
+                                         <div class="page-breadcrumb bg-white">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h4 class="page-title">History Transaction </h4>
+                        </div>
+                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        </div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                                                
+                                                
+                                         
+                    <!-- ============================================================== -->
+                    <!-- Start Page Content -->
+                    <!-- ============================================================== -->
+                    <!-- Row -->
+                     
+                            <div class="white-box">
+                                    <table class="table text-nowrap">
+                                        <thead>
+                                              <tr>
+                                            <th style="width: 100px;">ID</th>
+                                            <th style="width: 300px;">Product Image</th>
+                                            <th style="width: 300px;">Product Name</th>
+                                            <th style="width: 300px;">Quantity</th>
+                                            <th style="width: 300px;">Total</th>
+                                            <th style="width: 300px;">Date</th>
+
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                                 <c:forEach items="${listO}" var="o">
+                                       
+                                            <tr class="text-center">
+                                          
+                                            <td class="price"><span>${o.oid}</span></td>
+                                                <td class="image-prod"><div class="img" style="background-image:url(images/${o.productimage});"></div></td>
+                                            <td  class="price">${o.productname}</td>
+                                            <td class="price">${o.quantity}</td>
+                                            <td class="price">${o.price}</td>
+                                            <td class="total">${o.date}
+          
+                                            </td>
+
+
+                                            </tr>
+                                       
+
+
+
+                                    </c:forEach>
+                                        </tbody>
+                                    </table>
+                                
+                                    </div>
+                     
+                                     <div class="row mt-5">
+                                <div class="col text-center">
+                                    <div class="block-27">
+                                        <ul>
+                                            <c:if test="${tag > 1}">
+                                                <li><a href="customer?cid=${customer.userID}&index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                                    </c:if>
+
+                                            <c:forEach begin="1" end="${endP}" var="i">
+                                                <li class="${tag == i ? 'active' : ''}">
+                                                    <a href="customer?cid=${customer.userID}&index=${i}">${i}</a>
+                                                </li>
+                                            </c:forEach>
+
+                                            <c:if test="${tag < endP}">
+                                                <li><a href="customer?cid=${customer.userID}&index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                                    </c:if>
+                                        </ul>
+                                    </div>
+                                </div>
+                               </div>         
                         <!-- Column -->
                     </div>
+                                                  
+                                                
+                                                
+            </div><!-- comment -->
                     <!-- Row -->
                     <!-- ============================================================== -->
                     <!-- End PAge Content -->
@@ -329,8 +434,12 @@
                     <!-- .right-sidebar -->
                     <!-- ============================================================== -->
                     <!-- End Right sidebar -->
+                 
+                    
+                    
                     <!-- ============================================================== -->
                 </div>
+                                                
                 <!-- ============================================================== -->
                 <!-- End Container fluid  -->
                 <!-- ============================================================== -->
@@ -363,58 +472,6 @@
         <script src="js/sidebarmenu.js"></script>
         <!--Custom JavaScript -->
         <script src="js/custom.js"></script>
-        <script>
-                                                // Get references to the button and file input elements
-                                                const fileButton = document.getElementById('fileButton');
-                                                const fileInput = document.getElementById('fileInput');
-                                                const avatarImg = document.getElementById('avatar');
-                                                const formData = new FormData();
-                                                const imageUpdateName = document.getElementById('imageName');
-
-                                                // Add a click event listener to the button
-                                                fileButton.addEventListener('click', function () {
-                                                    // Trigger a click event on the file input when the button is clicked
-                                                    fileInput.click();
-                                                });
-
-                                                // Function to handle image upload
-                                                function uploadImage() {
-                                                    if (fileInput.files.length !== 0) {
-                                                        formData.append('imageFile', fileInput.files[0]);
-
-                                                        // Validate the selected image here
-                                                        const selectedFile = fileInput.files[0];
-                                                        // Check if the selected file is an image (JPG or PNG)
-                                                        if (!/\.(jpg|png)$/i.test(selectedFile.name)) {
-                                                            alert('Please select a valid image file (JPG or PNG).');
-                                                            return;
-                                                        }
-                                                        // Check if the file size is within the allowed limit (5MB)
-                                                        const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-                                                        if (selectedFile.size > maxSize) {
-                                                            alert('The selected image file is too large. Please choose a smaller image.');
-                                                            return;
-                                                        }
-                                                        // Perform the image upload if it passes validation
-                                                        fetch(`/SWP391_SE1729_Group3/changeavatar`, {
-                                                            method: 'POST',
-                                                            body: formData
-                                                        });
-
-                                                        setTimeout(function () {
-                                                            if (formData.get('imageFile').name !== 'undefined') {
-                                                                avatarImg.src = `images/avatar/` + formData.get('imageFile').name;
-                                                                imageUpdateName.value = formData.get('imageFile').name;
-                                                                formData.delete('imageFile');
-                                                            }
-                                                        }, 2000);
-                                                    }
-                                                }
-
-                                                $(document).ready(function () {
-                                                    $('[data-toggle="tooltip"]').tooltip();
-                                                });
-        </script>
     </body>
 
 </html>

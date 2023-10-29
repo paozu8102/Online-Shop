@@ -156,6 +156,7 @@
 
 
         <div id="editOrder" class="modal fade" tabindex="-1">
+         
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <form action="myorder" method="post">

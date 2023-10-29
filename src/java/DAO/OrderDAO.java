@@ -228,6 +228,7 @@ public class OrderDAO extends DBContext {
         } catch (Exception e) {
             // Handle other exceptions
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+<<<<<<< HEAD
         }
 
         return list;
@@ -450,18 +451,32 @@ public class OrderDAO extends DBContext {
                 rs.getString("DelDate"),
                 rs.getString("Payment")
             ));
+=======
+>>>>>>> 97a47b88049013498090e7e5df3f35a3ea1770e8
         }
-    } catch (SQLException e) {
-        // Handle SQL exception
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-    } catch (Exception e) {
-        // Handle other exceptions
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+
+        return list;
     }
 
-    return list;
-}
+    public int getTotalCustomerOrder(String cusid, int sellid) {
+        String sql = "SELECT COUNT(*) \n"
+                + "FROM OrderDetail AS OD\n"
+                + "INNER JOIN Orders AS O ON OD.OrderID = O.OrderID\n"
+                + "INNER JOIN (\n"
+                + "    SELECT\n"
+                + "        P.ProductID,\n"
+                + "        P.UserID\n"
+                + "    FROM Product AS P\n"
+                + "    WHERE P.UserID = ?\n"
+                + ") AS RD ON OD.ProductID = RD.ProductID\n"
+                + "WHERE O.UserID = ?;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, sellid);
+            st.setString(2, cusid);
+            ResultSet rs = st.executeQuery();
 
+<<<<<<< HEAD
 public List<ProOrder> getOrdersByDateRange(int userID, String from, String to) {
     List<ProOrder> list = new ArrayList<>();
     String sql = "SELECT O.OrderID, CAST(O.OrderDate AS DATE) AS date, O.TotalPrice, O.CustomerName, O.PhoneNumber, " +
@@ -511,10 +526,56 @@ public List<ProOrder> getOrdersByDateRange(int userID, String from, String to) {
         int totalOrderCount = 0;
         String sql = "SELECT\n"
                 + "COUNT(*)\n"
+=======
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+        return 0;
+    }
+
+    public List<ProOrder> getCustomerOrder(int index, String cusid, int sellid) {
+        List<ProOrder> list = new ArrayList<>();
+        String sql = "WITH RankedImages AS (\n"
+                + "    SELECT\n"
+                + "        I.ObjectID AS ProductID,\n"
+                + "        I.ImageUrl,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+                + "    FROM\n"
+                + "        dbo.Image AS I\n"
+                + "    WHERE\n"
+                + "        I.TypeID = 1\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    O.OrderID,\n"
+                + "    O.OrderDate,\n"
+                + "    O.TotalPrice,\n"
+                + "    U.UserName AS ArtistName,\n"
+                + "    O.CustomerName,\n"
+                + "    O.PhoneNumber,\n"
+                + "    O.Address,\n"
+                + "    OD.Status,\n"
+                + "    OD.ProductID AS OrderedProductID,\n"
+                + "    RD.ProductName,\n"
+                + "    RD.ProductImage,\n"
+                + "    OD.Quantity,\n"
+                + "    OD.Price,\n"
+                + "    OD.ExpDate,\n"
+                + "    OD.DelDate,\n"
+                + "    O.Payment\n"
+>>>>>>> 97a47b88049013498090e7e5df3f35a3ea1770e8
                 + "FROM\n"
                 + "    Orders AS O\n"
                 + "INNER JOIN\n"
                 + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+<<<<<<< HEAD
                 + "INNER JOIN\n"
                 + "    Product AS P ON OD.ProductID = P.ProductID\n"
                 + "\n"
@@ -526,6 +587,51 @@ public List<ProOrder> getOrdersByDateRange(int userID, String from, String to) {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 totalOrderCount = rs.getInt(1);
+=======
+                + "LEFT JOIN\n"
+                + "    (\n"
+                + "        SELECT\n"
+                + "            P.ProductID,\n"
+                + "            P.ProductName,\n"
+                + "            P.UserID,\n"
+                + "            R.ImageUrl AS ProductImage\n"
+                + "        FROM\n"
+                + "            Product AS P\n"
+                + "        LEFT JOIN\n"
+                + "            RankedImages AS R ON P.ProductID = R.ProductID\n"
+                + "        WHERE\n"
+                + "            R.ImageRank = 1\n"
+                + "    ) AS RD ON OD.ProductID = RD.ProductID\n"
+                + "LEFT JOIN\n"
+                + "    [User] AS U ON RD.UserID = U.UserID\n"
+                + "WHERE\n"
+                + "    RD.UserID = ? AND O.UserID = ?\n"
+                + "ORDER BY O.OrderID\n"
+                + "OFFSET ? ROWS \n"
+                + "FETCH NEXT 9 ROWS ONLY;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+               st.setInt(1, sellid);
+            st.setString(2, cusid);
+            st.setInt(3, (index - 1) * 9);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProOrder(rs.getInt("OrderID"),
+                        rs.getString("ProductName"),
+                        rs.getString("ProductImage"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getString("OrderDate"),
+                        rs.getString("ArtistName"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status"),
+                        rs.getString("ExpDate"),
+                        rs.getString("DelDate"),
+                        rs.getString("Payment")
+                ));
+>>>>>>> 97a47b88049013498090e7e5df3f35a3ea1770e8
             }
         } catch (SQLException e) {
             // Handle SQL exception
@@ -534,7 +640,12 @@ public List<ProOrder> getOrdersByDateRange(int userID, String from, String to) {
             // Handle other exceptions
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
+<<<<<<< HEAD
         return totalOrderCount;
+=======
+
+        return list;
+>>>>>>> 97a47b88049013498090e7e5df3f35a3ea1770e8
     }
 
     public void CancelOrder(int id) {
@@ -1066,10 +1177,22 @@ public List<ProOrder> getOrdersByDateRange(int userID, String from, String to) {
 //    return list;
 //}
     public static void main(String[] args) {
+<<<<<<< HEAD
 
         OrderDAO o = new OrderDAO();
         List<ProOrder> listO = o.getAllOrder(1, 9);
        System.out.println(o.getAllOrderASC(9));
     }
+=======
+        (new OrderDAO()).getTotalOrderByWeek();
+      OrderDAO o = new OrderDAO();
+      int a = o.getTotalCustomerOrder("8", 2);
+        System.out.println(a);
+    
+>>>>>>> 97a47b88049013498090e7e5df3f35a3ea1770e8
 
-}
+      List<ProOrder> listC =  o.getCustomerOrder(a, "8", 2);
+        for (ProOrder p : listC) {
+            System.out.println(p);
+        }
+}}

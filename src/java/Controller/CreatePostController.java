@@ -23,6 +23,7 @@ public class CreatePostController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("error.jsp").forward(req, resp);
     }
 
     @Override

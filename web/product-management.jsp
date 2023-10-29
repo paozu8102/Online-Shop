@@ -9,8 +9,8 @@
 <html dir="ltr" lang="en">
 
     <head>
-                <%
-          String path = request.getContextPath();
+        <%
+  String path = request.getContextPath();
         %>
         <script>
             //from 11-31: ThanhNX
@@ -400,7 +400,7 @@
             .price-wrap-2 {
                 display: flex;
                 margin-left: 0px;
-                
+
             }
 
             .price-title {
@@ -427,7 +427,7 @@
                 line-height: 1.2em;
                 font-weight: 400;
             }
- .price-wrap #minWidth,
+            .price-wrap #minWidth,
             .price-wrap #maxWidth {
                 width: 30px;
                 text-align: right;
@@ -443,7 +443,7 @@
                 line-height: 1.2em;
                 font-weight: 400;
             }
-             .price-wrap #minHeight,
+            .price-wrap #minHeight,
             .price-wrap #maxHeight {
                 width: 30px;
                 text-align: right;
@@ -476,6 +476,18 @@
                 box-shadow: 0 0 0 0.5px #242424;
                 transition-duration: 0.3s;
             }
+            .checkbox-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px; /* Khoảng cách giữa các mục */
+            }
+
+            .checkbox-item {
+                flex: 0 0 calc(33.33% - 10px); /* Chia thành 3 cột với khoảng cách */
+                display: flex;
+                align-items: center;
+            }
+
 
         </style>
         <title>Palette Joy - Bring art to your home</title>
@@ -521,12 +533,10 @@
         <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
         <!-- Custom CSS -->
         <link href="css/style.min.css" rel="stylesheet">
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     </head>
 
     <body>
@@ -576,7 +586,7 @@
                         <!-- ============================================================== -->
                         <!-- Right side toggle and nav items -->
                         <!-- ============================================================== -->
-                        
+
                     </div>
                 </nav>
             </header>
@@ -629,6 +639,12 @@
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manageorder" aria-expanded="false">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <span class="hide-menu">Order Management</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customercontrol" aria-expanded="false">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="hide-menu">Customer Management</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
@@ -687,41 +703,49 @@
                                 <h3 class="box-title">Product Table</h3>
                                 <ul class="product-category">
 
-                            <li>
-                                <form action="manage" method="get">
-                                    <select name="sortprice" id="sortprice" style="color: #82ae46;">
-                                        <option value="" style="color: #82ae46;">Sort By Price</option>
-                                        <option value="asc" style="color: #82ae46;"
-                                                ${param.sortprice == 'asc' ? 'selected' : ''}>Low to High</option>
-                                        <option value="desc" style="color: #82ae46;"
-                                                ${param.sortprice == 'desc' ? 'selected' : ''}>High to Low</option>
-                                    </select>
+                                    <li>
+                                        <form action="manage" method="get">
+                                            <select name="sortprice" id="sortprice" style="color: #82ae46;">
+                                                <option value="" style="color: #82ae46;">Sort By Price</option>
+                                                <option value="asc" style="color: #82ae46;"
+                                                        ${param.sortprice == 'asc' ? 'selected' : ''}>Low to High</option>
+                                                <option value="desc" style="color: #82ae46;"
+                                                        ${param.sortprice == 'desc' ? 'selected' : ''}>High to Low</option>
+                                            </select>
 
-                                </form>
-                            </li>
-                            <li>
-                                <form action="manage" method="get">
-                                    <select name="sortname" id="sortname" style="color: #82ae46;">
-                                        <option value="" style="color: #82ae46;">Sort By Name</option>
-                                        <option value="asc" style="color: #82ae46;"
-                                                ${param.sortname == 'asc' ? 'selected' : ''}>A -> Z</option>
-                                        <option value="desc" style="color: #82ae46;"
-                                                ${param.sortname == 'desc' ? 'selected' : ''}>Z -> A</option>
-                                    </select>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <form action="manage" method="get">
+                                            <select name="sortname" id="sortname" style="color: #82ae46;">
+                                                <option value="" style="color: #82ae46;">Sort By Name</option>
+                                                <option value="asc" style="color: #82ae46;"
+                                                        ${param.sortname == 'asc' ? 'selected' : ''}>A -> Z</option>
+                                                <option value="desc" style="color: #82ae46;"
+                                                        ${param.sortname == 'desc' ? 'selected' : ''}>Z -> A</option>
+                                            </select>
 
-                                </form>
-                            </li>
-                            <li>
-                                <div style="display: inline-block; margin-left: 10px">
-                                    <form action="manage" method="get" class="search-form">
-                                        <div class="search-container">
-                                            <input name="txt" type="text"  placeholder="Search" >
-                                            <button type="submit"><i class="icon-search" style="color: white;"></i></button>
+                                        </form>
+                                    </li>
+                                    <li>
+                                        <div style="display: inline-block; margin-left: 10px">
+                                            <form action="manage" method="get" class="search-form">
+                                                <div class="search-container">
+                                                    <input name="txt" type="text"  placeholder="Search" >
+                                                    <button type="submit"><i class="icon-search" style="color: white;"></i></button>
+                                                </div>
+                                            </form>
                                         </div>
-                                    </form>
-                                </div>
-                            </li>
-                        </ul>
+                                    </li>
+
+                                    <div style="display: inline-block; margin-left: 600px;">
+                                        <a href="#addProduct" data-toggle="modal">
+                                            <i><img src="https://cdn-icons-png.flaticon.com/512/262/262038.png" alt="+" width="20" height="20"></i>
+                                            Add Product
+                                        </a>
+                                    </div>
+
+                                </ul>
                                 <div class="table-responsive">
                                     <table class="table text-nowrap">
                                         <thead>
@@ -772,30 +796,166 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
                     <div class="col text-center">
-                                <div class="block-27">
-                                    <ul>
-                                        <c:if test="${tag > 1}">
-                                            <li><a href="manage?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
-                                                </c:if>
+                        <div class="block-27">
+                            <ul>
+                                <c:if test="${tag > 1}">
+                                    <li><a href="manage?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                        </c:if>
 
-                                        <c:forEach begin="1" end="${endP}" var="i">
-                                            <li class="${tag == i ? 'active' : ''}">
-                                                <a href="manage?index=${i}">${i}</a>
-                                            </li>
-                                        </c:forEach>
+                                <c:forEach begin="1" end="${endP}" var="i">
+                                    <li class="${tag == i ? 'active' : ''}">
+                                        <a href="manage?index=${i}">${i}</a>
+                                    </li>
+                                </c:forEach>
 
-                                        <c:if test="${tag < endP}">
-                                            <li><a href="manage?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
-                                                </c:if>
-                                    </ul>
+                                <c:if test="${tag < endP}">
+                                    <li><a href="manage?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                        </c:if>
+                            </ul>
 
-                                </div>
+                        </div>
+                    </div>
+
+
+                    <div id="addProduct" class="modal fade" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form id="productForm" action="addproduct" method="post" enctype="multipart/form-data">
+
+                                    <div class="modal-header">						
+                                        <h4 class="modal-title">Add Product</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">					
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input name="name" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input name="price" id="price" type="number" step="any" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea name="description" class="form-control" required></textarea>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label>Height</label>
+                                            <input name="height" id="height" type="number" step="any" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Width</label>
+                                            <input name="width" type="number" step="any" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Quantity</label>
+                                            <input name="quantity" type="number" class="form-control" required>
+                                        </div>
+
+
+
+
+
+<div class="form-group1">
+    <label>Image</label>
+    <div id="imagePreview" class="image-container"></div>
+    <input type="file" name="image" id="fileInput" multiple>
+</div>
+<button type="button" class="btn btn-success" id="addImageButton" style="margin-top: 10px;">Add Image</button>
+
+<script>
+    document.getElementById('addImageButton').addEventListener('click', function () {
+        var input = document.createElement('input');
+        input.type = 'file';
+        input.name = 'image';
+        input.multiple = true;
+        input.style.marginTop = '10px';
+        input.style.marginLeft = '52px';
+
+        // Tạo nút xóa tương ứng với mỗi input
+        var deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.textContent = 'Delete';
+        deleteButton.addEventListener('click', function () {
+            // Xóa input và nút xóa khi nút xóa được nhấn
+            input.remove();
+            deleteButton.remove();
+        });
+
+        var formGroup1 = document.querySelector('.form-group1'); // Lấy phần tử .form-group1
+        formGroup1.appendChild(input); // Thêm input vào .form-group1
+        formGroup1.appendChild(deleteButton); // Thêm nút xóa vào .form-group1
+    });
+</script>
+
+
+
+
+
+                                        <style>
+                                            .image-container {
+                                                position: relative;
+                                                display: inline-block;
+                                            }
+
+                                            .image-container img {
+                                                max-width: 150px;
+                                                max-height: 150px;
+                                            }
+
+                                            .image-container .delete-icon {
+                                                position: absolute;
+                                                top: 5px;
+                                                right: 5px;
+                                                color: white;
+                                                background-color: black; /* Màu nền đen của biểu tượng "X" */
+                                                border: none; /* Loại bỏ viền */
+                                                border-radius: 50%; /* Để biểu tượng "X" trở thành hình tròn */
+                                                cursor: pointer;
+                                                width: 25px;
+                                                height: 25px;
+                                                text-align: center;
+                                                line-height: 25px;
+                                            }
+                                        </style>
+
+
+
+                                        <div class="form-group">
+                                                <label>Category</label>
+                                            <div class="checkbox-container">
+                                              
+                                                <c:forEach items="${listC}" var="i">
+                                                    <div class="checkbox-item">
+                                                        <input type="checkbox" name="category" value="${i.categoryID}" id="category_${i.categoryID}">
+                                                        <label for="category_${i.categoryID}">${i.categoryName}</label>
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="modal-footer">
+                                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                            <input type="submit" class="btn btn-success" value="Add">
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
+                        </div>
+                    </div>
                     <!-- ============================================================== -->
                     <!-- End PAge Content -->
                     <!-- ============================================================== -->
@@ -830,16 +990,24 @@
         <!-- All Jquery -->
         <!-- ============================================================== -->
         <script>
+                $('#addProduct').on('show.bs.modal', function () {
+                    $('body').addClass('modal-open');
+                });
 
-                    document.getElementById("sortprice").onchange = function () {
-                        this.form.submit();
-                    };
+                // When the modal is hidden, remove the 'modal-open' class from the body
+                $('#addProduct').on('hidden.bs.modal', function () {
+                    $('body').removeClass('modal-open');
+                });
+                document.getElementById("sortprice").onchange = function () {
+                    this.form.submit();
+                };
 
-                    document.getElementById("sortname").onchange = function () {
-                        this.form.submit();
-                    }
-                    ;
-                    </script>
+                document.getElementById("sortname").onchange = function () {
+                    this.form.submit();
+                }
+                ;
+        </script>
+
         <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap tether Core JavaScript -->
         <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>

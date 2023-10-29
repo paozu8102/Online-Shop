@@ -712,9 +712,115 @@ String path = request.getContextPath();
                                                                 ${param.sortprice == 'desc' ? 'selected' : ''}>High to Low</option>
                                                     </select>
 
+<<<<<<< HEAD
                                                 </form>
                                             </td>
                                         </tr>
+=======
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="salerprofile"
+                                   aria-expanded="false">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="hide-menu">Profile</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manage"
+                                   aria-expanded="false">
+                                    <i class="fa fa-table" aria-hidden="true"></i>
+                                    <span class="hide-menu">Product Management</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="order-management.jsp" aria-expanded="false">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="hide-menu">Order Management</span>
+                                </a>
+                            </li>
+                                <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customercontrol" aria-expanded="false">
+                                    <i class="fa fa-table"" aria-hidden="true"></i>
+                                    <span class="hide-menu">Customer Management</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="javascript:history.back()" aria-expanded="false">
+                                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                    <span class="hide-menu">Return</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="home" aria-expanded="false">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span class="hide-menu">Return Home</span>
+                                </a>
+                            </li>                 
+                        </ul>
+
+                    </nav>
+                    <!-- End Sidebar navigation -->
+                </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <!-- ============================================================== -->
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
+                <!-- ============================================================== -->
+                <!-- Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <div class="page-breadcrumb bg-white">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                            <h4 class="page-title">Order Management</h4>
+                        </div>
+                        <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        </div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Bread crumb and right sidebar toggle -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Container fluid  -->
+                <!-- ============================================================== -->
+                <div class="container-fluid">
+                    <!-- ============================================================== -->
+                    <!-- Start Page Content -->
+                    <!-- ============================================================== -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="white-box">
+                                <h3 class="box-title">Basic Table</h3>
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-top-0">#</th>
+                                                <th class="border-top-0">CustomerID</th>
+                                                <th class="border-top-0">Customer Name</th>
+                                                <th class="border-top-0">Date of Order</th>
+                                                  <th class="border-top-0">Status</th>
+                                            </tr
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>Hoang</td>
+                                                <td>23-02-2003</td>
+                                                 <td>Pending</td>
+                                            </tr>
+                                            
+                                        </tbody>
+>>>>>>> 97a47b88049013498090e7e5df3f35a3ea1770e8
                                     </table>
                             </div>
                         </div>

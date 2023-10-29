@@ -2,13 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controller;
 
-import DAO.ProductDAO;
+import DAO.OrderDAO;
 import DAO.UserDAO;
-import Model.Account;
-import Model.Category;
-import Model.Product;
+import Model.ProOrder;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,39 +23,36 @@ import java.util.List;
  *
  * @author Acer
  */
-@WebServlet(name = "ManageProduct", urlPatterns = {"/manage"})
-public class ManageProduct extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+@WebServlet(name="CustomerDetail", urlPatterns={"/customer"})
+public class CustomerDetail extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManageProduct</title>");
+            out.println("<title>Servlet SalerProfile</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManageProduct at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SalerProfile at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -64,57 +60,36 @@ public class ManageProduct extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String sortprice = request.getParameter("sortprice");
-        String sortname = request.getParameter("sortname");
-        String txtSearch = request.getParameter("txt");
-        
-        ProductDAO c = new ProductDAO();
-        HttpSession session = request.getSession();
-        User u = (User) session.getAttribute("user");
-        String indexPage = request.getParameter("index");
+    throws ServletException, IOException {
+               HttpSession session = request.getSession();
+    User user = (User) session.getAttribute("user");
+    int sellid = user.getUserID();
+    String cid = request.getParameter("cid");
+     UserDAO c = new UserDAO();
+      OrderDAO o = new OrderDAO();
+     User customer = c.getCustomerByID(cid);
+        request.setAttribute("customer", customer);
+String indexPage = request.getParameter("index");
         if (indexPage == null) {
             indexPage = "1";
 
         }
-
         int index = Integer.parseInt(indexPage);
-        int count = c.getTotalProductCountByUserId(u.getUserID());
-        int endPage = count / 6;
-        if (count % 6 != 0) {
+         
+        int count = o.getTotalCustomerOrder(cid, sellid);
+        int endPage = count / 9;
+        if (count % 9 != 0) {
             endPage++;
         }
-        List<Product> list;
-        if ("all".equals(sortprice) || "all".equals(sortname)) {
-            list = c.getManageProduct(index, u.getUserID());
-            request.setAttribute("endP", endPage);
-            request.setAttribute("tag", index);
-        } else if ("asc".equals(sortprice)) {
-            list = c.getProductsByPriceAsc(u.getUserID());
-        } else if ("desc".equals(sortprice)) {
-            list = c.getProductsByPriceDesc(u.getUserID());
-        } else if ("asc".equals(sortname)) {
-            list = c.getProductsByNameAsc(u.getUserID());
-        } else if ("desc".equals(sortname)) {
-            list = c.getProductsByNameDesc(u.getUserID());
-        }else if (txtSearch != null) {
-          list = c.searchProductByName2(txtSearch, u.getUserID());
-        } 
-        else {
+        List<ProOrder> listO = o.getCustomerOrder(index, cid, sellid );
+        request.setAttribute("listO", listO);
+        request.setAttribute("endP", endPage);
+        request.setAttribute("tag", index);
+        request.getRequestDispatcher("customer-detail.jsp").forward(request, response);
+    } 
 
-            list = c.getManageProduct(index, u.getUserID());
-            request.setAttribute("endP", endPage);
-            request.setAttribute("tag", index);
-        }
-        List<Category> listC = c.getProductCategory();
-          request.setAttribute("listC", listC);
-         request.setAttribute("listP", list);
-        request.getRequestDispatcher("product-management.jsp").forward(request, response);
-    }
-
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -122,13 +97,12 @@ public class ManageProduct extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
@@ -136,7 +110,4 @@ public class ManageProduct extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public static void main(String[] args) {
-
-    }
 }

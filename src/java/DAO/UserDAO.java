@@ -45,6 +45,7 @@ public class UserDAO extends DBContext {
         }
         return topUser;
     }
+
     //Change status in Product HoangNH
     public void ChangeSettingStatusProduct(int id, int newStatus) {
 
@@ -66,6 +67,7 @@ public class UserDAO extends DBContext {
         }
     }
 //Hoang NH
+
     public void updateSaler(User user) {
         String sql = "update [User] SET [UserName] = ?\n"
                 + "      ,[Gender] = ?\n"
@@ -86,7 +88,6 @@ public class UserDAO extends DBContext {
             System.out.println("updateImage: " + e.getMessage());
         }
     }
-
 
     //method to get role list from a user list: ThanhNX
     public ArrayList<String> getRoleList(ArrayList<User> users) {
@@ -174,83 +175,82 @@ public class UserDAO extends DBContext {
 
         return list;
     }
-    
-public List<Setting> getSettingNameSort(String sort) {
-    List<Setting> list = new ArrayList<>();
-    String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName "
-            + "FROM Category "
-            + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID "
-            + "ORDER BY Category.CategoryName " + sort;
 
-    try {
-        PreparedStatement st = getConnection().prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
-        
-        while (rs.next()) {
-            list.add(new Setting(rs.getInt(1),
-                    rs.getString(2),
-                    rs.getString(5),
-                    rs.getInt(3),
-                    rs.getString(4)
-            ));
+    public List<Setting> getSettingNameSort(String sort) {
+        List<Setting> list = new ArrayList<>();
+        String sql = "SELECT Category.CategoryID, Category.CategoryName, Category.Status, Category.Description, ObjectType.TypeName "
+                + "FROM Category "
+                + "INNER JOIN ObjectType ON Category.ObjectTypeID = ObjectType.TypeID "
+                + "ORDER BY Category.CategoryName " + sort;
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Setting(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(5),
+                        rs.getInt(3),
+                        rs.getString(4)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
-    } catch (SQLException e) {
-        // Handle SQL exception
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-    } catch (Exception e) {
-        // Handle other exceptions
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+
+        return list;
     }
 
-    return list;
-}
+    public List<User> getUserNameSort(String sort) {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email,\n"
+                + "    A.Status,\n"
+                + "    A.RoleID\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email\n"
+                + "ORDER BY U.UserName " + sort; // Sort by UserName
 
-public List<User> getUserNameSort(String sort) {
-    List<User> list = new ArrayList<>();
-    String sql = "SELECT\n"
-            + "    U.UserID,\n"
-            + "    U.UserName,\n"
-            + "    U.Gender,\n"
-            + "    U.PhoneNumber,\n"
-            + "    U.Address,\n"
-            + "    U.Avatar,\n"
-            + "    U.Email,\n"
-            + "    A.Status,\n"
-            + "    A.RoleID\n"
-            + "FROM\n"
-            + "    [User] U\n"
-            + "INNER JOIN\n"
-            + "    Account A ON U.Email = A.Email\n"
-            + "ORDER BY U.UserName " + sort; // Sort by UserName
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
 
-    try {
-        PreparedStatement st = getConnection().prepareStatement(sql);
-
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            list.add(new User(
-                rs.getInt(1),
-                rs.getString(2),
-                rs.getInt(3),
-                rs.getString(4),
-                rs.getString(5),
-                rs.getString(6),
-                rs.getString(7),
-                rs.getInt(8),
-                rs.getInt(9)
-            ));
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
-    } catch (SQLException e) {
-        // Handle SQL exception
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-    } catch (Exception e) {
-        // Handle other exceptions
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+
+        return list;
     }
-
-    return list;
-}
-
 
     //get all Category Setting MinhHC
     public List<Setting> getAllSettingCat() {
@@ -520,6 +520,33 @@ public List<User> getUserNameSort(String sort) {
         return 0;
     }
 
+    public int getTotalCustomer(int id) {
+        String sql = "SELECT COUNT(*) AS CustomerCount\n"
+                + "FROM [User] u\n"
+                + "JOIN Orders o ON u.UserID = o.UserID\n"
+                + "JOIN OrderDetail od ON o.OrderID = od.OrderID\n"
+                + "JOIN Product p ON od.ProductID = p.ProductID\n"
+                + "WHERE p.UserID = ?;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt(1);
+
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return 0;
+    }
+
     //get total setting minhHC
     public int getTotalSetting() {
         String sql = "SELECT COUNT(*) from category";
@@ -574,6 +601,290 @@ public List<User> getUserNameSort(String sort) {
                         rs.getString(7),
                         rs.getInt(8),
                         rs.getInt(9)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    //Get all User DucLV
+    public List<User> getAllCustomer(int id, int index) {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID,\n"
+                + "       [User].Email,\n"
+                + "       [User].PhoneNumber AS Mobile,\n"
+                + "       Account.Status\n"
+                + "FROM [User]\n"
+                + "INNER JOIN Orders ON [User].UserID = Orders.UserID\n"
+                + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID\n"
+                + "INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID\n"
+                + "INNER JOIN Account ON [User].Email = Account.Email\n"
+                + "WHERE Product.UserID = ?\n"
+                + "ORDER BY [User].UserID\n"
+                + "OFFSET ? ROWS FETCH NEXT 9 ROWS ONLY";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, id);
+            st.setInt(2, (index - 1) * 9);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt("ID"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Email"),
+                        rs.getString("Mobile"),
+                        rs.getInt("Status")
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    public User getCustomerByID(String id) {
+
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email\n"
+                + "\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email\n"
+                + "WHERE\n"
+                + "    U.UserID = ?";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setString(1, id);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                return new User(
+                rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return null;
+    }
+
+   
+
+    public List<User> SearchCustomer(int id, String txtSearch) {
+        List<User> list = new ArrayList<>();
+
+        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID, "
+                + "[User].Email, [User].PhoneNumber AS Mobile, Account.Status "
+                + "FROM [User] "
+                + "INNER JOIN Orders ON [User].UserID = Orders.UserID "
+                + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID "
+                + "INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID "
+                + "INNER JOIN Account ON [User].Email = Account.Email "
+                + "WHERE Product.UserID = ? "
+                + "AND ([User].UserName LIKE ? OR [User].Email LIKE ? OR [User].PhoneNumber LIKE ?) "
+                + "ORDER BY [User].UserID";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, id);
+            st.setString(2, "%" + txtSearch + "%");
+            st.setString(3, "%" + txtSearch + "%");
+            st.setString(4, "%" + txtSearch + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt("ID"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Email"),
+                        rs.getString("Mobile"),
+                        rs.getInt("Status")
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    public List<User> getAllCustomerCity(int id, String city) {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT [User].UserName AS CustomerName,\n"
+                + "       [User].UserID AS ID,\n"
+                + "       [User].Email,\n"
+                + "       [User].PhoneNumber AS Mobile,\n"
+                + "       Account.Status\n"
+                + "FROM [User]\n"
+                + "INNER JOIN Orders ON [User].UserID = Orders.UserID\n"
+                + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID\n"
+                + "INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID\n"
+                + "INNER JOIN Account ON [User].Email = Account.Email\n"
+                + "WHERE Product.UserID = ? AND [User].Address Like ?\n"
+                + "ORDER BY [User].UserID";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, id);
+            st.setString(2, "%" + city + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt("ID"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Email"),
+                        rs.getString("Mobile"),
+                        rs.getInt("Status")
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+//Get all Customer active DucLV
+    public List<User> getAllCustomerActive(int id) {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID,\n"
+                + "       [User].Email,\n"
+                + "       [User].PhoneNumber AS Mobile,\n"
+                + "       Account.Status\n"
+                + "FROM [User]\n"
+                + "INNER JOIN Orders ON [User].UserID = Orders.UserID\n"
+                + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID\n"
+                + "INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID\n"
+                + "INNER JOIN Account ON [User].Email = Account.Email\n"
+                + "WHERE Product.UserID = ? AND Account.Status = 1 \n"
+                + "ORDER BY [User].UserID;";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, id);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt("ID"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Email"),
+                        rs.getString("Mobile"),
+                        rs.getInt("Status")
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    //Get all customer blocked DucLV
+    public List<User> getAllCustomerBlock(int id) {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID,\n"
+                + "       [User].Email,\n"
+                + "       [User].PhoneNumber AS Mobile,\n"
+                + "       Account.Status\n"
+                + "FROM [User]\n"
+                + "INNER JOIN Orders ON [User].UserID = Orders.UserID\n"
+                + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID\n"
+                + "INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID\n"
+                + "INNER JOIN Account ON [User].Email = Account.Email\n"
+                + "WHERE Product.UserID = ? AND Account.Status = 0 \n"
+                + "ORDER BY [User].UserID";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, id);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt("ID"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Email"),
+                        rs.getString("Mobile"),
+                        rs.getInt("Status")
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    public List<User> getCustomerNameSort(int id, String sort) {
+        List<User> list = new ArrayList<>();
+        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID,\n"
+                + "       [User].Email,\n"
+                + "       [User].PhoneNumber AS Mobile,\n"
+                + "       Account.Status\n"
+                + "FROM [User]\n"
+                + "INNER JOIN Orders ON [User].UserID = Orders.UserID\n"
+                + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID\n"
+                + "INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID\n"
+                + "INNER JOIN Account ON [User].Email = Account.Email\n"
+                + "WHERE Product.UserID = ?\n"
+                + "ORDER BY [User].UserName" + sort; // Sort by UserName
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new User(
+                        rs.getInt("ID"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Email"),
+                        rs.getString("Mobile"),
+                        rs.getInt("Status")
                 ));
             }
         } catch (SQLException e) {
@@ -954,7 +1265,7 @@ public List<User> getUserNameSort(String sort) {
         }
         return userID;
     }
-    
+
     //get user base on userID using string: Baomv
     public User getUser(String id) {
         String sql = "select * from [user] where UserID = ?";
@@ -1044,7 +1355,7 @@ public List<User> getUserNameSort(String sort) {
         }
 
         UserDAO c = new UserDAO();
-        List<User> listC = c.getAllUser(1);
+        List<User> listC = c.getAllCustomer(2, 1);
 
         for (User o : listC) {
             System.out.println(o);
