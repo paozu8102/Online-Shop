@@ -167,7 +167,8 @@ form .options .list{
 .options .list li img{
   width: 23px;
 }
-form button{
+
+#submitButton {
   height: 53px;
   color: #fff;
   font-size: 18px;
@@ -179,12 +180,29 @@ form button{
   background: #e2e5e9;
   transition: all 0.3s ease;
 }
-form textarea:valid ~ button{
+
+#cancelButton{
+    height: 53px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 7px;
+    background: #4599FF;
+    width: 48%;
+    color: white;
+    border-style: hidden;
+}
+
+#cancelButton:hover{
+    background: #1a81ff;
+}
+
+form textarea:valid ~ #submitButton{
   color: #fff;
   cursor: pointer;
   background: #4599FF;
 }
-form textarea:valid ~ button:hover{
+form textarea:valid ~ #submitButton:hover{
   background: #1a81ff;
 }
 .container .audience{
@@ -329,6 +347,7 @@ input[type='checkbox']:checked {
     margin-top: -10px;
     cursor: pointer;
 }
+
 </style>
 <div class="container" style="overflow-y: scroll;">
       <div class="wrapper">
@@ -346,18 +365,19 @@ input[type='checkbox']:checked {
               </div>
             </div>
             <textarea placeholder="What's on your mind?" spellcheck="false" required></textarea>
+            
             <div class="options">
               <p>Add images to Your Post</p>
               <ul class="list">
                 <li><img onclick="openFileDialog();" src="images/gallery.jpg" alt="gallery"></li>
                 <input type="file" id="imageInput" accept="image/*" style="display: none">
               </ul>
-              
             </div>
+            
             <div  id="imageList" style="margin-top: 20px; overflow-x: scroll; width: 100%; white-space: nowrap; display: none">
-                
             </div>
-            <button onclick="checkAndSubmit();return false;">Post</button>
+            <button id="submitButton" style="width: 48%;" onclick="checkAndSubmit();return false;">Post</button>
+            <input onclick="window.history.back();" id="cancelButton" type="button" value="Cancel">
           </form>
         </section>
         <section class="audience">
