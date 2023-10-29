@@ -7,6 +7,7 @@ package Controller;
 import DAO.ProductDAO;
 import DAO.UserDAO;
 import Model.Account;
+import Model.Category;
 import Model.Product;
 import Model.User;
 import java.io.IOException;
@@ -105,7 +106,9 @@ public class ManageProduct extends HttpServlet {
             request.setAttribute("endP", endPage);
             request.setAttribute("tag", index);
         }
-        session.setAttribute("listP", list);
+        List<Category> listC = c.getProductCategory();
+          request.setAttribute("listC", listC);
+         request.setAttribute("listP", list);
         request.getRequestDispatcher("product-management.jsp").forward(request, response);
     }
 
