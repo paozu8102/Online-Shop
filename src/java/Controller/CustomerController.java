@@ -77,7 +77,7 @@ int customerCount = c.getTotalCustomer(uid);
              customerCount = listU.size();
             
         } else if (sortname != null) {
-            listU = c.getUserNameSort(sortname);
+            listU = c.getCustomerNameSort(uid,sortname);
              customerCount = listU.size();
         } else if (city != null) {
             city = city.replace("+", " ");

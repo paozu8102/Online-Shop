@@ -860,43 +860,45 @@ public class UserDAO extends DBContext {
         return list;
     }
 
-    public List<User> getCustomerNameSort(int id, String sort) {
-        List<User> list = new ArrayList<>();
-        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID,\n"
-                + "       [User].Email,\n"
-                + "       [User].PhoneNumber AS Mobile,\n"
-                + "       Account.Status\n"
-                + "FROM [User]\n"
-                + "INNER JOIN Orders ON [User].UserID = Orders.UserID\n"
-                + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID\n"
-                + "INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID\n"
-                + "INNER JOIN Account ON [User].Email = Account.Email\n"
-                + "WHERE Product.UserID = ?\n"
-                + "ORDER BY [User].UserName" + sort; // Sort by UserName
+ public List<User> getCustomerNameSort(int id, String sort) {
+    List<User> list = new ArrayList<>();
+    String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID, "
+            + "[User].Email, [User].PhoneNumber AS Mobile, Account.Status "
+            + "FROM [User] "
+            + "INNER JOIN Orders ON [User].UserID = Orders.UserID "
+            + "INNER JOIN OrderDetail ON Orders.OrderID = OrderDetail.OrderID "
+            + "INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID "
+            + "INNER JOIN Account ON [User].Email = Account.Email "
+            + "WHERE Product.UserID = ? "
+            + "ORDER BY [User].UserName " + sort; // Sort by UserName
 
-        try {
-            PreparedStatement st = getConnection().prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                list.add(new User(
-                        rs.getInt("ID"),
-                        rs.getString("CustomerName"),
-                        rs.getString("Email"),
-                        rs.getString("Mobile"),
-                        rs.getInt("Status")
-                ));
-            }
-        } catch (SQLException e) {
-            // Handle SQL exception
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-        } catch (Exception e) {
-            // Handle other exceptions
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+    try {
+         PreparedStatement st = getConnection().prepareStatement(sql);
+
+        
+        st.setInt(1, id);
+        ResultSet rs = st.executeQuery();
+
+        while (rs.next()) {
+            list.add(new User(
+                    rs.getInt("ID"),
+                    rs.getString("CustomerName"),
+                    rs.getString("Email"),
+                    rs.getString("Mobile"),
+                    rs.getInt("Status")
+            ));
         }
-
-        return list;
+    } catch (SQLException e) {
+        // Handle SQL exception
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+    } catch (Exception e) {
+        // Handle other exceptions
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
     }
+
+    return list;
+}
+
 
     //Get all Admin MinhHC
     public List<User> getAllAdmin() {
