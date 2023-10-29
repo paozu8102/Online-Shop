@@ -39,7 +39,6 @@ import java.util.logging.Logger;
  *
  * @author admin
  */
-
 @WebServlet(name = "AddProduct", urlPatterns = {"/addproduct"})
 @MultipartConfig(location = "D:\\uploads",
         fileSizeThreshold = 1024 * 1024,
@@ -59,7 +58,38 @@ public class AddProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       HttpSession session = request.getSession();
+      
+
+        // Redirect to the appropriate page
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+      HttpSession session = request.getSession();
         // Get the array of Part objects for "image"
         Collection<Part> imageParts = request.getParts().stream()
                 .filter(part -> "image".equals(part.getName()))
@@ -82,22 +112,20 @@ public class AddProduct extends HttpServlet {
         }
         // Process each uploaded image
         for (Part imagePart : imageParts) {
-            
-              ServletContext context = getServletContext();
-        // Lấy root path của ứng dụng web
-        String rootPath = context.getRealPath("/");
-        rootPath = rootPath.replace("build\\", "");
+
+            ServletContext context = getServletContext();
+            // Lấy root path của ứng dụng web
+            String rootPath = context.getRealPath("/");
+            rootPath = rootPath.replace("build\\", "");
 
             String uploadPath = rootPath + "\\images";
-            
-            
+
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
             String fileName = UUID.randomUUID().toString() + "_" + Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
             String filePath = uploadPath + File.separator + fileName;
-               
 
             try ( InputStream input = imagePart.getInputStream();  OutputStream output = new FileOutputStream(filePath)) {
                 byte[] buffer = new byte[1024];
@@ -108,42 +136,10 @@ public class AddProduct extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace(); // Print any exceptions for debugging
             }
-
+            dao.addImage(id, fileName);
         }
-  
 
-    response.sendRedirect("manage");
-
-    // Redirect to the appropriate page
-}
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect("manage");
     }
 
     /**
@@ -152,7 +148,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
      * @return a String containing servlet description
      */
     @Override
-public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
