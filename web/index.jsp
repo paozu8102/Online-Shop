@@ -56,18 +56,10 @@
                                      </c:if>
             <c:if test="${sessionScope.acc.roleID==1}">
             <li class="nav-item active"><a href="home" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
+                  <li class="nav-item"><a href="admin" class="nav-link">Dashboard</a></li>
                         <c:if test="${sessionScope.acc==null}"><li class="nav-item active"><a href="login" class="nav-link">Sign In</a></li></c:if>
-                        <c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>
-                             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manage</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="usercontrol">Manage User</a>
-              	<a class="dropdown-item" href="settingcontrol">Manage Category</a>
-              </div>
-            </li>
-                                    <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
+                        <c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>                         
                                     <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
                         </c:if>
                                </c:if>     
