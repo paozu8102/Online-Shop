@@ -62,13 +62,10 @@ public class LogoutController extends HttpServlet {
        
             session.removeAttribute("acc");
             session.removeAttribute("user");
-<<<<<<< HEAD
             response.sendRedirect("home");
-        }
-=======
+        
       response.sendRedirect("home");
->>>>>>> 97a47b88049013498090e7e5df3f35a3ea1770e8
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.

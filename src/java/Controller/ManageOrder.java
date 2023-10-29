@@ -93,9 +93,7 @@ public class ManageOrder extends HttpServlet {
             list = o.getAllOrderASC(u.getUserID());
         }else if ("desc".equals(sortprice)) {
             list = o.getAllOrderDesc(u.getUserID());
-        }else if(from!=null && !from.isEmpty() && to!=null && !to.isEmpty()){
-            list = o.getOrdersByDateRange(u.getUserID(), from, to);
-        }    
+        } 
         else {
 
             list = o.getAllOrder(index, u.getUserID());

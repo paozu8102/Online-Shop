@@ -229,11 +229,8 @@ public class ProOrder {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
-        return "ProOrder{" + "oid=" + oid + ", pid=" + pid + ", productname=" + productname + ", productimage=" + productimage + ", quantity=" + quantity + ", price=" + price + ", totalprice=" + totalprice + ", date=" + date + ", cusid=" + cusid + ", sellid=" + sellid + ", sellname=" + sellname + ", customername=" + customername + ", address=" + address + ", phonenumber=" + phonenumber + ", status=" + status + ", expDate=" + expDate + ", delDate=" + delDate + ", payment=" + payment + '}';
-=======
-        return "ProOrder{" + "oid=" + oid + ", pid=" + pid + ", productname=" + productname + ", productimage=" + productimage + ", quantity=" + quantity + ", price=" + price + ", date=" + date + ", cusid=" + cusid + ", sellid=" + sellid + ", sellname=" + sellname + ", customername=" + customername + ", address=" + address + ", phonenumber=" + phonenumber + ", status=" + status + ", expDate=" + expDate + ", delDate=" + delDate + ", payment=" + payment + '}';
->>>>>>> 97a47b88049013498090e7e5df3f35a3ea1770e8
+        return "ProOrder{" + "oid=" + oid + ", pid=" + pid + ", productname=" + productname + ", productimage=" + productimage + ", quantity=" + quantity + ", price=" + price + ", totalprice=" + totalprice + ", date=" + date + ", cusid=" + cusid + ", sellid=" + sellid + ", sellname=" + sellname + ", customername=" + customername + ", address=" + address + ", phonenumber=" + phonenumber + ", status=" + status + ", expDate=" + expDate + ", delDate=" + delDate + ", payment=" + payment + '}';  
+
     }
 
 }
