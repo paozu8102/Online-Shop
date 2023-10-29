@@ -8,6 +8,7 @@ import DBcontext.DBContext;
 import Model.Category;
 import Model.Product;
 import Model.Setting;
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -343,7 +344,75 @@ public class ProductDAO extends DBContext {
 
     return list;
 }
+public void addProduct(String name, String price, String description, String height, String width, String quantity, int userid) {
+    try {
+        String sql = "INSERT INTO product (ProductName, Price, [Description], Height, Width, Quantity, [View], Discount, UserID, [Status]) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, 1);";
+        PreparedStatement st = getConnection().prepareStatement(sql);
 
+        st.setString(1, name);
+        st.setBigDecimal(2, new BigDecimal(price));
+        st.setString(3, description);
+       st.setBigDecimal(4, new BigDecimal(height));
+        st.setBigDecimal(5, new BigDecimal(width));
+       st.setInt(6, Integer.parseInt(quantity));
+        st.setInt(7, userid);
+        st.executeUpdate();
+    } catch (SQLException e) {
+        // Handle SQL exception
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+    } catch (Exception e) {
+        // Handle other exceptions
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+    }
+}
+
+   
+   
+  public int getNewestProductID() {
+        String sql = "select top 1 ProductID from [Product] order by ProductID desc";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+        return 0;
+    }
+     public void addCategory(int id, String category) {
+
+        try {
+
+            String sql = "INSERT INTO ProductCategory (ProductID , CategoryID )\n"
+                    + "VALUES (?, ?);";
+
+              PreparedStatement st = getConnection().prepareStatement(sql);
+
+            st.setInt(1, id);
+             st.setInt(2, Integer.parseInt(category));
+           
+           
+            st.executeUpdate();
+
+         
+        }  catch (SQLException e) {
+        // Handle SQL exception
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+    } catch (Exception e) {
+        // Handle other exceptions
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+    }
+
+
+    }
     //Get all product HoangNH
     public List<Product> getAllProductNoIndex(int userID) {
         List<Product> list = new ArrayList<>();
@@ -1895,10 +1964,36 @@ public int getTotalProductActiveCountByUserId(int userId) {
 
         return list;
     }
+public List<Category> getProductCategory() {
+        List<Category> list = new ArrayList<>();
+        String sql = "SELECT * FROM Category WHERE (ObjectTypeID = 1 OR ObjectTypeID = 3) AND Status = 1;";
 
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+
+                list.add(new Category(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getBoolean(3)
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
     public List<Category> getProductCate() {
         List<Category> list = new ArrayList<>();
-        String sql = "Select * from Category where ObjectTypeID =1 and Status = 1;";
+        String sql = "SELECT * FROM Category WHERE ObjectTypeID = 1 AND Status = 1;";
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
