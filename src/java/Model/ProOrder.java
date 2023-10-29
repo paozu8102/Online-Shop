@@ -15,6 +15,7 @@ public class ProOrder {
     private String productimage;
     private int quantity;
     private double price;
+    private double totalprice;
     private String date;
     private int cusid;
     private int sellid;
@@ -28,6 +29,22 @@ public class ProOrder {
     private String payment;
 
     public ProOrder() {
+    }
+
+    public ProOrder(int oid, String productname, int quantity, double price, double totalprice, String date, String customername, String address, String phonenumber, String status, String expDate, String delDate, String payment) {
+        this.oid = oid;
+        this.productname = productname;
+        this.quantity = quantity;
+        this.price = price;
+        this.totalprice = totalprice;
+        this.date = date;
+        this.customername = customername;
+        this.address = address;
+        this.phonenumber = phonenumber;
+        this.status = status;
+        this.expDate = expDate;
+        this.delDate = delDate;
+        this.payment = payment;
     }
 
     public ProOrder(int oid, String productname, String productimage, int quantity, double price, String date, String sellname, String customername, String address, String phonenumber, String status,String expDate, String delDate, String payment) {
@@ -47,12 +64,31 @@ public class ProOrder {
                 this.delDate = delDate;
     }
 
+    public ProOrder(int oid, String productname, int quantity, double totalprice, String date, String customername, String status, String payment) {
+        this.oid = oid;
+        this.productname = productname;
+        this.quantity = quantity;
+        this.totalprice = totalprice;
+        this.date = date;
+        this.customername = customername;
+        this.status = status;
+        this.payment = payment;
+    }
+
     public ProOrder(int cusid, double price, String customername, String address, String phonenumber) {
         this.price = price;
         this.cusid = cusid;
         this.customername = customername;
         this.address = address;
         this.phonenumber = phonenumber;
+    }
+
+    public double getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(double totalprice) {
+        this.totalprice = totalprice;
     }
 
     public int getOid() {
@@ -193,7 +229,8 @@ public class ProOrder {
 
     @Override
     public String toString() {
-        return "ProOrder{" + "oid=" + oid + ", pid=" + pid + ", productname=" + productname + ", productimage=" + productimage + ", quantity=" + quantity + ", price=" + price + ", date=" + date + ", cusid=" + cusid + ", sellid=" + sellid + ", sellname=" + sellname + ", customername=" + customername + ", address=" + address + ", phonenumber=" + phonenumber + ", status=" + status + ", expDate=" + expDate + ", delDate=" + delDate + ", payment=" + payment + '}';
+        return "ProOrder{" + "oid=" + oid + ", pid=" + pid + ", productname=" + productname + ", productimage=" + productimage + ", quantity=" + quantity + ", price=" + price + ", totalprice=" + totalprice + ", date=" + date + ", cusid=" + cusid + ", sellid=" + sellid + ", sellname=" + sellname + ", customername=" + customername + ", address=" + address + ", phonenumber=" + phonenumber + ", status=" + status + ", expDate=" + expDate + ", delDate=" + delDate + ", payment=" + payment + '}';  
+
     }
 
 }

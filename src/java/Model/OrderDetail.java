@@ -15,6 +15,7 @@ public class OrderDetail {
  private String status;
  private String expDate;
 private String delDate;
+private Product product;
     public OrderDetail() {
     }
 
@@ -34,6 +35,14 @@ private String delDate;
         this.status = status;
         this.expDate = expDate;
         this.delDate = delDate;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getOid() {
@@ -90,6 +99,11 @@ private String delDate;
 
     public void setDelDate(String delDate) {
         this.delDate = delDate;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" + "oid=" + oid + ", pid=" + pid + ", quantity=" + quantity + ", price=" + price + ", status=" + status + ", expDate=" + expDate + ", delDate=" + delDate + ", product=" + product + '}';
     }
 
   

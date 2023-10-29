@@ -95,7 +95,7 @@ public class Statistics extends HttpServlet {
         if (revenue == null || revenue.isEmpty() || revenue.equals("1")) {
             listTotalRevenue = orderDAO.getTotalPriceByMonth();
         } else if (revenue.equals("2")) {
-            listTotalRevenue = orderDAO.getTotalPriceBy3Months();
+            listTotalRevenue = orderDAO.getTotalPriceBy3Months(u.getUserID());
         } else if (revenue.equals("3")) {
             listTotalRevenue = orderDAO.getTotalPriceBy6Months();
         } else if (revenue.equals("4")) {

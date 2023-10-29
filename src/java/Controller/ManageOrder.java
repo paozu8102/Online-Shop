@@ -6,7 +6,7 @@
 package Controller;
 
 import DAO.OrderDAO;
-import DAO.UserDAO;
+import DAO.ProductDAO;
 import Model.ProOrder;
 import Model.User;
 import java.io.IOException;
@@ -23,8 +23,8 @@ import java.util.List;
  *
  * @author Acer
  */
-@WebServlet(name="CustomerDetail", urlPatterns={"/customer"})
-public class CustomerDetail extends HttpServlet {
+@WebServlet(name="ManageOrder", urlPatterns={"/manageorder"})
+public class ManageOrder extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,10 +41,10 @@ public class CustomerDetail extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SalerProfile</title>");  
+            out.println("<title>Servlet ManageOrder</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SalerProfile at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManageOrder at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,32 +61,52 @@ public class CustomerDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-               HttpSession session = request.getSession();
-    User user = (User) session.getAttribute("user");
-    int sellid = user.getUserID();
-    String cid = request.getParameter("cid");
-     UserDAO c = new UserDAO();
-      OrderDAO o = new OrderDAO();
-     User customer = c.getCustomerByID(cid);
-        request.setAttribute("customer", customer);
-String indexPage = request.getParameter("index");
+        OrderDAO o = new OrderDAO();
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("user");
+                ProductDAO c = new ProductDAO();
+        List<ProOrder> list;
+        String indexPage = request.getParameter("index");
+                String from = request.getParameter("from");
+        String to = request.getParameter("to");
+        String sortprice = request.getParameter("sortprice");
+        String txtSearch = request.getParameter("txt");
+        
         if (indexPage == null) {
             indexPage = "1";
 
         }
+
         int index = Integer.parseInt(indexPage);
-         
-        int count = o.getTotalCustomerOrder(cid, sellid);
-        int endPage = count / 9;
-        if (count % 9 != 0) {
+        int count = o.getTotalOrderCountByUserId(u.getUserID());
+        int endPage = count / 6;
+        if (count % 6 != 0) {
             endPage++;
         }
-//        List<ProOrder> listO = o.getCustomerOrder(index, cid, sellid );
-//        request.setAttribute("listO", listO);
-//        request.setAttribute("endP", endPage);
-//        request.setAttribute("tag", index);
-//        request.getRequestDispatcher("customer-detail.jsp").forward(request, response);
-    } 
+       if ("all".equals(sortprice)) {
+            list = o.getAllOrder(index, u.getUserID());
+            request.setAttribute("endP", endPage);
+            request.setAttribute("tag", index);
+        }else if (txtSearch != null) {
+          list = o.getAllOrderSearch(txtSearch, u.getUserID());
+        }else if ("asc".equals(sortprice)) {
+            list = o.getAllOrderASC(u.getUserID());
+        }else if ("desc".equals(sortprice)) {
+            list = o.getAllOrderDesc(u.getUserID());
+        } 
+        else {
+
+            list = o.getAllOrder(index, u.getUserID());
+            request.setAttribute("endP", endPage);
+            request.setAttribute("tag", index);
+        }
+        session.setAttribute("listO", list);
+        request.getRequestDispatcher("order-management.jsp").forward(request, response);
+    }
+     public static void main(String[] args) {
+         OrderDAO o = new OrderDAO();
+         System.out.println(o.getAllOrder(1, 9));
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -98,7 +118,22 @@ String indexPage = request.getParameter("index");
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String oid = request.getParameter("oid");
+    int id = 0; // Default value
+
+    if (oid != null && !oid.isEmpty()) {
+        try {
+            id = Integer.parseInt(oid);
+            OrderDAO c = new OrderDAO();
+            c.CancelOrder(id);
+        } catch (NumberFormatException e) {
+            // Handle the case where the "oid" parameter is not a valid integer
+            // You can log an error or provide a response indicating the invalid input.
+        }
+    }
+
+    // Redirect to the appropriate page (whether cancellation succeeded or not).
+    response.sendRedirect("myorder");
     }
 
     /** 
