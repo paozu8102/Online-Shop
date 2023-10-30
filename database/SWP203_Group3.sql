@@ -1,4 +1,4 @@
-﻿
+﻿Create database SWP391_Group3_Part2;
 USE SWP391_Group3_Part2;
 GO
 CREATE TABLE [Role](

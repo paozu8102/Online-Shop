@@ -334,8 +334,7 @@
                                                     <td>${p.getStatusID()}</td>
                                                     <td>${p.getPostType()}</td>
                                                     <td>${p.getView()}</td>
-                                                    <td style="text-align: center; display: flex; justify-content: center; align-items: center">
-                                                        <a href="crudpost?id=${p.getPostID()}&mode=delete">Delete</a>
+                                                    <td style="text-align: center; display: flex; justify-content: center; align-items: center">                                                     
                                                         <a href="crudpost?id=${p.getPostID()}&mode=update" style="margin-left: 20px">View Details</a>
                                                     </td>
                                                 </tr>
