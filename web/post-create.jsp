@@ -353,7 +353,7 @@ input[type='checkbox']:checked {
       <div class="wrapper">
         <section class="post">
           <header>Create Post</header>
-          <form action="#">
+          <form action="PostCreate" id="formPost" method="post">
             <div class="content">
               <img src="${user.getAvatar()}" alt="logo">
               <div class="details">
@@ -364,6 +364,7 @@ input[type='checkbox']:checked {
                 </div>
               </div>
             </div>
+            
             <textarea placeholder="What's on your mind?" spellcheck="false" required></textarea>
             
             <div class="options">
@@ -375,6 +376,7 @@ input[type='checkbox']:checked {
             </div>
             
             <div  id="imageList" style="margin-top: 20px; overflow-x: scroll; width: 100%; white-space: nowrap; display: none">
+            
             </div>
             <button id="submitButton" style="width: 48%;" onclick="checkAndSubmit();return false;">Post</button>
             <input onclick="window.history.back();" id="cancelButton" type="button" value="Cancel">
@@ -390,6 +392,7 @@ input[type='checkbox']:checked {
             <span>You can choose as many category as you want</span>
           </div>
           <div class="scrollable-container">
+          <form id="formCategory" method="post" action="PostCreate">
           <ul class="list">
             <c:forEach items="${cateList}" var="cate">
             <li>
@@ -399,37 +402,37 @@ input[type='checkbox']:checked {
                   <span style="width: 100%;">${cate.Description}</span>
                 </div>
               </div>
-                  <input value="${cate.CategoryID}" type="checkbox" id="checkbox" name="category" multiple="true;">
+                  <input value="${cate.CategoryID}" type="checkbox" class="checkbox" name="category" multiple>
             </li>
             </c:forEach>
           </ul>
+          </form>
           </div>
         </section>
       </div>
     </div>
 
   </body>
-  <script>
-  function checkAndSubmit() {
+<script>
+//check category and submit data if category are valid
+function checkAndSubmit() {
   var checkboxes = document.querySelectorAll('input[type="checkbox"]');
   var atLeastOneChecked = false;
-
   for (var i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {
       atLeastOneChecked = true;
-      break; // No need to continue checking once one is found.
+      break;
     }
   }
   if (atLeastOneChecked) {
-    // At least one checkbox is checked, so you can submit the form.
-    document.getElementById('myForm').submit();
+    document.getElementById('formCategory').submit();
+    document.getElementById('formPost').submit();
   } else {
-    // No checkboxes are checked, so show an alert to the user.
     alert('Please select at least one category.');
   }
 }
 
-  
+  //remove image inside image box, remove the box if image box is empty
   function removeElement(id){
       const elementToRemove = document.getElementById(id);
       elementToRemove.remove();
@@ -441,6 +444,8 @@ input[type='checkbox']:checked {
           mainElement.style.height = "450px";
       }
   }
+  
+      //show and hide the category list
       const container = document.querySelector(".container"),
       privacy = container.querySelector(".post .privacy"),
       arrowBack = container.querySelector(".audience .arrow-back");
@@ -452,7 +457,8 @@ input[type='checkbox']:checked {
       arrowBack.addEventListener("click", () => {
         container.classList.remove("active");
       });
-      
+
+//add event to filedialog
 const input = document.getElementById('imageInput');
 let timeout = null;
 let dialogopen = false;
@@ -469,16 +475,17 @@ window.addEventListener('focus', () => {
   if (dialogopen) {
     input.value = '';
     input.files = null;
-    
     clearTimeout(timeout);
     timeout = setTimeout(checkFiles(), 100);
   }
 });
       
-      function openFileDialog(){
-          document.getElementById("imageInput").click();
-      }
+//open file dialog when click on gallery button      
+function openFileDialog(){
+    document.getElementById("imageInput").click();
+}
 
+//add image to image box
 function addImage(imageLink){
     const now = new Date();
     const minutes = now.getMinutes();
@@ -499,19 +506,37 @@ function addImage(imageLink){
     const inputImage = document.createElement('input');
     inputImage.type = 'image';
     inputImage.src = imageLink;
-    inputImage.alt = 'Submit';
-    inputImage.name = 'image';
-    inputImage.multiple = true;
+    inputImage.value = imageLink;
+    
+    const hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.name = 'image';
+    hiddenInput.value = imageLink;
+    hiddenInput.multiple = 'true';
+    
     inputImage.onclick = function () {
-      return false;  
+        const byteCharacters = atob(imageLink.split(',')[1]);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'image/jpeg' });
+
+        const objectURL = URL.createObjectURL(blob);
+        const newTab = window.open(objectURL, '_blank');
+        return false;
     };
     
+    imageContainer.appendChild(hiddenInput);
     imageContainer.appendChild(closeButton);
     imageContainer.appendChild(inputImage);
     const imageList = document.getElementById('imageList');
     imageList.appendChild(imageContainer);
 }
 
+
+//add image for each time user choose image from file dialog
 function checkFiles() {
   dialogopen = false;
   if(input.files.length > 0){

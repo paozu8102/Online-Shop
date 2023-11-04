@@ -132,7 +132,7 @@ public class PostDAO extends DBContext {
         return CommentNumber;
     }
 
-    //get all no-reply comment: ThanhNX
+    //get all root comment: ThanhNX
     public ArrayList<Comment> getAllRootCommentByPostID(String id) {
         ArrayList<Comment> rootCommentList = new ArrayList<>();
         String command = "SELECT u.UserID,\n"
@@ -510,7 +510,7 @@ public class PostDAO extends DBContext {
         String command = "SELECT p.PostID\n"
                 + "FROM PostCategory p\n"
                 + "WHERE p.CategoryID = ?\n"
-                + "AND b.StatusID = 2";
+                + "";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
             ps.setInt(1, category);
@@ -523,7 +523,7 @@ public class PostDAO extends DBContext {
         return idList;
     }
 
-    //get all category of post
+    //get all category of post: ThanhNX
     public ArrayList<Map<String, String>> getPostCategory() {
         ArrayList<Map<String, String>> dataList = new ArrayList<>();
         String command = "SELECT c.CategoryID\n"
