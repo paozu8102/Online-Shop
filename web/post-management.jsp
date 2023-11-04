@@ -177,16 +177,15 @@
                                     <i class="fa fa-table" aria-hidden="true"></i>
                                     <span class="hide-menu">Post Management</span>
                                 </a>
-                            </li>     
-                               <li class="sidebar-item">
+                            </li>
+                            <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="usercontrol"
                                    aria-expanded="false">
                                     <i class="fa fa-table" aria-hidden="true"></i>
                                     <span class="hide-menu">User Management</span>
                                 </a>
-                            </li>
-                            
-                                <li class="sidebar-item">
+                            </li>                           
+                            <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="settingcontrol"
                                    aria-expanded="false">
                                     <i class="fa fa-table" aria-hidden="true"></i>
@@ -335,8 +334,7 @@
                                                     <td>${p.getStatusID()}</td>
                                                     <td>${p.getPostType()}</td>
                                                     <td>${p.getView()}</td>
-                                                    <td style="text-align: center; display: flex; justify-content: center; align-items: center">
-                                                        <a href="crudpost?id=${p.getPostID()}&mode=delete">Delete</a>
+                                                    <td style="text-align: center; display: flex; justify-content: center; align-items: center">                                                     
                                                         <a href="crudpost?id=${p.getPostID()}&mode=update" style="margin-left: 20px">View Details</a>
                                                     </td>
                                                 </tr>

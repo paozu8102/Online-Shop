@@ -4,16 +4,10 @@
  */
 package DAO;
 
-import Model.Order;
-import Model.Product;
+
 
 import DBcontext.DBContext;
-import Model.Account;
-import Model.Order;
 import Model.ProOrder;
-import Model.Setting;
-
-import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +23,7 @@ import java.util.logging.Logger;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 public class OrderDAO extends DBContext {
 
@@ -232,6 +227,234 @@ public class OrderDAO extends DBContext {
 
         return list;
     }
+    public List<ProOrder> getAllOrder(int index, int userID) {
+        List<ProOrder> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    O.OrderID,\n"
+                + "    CAST(O.OrderDate AS DATE) AS date,\n"
+                + "    O.TotalPrice,\n"
+                + "    O.CustomerName,\n"
+                + "    O.PhoneNumber,\n"
+                + "    O.Address,\n"
+                + "    OD.ExpDate,\n"
+                + "    OD.DelDate,\n"
+                + "    OD.Price,\n"
+                + "    OD.Status,\n"
+                + "    P.ProductName,\n"
+                + "    OD.Quantity,\n"
+                + "    OD.Price,\n"
+                + "    O.Payment\n"
+                + "FROM\n"
+                + "    Orders AS O\n"
+                + "INNER JOIN\n"
+                + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+                + "INNER JOIN\n"
+                + "    Product AS P ON OD.ProductID = P.ProductID\n"
+                + "WHERE P.UserID = ?\n"
+                + "ORDER BY O.OrderID\n"
+                + "OFFSET ? ROWS \n"
+                + "FETCH NEXT 6 ROWS ONLY;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, userID);
+            st.setInt(2, (index - 1) * 6);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProOrder(
+                        rs.getInt("OrderID"),
+                        rs.getString("ProductName"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("TotalPrice"),
+                        rs.getString("date"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status"), // Get expDate
+                        rs.getString("ExpDate"),
+                        rs.getString("DelDate"),
+                        rs.getString("Payment")
+                ));
+            }
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ SQL
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Xử lý các ngoại lệ khác
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+    public List<ProOrder> getAllOrderASC(int userID) {
+        List<ProOrder> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    O.OrderID,\n"
+                + "    CAST(O.OrderDate AS DATE) AS date,\n"
+                + "    O.TotalPrice,\n"
+                + "    O.CustomerName,\n"
+                + "    O.PhoneNumber,\n"
+                + "    O.Address,\n"
+                + "    OD.ExpDate,\n"
+                + "    OD.DelDate,\n"
+                + "    OD.Price,\n"
+                + "    OD.Status,\n"
+                + "    P.ProductName,\n"
+                + "    OD.Quantity,\n"
+                + "    OD.Price,\n"
+                + "    O.Payment\n"
+                + "FROM\n"
+                + "    Orders AS O\n"
+                + "INNER JOIN\n"
+                + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+                + "INNER JOIN\n"
+                + "    Product AS P ON OD.ProductID = P.ProductID\n"
+                + "WHERE P.UserID = ?\n"
+                + "ORDER BY O.TotalPrice ASC\n";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, userID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProOrder(
+                        rs.getInt("OrderID"),
+                        rs.getString("ProductName"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("TotalPrice"),
+                        rs.getString("date"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status"), // Get expDate
+                        rs.getString("ExpDate"),
+                        rs.getString("DelDate"),
+                        rs.getString("Payment")
+                ));
+            }
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ SQL
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Xử lý các ngoại lệ khác
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+    public List<ProOrder> getAllOrderDesc(int userID) {
+        List<ProOrder> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    O.OrderID,\n"
+                + "    CAST(O.OrderDate AS DATE) AS date,\n"
+                + "    O.TotalPrice,\n"
+                + "    O.CustomerName,\n"
+                + "    O.PhoneNumber,\n"
+                + "    O.Address,\n"
+                + "    OD.ExpDate,\n"
+                + "    OD.DelDate,\n"
+                + "    OD.Price,\n"
+                + "    OD.Status,\n"
+                + "    P.ProductName,\n"
+                + "    OD.Quantity,\n"
+                + "    OD.Price,\n"
+                + "    O.Payment\n"
+                + "FROM\n"
+                + "    Orders AS O\n"
+                + "INNER JOIN\n"
+                + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+                + "INNER JOIN\n"
+                + "    Product AS P ON OD.ProductID = P.ProductID\n"
+                + "WHERE P.UserID = ?\n"
+                + "ORDER BY O.TotalPrice DESC\n";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, userID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProOrder(
+                        rs.getInt("OrderID"),
+                        rs.getString("ProductName"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("TotalPrice"),
+                        rs.getString("date"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status"), // Get expDate
+                        rs.getString("ExpDate"),
+                        rs.getString("DelDate"),
+                        rs.getString("Payment")
+                ));
+            }
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ SQL
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Xử lý các ngoại lệ khác
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+    public List<ProOrder> getAllOrderSearch(String search, int userID) {
+    List<ProOrder> list = new ArrayList<>();
+    String sql = "SELECT\n"
+            + "    O.OrderID,\n"
+            + "    CAST(O.OrderDate AS DATE) AS date,\n"
+            + "    O.TotalPrice,\n"
+            + "    O.CustomerName,\n"
+            + "    O.PhoneNumber,\n"
+            + "    O.Address,\n"
+            + "    OD.ExpDate,\n"
+            + "    OD.DelDate,\n"
+            + "    OD.Price,\n"
+            + "    OD.Status,\n"
+            + "    P.ProductName,\n"  // Corrected the column name
+            + "    OD.Quantity,\n"
+            + "    OD.Price,\n"
+            + "    O.Payment\n"
+            + "FROM\n"
+            + "    Orders AS O\n"
+            + "INNER JOIN\n"
+            + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+            + "INNER JOIN\n"
+            + "    Product AS P ON OD.ProductID = P.ProductID\n"
+            + "WHERE P.UserID = ?\n"
+            + "AND P.ProductName LIKE ?\n"
+            + "ORDER BY O.OrderID\n";
+    try {
+        PreparedStatement st = getConnection().prepareStatement(sql);
+        st.setInt(1, userID);
+        st.setString(2, "%" + search + "%");
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            list.add(new ProOrder(
+                rs.getInt("OrderID"),
+                rs.getString("ProductName"),  // Corrected the column name
+                rs.getInt("Quantity"),
+                rs.getDouble("Price"),
+                rs.getDouble("TotalPrice"),
+                rs.getString("date"),
+                rs.getString("CustomerName"),
+                rs.getString("Address"),
+                rs.getString("PhoneNumber"),
+                rs.getString("Status"),
+                rs.getString("ExpDate"),
+                rs.getString("DelDate"),
+                rs.getString("Payment")
+            ));
+        }
+} catch (SQLException e) {
+            // Xử lý ngoại lệ SQL
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Xử lý các ngoại lệ khác
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+        return list;
+    }
 
     public int getTotalCustomerOrder(String cusid, int sellid) {
         String sql = "SELECT COUNT(*) \n"
@@ -250,9 +473,83 @@ public class OrderDAO extends DBContext {
             st.setInt(1, sellid);
             st.setString(2, cusid);
             ResultSet rs = st.executeQuery();
+        }
+        catch (SQLException e) {
+            // Xử lý ngoại lệ SQL
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Xử lý các ngoại lệ khác
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+        return 0;
+    }
+    public List<ProOrder> getOrdersByDateRange(int userID, String from, String to, int index) {
+    List<ProOrder> list = new ArrayList<>();
+    String sql = "SELECT O.OrderID, CAST(O.OrderDate AS DATE) AS date, O.TotalPrice, O.CustomerName, O.PhoneNumber, " +
+            "O.Address, OD.ExpDate, OD.DelDate, OD.Price, OD.Status, P.ProductName, OD.Quantity, OD.Price, O.Payment " +
+            "FROM Orders AS O " +
+            "INNER JOIN OrderDetail AS OD ON O.OrderID = OD.OrderID " +
+            "INNER JOIN Product AS P ON OD.ProductID = P.ProductID " +
+            "WHERE P.UserID = ? AND CAST(O.OrderDate AS DATE) BETWEEN ? AND ? " +
+            "ORDER BY O.OrderID " +
+            "OFFSET ? ROWS " +
+            "FETCH NEXT 6 ROWS ONLY;";
 
+    try {
+        PreparedStatement st = getConnection().prepareStatement(sql);
+        st.setInt(1, userID);
+        st.setString(2, from);
+        st.setString(3, to);
+        st.setInt(4, (index - 1) * 6);
+
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            list.add(new ProOrder(
+                rs.getInt("OrderID"),
+                        rs.getString("ProductName"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("TotalPrice"),
+                        rs.getString("date"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status"), // Get expDate
+                        rs.getString("ExpDate"),
+                        rs.getString("DelDate"),
+                        rs.getString("Payment")
+            ));
+        }
+    } catch (SQLException e) {
+        // Handle SQL exception
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+    } catch (Exception e) {
+        // Handle other exceptions
+        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+    }
+
+    return list;
+}
+
+    public int getTotalOrderCountByUserId(int userId) {
+        int totalOrderCount = 0;
+        String sql = "SELECT\n"
+                + "COUNT(*)\n"
+                + "FROM\n"
+                + "    Orders AS O\n"
+                + "INNER JOIN\n"
+                + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+                + "INNER JOIN\n"
+                + "    Product AS P ON OD.ProductID = P.ProductID\n"
+                + "\n"
+                + "	where P.UserID = ?";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1);
+                totalOrderCount = rs.getInt(1);
             }
         } catch (SQLException e) {
             // Handle SQL exception
@@ -261,8 +558,10 @@ public class OrderDAO extends DBContext {
             // Handle other exceptions
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
-        return 0;
+        return totalOrderCount;
     }
+        
+  
 
     public List<ProOrder> getCustomerOrder(int index, String cusid, int sellid) {
         List<ProOrder> list = new ArrayList<>();
@@ -352,7 +651,6 @@ public class OrderDAO extends DBContext {
 
         return list;
     }
-
     public void CancelOrder(int id) {
 
         String sql = "UPDATE OrderDetail\n"
@@ -465,56 +763,57 @@ public class OrderDAO extends DBContext {
         return listTotal;
     }
     //hoangnh
-public LinkedHashMap<String, String> getTotalPriceByMonth() {
-    String sql = "WITH DateSequence AS (\n"
-            + "    SELECT top 1\n"
-            + "        DATEADD(WEEK, DATEDIFF(WEEK, 0, DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0)), 0) AS WeekStart\n"
-            + "    UNION ALL\n"
-            + "    SELECT\n"
-            + "        DATEADD(WEEK, 1, WeekStart)\n"
-            + "    FROM DateSequence\n"
-            + "    WHERE\n"
-            + "        DATEADD(WEEK, 1, WeekStart) < DATEADD(MONTH, 1, DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0))\n"
-            + ")\n"
-            + "SELECT\n"
-            + "    WeekStart,\n"
-            + "    DATEADD(DAY, 6, WeekStart) AS WeekEnd,\n"
-            + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
-            + "FROM\n"
-            + "    DateSequence ds\n"
-            + "LEFT JOIN\n"
-            + "    [Orders] o ON o.OrderDate >= ds.WeekStart AND o.OrderDate < DATEADD(DAY, 7, ds.WeekStart)\n"
-            + "GROUP BY\n"
-            + "    WeekStart\n"
-            + "ORDER BY\n"
-            + "    WeekStart;";
-    
-    LinkedHashMap<String, String> listTotalRevenue = new LinkedHashMap<>();
-    
-    try {
-        PreparedStatement ps = getConnection().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            listTotalRevenue.put(
-                "'" + rs.getString(1).split(" ")[0] + " / " + rs.getString(2).split(" ")[0] + "'", 
-                rs.getString(3)
-            );
+
+    public LinkedHashMap<String, String> getTotalPriceByMonth() {
+        String sql = "WITH DateSequence AS (\n"
+                + "    SELECT top 1\n"
+                + "        DATEADD(WEEK, DATEDIFF(WEEK, 0, DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0)), 0) AS WeekStart\n"
+                + "    UNION ALL\n"
+                + "    SELECT\n"
+                + "        DATEADD(WEEK, 1, WeekStart)\n"
+                + "    FROM DateSequence\n"
+                + "    WHERE\n"
+                + "        DATEADD(WEEK, 1, WeekStart) < DATEADD(MONTH, 1, DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0))\n"
+                + ")\n"
+                + "SELECT\n"
+                + "    WeekStart,\n"
+                + "    DATEADD(DAY, 6, WeekStart) AS WeekEnd,\n"
+                + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
+                + "FROM\n"
+                + "    DateSequence ds\n"
+                + "LEFT JOIN\n"
+                + "    [Orders] o ON o.OrderDate >= ds.WeekStart AND o.OrderDate < DATEADD(DAY, 7, ds.WeekStart)\n"
+                + "GROUP BY\n"
+                + "    WeekStart\n"
+                + "ORDER BY\n"
+                + "    WeekStart;";
+
+        LinkedHashMap<String, String> listTotalRevenue = new LinkedHashMap<>();
+
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listTotalRevenue.put(
+                        "'" + rs.getString(1).split(" ")[0] + " / " + rs.getString(2).split(" ")[0] + "'",
+                        rs.getString(3)
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalPriceByMonth: " + e.getMessage());
         }
-    } catch (Exception e) {
-        System.out.println("getTotalPriceByMonth: " + e.getMessage());
+
+        for (Map.Entry<String, String> entry : listTotalRevenue.entrySet()) {
+            Object key = entry.getKey();
+            Object val = entry.getValue();
+            System.out.println(key + " " + val);
+        }
+
+        System.out.println(listTotalRevenue.keySet());
+        System.out.println(listTotalRevenue.values());
+
+        return listTotalRevenue;
     }
-    
-    for (Map.Entry<String, String> entry : listTotalRevenue.entrySet()) {
-        Object key = entry.getKey();
-        Object val = entry.getValue();
-        System.out.println(key + " " + val);
-    }
-    
-    System.out.println(listTotalRevenue.keySet());
-    System.out.println(listTotalRevenue.values());
-    
-    return listTotalRevenue;
-}
 
     //calculates the total number of orders for each day of the past 3 months: BaoMV
     public LinkedHashMap<String, String> getTotalOrderBy3Month() {
@@ -562,58 +861,64 @@ public LinkedHashMap<String, String> getTotalPriceByMonth() {
 
         return listTotal;
     }
-    //hoangnh
-    public LinkedHashMap<String, String> getTotalPriceBy3Months() {
-    String sql = "WITH Months AS (\n"
-            + "    SELECT 0 AS MonthOffset\n"
-            + "    UNION ALL\n"
-            + "    SELECT MonthOffset - 1\n"
-            + "    FROM Months\n"
-            + "    WHERE MonthOffset > -2\n"
-            + ")\n"
-            + "\n"
-            + "SELECT\n"
-            + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())) AS MonthStart,\n"
-            + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE()))) AS MonthEnd,\n"
-            + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
-            + "FROM\n"
-            + "    Months m\n"
-            + "LEFT JOIN\n"
-            + "    [Orders] o ON YEAR(o.OrderDate) = YEAR(EOMONTH(GETDATE(), m.MonthOffset))\n"
-            + "                   AND MONTH(o.OrderDate) = MONTH(EOMONTH(GETDATE(), m.MonthOffset))\n"
-            + "GROUP BY\n"
-            + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())),\n"
-            + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE())))\n"
-            + "ORDER BY\n"
-            + "    MonthStart;";
-    
-    LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
-    
-    try {
-        PreparedStatement ps = getConnection().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            listTotal.put(
-                "'" + rs.getString(1).split(" ")[0] + " / " + rs.getString(2).split(" ")[0] + "'", 
-                rs.getString(3)
-            );
-        }
-    } catch (Exception e) {
-        System.out.println("getTotalPriceBy3Months: " + e.getMessage());
-    }
-    
-    for (Map.Entry<String, String> entry : listTotal.entrySet()) {
-        Object key = entry.getKey();
-        Object val = entry.getValue();
-        System.out.println(key + " " + val);
-    }
-    
-    System.out.println(listTotal.keySet());
-    System.out.println(listTotal.values());
-    
-    return listTotal;
-}
 
+    //hoangnh
+    public LinkedHashMap<String, String> getTotalPriceBy3Months(int userID) {
+        String sql = "WITH Months AS (\n"
+                + "    SELECT 0 AS MonthOffset\n"
+                + "    UNION ALL\n"
+                + "    SELECT MonthOffset - 1\n"
+                + "    FROM Months\n"
+                + "    WHERE MonthOffset > -6  -- Thay đổi giá trị này để tính toán cho 6 tháng gần đây\n"
+                + ")\n"
+                + "SELECT\n"
+                + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())) AS MonthStart,\n"
+                + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE()))) AS MonthEnd,\n"
+                + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
+                + "FROM\n"
+                + "    Months m\n"
+                + "LEFT JOIN\n"
+                + "    [Orders] o ON YEAR(o.OrderDate) = YEAR(EOMONTH(GETDATE(), m.MonthOffset))\n"
+                + "                 AND MONTH(o.OrderDate) = MONTH(EOMONTH(GETDATE(), m.MonthOffset))\n"
+                + "LEFT JOIN\n"
+                + "    [OrderDetail] od ON o.OrderID = od.OrderID\n"
+                + "LEFT JOIN\n"
+                + "    [Product] p ON od.ProductID = p.ProductID\n"
+                + "WHERE\n"
+                + "    p.UserID = ? "
+                + "GROUP BY\n"
+                + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())),\n"
+                + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE())))\n"
+                + "ORDER BY\n"
+                + "    MonthStart;";
+
+        LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
+
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listTotal.put(
+                        "'" + rs.getString(1).split(" ")[0] + " / " + rs.getString(2).split(" ")[0] + "'",
+                        rs.getString(3)
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalPriceBy3Months: " + e.getMessage());
+        }
+
+        for (Map.Entry<String, String> entry : listTotal.entrySet()) {
+            Object key = entry.getKey();
+            Object val = entry.getValue();
+            System.out.println(key + " " + val);
+        }
+
+        System.out.println(listTotal.keySet());
+        System.out.println(listTotal.values());
+
+        return listTotal;
+    }
 
     //calculates the total number of orders for each day of the past 6 months: BaoMV
     public LinkedHashMap<String, String> getTotalOrderBy6Month() {
@@ -662,56 +967,57 @@ public LinkedHashMap<String, String> getTotalPriceByMonth() {
         return listTotal;
     }
     //hoangnh
-public LinkedHashMap<String, String> getTotalPriceBy6Months() {
-    String sql = "WITH Months AS (\n"
-            + "    SELECT 0 AS MonthOffset\n"
-            + "    UNION ALL\n"
-            + "    SELECT MonthOffset - 1\n"
-            + "    FROM Months\n"
-            + "    WHERE MonthOffset > -5\n"
-            + ")\n"
-            + "\n"
-            + "SELECT\n"
-            + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())) AS MonthStart,\n"
-            + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE()))) AS MonthEnd,\n"
-            + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
-            + "FROM\n"
-            + "    Months m\n"
-            + "LEFT JOIN\n"
-            + "    [Orders] o ON YEAR(o.OrderDate) = YEAR(EOMONTH(GETDATE(), m.MonthOffset))\n"
-            + "                   AND MONTH(o.OrderDate) = MONTH(EOMONTH(GETDATE(), m.MonthOffset))\n"
-            + "GROUP BY\n"
-            + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())),\n"
-            + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE())))\n"
-            + "ORDER BY\n"
-            + "    MonthStart;";
-    
-    LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
-    
-    try {
-        PreparedStatement ps = getConnection().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            listTotal.put(
-                "'" + rs.getString(1).split(" ")[0] + " / " + rs.getString(2).split(" ")[0] + "'", 
-                rs.getString(3)
-            );
+
+    public LinkedHashMap<String, String> getTotalPriceBy6Months() {
+        String sql = "WITH Months AS (\n"
+                + "    SELECT 0 AS MonthOffset\n"
+                + "    UNION ALL\n"
+                + "    SELECT MonthOffset - 1\n"
+                + "    FROM Months\n"
+                + "    WHERE MonthOffset > -5\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())) AS MonthStart,\n"
+                + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE()))) AS MonthEnd,\n"
+                + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
+                + "FROM\n"
+                + "    Months m\n"
+                + "LEFT JOIN\n"
+                + "    [Orders] o ON YEAR(o.OrderDate) = YEAR(EOMONTH(GETDATE(), m.MonthOffset))\n"
+                + "                   AND MONTH(o.OrderDate) = MONTH(EOMONTH(GETDATE(), m.MonthOffset))\n"
+                + "GROUP BY\n"
+                + "    DATEADD(MONTH, m.MonthOffset, EOMONTH(GETDATE())),\n"
+                + "    DATEADD(DAY, -1, DATEADD(MONTH, m.MonthOffset + 1, EOMONTH(GETDATE())))\n"
+                + "ORDER BY\n"
+                + "    MonthStart;";
+
+        LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
+
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listTotal.put(
+                        "'" + rs.getString(1).split(" ")[0] + " / " + rs.getString(2).split(" ")[0] + "'",
+                        rs.getString(3)
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalPriceBy6Months: " + e.getMessage());
         }
-    } catch (Exception e) {
-        System.out.println("getTotalPriceBy6Months: " + e.getMessage());
+
+        for (Map.Entry<String, String> entry : listTotal.entrySet()) {
+            Object key = entry.getKey();
+            Object val = entry.getValue();
+            System.out.println(key + " " + val);
+        }
+
+        System.out.println(listTotal.keySet());
+        System.out.println(listTotal.values());
+
+        return listTotal;
     }
-    
-    for (Map.Entry<String, String> entry : listTotal.entrySet()) {
-        Object key = entry.getKey();
-        Object val = entry.getValue();
-        System.out.println(key + " " + val);
-    }
-    
-    System.out.println(listTotal.keySet());
-    System.out.println(listTotal.values());
-    
-    return listTotal;
-}
 
     //calculates the total number of orders for each day of the past year: BaoMV
     public LinkedHashMap<String, String> getTotalOrderByYear() {
@@ -772,52 +1078,52 @@ public LinkedHashMap<String, String> getTotalPriceBy6Months() {
 
         return listTotal;
     }
-    public LinkedHashMap<String, String> getTotalPriceByYear() {
-    String sql = "WITH Months AS (\n"
-            + "    SELECT 1 AS MonthIndex\n"
-            + "    UNION ALL\n"
-            + "    SELECT MonthIndex + 1\n"
-            + "    FROM Months\n"
-            + "    WHERE MonthIndex < 12\n"
-            + ")\n"
-            + "\n"
-            + "SELECT\n"
-            + "    DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1) AS YearStart,\n"
-            + "    EOMONTH(DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1)) AS YearEnd,\n"
-            + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
-            + "FROM\n"
-            + "    Months\n"
-            + "LEFT JOIN\n"
-            + "    [Orders] o ON YEAR(o.OrderDate) = YEAR(GETDATE())\n"
-            + "GROUP BY\n"
-            + "    DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1)\n"
-            + "ORDER BY\n"
-            + "    DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1);";
-    
-    LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
-    
-    try {
-        PreparedStatement ps = getConnection().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            listTotal.put("'" + rs.getString(1) + "'", rs.getString(3));
-        }
-    } catch (Exception e) {
-        System.out.println("getTotalPriceByYear: " + e.getMessage());
-    }
-    
-    for (Map.Entry<String, String> entry : listTotal.entrySet()) {
-        Object key = entry.getKey();
-        Object val = entry.getValue();
-        System.out.println(key + " " + val);
-    }
-    
-    System.out.println(listTotal.keySet());
-    System.out.println(listTotal.values());
-    
-    return listTotal;
-}
 
+    public LinkedHashMap<String, String> getTotalPriceByYear() {
+        String sql = "WITH Months AS (\n"
+                + "    SELECT 1 AS MonthIndex\n"
+                + "    UNION ALL\n"
+                + "    SELECT MonthIndex + 1\n"
+                + "    FROM Months\n"
+                + "    WHERE MonthIndex < 12\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1) AS YearStart,\n"
+                + "    EOMONTH(DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1)) AS YearEnd,\n"
+                + "    COALESCE(SUM(o.TotalPrice), 0) AS TotalPrice\n"
+                + "FROM\n"
+                + "    Months\n"
+                + "LEFT JOIN\n"
+                + "    [Orders] o ON YEAR(o.OrderDate) = YEAR(GETDATE())\n"
+                + "GROUP BY\n"
+                + "    DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1)\n"
+                + "ORDER BY\n"
+                + "    DATEFROMPARTS(YEAR(GETDATE()), MonthIndex, 1);";
+
+        LinkedHashMap<String, String> listTotal = new LinkedHashMap<>();
+
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listTotal.put("'" + rs.getString(1) + "'", rs.getString(3));
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalPriceByYear: " + e.getMessage());
+        }
+
+        for (Map.Entry<String, String> entry : listTotal.entrySet()) {
+            Object key = entry.getKey();
+            Object val = entry.getValue();
+            System.out.println(key + " " + val);
+        }
+
+        System.out.println(listTotal.keySet());
+        System.out.println(listTotal.values());
+
+        return listTotal;
+    }
 
     public ArrayList<String> getLast7Day() {
         LocalDate currentDate = LocalDate.now();
@@ -873,15 +1179,11 @@ public LinkedHashMap<String, String> getTotalPriceBy6Months() {
 //
 //    return list;
 //}
-    public static void main(String[] args) {
-        (new OrderDAO()).getTotalOrderByWeek();
-      OrderDAO o = new OrderDAO();
-      int a = o.getTotalCustomerOrder("8", 2);
-        System.out.println(a);
-    
+   public static void main(String[] args) {
 
-      List<ProOrder> listC =  o.getCustomerOrder(a, "8", 2);
-        for (ProOrder p : listC) {
-            System.out.println(p);
-        }
-}}
+        OrderDAO o = new OrderDAO();
+        List<ProOrder> listO = o.getAllOrder(1, 9);
+       System.out.println(o.getAllOrderASC(9));
+    }
+
+}

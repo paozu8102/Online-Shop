@@ -7,6 +7,7 @@ package Controller;
 
 import DAO.PostDAO;
 import Model.Post;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -112,7 +113,7 @@ public class PostManagerController extends HttpServlet {
         request.setAttribute("searchID", searchID);
         request.setAttribute("posttypeList", posttypeList);
         request.getRequestDispatcher("post-management.jsp").forward(request, response);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.

@@ -1,5 +1,6 @@
 <%@include file="template/header.jsp" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
 <li class="nav-item active dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>

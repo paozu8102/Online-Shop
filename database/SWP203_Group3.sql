@@ -1,6 +1,5 @@
-﻿CREATE DATABASE SWP391_Group3
-GO
-USE SWP391_Group3;
+﻿Create database SWP391_Group3_Part2;
+USE SWP391_Group3_Part2;
 GO
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
@@ -48,13 +47,13 @@ INSERT INTO Account (Email, Password, Status, RoleID)
 VALUES ('ducle2002@gmail.com','ducle123',1 ,1),
 ('thien02@gmail.com','thien123',1 ,2),
 ('long03@gmail.com','long1234',1, 2),
-('son04@gmail.com','son12345',1, 1),
+('son04@gmail.com','son12345',1, 3),
 ('quan05@gmail.com','quan1234',1, 2),
-('hoang06@gmail.com','hoang123',1, 1), 
+('hoang06@gmail.com','hoang123',1, 3), 
 ('minh07@gmail.com','minh1234',1, 2),
 ('kkkk08@gmail.com','kkkk1234',1, 3),
 ('bao09@gmail.com','bao12345',1, 2),
-('thanh10@gmail.com','thanh123',1, 1);
+('thanh10@gmail.com','thanh123',1, 3);
 
 
 CREATE TABLE [User](

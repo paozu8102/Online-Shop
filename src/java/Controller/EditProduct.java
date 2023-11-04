@@ -5,23 +5,28 @@
 
 package Controller;
 
-import Model.Account;
-import Model.User;
+
+import DAO.ImageDAO;
+import DAO.ProductDAO;
+import Model.Cart;
+import Model.Image;
+import Model.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  *
- * @author Acer
+ * @author admin
  */
-@WebServlet(name="LogoutController", urlPatterns={"/logout"})
-public class LogoutController extends HttpServlet {
+@WebServlet(name="EditProduct", urlPatterns={"/editproduct"})
+public class EditProduct extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,18 +38,14 @@ public class LogoutController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Logout</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Logout at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        
+        
+        
+        
+        
+       
+       
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,14 +59,18 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       HttpSession session = request.getSession();
-       
-            session.removeAttribute("acc");
-            session.removeAttribute("user");
-            response.sendRedirect("home");
+         String id = request.getParameter("pid");
+        ProductDAO dao = new ProductDAO();
         
-    
-    }
+        Product p = dao.getProduct(id);
+      ImageDAO c = new ImageDAO();
+      List<Image> listI = c.getProductImage(id);
+
+      
+        request.setAttribute("listI", listI);
+        request.setAttribute("detail", p);
+        request.getRequestDispatcher("edit-product.jsp").forward(request, response);
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -77,7 +82,18 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+           String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String price = request.getParameter("price");
+        String description = request.getParameter("description");
+        String height = request.getParameter("height");
+        String width = request.getParameter("width");
+        String quantity = request.getParameter("quantity");
+        String discount = request.getParameter("discount");
+        String status = request.getParameter("status");
+        ProductDAO dao = new ProductDAO();
+        dao.updateProduct(id, name, price, description ,height, width, quantity, discount, status);
+         response.sendRedirect("editproduct?pid=" + id);
     }
 
     /** 

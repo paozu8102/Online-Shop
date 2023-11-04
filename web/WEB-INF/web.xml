@@ -64,6 +64,7 @@
         <servlet-name>CreatePostServlet</servlet-name>
         <url-pattern>/PostCreate</url-pattern>
     </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30

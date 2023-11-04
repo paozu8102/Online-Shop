@@ -154,7 +154,21 @@
                                     <i class="fa fa-table" aria-hidden="true"></i>
                                     <span class="hide-menu">Post Management</span>
                                 </a>
-                            </li>                       
+                            </li>   
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="usercontrol"
+                                   aria-expanded="false">
+                                    <i class="fa fa-table" aria-hidden="true"></i>
+                                    <span class="hide-menu">User Management</span>
+                                </a>
+                            </li>                           
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="settingcontrol"
+                                   aria-expanded="false">
+                                    <i class="fa fa-table" aria-hidden="true"></i>
+                                    <span class="hide-menu">Setting Management</span>
+                                </a>
+                            </li> 
                         </ul>
 
                     </nav>
