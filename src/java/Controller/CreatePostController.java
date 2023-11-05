@@ -29,14 +29,20 @@ public class CreatePostController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] imageArray = req.getParameterValues("image");
         String[] categoryArray = req.getParameterValues("category");
-
+        String title = req.getParameter("title");
+        String content = req.getParameter("content");
+        String userID = req.getParameter("userID");
+        //add post
+        String postID = new PostDAO().addPostAndGetID(content, userID, title);
+        
+        //add image
         if (imageArray != null) {
+            String imagesFolderPath = new File(getServletContext().getRealPath("/")).getParent();
+            imagesFolderPath = new File(imagesFolderPath).getParent();
+            imagesFolderPath += "/web/images/post-image";
             for (int i = 0; i < imageArray.length; i++) {
                 byte[] decodedData = Base64.getDecoder().decode(imageArray[i].split(",")[1]);
                 String fileName = generateUniqueFileName();
-                String imagesFolderPath = new File(getServletContext().getRealPath("/")).getParent();
-                imagesFolderPath = new File(imagesFolderPath).getParent();
-                imagesFolderPath += "/web/images/post-image";
                 String imagePath = imagesFolderPath + File.separator + fileName + ".jpg";
                 try ( FileOutputStream fileOutputStream = new FileOutputStream(imagePath)) {
                     fileOutputStream.write(decodedData);
@@ -44,6 +50,8 @@ public class CreatePostController extends HttpServlet {
                     e.printStackTrace();
                 }
             }
+            
+            
         }
         req.setAttribute("imageArray", imageArray);
         req.setAttribute("categoryArray", categoryArray);

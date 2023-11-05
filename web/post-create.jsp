@@ -352,8 +352,9 @@ input[type='checkbox']:checked {
 <div class="container" style="overflow-y: scroll;">
       <div class="wrapper">
         <section class="post">
-          <header>Create Post</header>
           <form action="PostCreate" id="formPost" method="post">
+            <header>Create Post</header>
+            <input oninput="checkInputLength(100);" id="title" name="title" placeholder="Give your post a title" style="width: 100%; margin-bottom: 10px;" type="text" >
             <div class="content">
               <img src="${user.getAvatar()}" alt="logo">
               <div class="details">
@@ -364,8 +365,8 @@ input[type='checkbox']:checked {
                 </div>
               </div>
             </div>
-            
-            <textarea placeholder="What's on your mind?" spellcheck="false" required></textarea>
+            <input type="hidden" name="userID" value="${user.getUserID()}">
+            <textarea id="postContent" name="content" placeholder="What's on your mind?" spellcheck="false" ></textarea>
             
             <div class="options">
               <p>Add images to Your Post</p>
@@ -417,6 +418,8 @@ input[type='checkbox']:checked {
 //check category and submit data if category are valid
 function checkAndSubmit() {
   var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  var titleBox = document.getElementById('title');
+  var content = document.getElementById('postContent');
   var atLeastOneChecked = false;
   for (var i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {
@@ -424,11 +427,18 @@ function checkAndSubmit() {
       break;
     }
   }
-  if (atLeastOneChecked) {
+  if (atLeastOneChecked === false) {
+    alert("Please choose at least one category");
+  }
+  else if (titleBox.value.length === 0) {
+    alert("You forgot to add a title");
+  }
+  else if (content.value.length === 0) {
+    alert("You forgot to write some content");
+}
+  else {
     document.getElementById('formCategory').submit();
     document.getElementById('formPost').submit();
-  } else {
-    alert('Please select at least one category.');
   }
 }
 
@@ -535,6 +545,16 @@ function addImage(imageLink){
     imageList.appendChild(imageContainer);
 }
 
+//check length of title input
+function checkInputLength(maxLength) {
+    var input = document.getElementById("title");
+    var inputValue = input.value;
+
+    if (inputValue.length > maxLength) {
+        alert("Title is too long. Please keep it within " + maxLength + " characters.");
+        input.value = inputValue.substring(0, maxLength);
+    }
+}
 
 //add image for each time user choose image from file dialog
 function checkFiles() {
