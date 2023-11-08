@@ -10,7 +10,7 @@ package Model;
  */
 public class ProOrder {
 
-    private int oid, pid;
+    private int did, oid, pid;
     private String productname;
     private String productimage;
     private int quantity;
@@ -31,7 +31,9 @@ public class ProOrder {
     public ProOrder() {
     }
 
-    public ProOrder(int oid, String productname, int quantity, double price, double totalprice, String date, String customername, String address, String phonenumber, String status, String expDate, String delDate, String payment) {
+    public ProOrder(int did, int oid, String productname, int quantity, double price, double totalprice, String date, String customername, String address, String phonenumber, String status, String expDate, String delDate, String payment
+    ) {
+        this.did = did;
         this.oid = oid;
         this.productname = productname;
         this.quantity = quantity;
@@ -47,7 +49,8 @@ public class ProOrder {
         this.payment = payment;
     }
 
-    public ProOrder(int oid, String productname, String productimage, int quantity, double price, String date, String sellname, String customername, String address, String phonenumber, String status,String expDate, String delDate, String payment) {
+    public ProOrder(int did, int oid, String productname, String productimage, int quantity, double price, String date, String sellname, String customername, String address, String phonenumber, String status, String expDate, String delDate, String payment) {
+        this.did = did;
         this.oid = oid;
         this.productname = productname;
         this.productimage = productimage;
@@ -60,8 +63,8 @@ public class ProOrder {
         this.phonenumber = phonenumber;
         this.status = status;
         this.payment = payment;
-            this.expDate = expDate;
-                this.delDate = delDate;
+        this.expDate = expDate;
+        this.delDate = delDate;
     }
 
     public ProOrder(int oid, String productname, int quantity, double totalprice, String date, String customername, String status, String payment) {
@@ -227,9 +230,17 @@ public class ProOrder {
         this.payment = payment;
     }
 
+    public int getDid() {
+        return did;
+    }
+
+    public void setDid(int did) {
+        this.did = did;
+    }
+
     @Override
     public String toString() {
-        return "ProOrder{" + "oid=" + oid + ", pid=" + pid + ", productname=" + productname + ", productimage=" + productimage + ", quantity=" + quantity + ", price=" + price + ", totalprice=" + totalprice + ", date=" + date + ", cusid=" + cusid + ", sellid=" + sellid + ", sellname=" + sellname + ", customername=" + customername + ", address=" + address + ", phonenumber=" + phonenumber + ", status=" + status + ", expDate=" + expDate + ", delDate=" + delDate + ", payment=" + payment + '}';  
+        return "ProOrder{" + "oid=" + oid + ", pid=" + pid + ", productname=" + productname + ", productimage=" + productimage + ", quantity=" + quantity + ", price=" + price + ", totalprice=" + totalprice + ", date=" + date + ", cusid=" + cusid + ", sellid=" + sellid + ", sellname=" + sellname + ", customername=" + customername + ", address=" + address + ", phonenumber=" + phonenumber + ", status=" + status + ", expDate=" + expDate + ", delDate=" + delDate + ", payment=" + payment + '}';
 
     }
 

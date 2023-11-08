@@ -9,7 +9,7 @@ package Model;
  * @author admin
  */
 public class OrderDetail {
-    private int oid, pid;
+    private int did, oid, pid;
     private int quantity;
     private double price;
  private String status;
@@ -20,6 +20,7 @@ private Product product;
     }
 
     public OrderDetail(int oid, int pid, int quantity, double price, String status) {
+        
         this.oid = oid;
         this.pid = pid;
         this.quantity = quantity;
@@ -27,7 +28,8 @@ private Product product;
         this.status = status;
     }
 
-    public OrderDetail(int oid, int pid, int quantity, double price, String status, String expDate, String delDate) {
+    public OrderDetail(int did, int oid, int pid, int quantity, double price, String status, String expDate, String delDate) {
+          this.did = did;
         this.oid = oid;
         this.pid = pid;
         this.quantity = quantity;
@@ -99,6 +101,14 @@ private Product product;
 
     public void setDelDate(String delDate) {
         this.delDate = delDate;
+    }
+
+    public int getDid() {
+        return did;
+    }
+
+    public void setDid(int did) {
+        this.did = did;
     }
 
     @Override

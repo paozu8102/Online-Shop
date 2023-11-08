@@ -182,7 +182,129 @@ body {
 }
 
 
+ .modal-header {
+    background-color: #337ab7;
+    color: #fff;
+  }
 
+  /* CSS cho các nhãn (labels) */
+  label {
+    font-weight: bold;
+  }
+
+  /* CSS cho nút "Cancel This Order" */
+  #cancelButton {
+    background-color: #d9534f;
+  }
+
+  /* CSS cho nút Close */
+  .modal-footer .btn-default {
+    background-color: #777;
+  }
+
+  /* CSS cho phần thông tin đơn hàng và sản phẩm */
+  .order-details {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .left-column, .right-column {
+    width: 48%;
+  }
+
+  /* CSS cho các thông tin đơn hàng và sản phẩm */
+  .order-info, .product-info {
+    margin-bottom: 10px;
+  }
+
+ 
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: #455A64;
+    padding-left: 0px;
+    margin-top: 30px
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+    color: #455A64 !important;
+    
+}
+
+#progressbar #step1:before {
+    content: "1";
+    color: #fff;
+    width: 29px;
+    margin-left: 15px !important;
+    padding-left: 11px !important;
+}
+
+
+#progressbar #step2:before {
+    content: "2";
+    color: #fff;
+    width: 29px;
+
+}
+
+#progressbar #step3:before {
+    content: "3";
+    color: #fff;
+    width: 29px;
+    margin-right: 15px !important;
+    padding-right: 11px !important;
+}
+
+#progressbar li:before {
+    line-height: 29px;
+    display: block;
+    font-size: 12px;
+    background: #455A64 ;
+    border-radius: 50%;
+    margin: auto;
+}
+
+ #progressbar li:after {
+    content: '';
+    width: 121%;
+    height: 2px;
+    background: #455A64;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 15px;
+    z-index: -1;
+} 
+
+#progressbar li:nth-child(2):after {
+    left: 50%;
+}
+
+#progressbar li:nth-child(1):after {
+    left: 25%;
+    width: 121%;
+}
+#progressbar li:nth-child(3):after {
+    left: 25% !important;
+    width: 50% !important;
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #4bb8a9; 
+}
+
+.card {
+    background-color: #fff;
+    box-shadow: 2px 4px 10px 0px rgba(0, 108, 170, 0.5); /* Adjust the last value (alpha) to control opacity */
+    z-index: 0;
+}
 
 
 </style>
