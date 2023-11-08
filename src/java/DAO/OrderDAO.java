@@ -670,6 +670,25 @@ public class OrderDAO extends DBContext {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
+      public void ChangeOrderStatus(String id, String status) {
+
+        String sql = "UPDATE OrderDetail\n"
+                + "SET Status = ?\n"
+                + "WHERE OrderID = ?;";
+
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+            st.setString(1, status);
+  st.setString(2, id);
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+    }
 
     //calculates the total number of orders for each day of the past week: BaoMV
     public LinkedHashMap<String, String> getTotalOrderByWeek() {
