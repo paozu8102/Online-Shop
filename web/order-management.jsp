@@ -500,6 +500,129 @@ String path = request.getContextPath();
                 box-shadow: 0 0 0 0.5px #242424;
                 transition-duration: 0.3s;
             }
+            .modal-header {
+                background-color: #337ab7;
+                color: #fff;
+            }
+
+            /* CSS cho các nhãn (labels) */
+            label {
+                font-weight: bold;
+            }
+
+            /* CSS cho nút "Cancel This Order" */
+            #cancelButton {
+                background-color: #d9534f;
+            }
+
+            /* CSS cho nút Close */
+            .modal-footer .btn-default {
+                background-color: #777;
+            }
+
+            /* CSS cho phần thông tin đơn hàng và sản phẩm */
+            .order-details {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .left-column, .right-column {
+                width: 48%;
+            }
+
+            /* CSS cho các thông tin đơn hàng và sản phẩm */
+            .order-info, .product-info {
+                margin-bottom: 10px;
+            }
+
+
+            #progressbar {
+                margin-bottom: 30px;
+                overflow: hidden;
+                color: #455A64;
+                padding-left: 0px;
+                margin-top: 30px
+            }
+
+            #progressbar li {
+                list-style-type: none;
+                font-size: 13px;
+                width: 33.33%;
+                float: left;
+                position: relative;
+                font-weight: 400;
+                color: #455A64 !important;
+
+            }
+
+            #progressbar #step1:before {
+                content: "1";
+                color: #fff;
+                width: 29px;
+                margin-left: 15px !important;
+                padding-left: 11px !important;
+            }
+
+
+            #progressbar #step2:before {
+                content: "2";
+                color: #fff;
+                width: 29px;
+
+            }
+
+            #progressbar #step3:before {
+                content: "3";
+                color: #fff;
+                width: 29px;
+                margin-right: 15px !important;
+                padding-right: 11px !important;
+            }
+
+            #progressbar li:before {
+                line-height: 29px;
+                display: block;
+                font-size: 12px;
+                background: #455A64 ;
+                border-radius: 50%;
+                margin: auto;
+            }
+
+            #progressbar li:after {
+                content: '';
+                width: 121%;
+                height: 2px;
+                background: #455A64;
+                position: absolute;
+                left: 0%;
+                right: 0%;
+                top: 15px;
+                z-index: -1;
+            }
+
+            #progressbar li:nth-child(2):after {
+                left: 50%;
+            }
+
+            #progressbar li:nth-child(1):after {
+                left: 25%;
+                width: 121%;
+            }
+            #progressbar li:nth-child(3):after {
+                left: 25% !important;
+                width: 50% !important;
+            }
+
+            #progressbar li.active:before,
+            #progressbar li.active:after {
+                background: #4bb8a9;
+            }
+
+            .card {
+                background-color: #fff;
+                box-shadow: 2px 4px 10px 0px rgba(0, 108, 170, 0.5); /* Adjust the last value (alpha) to control opacity */
+                z-index: 0;
+            }
 
         </style>
         <title>Palette Joy - Bring art to your home</title>
@@ -546,7 +669,7 @@ String path = request.getContextPath();
         <link href="css/style.min.css" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-   
+
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     </head>
@@ -558,522 +681,561 @@ String path = request.getContextPath();
         <!-- ============================================================== -->
         <!-- Main wrapper - style you can find in pages.scss -->
         <!-- ============================================================== -->
-    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
-         data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin5">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark" style="background-color: #82ae46;">
-                <div class="navbar-header" data-logobg="skin6">
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <a class="navbar-brand" href="statistic" style="text-decoration: none; font-size: 20px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
+        <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+             data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+            <!-- ============================================================== -->
+            <!-- Topbar header - style you can find in pages.scss -->
+            <!-- ============================================================== -->
+            <header class="topbar" data-navbarbg="skin5">
+                <nav class="navbar top-navbar navbar-expand-md navbar-dark" style="background-color: #82ae46;">
+                    <div class="navbar-header" data-logobg="skin6">
+                        <!-- ============================================================== -->
+                        <!-- Logo -->
+                        <!-- ============================================================== -->
+                        <a class="navbar-brand" href="statistic" style="text-decoration: none; font-size: 20px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
+                        <!-- ============================================================== -->
+                        <!-- End Logo -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- toggle and nav items -->
+                        <!-- ============================================================== -->
+                        <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
+                           href="javascript:vdid(0)"><i class="ti-menu ti-close"></i></a>
+                    </div>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <a class="nav-toggler waves-effect waves-light text-dark d-block d-md-none"
-                       href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <ul class="navbar-nav d-none d-md-block d-lg-none">
-                        <li class="nav-item">
-                            <a class="nav-toggler nav-link waves-effect waves-light text-white"
-                               href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                        </li>
-                    </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
+                    <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                        <ul class="navbar-nav d-none d-md-block d-lg-none">
+                            <li class="nav-item">
+                                <a class="nav-toggler nav-link waves-effect waves-light text-white"
+                                   href="javascript:vdid(0)"><i class="ti-menu ti-close"></i></a>
+                            </li>
+                        </ul>
+                        <!-- ============================================================== -->
+                        <!-- Right side toggle and nav items -->
+                        <!-- ============================================================== -->
 
-                </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <!-- User Profile-->
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="statistic" aria-expanded="false">
-                                <i class="fa fa-chart-bar" aria-hidden="true"></i>
-                                <span class="hide-menu">Statistic</span>
-                            </a>
-                        </li>
+                    </div>
+                </nav>
+            </header>
+            <!-- ============================================================== -->
+            <!-- End Topbar header -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <aside class="left-sidebar" data-sidebarbg="skin6">
+                <!-- Sidebar scroll-->
+                <div class="scroll-sidebar">
+                    <!-- Sidebar navigation-->
+                    <nav class="sidebar-nav">
+                        <ul id="sidebarnav">
+                            <!-- User Profile-->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="statistic" aria-expanded="false">
+                                    <i class="fa fa-chart-bar" aria-hidden="true"></i>
+                                    <span class="hide-menu">Statistic</span>
+                                </a>
+                            </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="salerprofile"
-                               aria-expanded="false">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="hide-menu">Profile</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manage"
-                               aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Product Management</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manageorder" aria-expanded="false">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <span class="hide-menu">Order Management</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="salerprofile"
+                                   aria-expanded="false">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="hide-menu">Profile</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manage"
+                                   aria-expanded="false">
+                                    <i class="fa fa-table" aria-hidden="true"></i>
+                                    <span class="hide-menu">Product Management</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manageorder" aria-expanded="false">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="hide-menu">Order Management</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customercontrol" aria-expanded="false">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <span class="hide-menu">Customer Management</span>
                                 </a>
                             </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="javascript:history.back()" aria-expanded="false">
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                                <span class="hide-menu">Return</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="home" aria-expanded="false">
-                                <i class="fa fa-home" aria-hidden="true"></i>
-                                <span class="hide-menu">Return Home</span>
-                            </a>
-                        </li>                 
-                    </ul>
-
-                </nav>
-                <!-- End Sidebar navigation -->
-            </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <div style="padding: 25px 25px 0 25px">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h4 style="color: #82ae46">
-                                <i class="fa fa-filter"></i>
-                                Filter
-                            </h4>
-                            <div style="display: inline-block; margin-left: 10px">
-                                <form action="manageorder" method="get" class="search-form">
-                                    <div class="search-container">
-                                        <input name="txt" type="text"  placeholder="Search" >
-                                        <button type="submit"><i class="icon-search" style="color: white;"></i></button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div>
-                                <form action="manageorder">
-                                    <table class="table text-nowrap">                                  
-                                        <tr>
-                                            <td>Date: </td>
-                                            <td>From</td>
-                                            <td>
-                                                <input type="date" name="from" value="${from}">
-                                            </td>
-                                            <td>To</td>
-                                            <td>
-                                                <input type="date" name="to" value="${to}">
-                                            </td>
-                                            <td colspan="4" style="text-align: center">
-                                                <input style="padding: 0 3rem; color: black; background-color: white;box-shadow: 1px 2px " type="submit" value="Filter">
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td> 
-                                                <form action="manageorder" method="get">
-                                                    <select name="sortprice" id="sortprice" style="color: black;">
-                                                        <option value="" style="color: black;">Sort By Price</option>
-                                                        <option value="asc" style="color: black;"
-                                                                ${param.sortprice == 'asc' ? 'selected' : ''}>Low to High</option>
-                                                        <option value="desc" style="color: black;"
-                                                                ${param.sortprice == 'desc' ? 'selected' : ''}>High to Low</option>
-                                                    </select>
-
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="white-box">
-                            <h3 class="box-title">Order Table</h3>
-                            <div class="table-responsive">
-                                <table class="table text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">OrderID</th>
-                                            <th class="border-top-0">Product Name</th>
-                                            <th class="border-top-0">Customer Name</th>
-                                            <th class="border-top-0">Date of Order</th>
-                                            <th class="border-top-0">Expense</th>
-                                            <th class="border-top-0">Quantity</th>
-                                            <th class="border-top-0">Status</th>
-                                            <th class="border-top-0">Action</th>                                                 
-                                        </tr
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${listO}" var="o">
-                                            <tr>
-                                                <td>${o.oid}</td>
-                                                <td>${o.productname}</td>
-                                                <td>${o.customername}</td>
-                                                <td>${o.date}</td>
-                                                <td>${o.price}$</td>
-                                                <td>${o.quantity}</td>
-                                                <td class="price" style="color:
-                                                    <c:choose>
-                                                        <c:when test="${o.status == 'pending processing'}">
-                                                            #3399CC /* Set text color to yellow for 'pending processing' status */
-                                                        </c:when>
-                                                        <c:when test="${o.status == 'cancel'}">
-                                                            #FF3399 /* Set text color to pink for 'cancel' status */
-                                                        </c:when>
-                                                        <c:when test="${o.status == 'completed'}">
-                                                            #00FF00 /* Set text color to green for 'completed' status */
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            black /* Set a default text color (e.g., black) for other statuses */
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    ;">
-                                                    ${o.status}
-                                                </td>
-
-                                                <td class="total">
-                                                    <a href="orderstatus?status=${o.status}&id=${o.oid}" >
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/1836/1836126.png"
-                                                             alt="Mô tả ảnh" width="20" height="20">
-                                                    </a>
-                                                    <a href="#" data-toggle="modal" data-target="#editOrder" 
-                                                       data-productname="${o.productname}" 
-                                                       data-productimage="${o.productimage}" 
-                                                       data-quantity="${o.quantity}" 
-                                                       data-price="${o.price}" 
-                                                       data-date="${o.date}" 
-                                                       data-sellname="${o.sellname}" 
-                                                       data-customername="${o.customername}" 
-                                                       data-address="${o.address}" 
-                                                       data-phonenumber="${o.phonenumber}" 
-                                                       data-status="${o.status}"
-                                                       data-oid="${o.oid}"
-                                                       data-payment="${o.payment}"
-                                                       data-expdate="${o.expDate}"
-                                                       data-deldate="${o.delDate}"
-                                                       >
-
-
-
-                                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiDm6Azm2GrmLl2y8FntgjrLtEnZ9oiacF2A&usqp=CAU"
-                                                             alt="image" width="20" height="20">
-                                                    </a>
-                                                </td>
-
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col text-center">
-                    <div class="block-27">
-                        <ul>
-                            <c:if test="${tag > 1}">
-                                <li><a href="manageorder?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
-                                    </c:if>
-
-                            <c:forEach begin="1" end="${endP}" var="i">
-                                <li class="${tag == i ? 'active' : ''}">
-                                    <a href="manageorder?index=${i}">${i}</a>
-                                </li>
-                            </c:forEach>
-
-                            <c:if test="${tag < endP}">
-                                <li><a href="manageorder?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
-                                    </c:if>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="javascript:history.back()" aria-expanded="false">
+                                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                    <span class="hide-menu">Return</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="home" aria-expanded="false">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span class="hide-menu">Return Home</span>
+                                </a>
+                            </li>                 
                         </ul>
 
-                    </div>
+                    </nav>
+                    <!-- End Sidebar navigation -->
                 </div>
+                <!-- End Sidebar scroll-->
+            </aside>
+            <!-- ============================================================== -->
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
                 <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
-                <div id="editOrder" class="modal fade" tabindex="-1">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <form action="manageorder" method="post">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Order Detail</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="form-group">
-
-                                            <input type="hidden" name="oid" >
+                <!-- Bread crumb and right sidebar toggle -->
+                <div style="padding: 25px 25px 0 25px">
+                    <!-- ============================================================== -->
+                    <!-- Start Page Content -->
+                    <!-- ============================================================== -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="white-box">
+                                <h4 style="color: #82ae46">
+                                    <i class="fa fa-filter"></i>
+                                    Filter
+                                </h4>
+                                <div style="display: inline-block; margin-left: 10px">
+                                    <form action="manageorder" method="get" class="search-form">
+                                        <div class="search-container">
+                                            <input name="txt" type="text"  placeholder="Search" >
+                                            <button type="submit"><i class="icon-search" style="color: white;"></i></button>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Product Name</label>
-                                                <p name="productname" style="color: black;"></p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Quantity</label>
-                                                <p name="quantity" style="color: black;"></p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Price</label>
-                                                <p name="price" style="color: black;"></p>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Shop</label>
-                                                <p name="sellname" style="color: black;"></p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Status</label>
-                                                <p name="status" style="color: black;"></p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Payment Method</label>
-                                                <p name="payment" style="color: black;"></p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Order Date</label>
-                                                <p name="date" style="color: black;"></p>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Expected Date</label>
-                                                <p name="expDate" style="color: black;"></p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Delivery Date</label>
-                                                <p name="delDate" style="color: black;"></p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <p name="customername" style="color: black;"></p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <p name="address" style="color: black;"></p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Phone</label>
-                                                <p name="phonenumber" style="color: black;"></p>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="modal-footer">
-                                    <input style="color: black" type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <div>
+                                    <form action="manageorder">
+                                        <table class="table text-nowrap">                                  
+                                            <tr>
+                                                <td>Date: </td>
+                                                <td>From</td>
+                                                <td>
+                                                    <input type="date" name="from" value="${from}">
+                                                </td>
+                                                <td>To</td>
+                                                <td>
+                                                    <input type="date" name="to" value="${to}">
+                                                </td>
+                                                <td colspan="4" style="text-align: center">
+                                                    <input style="padding: 0 3rem; color: black; background-color: white;box-shadow: 1px 2px " type="submit" value="Filter">
+                                                </td>
+                                            </tr>
 
+                                            <tr>
+                                                <td> 
+                                                    <form action="manageorder" method="get">
+                                                        <select name="sortprice" id="sortprice" style="color: black;">
+                                                            <option value="" style="color: black;">Sort By Price</option>
+                                                            <option value="asc" style="color: black;"
+                                                                    ${param.sortprice == 'asc' ? 'selected' : ''}>Low to High</option>
+                                                            <option value="desc" style="color: black;"
+                                                                    ${param.sortprice == 'desc' ? 'selected' : ''}>High to Low</option>
+                                                        </select>
 
-
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <script>
-                        $('a[data-target="#editOrder"]').click(function () {
-                            var status = $(this).data('status');
-                            var expdate = $(this).data('expdate') || "Unknown";
-                            var deldate = $(this).data('deldate') || "Unknown";
+                <!-- Container fluid  -->
+                <!-- ============================================================== -->
+                <div class="container-fluid">
+                    <!-- ============================================================== -->
+                    <!-- Start Page Content -->
+                    <!-- ============================================================== -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="white-box">
+                                <h3 class="box-title">Order Table</h3>
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-top-0">OrderID</th>
+                                                <th class="border-top-0">Product Name</th>
+                                                <th class="border-top-0">Customer Name</th>
+                                                <th class="border-top-0">Date of Order</th>
+                                                <th class="border-top-0">Expense</th>
+                                                <th class="border-top-0">Quantity</th>
+                                                <th class="border-top-0">Status</th>
+                                                <th class="border-top-0">Action</th>                                                 
+                                            </tr
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${listO}" var="o">
+                                                <tr>
+                                                    <td>${o.did}</td>
+                                                    <td>${o.productname}</td>
+                                                    <td>${o.customername}</td>
+                                                    <td>${o.date}</td>
+                                                    <td>${o.price}$</td>
+                                                    <td>${o.quantity}</td>
+                                                    <td class="price" style="color:
+                                                        <c:choose>
+                                                            <c:when test="${o.status == 'pending'}">
+                                                                #3399CC /* Set text color to yellow for 'pending' status */
+                                                            </c:when>
+                                                            <c:when test="${o.status == 'cancel'}">
+                                                                #FF3399 /* Set text color to pink for 'cancel' status */
+                                                            </c:when>
+                                                            <c:when test="${o.status == 'completed'}">
+                                                                #00FF00 /* Set text color to green for 'completed' status */
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                black /* Set a default text color (e.g., black) for other statuses */
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        ;">
+                                                        ${o.status}
+                                                    </td>
 
-                            $('#editOrder p[name="status"]').text(status);
-                            $('#editOrder p[name="expDate"]').text(expdate);
-                            $('#editOrder p[name="delDate"]').text(deldate);
+                                                    <td class="total">
+                                                      
+                                                        <a href="#" data-toggle="modal" data-target="#editOrder" 
+                                                           data-productname="${o.productname}" 
+                                                           data-productimage="${o.productimage}" 
+                                                           data-quantity="${o.quantity}" 
+                                                           data-price="${o.price}" 
+                                                           data-date="${o.date}" 
+                                                           data-sellname="${o.sellname}" 
+                                                           data-customername="${o.customername}" 
+                                                           data-address="${o.address}" 
+                                                           data-phonenumber="${o.phonenumber}" 
+                                                           data-status="${o.status}"
+                                                           data-did="${o.did}"
+                                                           data-payment="${o.payment}"
+                                                           data-expdate="${o.expDate}"
+                                                           data-deldate="${o.delDate}"
+                                                           >
 
-                            var cancelButton = $('#cancelButton');
-                            if (status === 'cancel') {
-                                cancelButton.hide();
-                                $('#cancellationMessage').text("This Order is canceled");
-                            } else {
-                                cancelButton.show();
-                                $('#cancellationMessage').text(""); // Reset the message
+
+
+                                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiDm6Azm2GrmLl2y8FntgjrLtEnZ9oiacF2A&usqp=CAU"
+                                                                 alt="image" width="20" height="20">
+                                                        </a>
+                                                    </td>
+
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+                                <c:if test="${tag > 1}">
+                                    <li><a href="manageorder?index=${tag-1}"><i class="ion-ios-arrow-back"></i></a></li>
+                                        </c:if>
+
+                                <c:forEach begin="1" end="${endP}" var="i">
+                                    <li class="${tag == i ? 'active' : ''}">
+                                        <a href="manageorder?index=${i}">${i}</a>
+                                    </li>
+                                </c:forEach>
+
+                                <c:if test="${tag < endP}">
+                                    <li><a href="manageorder?index=${tag+1}"><i class="ion-ios-arrow-forward"></i></a></li>
+                                        </c:if>
+                            </ul>
+
+                        </div>
+                    </div>
+
+
+                    <!-- ============================================================== -->
+                    <!-- End PAge Content -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Right sidebar -->
+                    <!-- ============================================================== -->
+                    <!-- .right-sidebar -->
+                    <!-- ============================================================== -->
+                    <!-- End Right sidebar -->
+                    <!-- ============================================================== -->
+                    <div id="editOrder" class="modal fade" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <form action="orderstatus" method="post">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Order Detail</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="order-details">
+                                            <div class="left-column">
+                                                <input type="hidden" name="did" >
+                                                <div class="order-info">
+                                                    <label>Order Date:</label>
+                                                    <p name="date" style="color: black;"></p>
+                                                </div>
+                                                <div class="order-info">
+                                                    <label>Expected Date:</label>
+                                                    <p name="expDate" style="color: black;"></p>
+                                                </div>
+                                                <div class="order-info">
+                                                    <label>Delivery Date:</label>
+                                                    <p name="delDate" style="color: black;"></p>
+                                                </div>
+                                                <div class="order-info">
+                                                    <label>Name:</label>
+                                                    <p name="customername" style="color: black;"></p>
+                                                </div>
+                                                <div class="order-info">
+                                                    <label>Address:</label>
+                                                    <p name="address" style="color: black;"></p>
+                                                </div>
+                                                <div class="order-info">
+                                                    <label>Phone:</label>
+                                                    <p name="phonenumber" style="color: black;"></p>
+                                                </div>
+                                            </div>
+                                            <div class="right-column">
+                                                <div class="product-info">
+                                                    <label>Product Name:</label>
+                                                    <p name="productname" style="color: black;"></p>
+                                                </div>
+                                                <div class="product-info">
+                                                    <label>Quantity:</label>
+                                                    <p name="quantity" style="color: black;"></p>
+                                                </div>
+                                                <div class="product-info">
+                                                    <label>Price:</label>
+                                                    <p name="price" style="color: black;"></p>
+                                                </div>
+
+                                                <div class="product-info">
+                                                    <label>Status:</label>
+                                                    <p name="status" style="color: black;"></p>
+                                                </div>
+                                                <div class="product-info">
+                                                    <label>Payment Method:</label>
+                                                    <p name="payment" style="color: black;"></p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="card px-2">
+                                            <div class="row px-3">
+                                                <div class="col">
+                                                    <ul id="progressbar" >
+                                                        <li class="step0 active " id="step1">PLACED</li>
+                                                        <li class="step0 active text-center" id="step2">SHIPPED</li>
+                                                        <li class="step0  text-muted text-right" id="step3">DELIVERED</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+
+                                        <button type="submit" class="btn btn-primary" id="processingButton" name="action" value="processing" onclick="return confirmprocessation();">Processing Order</button>
+                                        <button type="submit" class="btn btn-primary" id="completeButton" name="action" value="completed" onclick="return confirmcompleteation();">Completed Order</button>
+                                        <button type="submit" class="btn btn-primary" id="cancelButton" name="action" value="cancel" onclick="return confirmCancellation();">Cancel This Order</button>
+                                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+
+                                        <div id="cancellationMessage" style="color: red;"></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+
+                $('a[data-target="#editOrder"]').click(function () {
+                 
+                    var expdate = $(this).data('expdate') || "Unknown";
+                    var deldate = $(this).data('deldate') || "Unknown";
+
+                   
+                    $('#editOrder p[name="expDate"]').text(expdate);
+                    $('#editOrder p[name="delDate"]').text(deldate);
+
+
+                  
+                });
+                    </script>
+
+           
+                    <script>
+                            // When the modal is shown, add the 'modal-open' class to the body
+                            $('#editOrder').on('show.bs.modal', function () {
+                                $('body').addClass('modal-open');
+                            });
+
+                            // When the modal is hidden, remove the 'modal-open' class from the body
+                            $('#editOrder').on('hidden.bs.modal', function () {
+                                $('body').removeClass('modal-open');
                             }
-                        });
-                </script>
+                            );
 
-                <script>
-                        $(document).ready(function () {
-                            var status = $('#editOrder p[name="status"]').text();
-                            if (status === 'cancel') {
-                                $('input[type="submit"]').hide();
+                    </script>
+<script>
+    // Define variables for buttons outside of the click event
+
+
+    $('a[data-target="#editOrder"]').click(function () {
+        // Clear button references when opening a new modal
+     
+
+        var productname = $(this).data('productname');
+        var quantity = $(this).data('quantity');
+        var price = $(this).data('price');
+        var date = $(this).data('date');
+        var sellname = $(this).data('sellname');
+        var customername = $(this).data('customername');
+        var address = $(this).data('address');
+        var phonenumber = $(this).data('phonenumber');
+        var status = $(this).data('status');
+        var payment = $(this).data('payment');
+        var did = $(this).data('did');
+        var expdate = $(this).data('expdate') || "Unknown";
+        var deldate = $(this).data('deldate') || "Unknown";
+
+        var editOrderModal = $('#editOrder');
+        editOrderModal.find('#cancellationMessage').hide();
+processingButton = editOrderModal.find("#processingButton");
+            cancelButton = editOrderModal.find("#cancelButton");
+            completeButton = editOrderModal.find("#completeButton");
+            processingButton.show();
+            cancelButton.show();
+            completeButton.show();
+        editOrderModal.find('p[name="productname"]').text(productname);
+        editOrderModal.find('p[name="quantity"]').text(quantity);
+        editOrderModal.find('p[name="price"]').text(price);
+        editOrderModal.find('p[name="date"]').text(date);
+        editOrderModal.find('p[name="sellname"]').text(sellname);
+        editOrderModal.find('p[name="customername"]').text(customername);
+        editOrderModal.find('p[name="address"]').text(address);
+        editOrderModal.find('p[name="phonenumber"]').text(phonenumber);
+        editOrderModal.find('p[name="status"]').text(status);
+        editOrderModal.find('input[name="did"]').val(did);
+        editOrderModal.find('p[name="payment"]').text(payment);
+        editOrderModal.find('p[name="expDate"]').text(expdate);
+        editOrderModal.find('p[name="delDate"]').text(deldate);
+
+        // Get the progress bar steps
+        var step1 = editOrderModal.find("#step1");
+        var step2 = editOrderModal.find("#step2");
+        var step3 = editOrderModal.find("#step3");
+
+        // Reset the classes
+        step1.attr('class', "step0");
+        step2.attr('class', "step0 text-center");
+        step3.attr('class', "step0 text-muted text-right");
+
+        // Set the active class based on the status
+        if (status === "pending") {
+            step1.attr('class', "step0 active");
+            completeButton.hide();
+        } else if (status === "processing") {
+            step1.attr('class', "step0 active");
+            step2.attr('class', "step0 active text-center");
+            processingButton.hide();
+        } else if (status === "completed") {
+            step1.attr('class', "step0 active");
+            step2.attr('class', "step0 active text-center");
+            step3.attr('class', "step0 active text-muted text-right");
+            processingButton.hide();
+            cancelButton.hide();
+            completeButton.hide();
+        } else if (status === "cancel") {
+            editOrderModal.find('#cancellationMessage').text("This Order is canceled").show();
+            processingButton.hide();
+            completeButton.hide();
+            cancelButton.hide();
+        }
+      
+    });
+
+      function confirmCancellation() {
+        var confirmation = confirm("Are you sure to cancel this order?");
+        return confirmation;
+    }
+    
+     function confirmprocessation() {
+        var confirmation = confirm("Are you sure you want to process this order?");
+        return confirmation;
+    }
+    
+       function confirmcompleteation() {
+        var confirmation = confirm("Are you sure you want to mark this order as completed?");
+        return confirmation;
+    }
+</script>
+
+
+
+
+                    <script>
+
+                            document.getElementById("sortprice").onchange = function () {
+                                this.form.submit();
+                            };
+
+                            document.getElementById("sortname").onchange = function () {
+                                this.form.submit();
                             }
-                        });
+                            ;
+                            document.getElementById("pending").onchange = function () {
+                                this.form.submit();
+                            }
+                            ;
+                    </script>
 
-                </script>
-                <script>
-
-                        $('a[data-target="#editOrder"]').click(function () {
-                            var productname = $(this).data('productname');
-                            var quantity = $(this).data('quantity');
-                            var price = $(this).data('price');
-                            var date = $(this).data('date');
-                            var sellname = $(this).data('sellname');
-                            var customername = $(this).data('customername');
-                            var address = $(this).data('address');
-                            var phonenumber = $(this).data('phonenumber');
-                            var status = $(this).data('status');
-                            var payment = $(this).data('payment');
-                            var oid = $(this).data('oid');
-                            var expdate = $(this).data('expdate') || "Unknown";
-                            var deldate = $(this).data('deldate') || "Unknown";
-
-
-
-                            $('#editOrder p[name="productname"]').text(productname);
-                            $('#editOrder p[name="quantity"]').text(quantity);
-                            $('#editOrder p[name="price"]').text(price);
-                            $('#editOrder p[name="date"]').text(date);
-                            $('#editOrder p[name="sellname"]').text(sellname);
-                            $('#editOrder p[name="customername"]').text(customername);
-                            $('#editOrder p[name="address"]').text(address);
-                            $('#editOrder p[name="phonenumber"]').text(phonenumber);
-                            $('#editOrder p[name="status"]').text(status);
-                            $('#editOrder input[name="oid"]').val(oid);
-                            $('#editOrder p[name="payment"]').text(payment);
-                            $('#editOrder p[name="expDate"]').text(expdate);
-                            $('#editOrder p[name="delDate"]').text(deldate);
-
-
-
-                        });
-
-                </script>
-
-
-                <script>
-                        function confirmCancellation() {
-                            var confirmation = confirm("Are you sure to cancel this order?");
-                            return confirmation;
-                        }
-                </script>
-
-
-
-
-                <script>
-                        // When the modal is shown, add the 'modal-open' class to the body
-                        $('#editOrder').on('show.bs.modal', function () {
-                            $('body').addClass('modal-open');
-                        });
-
-                        // When the modal is hidden, remove the 'modal-open' class from the body
-                        $('#editOrder').on('hidden.bs.modal', function () {
-                            $('body').removeClass('modal-open');
-                        }
-                        );
-
-                </script>
-                <script>
-
-                        document.getElementById("sortprice").onchange = function () {
-                            this.form.submit();
-                        };
-
-                        document.getElementById("sortname").onchange = function () {
-                            this.form.submit();
-                        }
-                        ;
-                        document.getElementById("pending").onchange = function () {
-                            this.form.submit();
-                        }
-                        ;
-                </script>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Container fluid  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+                <footer class="footer text-center"> 2023 © Palette Joy Bring Art To You
+                </footer>
+                <!-- ============================================================== -->
+                <!-- End footer -->
+                <!-- ============================================================== -->
             </div>
-
             <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer text-center"> 2023 © Palette Joy Bring Art To You
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
+            <!-- End Page wrapper  -->
             <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
+        <!-- End Wrapper -->
         <!-- ============================================================== -->
-    </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
 
-    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/app-style-switcher.js"></script>
-    <!--Wave Effects -->
-    <script src="js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="js/custom.js"></script>
-</body>
+        <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="js/app-style-switcher.js"></script>
+        <!--Wave Effects -->
+        <script src="js/waves.js"></script>
+        <!--Menu sidebar -->
+        <script src="js/sidebarmenu.js"></script>
+        <!--Custom JavaScript -->
+        <script src="js/custom.js"></script>
+    </body>
 
 </html>

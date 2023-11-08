@@ -89,7 +89,7 @@ public class OrderDAO extends DBContext {
             st.setInt(2, pid);
             st.setInt(3, quantity);
             st.setDouble(4, price);
-            st.setString(5, "pending processing");
+            st.setString(5, "pending");
             st.setString(6, formattedExpDate);
             st.setString(7, null);
             st.executeUpdate();

@@ -79,7 +79,7 @@
                                     <td class="total">$<fmt:formatNumber pattern="##.#" value="${i.price}"/></td>
                                     <td class="price" style="color:
                                         <c:choose>
-                                            <c:when test="${i.status == 'pending processing'}">
+                                            <c:when test="${i.status == 'pending'}">
                                                 #FFD700 /* Set text color to yellow for 'pending' status */
                                             </c:when>
                                             <c:when test="${i.status == 'cancel'}">
@@ -234,7 +234,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
-                    <input type="submit" id="cancelButton" class="btn btn-danger" value="Cancel This Order">
+                    <input type="submit" id="cancelButton" class="btn btn-danger" value="Cancel This Order" onclick="return confirmCancellation();">
                     <div id="cancellationMessage" style="color: red;"></div>
                 </div>
             </form>
@@ -321,7 +321,7 @@
   step3.className = "step0 text-muted text-right";
 
   // Set the active class based on the status
-  if (status === "pending processing" || status === "cancel" ) {
+  if (status === "pending" || status === "cancel" ) {
     step1.className = "step0 active";
   } else if (status === "processing") {
     step1.className = "step0 active";
