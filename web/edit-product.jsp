@@ -402,7 +402,12 @@
                                         <c:forEach items="${listI}" var="i">
                                             <div class="slide">
                                                 <img src="images/${i.imageUrl}">
-                                                <a href="deleteimage?url=${i.imageUrl}&pid=${detail.productID}&id=${i.imageID}"><span class="close-button">×</span></a>
+                                                <a href="javascript:void(0);" class="delete-button"
+                                                   data-imageurl="${i.imageUrl}"
+                                                   data-productid="${detail.productID}"
+                                                   data-imageid="${i.imageID}">
+                                                    <span class="close-button">×</span>
+                                                </a>
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -737,6 +742,29 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteButtons = document.querySelectorAll(".delete-button");
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const imageUrl = this.getAttribute("data-imageurl");
+                const productID = this.getAttribute("data-productid");
+                const imageID = this.getAttribute("data-imageid");
+
+                const confirmDelete = confirm("Are you sure you want to delete this image?");
+                if (confirmDelete) {
+                    // If the user confirms, navigate to the delete URL.
+                    window.location.href = 'deleteimage?url=' + imageUrl + '&pid=' + productID + '&id=' + imageID;
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
 <!-- ============================================================== -->
 <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap tether Core JavaScript -->
