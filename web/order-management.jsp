@@ -546,7 +546,7 @@ String path = request.getContextPath();
         <link href="css/style.min.css" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+   
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     </head>
@@ -637,6 +637,12 @@ String path = request.getContextPath();
                             </a>
                         </li>
                         <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customercontrol" aria-expanded="false">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="hide-menu">Customer Management</span>
+                                </a>
+                            </li>
+                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="javascript:history.back()" aria-expanded="false">
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
                                 <span class="hide-menu">Return</span>
@@ -697,10 +703,10 @@ String path = request.getContextPath();
                                                 <input type="date" name="to" value="${to}">
                                             </td>
                                             <td colspan="4" style="text-align: center">
-                                                    <input style="padding: 0 3rem; color: black; background-color: white;box-shadow: 1px 2px " type="submit" value="Filter">
-                                                </td>
+                                                <input style="padding: 0 3rem; color: black; background-color: white;box-shadow: 1px 2px " type="submit" value="Filter">
+                                            </td>
                                         </tr>
-                                        
+
                                         <tr>
                                             <td> 
                                                 <form action="manageorder" method="get">
@@ -760,10 +766,13 @@ String path = request.getContextPath();
                                                 <td class="price" style="color:
                                                     <c:choose>
                                                         <c:when test="${o.status == 'pending processing'}">
-                                                            #3399CC /* Set text color to yellow for 'pending' status */
+                                                            #3399CC /* Set text color to yellow for 'pending processing' status */
                                                         </c:when>
                                                         <c:when test="${o.status == 'cancel'}">
-                                                            #FF3399
+                                                            #FF3399 /* Set text color to pink for 'cancel' status */
+                                                        </c:when>
+                                                        <c:when test="${o.status == 'completed'}">
+                                                            #00FF00 /* Set text color to green for 'completed' status */
                                                         </c:when>
                                                         <c:otherwise>
                                                             black /* Set a default text color (e.g., black) for other statuses */
@@ -774,7 +783,7 @@ String path = request.getContextPath();
                                                 </td>
 
                                                 <td class="total">
-                                                    <a href="#" data-toggle="modal" data-target="#editProduct">
+                                                    <a href="orderstatus?status=${o.status}&id=${o.oid}" >
                                                         <img src="https://cdn-icons-png.flaticon.com/512/1836/1836126.png"
                                                              alt="Mô tả ảnh" width="20" height="20">
                                                     </a>
@@ -953,7 +962,7 @@ String path = request.getContextPath();
 
                 </script>
                 <script>
-                        
+
                         $('a[data-target="#editOrder"]').click(function () {
                             var productname = $(this).data('productname');
                             var quantity = $(this).data('quantity');
@@ -1017,19 +1026,19 @@ String path = request.getContextPath();
                 </script>
                 <script>
 
-                    document.getElementById("sortprice").onchange = function () {
-                        this.form.submit();
-                    };
+                        document.getElementById("sortprice").onchange = function () {
+                            this.form.submit();
+                        };
 
-                    document.getElementById("sortname").onchange = function () {
-                        this.form.submit();
-                    }
-                    ;
-                    document.getElementById("pending").onchange = function () {
-                        this.form.submit();
-                    }
-                    ;
-                    </script>
+                        document.getElementById("sortname").onchange = function () {
+                            this.form.submit();
+                        }
+                        ;
+                        document.getElementById("pending").onchange = function () {
+                            this.form.submit();
+                        }
+                        ;
+                </script>
             </div>
 
             <!-- ============================================================== -->
