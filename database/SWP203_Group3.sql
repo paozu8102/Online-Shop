@@ -1,5 +1,6 @@
-﻿
-USE SWP391_Group3_Part2;
+﻿Create database SWP391_Group3;
+GO
+USE SWP391_Group3;
 GO
 CREATE TABLE [Role](
 RoleID INT NOT NULL PRIMARY KEY,
@@ -242,10 +243,6 @@ FOREIGN KEY (ProductID) REFERENCES [Product](ProductID),
 FOREIGN KEY (UserID) REFERENCES [User](UserID)
 )
 
---change in the Post table 
-ALTER TABLE Post
-ADD PostType INT DEFAULT 0;
-
 --create table comment
 CREATE TABLE Comment(
 	CommentID INT PRIMARY KEY IDENTITY,
@@ -452,25 +449,24 @@ INSERT INTO [dbo].[Post]
            ,[Date]
            ,[UserID]
            ,[StatusID]
-           ,[PostType]
            ,[View])
 VALUES ('History of art', 
 		'The history of art focuses on objects made by humans for any number of spiritual, narrative, philosophical, symbolic, conceptual, documentary, decorative, and even functional and other purposes, but with a primary emphasis on its aesthetic visual form. Visual art can be classified in diverse ways, such as separating fine arts from applied arts; inclusively focusing on human creativity; or focusing on different media such as architecture, sculpture, painting, film, photography, and graphic arts. In recent years, technological advances have led to video art, computer art, performance art, animation, television, and videogames.
 		 The history of art is often told as a chronology of masterpieces created during each civilization. It can thus be framed as a story of high culture, epitomized by the Wonders of the World. On the other hand, vernacular art expressions can also be integrated into art historical narratives, referred to as folk arts or craft. The more closely that an art historian engages with these latter forms of low culture, the more likely it is that they will identify their work as examining visual culture or material culture, or as contributing to fields related to art history, such as anthropology or archaeology. In the latter cases, art objects may be referred to as archeological artifacts.', 
 		'2023-04-14',
-		1, 2, 2, 0),
+		1, 2, 0),
 		('Finding a picture for coffe shop',
 		'I want to find some picture to decorate my coffe store, i want it to has bright color, main theme is coffe or the feeling of chill in a coffe shop.',
 		'2023-05-15',
-		2, 2, 2, 0),
+		2, 2, 0),
 		('Finding decor pic for new house',
 		'I want to find a picture for our new house. I want 5 pics that has dark color, IT theme for me and 5 pics has brighter color and a bit for children for my wife. Feel free to leave contact', 
 		'2023-08-09',
-		3, 2, 2, 0),
+		3, 2, 0),
 		('Presenting new picture for your home',
 		'Today i will present to all customer these pictures of mine, they are color full, beautiful and have all size for you to choose. Please have a look and leave a comment to let me know which one is your favorite.',
 		'2023-06-06',
-		4, 2, 2, 0);
+		4, 2, 0);
 
 --add data for image table
 INSERT INTO [dbo].[Image]

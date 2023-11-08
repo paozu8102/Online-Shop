@@ -18,7 +18,13 @@
                     <h1 class="py-3">${mess}</h1>
                     <p>This URL is not valid anymore.</p>
                     <a href="home">Go to Home</a>
-                    
+                    <p>
+                        ${imageArray}
+                        :${pathImageFolder}
+                    </p>
+                    <p>
+                        ${categoryArray}
+                    </p>
                 </div>
             </div>
         </div>

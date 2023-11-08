@@ -132,7 +132,7 @@ public class PostDAO extends DBContext {
         return CommentNumber;
     }
 
-    //get all no-reply comment: ThanhNX
+    //get all root comment: ThanhNX
     public ArrayList<Comment> getAllRootCommentByPostID(String id) {
         ArrayList<Comment> rootCommentList = new ArrayList<>();
         String command = "SELECT u.UserID,\n"
@@ -510,7 +510,7 @@ public class PostDAO extends DBContext {
         String command = "SELECT p.PostID\n"
                 + "FROM PostCategory p\n"
                 + "WHERE p.CategoryID = ?\n"
-                + "AND b.StatusID = 2";
+                + "";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
             ps.setInt(1, category);
@@ -523,7 +523,7 @@ public class PostDAO extends DBContext {
         return idList;
     }
 
-    //get all category of post
+    //get all category of post: ThanhNX
     public ArrayList<Map<String, String>> getPostCategory() {
         ArrayList<Map<String, String>> dataList = new ArrayList<>();
         String command = "SELECT c.CategoryID\n"
@@ -535,7 +535,7 @@ public class PostDAO extends DBContext {
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 Map<String, String> dataMap = new HashMap<>();
                 dataMap.put("CategoryID", rs.getString("CategoryID"));
                 dataMap.put("CategoryName", rs.getString("CategoryName"));
@@ -545,6 +545,32 @@ public class PostDAO extends DBContext {
         } catch (Exception e) {
         }
         return dataList;
+    }
+
+    //add a post into post table and get its ID
+    public String addPostAndGetID(String content, String userID, String Title) {
+        String postID = "";
+        String command = "INSERT INTO [dbo].[Post]\n"
+                + "           ([Title]\n"
+                + "           ,[Content]\n"
+                + "           ,[Date]\n"
+                + "           ,[UserID]\n"
+                + "           ,[StatusID]\n"
+                + "           ,[View])\n"
+                + "VALUES (?, ?, GETDATE(), ?, 2, 0);\n"
+                + "SELECT SCOPE_IDENTITY() AS PostID;";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(command);
+            ps.setString(1, Title);
+            ps.setString(2, content);
+            ps.setString(3, userID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                postID = rs.getString("PostID");
+            }
+        } catch (Exception e) {
+        }
+        return postID;
     }
 
     public static void main(String[] args) {
