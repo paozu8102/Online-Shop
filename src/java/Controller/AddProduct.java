@@ -30,17 +30,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-import java.util.logging.Logger;
+
 
 /**
  *
  * @author admin
  */
 @WebServlet(name = "AddProduct", urlPatterns = {"/addproduct"})
-@MultipartConfig(location = "D:\\uploads",
+@MultipartConfig(location = "D:\\",
         fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 100,
         maxRequestSize = 1024 * 1024 * 100)

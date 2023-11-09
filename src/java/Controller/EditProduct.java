@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * @author admin
  */
 @WebServlet(name="EditProduct", urlPatterns={"/editproduct"})
-@MultipartConfig(location = "D:\\uploads",
+@MultipartConfig(location = "D:\\",
         fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 100,
         maxRequestSize = 1024 * 1024 * 100)
@@ -147,7 +147,7 @@ public class EditProduct extends HttpServlet {
         }
          }
          
-         
+         response.sendRedirect("editproduct?pid=" + id);
     }
 
     /** 

@@ -3,54 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/post-create.jsp</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/DAO/CategoryDAO.java</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/CreatePostController.java</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/DAO/PostDAO.java</file>
-=======
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/ChangeOrderStatus.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/CommentController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/UserDAO.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/DBcontext/DBContext.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/ChangePasswordController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/OrderDAO.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/CheckoutController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/MyOrderServlet.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/checkout.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/CustomerController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/OrderDetail.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/CustomerDetail.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/LogoutController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/setting-management.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/Image.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/post-create.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/template/header.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/EditSettingController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/DeleteProductImage.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/ProOrder.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/shop.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/myorder.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/EditUserController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/ImageDAO.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/AddProduct.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/DetailControl.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/product-single.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/PaymentServices.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Model/Order.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/order-complete.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/customer-management.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/ShopController.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/ManageProduct.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/product-management.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/EditProduct.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/DAO/ProductDAO.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/customer-detail.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/edit-product.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/src/java/Controller/ManageOrder.java</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/order-management.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master1/web/confirm.jsp</file>
->>>>>>> 50f81a2a1164db97cbf0f3dbf6519e341e8ab62f
+            <file>file:/C:/Users/admin/Documents/master2/web/index.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/DBcontext/DBContext.java</file>
         </group>
     </open-files>
 </project-private>
