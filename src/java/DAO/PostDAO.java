@@ -352,7 +352,7 @@ public class PostDAO extends DBContext {
     public ArrayList<Post> getAllPost(String searchID, String index, String sql2, String order) {
         ArrayList<Post> listPost = new ArrayList<>();
         UserDAO udao = new UserDAO();
-        String sql = "SELECT * FROM [SWP391_Group3].[dbo].[Post] p, [User] u where p.UserID = u.UserID and "
+        String sql = "SELECT * FROM [dbo].[Post] p, [User] u where p.UserID = u.UserID and "
                 + "("
                 + "PostID like '%" + searchID + "%' "
                 + "or UserName like '%" + searchID + "%' "
@@ -393,7 +393,7 @@ public class PostDAO extends DBContext {
 
     //calculates the total number of posts based on search criteria and sorting order: BaoMV
     public int getTotalPost(String searchID, String sql2, String order) {
-        String sql = "SELECT * FROM [SWP391_Group3].[dbo].[Post] p, [User] u where p.UserID = u.UserID and "
+        String sql = "SELECT * FROM [dbo].[Post] p, [User] u where p.UserID = u.UserID and "
                 + "("
                 + "PostID like '%" + searchID + "%'"
                 + "or UserName like '%" + searchID + "%'"
@@ -414,7 +414,7 @@ public class PostDAO extends DBContext {
 
     //delete a post: BaoMV
     public void deletePost(String id) {
-        String sql = "delete from [SWP391_Group3].[dbo].[Post] where PostID = ?";
+        String sql = "delete from [dbo].[Post] where PostID = ?";
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
             ps.setString(1, id);
@@ -426,7 +426,7 @@ public class PostDAO extends DBContext {
 
     //get post by id:BaoMV
     public Post getPostById(String id) {
-        String sql = "select * from [SWP391_Group3].[dbo].[Post] where PostID = ?";
+        String sql = "select * from [dbo].[Post] where PostID = ?";
         UserDAO udao = new UserDAO();
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
@@ -451,7 +451,7 @@ public class PostDAO extends DBContext {
 
     //update a post: BaoMV
     public void updatePost(String id, String title, String content, String statusId, String postType) {
-        String sql = "update [SWP391_Group3].[dbo].[Post] set title=?, content=?, statusId=?, postType = ? where PostID = ?";
+        String sql = "update [dbo].[Post] set title=?, content=?, statusId=?, postType = ? where PostID = ?";
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
             ps.setString(5, id);

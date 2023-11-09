@@ -285,7 +285,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="4" style="text-align: center">
+                                                <td colspan="2" style="text-align: center">
                                                     <input style="padding: 0 3rem; color: #3e5569; " type="submit" value="Filter">
                                                 </td>
                                             </tr>
@@ -297,6 +297,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="managepost" style="padding: 0 3rem; color: #3e5569;"><Button>Refresh</Button></a>
                 <!-- ============================================================== -->
                 <!-- Container fluid  -->
                 <!-- ============================================================== -->
@@ -319,7 +320,6 @@
                                                 <th class="border-top-0">Date</th>
                                                 <th class="border-top-0">UserName</th>
                                                 <th class="border-top-0">Status</th>
-                                                <th class="border-top-0">Post Type</th>
                                                 <th class="border-top-0">View</th>
                                                 <th colspan="2" class="border-top-0" style="text-align: center">Action</th>
                                             </tr>
@@ -332,7 +332,6 @@
                                                     <td>${p.getDate()}</td>
                                                     <td>${p.getUserID()}</td>
                                                     <td>${p.getStatusID()}</td>
-                                                    <td>${p.getPostType()}</td>
                                                     <td>${p.getView()}</td>
                                                     <td style="text-align: center; display: flex; justify-content: center; align-items: center">                                                     
                                                         <a href="crudpost?id=${p.getPostID()}&mode=update" style="margin-left: 20px">View Details</a>

@@ -290,48 +290,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <!-- .col -->
-                        <div class="col-md-12 col-lg-12 col-sm-12">
-                            <div class="card white-box p-0">
-                                <div class="card-body">
-                                    <h3 class="box-title mb-0">Product Diagram</h3>
-                                </div>
-                                <div class="comment-widgets" style="padding-bottom: 50px">
-                                    <canvas width="400" height="400" id="pieChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <script>
-                            const cs = document.getElementById('pieChart');
-                            const data = {
-                                labels: [
-                                    'Active Product',
-                                    'Banned Product'
-                                ],
-                                datasets: [{
-                                        label: 'Total',
-                                        data: [${listCountAccount.get(1)}, ${listCountAccount.get(0)}],
-                                        backgroundColor: [
-                                            '#88F460',
-                                            'rgb(255, 99, 132)'
-                                        ],
-                                        hoverOffset: 4
-                                    }]
-                            };
-                            const config = {
-                                type: 'pie',
-                                data: data,
-                                options: {
-                                    maintainAspectRatio: false // Disable aspect ratio constraint
-                                }
-                            };
-                            new Chart(cs, config);
-                        </script>
-
-
-                        <!-- /.col -->
-                    </div>
+                    
                     <!-- ============================================================== -->
                     <!-- RECENT SALES -->
                     <!-- ============================================================== -->

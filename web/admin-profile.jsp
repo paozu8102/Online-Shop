@@ -156,14 +156,8 @@
                                    aria-expanded="false">
                                     <i class="fa fa-table" aria-hidden="true"></i>
                                     <span class="hide-menu">Setting Management</span>
-                                </a>
+                                </a>    
                             </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="home" aria-expanded="false">
-                                    <i class="fa fa-home" aria-hidden="true"></i>
-                                    <span class="hide-menu">Home</span>
-                                </a>
-                            </li> 
                         </ul>
 
                     </nav>

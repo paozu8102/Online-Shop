@@ -87,7 +87,7 @@ public class ImageDAO extends DBContext {
     //retrieve a list of images with a TypeID of 3(slider) from the database: BaoMV
     public ArrayList<Image> getAllImageWithType3(String searchID, String index) {
         ArrayList<Image> imageList = new ArrayList<>();
-        String sql = "select * from [SWP391_Group3].[dbo].[Image] where [TypeID] = 3 and ImageID like '%" + searchID + "%'  order by ImageID offset ? rows fetch next 9 rows only";
+        String sql = "select * from [dbo].[Image] where [TypeID] = 3 and ImageID like '%" + searchID + "%'  order by ImageID offset ? rows fetch next 9 rows only";
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
             int page = Integer.parseInt(index);
@@ -109,7 +109,7 @@ public class ImageDAO extends DBContext {
 
     //deletes an image: BaoMV
     public void deleteImage(String id) {
-        String sql = "delete from [SWP391_Group3].[dbo].[Image] where [ImageId] = ?";
+        String sql = "delete from [dbo].[Image] where [ImageId] = ?";
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
             ps.setString(1, id);
@@ -121,7 +121,7 @@ public class ImageDAO extends DBContext {
 
     //calculates the total number of images with a TypeID of 3(slider): BaoMV
     public int getTotalImageByTypeId3(String searchID) {
-        String sql = "select * from [SWP391_Group3].[dbo].[Image] where [TypeID] = 3 and ImageID like '%" + searchID + "%'  order by ImageID";
+        String sql = "select * from [dbo].[Image] where [TypeID] = 3 and ImageID like '%" + searchID + "%'  order by ImageID";
         int count = 0;
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
@@ -137,7 +137,7 @@ public class ImageDAO extends DBContext {
 
     //retrieves an image by ID: BaoMV
     public Image getImageById(String id) {
-        String sql = "select * from [SWP391_Group3].[dbo].[Image] where [TypeID] = 3 and ImageID = ?";
+        String sql = "select * from [dbo].[Image] where [TypeID] = 3 and ImageID = ?";
         Image image = new Image();
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
@@ -157,7 +157,7 @@ public class ImageDAO extends DBContext {
 
     //update an image: BaoMV
     public void updateImage(String id, String imageURL) {
-        String sql = "update [SWP391_Group3].[dbo].[Image] set [ImageUrl] = ? where [ImageID] = ?";
+        String sql = "update [dbo].[Image] set [ImageUrl] = ? where [ImageID] = ?";
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
             ps.setString(2, id);
@@ -170,7 +170,7 @@ public class ImageDAO extends DBContext {
 
     //add a new image: BaoMV
     public void addNew(String imageURL) {
-        String sql = "insert into [SWP391_Group3].[dbo].[Image] values (3,0,?)";
+        String sql = "insert into [dbo].[Image] values (3,0,?)";
         try {
             PreparedStatement ps = getConnection().prepareStatement(sql);
             ps.setString(1, imageURL);
