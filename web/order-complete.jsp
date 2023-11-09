@@ -48,7 +48,7 @@
 						<h2 class="mb-4">Thank you for purchasing, Your order is complete</h2>
 						<p>
 							<a href="home"class="btn btn-primary btn-outline-primary">Home</a>
-                                                        <a href="shop"class="btn btn-primary btn-outline-primary">Your Order</a>
+                                                        <a href="myorder"class="btn btn-primary btn-outline-primary">Your Order</a>
                                                         
 							
 						</p>

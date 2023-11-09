@@ -4,8 +4,6 @@
  */
 package DAO;
 
-
-
 import DBcontext.DBContext;
 import Model.ProOrder;
 import java.sql.PreparedStatement;
@@ -22,8 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-
 
 public class OrderDAO extends DBContext {
 
@@ -79,6 +77,10 @@ public class OrderDAO extends DBContext {
     }
 
     public void addOrderDetails(int oid, int pid, double price, int quantity) {
+        LocalDateTime curDate = LocalDateTime.now();
+        LocalDateTime expDate = curDate.plus(7, ChronoUnit.DAYS);
+        String formattedExpDate = expDate.toString();
+
         String sql = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity,Price, Status, ExpDate, DelDate) VALUES (?,?,?,?,?,?,?)";
 
         try {
@@ -87,8 +89,8 @@ public class OrderDAO extends DBContext {
             st.setInt(2, pid);
             st.setInt(3, quantity);
             st.setDouble(4, price);
-            st.setString(5, "pending processing");
-            st.setString(6, null);
+            st.setString(5, "pending");
+            st.setString(6, formattedExpDate);
             st.setString(7, null);
             st.executeUpdate();
 
@@ -157,6 +159,7 @@ public class OrderDAO extends DBContext {
                 + ")\n"
                 + "\n"
                 + "SELECT\n"
+                + "    OD.DetailID,\n"
                 + "    O.OrderID,\n"
                 + "    O.OrderDate,\n"
                 + "    O.TotalPrice,\n"
@@ -201,7 +204,8 @@ public class OrderDAO extends DBContext {
             st.setInt(1, (index - 1) * 9);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new ProOrder(rs.getInt("OrderID"),
+                list.add(new ProOrder(rs.getInt("DetailID"),
+                        rs.getInt("OrderID"),
                         rs.getString("ProductName"),
                         rs.getString("ProductImage"),
                         rs.getInt("Quantity"),
@@ -227,9 +231,11 @@ public class OrderDAO extends DBContext {
 
         return list;
     }
+
     public List<ProOrder> getAllOrder(int index, int userID) {
         List<ProOrder> list = new ArrayList<>();
         String sql = "SELECT\n"
+                + "    OD.DetailID,\n"
                 + "    O.OrderID,\n"
                 + "    CAST(O.OrderDate AS DATE) AS date,\n"
                 + "    O.TotalPrice,\n"
@@ -260,7 +266,7 @@ public class OrderDAO extends DBContext {
             st.setInt(2, (index - 1) * 6);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new ProOrder(
+                list.add(new ProOrder(rs.getInt("DetailID"),
                         rs.getInt("OrderID"),
                         rs.getString("ProductName"),
                         rs.getInt("Quantity"),
@@ -270,7 +276,7 @@ public class OrderDAO extends DBContext {
                         rs.getString("CustomerName"),
                         rs.getString("Address"),
                         rs.getString("PhoneNumber"),
-                        rs.getString("Status"), // Get expDate
+                        rs.getString("Status"),
                         rs.getString("ExpDate"),
                         rs.getString("DelDate"),
                         rs.getString("Payment")
@@ -286,9 +292,11 @@ public class OrderDAO extends DBContext {
 
         return list;
     }
+
     public List<ProOrder> getAllOrderASC(int userID) {
         List<ProOrder> list = new ArrayList<>();
         String sql = "SELECT\n"
+                + "    OD.DetailID,\n"
                 + "    O.OrderID,\n"
                 + "    CAST(O.OrderDate AS DATE) AS date,\n"
                 + "    O.TotalPrice,\n"
@@ -316,7 +324,7 @@ public class OrderDAO extends DBContext {
             st.setInt(1, userID);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new ProOrder(
+                list.add(new ProOrder(rs.getInt("DetailID"),
                         rs.getInt("OrderID"),
                         rs.getString("ProductName"),
                         rs.getInt("Quantity"),
@@ -342,9 +350,11 @@ public class OrderDAO extends DBContext {
 
         return list;
     }
+
     public List<ProOrder> getAllOrderDesc(int userID) {
         List<ProOrder> list = new ArrayList<>();
         String sql = "SELECT\n"
+                 + "    OD.DetailID,\n"
                 + "    O.OrderID,\n"
                 + "    CAST(O.OrderDate AS DATE) AS date,\n"
                 + "    O.TotalPrice,\n"
@@ -372,7 +382,7 @@ public class OrderDAO extends DBContext {
             st.setInt(1, userID);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new ProOrder(
+                list.add(new ProOrder(rs.getInt("DetailID"),
                         rs.getInt("OrderID"),
                         rs.getString("ProductName"),
                         rs.getInt("Quantity"),
@@ -398,55 +408,57 @@ public class OrderDAO extends DBContext {
 
         return list;
     }
+
     public List<ProOrder> getAllOrderSearch(String search, int userID) {
-    List<ProOrder> list = new ArrayList<>();
-    String sql = "SELECT\n"
-            + "    O.OrderID,\n"
-            + "    CAST(O.OrderDate AS DATE) AS date,\n"
-            + "    O.TotalPrice,\n"
-            + "    O.CustomerName,\n"
-            + "    O.PhoneNumber,\n"
-            + "    O.Address,\n"
-            + "    OD.ExpDate,\n"
-            + "    OD.DelDate,\n"
-            + "    OD.Price,\n"
-            + "    OD.Status,\n"
-            + "    P.ProductName,\n"  // Corrected the column name
-            + "    OD.Quantity,\n"
-            + "    OD.Price,\n"
-            + "    O.Payment\n"
-            + "FROM\n"
-            + "    Orders AS O\n"
-            + "INNER JOIN\n"
-            + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
-            + "INNER JOIN\n"
-            + "    Product AS P ON OD.ProductID = P.ProductID\n"
-            + "WHERE P.UserID = ?\n"
-            + "AND P.ProductName LIKE ?\n"
-            + "ORDER BY O.OrderID\n";
-    try {
-        PreparedStatement st = getConnection().prepareStatement(sql);
-        st.setInt(1, userID);
-        st.setString(2, "%" + search + "%");
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            list.add(new ProOrder(
-                rs.getInt("OrderID"),
-                rs.getString("ProductName"),  // Corrected the column name
-                rs.getInt("Quantity"),
-                rs.getDouble("Price"),
-                rs.getDouble("TotalPrice"),
-                rs.getString("date"),
-                rs.getString("CustomerName"),
-                rs.getString("Address"),
-                rs.getString("PhoneNumber"),
-                rs.getString("Status"),
-                rs.getString("ExpDate"),
-                rs.getString("DelDate"),
-                rs.getString("Payment")
-            ));
-        }
-} catch (SQLException e) {
+        List<ProOrder> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                  + "    OD.DetailID,\n"
+                + "    O.OrderID,\n"
+                + "    CAST(O.OrderDate AS DATE) AS date,\n"
+                + "    O.TotalPrice,\n"
+                + "    O.CustomerName,\n"
+                + "    O.PhoneNumber,\n"
+                + "    O.Address,\n"
+                + "    OD.ExpDate,\n"
+                + "    OD.DelDate,\n"
+                + "    OD.Price,\n"
+                + "    OD.Status,\n"
+                + "    P.ProductName,\n" // Corrected the column name
+                + "    OD.Quantity,\n"
+                + "    OD.Price,\n"
+                + "    O.Payment\n"
+                + "FROM\n"
+                + "    Orders AS O\n"
+                + "INNER JOIN\n"
+                + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+                + "INNER JOIN\n"
+                + "    Product AS P ON OD.ProductID = P.ProductID\n"
+                + "WHERE P.UserID = ?\n"
+                + "AND P.ProductName LIKE ?\n"
+                + "ORDER BY O.OrderID\n";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, userID);
+            st.setString(2, "%" + search + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProOrder(rs.getInt("DetailID"),
+                        rs.getInt("OrderID"),
+                        rs.getString("ProductName"), // Corrected the column name
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("TotalPrice"),
+                        rs.getString("date"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status"),
+                        rs.getString("ExpDate"),
+                        rs.getString("DelDate"),
+                        rs.getString("Payment")
+                ));
+            }
+        } catch (SQLException e) {
             // Xử lý ngoại lệ SQL
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
@@ -473,8 +485,7 @@ public class OrderDAO extends DBContext {
             st.setInt(1, sellid);
             st.setString(2, cusid);
             ResultSet rs = st.executeQuery();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             // Xử lý ngoại lệ SQL
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
         } catch (Exception e) {
@@ -483,29 +494,30 @@ public class OrderDAO extends DBContext {
         }
         return 0;
     }
+
     public List<ProOrder> getOrdersByDateRange(int userID, String from, String to, int index) {
-    List<ProOrder> list = new ArrayList<>();
-    String sql = "SELECT O.OrderID, CAST(O.OrderDate AS DATE) AS date, O.TotalPrice, O.CustomerName, O.PhoneNumber, " +
-            "O.Address, OD.ExpDate, OD.DelDate, OD.Price, OD.Status, P.ProductName, OD.Quantity, OD.Price, O.Payment " +
-            "FROM Orders AS O " +
-            "INNER JOIN OrderDetail AS OD ON O.OrderID = OD.OrderID " +
-            "INNER JOIN Product AS P ON OD.ProductID = P.ProductID " +
-            "WHERE P.UserID = ? AND CAST(O.OrderDate AS DATE) BETWEEN ? AND ? " +
-            "ORDER BY O.OrderID " +
-            "OFFSET ? ROWS " +
-            "FETCH NEXT 6 ROWS ONLY;";
+        List<ProOrder> list = new ArrayList<>();
+        String sql = "SELECT  OD.DetailID, O.OrderID, CAST(O.OrderDate AS DATE) AS date, O.TotalPrice, O.CustomerName, O.PhoneNumber, "
+                + "O.Address, OD.ExpDate, OD.DelDate, OD.Price, OD.Status, P.ProductName, OD.Quantity, OD.Price, O.Payment "
+                + "FROM Orders AS O "
+                + "INNER JOIN OrderDetail AS OD ON O.OrderID = OD.OrderID "
+                + "INNER JOIN Product AS P ON OD.ProductID = P.ProductID "
+                + "WHERE P.UserID = ? AND CAST(O.OrderDate AS DATE) BETWEEN ? AND ? "
+                + "ORDER BY O.OrderID "
+                + "OFFSET ? ROWS "
+                + "FETCH NEXT 6 ROWS ONLY;";
 
-    try {
-        PreparedStatement st = getConnection().prepareStatement(sql);
-        st.setInt(1, userID);
-        st.setString(2, from);
-        st.setString(3, to);
-        st.setInt(4, (index - 1) * 6);
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, userID);
+            st.setString(2, from);
+            st.setString(3, to);
+            st.setInt(4, (index - 1) * 6);
 
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            list.add(new ProOrder(
-                rs.getInt("OrderID"),
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProOrder(rs.getInt("DetailID"),
+                        rs.getInt("OrderID"),
                         rs.getString("ProductName"),
                         rs.getInt("Quantity"),
                         rs.getDouble("Price"),
@@ -518,18 +530,18 @@ public class OrderDAO extends DBContext {
                         rs.getString("ExpDate"),
                         rs.getString("DelDate"),
                         rs.getString("Payment")
-            ));
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
-    } catch (SQLException e) {
-        // Handle SQL exception
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
-    } catch (Exception e) {
-        // Handle other exceptions
-        Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
-    }
 
-    return list;
-}
+        return list;
+    }
 
     public int getTotalOrderCountByUserId(int userId) {
         int totalOrderCount = 0;
@@ -560,8 +572,6 @@ public class OrderDAO extends DBContext {
         }
         return totalOrderCount;
     }
-        
-  
 
     public List<ProOrder> getCustomerOrder(int index, String cusid, int sellid) {
         List<ProOrder> list = new ArrayList<>();
@@ -577,6 +587,7 @@ public class OrderDAO extends DBContext {
                 + ")\n"
                 + "\n"
                 + "SELECT\n"
+                + "    OD.DetailID,\n"
                 + "    O.OrderID,\n"
                 + "    O.OrderDate,\n"
                 + "    O.TotalPrice,\n"
@@ -620,12 +631,12 @@ public class OrderDAO extends DBContext {
                 + "FETCH NEXT 9 ROWS ONLY;";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
-               st.setInt(1, sellid);
+            st.setInt(1, sellid);
             st.setString(2, cusid);
             st.setInt(3, (index - 1) * 9);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new ProOrder(rs.getInt("OrderID"),
+                list.add(new ProOrder(rs.getInt("DetailID"),rs.getInt("OrderID"),
                         rs.getString("ProductName"),
                         rs.getString("ProductImage"),
                         rs.getInt("Quantity"),
@@ -651,15 +662,36 @@ public class OrderDAO extends DBContext {
 
         return list;
     }
+
     public void CancelOrder(int id) {
 
         String sql = "UPDATE OrderDetail\n"
                 + "SET Status = 'cancel'\n"
-                + "WHERE OrderID = ?;";
+                + "WHERE DetailID = ?;";
 
         try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
             st.setInt(1, id);
 
+            st.executeUpdate();
+
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+    }
+
+    public void ChangeOrderStatus(String id, String status) {
+
+        String sql = "UPDATE OrderDetail\n"
+                + "SET Status = ?\n"
+                + "WHERE DetailID = ?;";
+
+        try ( PreparedStatement st = getConnection().prepareStatement(sql)) {
+            st.setString(1, status);
+            st.setString(2, id);
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -1179,11 +1211,11 @@ public class OrderDAO extends DBContext {
 //
 //    return list;
 //}
-   public static void main(String[] args) {
+    public static void main(String[] args) {
 
         OrderDAO o = new OrderDAO();
         List<ProOrder> listO = o.getAllOrder(1, 9);
-       System.out.println(o.getAllOrderASC(9));
+        System.out.println(o.getAllOrderASC(9));
     }
 
 }

@@ -79,7 +79,7 @@
                                     <td class="total">$<fmt:formatNumber pattern="##.#" value="${i.price}"/></td>
                                     <td class="price" style="color:
                                         <c:choose>
-                                            <c:when test="${i.status == 'pending processing'}">
+                                            <c:when test="${i.status == 'pending'}">
                                                 #FFD700 /* Set text color to yellow for 'pending' status */
                                             </c:when>
                                             <c:when test="${i.status == 'cancel'}">
@@ -154,92 +154,93 @@
         <a style="display: block; text-align: center; margin-top: 20px;" href="shop">Shop more product</a>
 
 
-
-        <div id="editOrder" class="modal fade" tabindex="-1">
-         
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form action="myorder" method="post">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Order Detail</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                   <div class="form-group">
-
-                                <input type="hidden" name="oid" >
-                            </div>
-                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Product Name</label>
-                                        <p name="productname" style="color: black;"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Quantity</label>
-                                        <p name="quantity" style="color: black;"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Price</label>
-                                        <p name="price" style="color: black;"></p>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label>Shop</label>
-                                        <p name="sellname" style="color: black;"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Status</label>
-                                        <p name="status" style="color: black;"></p>
-                                    </div>
-                                       <div class="form-group">
-                                        <label>Payment Method</label>
-                                        <p name="payment" style="color: black;"></p>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Order Date</label>
-                                        <p name="date" style="color: black;"></p>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Expected Date</label>
-                                        <p name="expDate" style="color: black;"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Delivery Date</label>
-                                        <p name="delDate" style="color: black;"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <p name="customername" style="color: black;"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <p name="address" style="color: black;"></p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Phone</label>
-                                        <p name="phonenumber" style="color: black;"></p>
-                                    </div>
-                                  
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
-                                   <input type="submit" id="cancelButton" class="btn btn-success" value="Cancel This Order" style="background-color: red;" onclick="return confirmCancellation();">
-<div id="cancellationMessage" style="color: red;"></div>
-
-                        
-                            
-                        </div>
-                    </form>
+<div id="editOrder" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="myorder" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Order Detail</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
+                <div class="modal-body">
+                    <div class="order-details">
+                        <div class="left-column">
+                              <input type="hidden" name="oid" >
+                            <div class="order-info">
+                                <label>Order Date:</label>
+                                <p name="date" style="color: black;"></p>
+                            </div>
+                            <div class="order-info">
+                                <label>Expected Date:</label>
+                                <p name="expDate" style="color: black;"></p>
+                            </div>
+                            <div class="order-info">
+                                <label>Delivery Date:</label>
+                                <p name="delDate" style="color: black;"></p>
+                            </div>
+                            <div class="order-info">
+                                <label>Name:</label>
+                                <p name="customername" style="color: black;"></p>
+                            </div>
+                            <div class="order-info">
+                                <label>Address:</label>
+                                <p name="address" style="color: black;"></p>
+                            </div>
+                            <div class="order-info">
+                                <label>Phone:</label>
+                                <p name="phonenumber" style="color: black;"></p>
+                            </div>
+                        </div>
+                        <div class="right-column">
+                            <div class="product-info">
+                                <label>Product Name:</label>
+                                <p name="productname" style="color: black;"></p>
+                            </div>
+                            <div class="product-info">
+                                <label>Quantity:</label>
+                                <p name="quantity" style="color: black;"></p>
+                            </div>
+                            <div class="product-info">
+                                <label>Price:</label>
+                                <p name="price" style="color: black;"></p>
+                            </div>
+                            <div class="product-info">
+                                <label>Shop:</label>
+                                <p name="sellname" style="color: black;"></p>
+                            </div>
+                            <div class="product-info">
+                                <label>Status:</label>
+                                <p name="status" style="color: black;"></p>
+                            </div>
+                            <div class="product-info">
+                                <label>Payment Method:</label>
+                                <p name="payment" style="color: black;"></p>
+                            </div>
+                          
+                        </div>
+                        
+                    </div>
+                         <div class="card px-2">
+                             <div class="row px-3">
+            <div class="col">
+                <ul id="progressbar" >
+                    <li class="step0 active " id="step1">PLACED</li>
+                    <li class="step0 active text-center" id="step2">SHIPPED</li>
+                    <li class="step0  text-muted text-right" id="step3">DELIVERED</li>
+                </ul>
             </div>
         </div>
+                          </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+                    <input type="submit" id="cancelButton" class="btn btn-danger" value="Cancel This Order" onclick="return confirmCancellation();">
+                    <div id="cancellationMessage" style="color: red;"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
     </div>
@@ -309,9 +310,32 @@
                                     $('#editOrder p[name="expDate"]').text(expdate);
                                     $('#editOrder p[name="delDate"]').text(deldate);
                               
+  // Get the progress bar steps
+  var step1 = document.getElementById("step1");
+  var step2 = document.getElementById("step2");
+  var step3 = document.getElementById("step3");
+
+  // Reset the classes
+  step1.className = "step0";
+  step2.className = "step0 text-center";
+  step3.className = "step0 text-muted text-right";
+
+  // Set the active class based on the status
+  if (status === "pending" || status === "cancel" ) {
+    step1.className = "step0 active";
+  } else if (status === "processing") {
+    step1.className = "step0 active";
+    step2.className = "step0 active text-center";
+ 
+  }else if (status === "completed") {
+    step1.className = "step0 active";
+    step2.className = "step0 active text-center";
+    step3.className = "step0 active text-muted text-right";
+  }
 
 
                                 });
+
 
 </script>
 
@@ -338,5 +362,6 @@
     });
 
 </script>
+
 
 <%@include file="template/footerJS.jsp" %>

@@ -825,7 +825,8 @@
                     <div id="addProduct" class="modal fade" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form id="productForm" action="addproduct" method="post" enctype="multipart/form-data">
+                                <form id="productForm" action="addproduct" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+
 
                                     <div class="modal-header">						
                                         <h4 class="modal-title">Add Product</h4>
@@ -834,11 +835,11 @@
                                     <div class="modal-body">					
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input name="name" type="text" class="form-control" required>
+                                            <input id="name" name="name" type="text" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Price</label>
-                                            <input name="price" id="price" type="number" step="any" class="form-control" required>
+                                            <input id="price" name="price" type="number" step="any" class="form-control" required>
                                         </div>
 
                                         <div class="form-group">
@@ -855,12 +856,12 @@
 
                                         <div class="form-group">
                                             <label>Width</label>
-                                            <input name="width" type="number" step="any" class="form-control" required>
+                                            <input name="width" id="width" type="number" step="any" class="form-control" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Quantity</label>
-                                            <input name="quantity" type="number" class="form-control" required>
+                                            <input  id="quantity" name="quantity" type="number" class="form-control" required>
                                         </div>
 
 
@@ -870,33 +871,33 @@
                                         <div class="form-group1">
                                             <label>Image</label>
                                             <div id="imagePreview" class="image-container"></div>
-                                            <input type="file" name="image" id="fileInput" multiple>
+                                            <input type="file" name="image" id="fileInput" multiple required>
                                         </div>
                                         <button type="button" class="btn btn-success" id="addImageButton" style="margin-top: 10px;">Add Image</button>
 
                                         <script>
-                document.getElementById('addImageButton').addEventListener('click', function () {
-                    var input = document.createElement('input');
-                    input.type = 'file';
-                    input.name = 'image';
-                    input.multiple = true;
-                    input.style.marginTop = '10px';
-                    input.style.marginLeft = '52px';
+                                                document.getElementById('addImageButton').addEventListener('click', function () {
+                                                    var input = document.createElement('input');
+                                                    input.type = 'file';
+                                                    input.name = 'image';
+                                                    input.multiple = true;
+                                                    input.style.marginTop = '10px';
+                                                    input.style.marginLeft = '52px';
+                                                    input.required = true;
+                                                    // Tạo nút xóa tương ứng với mỗi input
+                                                    var deleteButton = document.createElement('button');
+                                                    deleteButton.type = 'button';
+                                                    deleteButton.textContent = 'Delete';
+                                                    deleteButton.addEventListener('click', function () {
+                                                        // Xóa input và nút xóa khi nút xóa được nhấn
+                                                        input.remove();
+                                                        deleteButton.remove();
+                                                    });
 
-                    // Tạo nút xóa tương ứng với mỗi input
-                    var deleteButton = document.createElement('button');
-                    deleteButton.type = 'button';
-                    deleteButton.textContent = 'Delete';
-                    deleteButton.addEventListener('click', function () {
-                        // Xóa input và nút xóa khi nút xóa được nhấn
-                        input.remove();
-                        deleteButton.remove();
-                    });
-
-                    var formGroup1 = document.querySelector('.form-group1'); // Lấy phần tử .form-group1
-                    formGroup1.appendChild(input); // Thêm input vào .form-group1
-                    formGroup1.appendChild(deleteButton); // Thêm nút xóa vào .form-group1
-                });
+                                                    var formGroup1 = document.querySelector('.form-group1'); // Lấy phần tử .form-group1
+                                                    formGroup1.appendChild(input); // Thêm input vào .form-group1
+                                                    formGroup1.appendChild(deleteButton); // Thêm nút xóa vào .form-group1
+                                                });
                                         </script>
 
 
@@ -938,7 +939,7 @@
 
                                                 <c:forEach items="${listC}" var="i">
                                                     <div class="checkbox-item">
-                                                        <input type="checkbox" name="category" value="${i.categoryID}" id="category_${i.categoryID}">
+                                                        <input type="checkbox" name="category" value="${i.categoryID}" id="category_${i.categoryID}" >
                                                         <label for="category_${i.categoryID}">${i.categoryName}</label>
                                                     </div>
                                                 </c:forEach>
@@ -1002,7 +1003,7 @@
                 $('#addProduct').on('hidden.bs.modal', function () {
                     $('body').removeClass('modal-open');
                 });
-          
+
                 document.getElementById("sortprice").onchange = function () {
                     this.form.submit();
                 };
@@ -1011,6 +1012,49 @@
                     this.form.submit();
                 }
                 ;
+
+        </script>
+        <script>
+                function validateForm() {
+                    var name = document.getElementById("name").value;
+                    var price = parseFloat(document.getElementById("price").value);
+                    var height = parseFloat(document.getElementById("height").value);
+                    var width = parseFloat(document.getElementById("width").value);
+                    var quantity = parseInt(document.getElementById("quantity").value);
+                    var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                    if (name.trim() === "") {
+                        alert("Name cannot be empty or consist only of spaces.");
+                        return false;
+                    }
+
+                    if (isNaN(price) || price <= 0) {
+                        alert("Please enter a valid price greater than 0.");
+                        return false;
+                    }
+
+                    if (isNaN(height) || height <= 0) {
+                        alert("Please enter a valid height greater than 0.");
+                        return false;
+                    }
+
+                    if (isNaN(width) || width <= 0) {
+                        alert("Please enter a valid width greater than 0.");
+                        return false;
+                    }
+
+                    if (isNaN(quantity) || quantity <= 0 || quantity !== Math.floor(quantity)) {
+                        alert("Please enter a valid quantity as a positive integer.");
+                        return false;
+                    }
+                    if (checkboxes.length === 0) {
+                        alert("Please check at least one category.");
+                        return false;
+                    }
+
+
+                    return true;
+                }
+
         </script>
 
         <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
