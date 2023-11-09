@@ -199,12 +199,12 @@
 							<div class="col-md-6">
 								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/cate1.jpg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="shop">Oil Painting</a></h2>
+										<h2 class="mb-0"><a href="shop?promat=1">Oil Painting</a></h2>
 									</div>
 								</div>
 								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/cate2.png);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">Watercolor Painting</a></h2>
+										<h2 class="mb-0"><a href="shop?promat=2">Watercolor Painting</a></h2>
 									</div>
 								</div>
 							</div>
@@ -214,12 +214,12 @@
 					<div class="col-md-4">
 						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/cate3.png);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Silk Painting</a></h2>
+								<h2 class="mb-0"><a href="shop?promat=5">Silk Painting</a></h2>
 							</div>		
 						</div>
 						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/cate4.png);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Pastel Painting</a></h2>
+								<h2 class="mb-0"><a href="shop?promat=3">Pastel Painting</a></h2>
 							</div>
 						</div>
 					</div>
