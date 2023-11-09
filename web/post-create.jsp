@@ -349,10 +349,14 @@ input[type='checkbox']:checked {
 }
 
 </style>
+
+
 <div class="container" style="overflow-y: scroll;">
+    
       <div class="wrapper">
+          
         <section class="post">
-          <form action="PostCreate" id="formPost" method="post">
+            <form action="PostCreate" id="formPost" method="post">
             <header>Create Post</header>
             <input oninput="checkInputLength(100);" id="title" name="title" placeholder="Give your post a title" style="width: 100%; margin-bottom: 10px;" type="text" >
             <div class="content">
@@ -381,7 +385,7 @@ input[type='checkbox']:checked {
             </div>
             <button id="submitButton" style="width: 48%;" onclick="checkAndSubmit();return false;">Post</button>
             <input onclick="window.history.back();" id="cancelButton" type="button" value="Cancel">
-          </form>
+            </form>
         </section>
         <section class="audience">
           <header>
@@ -393,7 +397,6 @@ input[type='checkbox']:checked {
             <span>You can choose as many category as you want</span>
           </div>
           <div class="scrollable-container">
-          <form id="formCategory" method="post" action="PostCreate">
           <ul class="list">
             <c:forEach items="${cateList}" var="cate">
             <li>
@@ -403,16 +406,15 @@ input[type='checkbox']:checked {
                   <span style="width: 100%;">${cate.Description}</span>
                 </div>
               </div>
-                  <input value="${cate.CategoryID}" type="checkbox" class="checkbox" name="category" multiple>
+                  <input value="${cate.CategoryID}" type="checkbox" class="checkbox">
             </li>
             </c:forEach>
           </ul>
-          </form>
           </div>
         </section>
       </div>
+                          
     </div>
-
   </body>
 <script>
 //check category and submit data if category are valid
@@ -420,11 +422,18 @@ function checkAndSubmit() {
   var checkboxes = document.querySelectorAll('input[type="checkbox"]');
   var titleBox = document.getElementById('title');
   var content = document.getElementById('postContent');
+  var formContainer = document.getElementById('formPost');
   var atLeastOneChecked = false;
+  
   for (var i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'category';
+      hiddenInput.value = checkboxes[i].value;
+      hiddenInput.multiple = 'true';
+      formContainer.appendChild(hiddenInput);
       atLeastOneChecked = true;
-      break;
     }
   }
   if (atLeastOneChecked === false) {
@@ -435,10 +444,10 @@ function checkAndSubmit() {
   }
   else if (content.value.length === 0) {
     alert("You forgot to write some content");
-}
+  }
   else {
-    document.getElementById('formCategory').submit();
     document.getElementById('formPost').submit();
+    alert("Post successfully, let's wait for the admin to accept the post ok? ^^");
   }
 }
 

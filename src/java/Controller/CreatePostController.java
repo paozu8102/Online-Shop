@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import DAO.CategoryDAO;
+import DAO.ImageDAO;
 import DAO.PostDAO;
 import Model.User;
 import jakarta.servlet.ServletException;
@@ -32,8 +34,15 @@ public class CreatePostController extends HttpServlet {
         String title = req.getParameter("title");
         String content = req.getParameter("content");
         String userID = req.getParameter("userID");
+        
+        if (content == null || userID == null || title == null || categoryArray == null) {
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
+        }
+        
         //add post
         String postID = new PostDAO().addPostAndGetID(content, userID, title);
+        //add categories
+        new CategoryDAO().insertPostCategory(postID, categoryArray);
         
         //add image
         if (imageArray != null) {
@@ -42,20 +51,21 @@ public class CreatePostController extends HttpServlet {
             imagesFolderPath += "/web/images/post-image";
             for (int i = 0; i < imageArray.length; i++) {
                 byte[] decodedData = Base64.getDecoder().decode(imageArray[i].split(",")[1]);
-                String fileName = generateUniqueFileName();
-                String imagePath = imagesFolderPath + File.separator + fileName + ".jpg";
+                String fileName = generateUniqueFileName()+".jpg";
+                String imagePath = imagesFolderPath + File.separator + fileName;
                 try ( FileOutputStream fileOutputStream = new FileOutputStream(imagePath)) {
                     fileOutputStream.write(decodedData);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                new ImageDAO().addNewPostImage("images/post-image/"+fileName, postID);
             }
             
-            
         }
-        req.setAttribute("imageArray", imageArray);
-        req.setAttribute("categoryArray", categoryArray);
-        req.getRequestDispatcher("error.jsp").forward(req, resp);
+        
+//        req.setAttribute("categoryArray", categoryArray);
+//        req.getRequestDispatcher("error.jsp").forward(req, resp);
+        resp.sendRedirect(req.getContextPath()+"/UserProfile");
     }
 
     @Override

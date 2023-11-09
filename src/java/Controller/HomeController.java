@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DAO.CategoryDAO;
 import DAO.PostDAO;
 import DAO.ProductDAO;
 import DAO.UserDAO;
@@ -40,11 +41,12 @@ public class HomeController extends HttpServlet{
         ArrayList<Product> homeProducts = productDAO.getLatestProduct();
         ArrayList<String> picOfProduct = productDAO.getOnePicPerProduct(homeProducts);
         ArrayList<Map<String, String>> postInfoList = new PostDAO().getTop4Posts();
-        
+        ArrayList<String> picCateList = new CategoryDAO().cateListByPostList(homeProducts);
         
         req.setAttribute("homeProduct", homeProducts);
         req.setAttribute("postInfoList", postInfoList);
         req.setAttribute("picOfProduct", picOfProduct);
+        req.setAttribute("listCate", picCateList);
     }
     
     

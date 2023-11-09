@@ -242,14 +242,14 @@
                 <c:forEach items="${homeProduct}" var="product" varStatus="loop">
                     <div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-                                    <a href="#" class="img-prod"><img class="img-fluid" src="images/${picOfProduct[loop.index]}" alt="Yeallow Girl">
+                                    <a href="<%=path%>/detail?pid=${product.getProductID()}&cid=${listCate[loop.index]}" class="img-prod"><img class="img-fluid" src="images/${picOfProduct[loop.index]}" alt="Yeallow Girl">
     						<c:if test="${homeProduct[loop.index].getDiscount() > 0}">
                                                     <span class="status">${homeProduct[loop.index].getDiscount()}%</span>
                                                 </c:if>
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">${homeProduct[loop.index].getProductName()}</a></h3>
+                                            <h3><a href="<%=path%>/detail?pid=${product.getProductID()}&cid=${listCate[loop.index]}">${homeProduct[loop.index].getProductName()}</a></h3>
     						<div class="d-flex">
     							<div class="pricing">
                                                             <c:if test="${homeProduct[loop.index].getDiscount() > 0}">
@@ -262,10 +262,10 @@
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    							<a href="<%=path%>/detail?pid=${product.getProductID()}&cid=${listCate[loop.index]}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                                <a href="<%=path%>/buy?id=${product.getProductID()}" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">

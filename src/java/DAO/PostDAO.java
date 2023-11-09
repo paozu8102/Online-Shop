@@ -547,7 +547,7 @@ public class PostDAO extends DBContext {
         return dataList;
     }
 
-    //add a post into post table and get its ID
+    //add a post into post table and get its ID: ThanhNX
     public String addPostAndGetID(String content, String userID, String Title) {
         String postID = "";
         String command = "INSERT INTO [dbo].[Post]\n"
@@ -564,9 +564,10 @@ public class PostDAO extends DBContext {
             ps.setString(1, Title);
             ps.setString(2, content);
             ps.setString(3, userID);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
-                postID = rs.getString("PostID");
+            ps.executeUpdate();
+            ResultSet generatedKeys = ps.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                postID = generatedKeys.getString("PostID");
             }
         } catch (Exception e) {
         }
@@ -592,5 +593,7 @@ public class PostDAO extends DBContext {
         for (int i = 0; i < test3.size(); i++) {
             System.out.println(test3.get(i));
         }
+
+        System.out.println("day la id: " + new PostDAO().addPostAndGetID("huhu", "8", "title huihu"));
     }
 }
