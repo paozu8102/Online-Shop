@@ -251,7 +251,7 @@
                                                     <td>${i.getImageID()}</td>
                                                     <td class="url" style="max-width: 500px; overflow: auto">${i.getImageUrl()}</td>
                                                     <td style="text-align: center; display: flex; justify-content: center; align-items: center">
-                                                        <a href="crudslider?id=${i.getImageID()}&mode=delete">Delete</a>
+                                                         <a href="javascript:void(0);" onclick="confirmDelete(${i.getImageID()})">Delete</a>
                                                         <a href="crudslider?id=${i.getImageID()}&mode=update" style="margin-left: 20px">View Details</a>
                                                     </td>
                                                 </tr>
@@ -321,7 +321,7 @@
         <script src="js/sidebarmenu.js"></script>
         <!--Custom JavaScript -->
         <script src="js/custom.js"></script>
-        
+
         <script>
             const curPage = document.getElementsByClassName('active')[0].innerHTML;
             
@@ -334,6 +334,12 @@
             function submit() {
                 document.getElementById('search').submit();
             }
+            function confirmDelete(imageID) {
+        var result = confirm("Are you sure you want to delete this slider?");
+        if (result) {
+            window.location.href = "crudslider?id=" + imageID + "&mode=delete";
+        }
+    }
         </script>
     </body>
 

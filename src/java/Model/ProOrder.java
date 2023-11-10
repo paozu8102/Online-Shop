@@ -66,7 +66,19 @@ public class ProOrder {
         this.expDate = expDate;
         this.delDate = delDate;
     }
-
+    public ProOrder(int oid, String productname, String productimage, int quantity, double price, String date, String sellname, String customername, String address, String phonenumber, String status) {
+        this.oid = oid;
+        this.productname = productname;
+        this.productimage = productimage;
+        this.quantity = quantity;
+        this.price = price;
+        this.date = date;
+        this.sellname = sellname;
+        this.customername = customername;
+        this.address = address;
+        this.phonenumber = phonenumber;
+        this.status = status;
+    }
     public ProOrder(int oid, String productname, int quantity, double totalprice, String date, String customername, String status, String payment) {
         this.oid = oid;
         this.productname = productname;
