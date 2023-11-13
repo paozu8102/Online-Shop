@@ -104,7 +104,7 @@
                                            data-address="${i.address}" 
                                            data-phonenumber="${i.phonenumber}" 
                                            data-status="${i.status}"
-                                           data-oid="${i.oid}"
+                                           data-oid="${i.did}"
                                            data-payment="${i.payment}"
                                            data-expdate="${i.expDate}"
                                            data-deldate="${i.delDate}"
@@ -294,7 +294,11 @@
                                     var expdate = $(this).data('expdate') || "Unknown";
                                     var deldate = $(this).data('deldate') || "Unknown";
                                     
+     var editOrderModal = $('#editOrder');
 
+            cancelButton = editOrderModal.find("#cancelButton");
+            cancelButton.show();
+    
 
                                     $('#editOrder p[name="productname"]').text(productname);
                                     $('#editOrder p[name="quantity"]').text(quantity);
@@ -321,9 +325,14 @@
   step3.className = "step0 text-muted text-right";
 
   // Set the active class based on the status
-  if (status === "pending" || status === "cancel" ) {
+  if (status === "pending" ) {
     step1.className = "step0 active";
-  } else if (status === "processing") {
+  } 
+   if (status === "cancel" ) {
+    step1.className = "step0 active";
+          cancelButton.hide();
+          
+  }else if (status === "processing") {
     step1.className = "step0 active";
     step2.className = "step0 active text-center";
  
@@ -331,6 +340,7 @@
     step1.className = "step0 active";
     step2.className = "step0 active text-center";
     step3.className = "step0 active text-muted text-right";
+         cancelButton.hide();
   }
 
 

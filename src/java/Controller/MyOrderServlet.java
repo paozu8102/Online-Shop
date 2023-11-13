@@ -93,8 +93,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     String oid = request.getParameter("oid");
     int id = 0; // Default value
-
-    if (oid != null && !oid.isEmpty()) {
+   
+    // Your code here
         try {
             id = Integer.parseInt(oid);
             OrderDAO c = new OrderDAO();
@@ -102,7 +102,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         } catch (NumberFormatException e) {
             // Handle the case where the "oid" parameter is not a valid integer
             // You can log an error or provide a response indicating the invalid input.
-        }
+        
     }
 
     // Redirect to the appropriate page (whether cancellation succeeded or not).
