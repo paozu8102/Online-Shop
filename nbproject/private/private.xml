@@ -3,26 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/Controller/CreatePostController.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/DAO/ImageDAO.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/customer-management.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/index.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/saler-profile.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/active-product.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/DAO/PostDAO.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/saler-dashboard.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/DAO/DAO.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/login.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/order-management.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/admin-profile.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/DBcontext/DBContext.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/product-management.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/post-management.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/post-create.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/web/block-product.jsp</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/Controller/AddProduct.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/Controller/ManageOrder.java</file>
-            <file>file:/C:/Users/Mai%20Vu%20Bao/Documents/online-shop/src/java/DAO/OrderDAO.java</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/post-create.jsp</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/EditPost.jsp</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/blog-single.jsp</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/CRUDPostController.java</file>
         </group>
     </open-files>
 </project-private>
