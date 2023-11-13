@@ -8,9 +8,11 @@ package Controller;
 
 import DAO.ImageDAO;
 import DAO.ProductDAO;
+import DAO.UserDAO;
 import Model.Cart;
 import Model.Image;
 import Model.Product;
+import Model.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -41,6 +43,7 @@ public class AddToCartServlet extends HttpServlet {
         String quantity = request.getParameter("num");
         Cookie[] cart = request.getCookies();
         Cart t = new Cart();
+        UserDAO userDAO = new UserDAO();
         String txt = "";
         //Lấy giá trị cookie nếu có
         if (cart != null) {
@@ -55,6 +58,11 @@ public class AddToCartServlet extends HttpServlet {
         //Nối thêm giá trị mới
         ProductDAO dao = new ProductDAO();
         Product p = dao.getProductByID(pid);
+        int userID = p.getUserID();
+        if (p!=null){
+            User artist = userDAO.getArtistById(userID);
+            request.setAttribute("artist", artist);
+        }
         int numStore=p.getQuantity();
         if((t.getQuantityById(txt, pid)<numStore)){
                if (txt.isEmpty()) {
@@ -89,6 +97,10 @@ public class AddToCartServlet extends HttpServlet {
         request.setAttribute("listP", list);
         request.setAttribute("listI", listI);
         request.setAttribute("detail", pd);
+        if (userID != 0){
+            request.setAttribute("boughtProducts", dao.getNumberOfSales(userID));
+            request.setAttribute("saleProducts", dao.getTotalProductActiveCountByUserId(userID));
+        }
         request.getRequestDispatcher("product-single.jsp").forward(request, response);
     } 
 
