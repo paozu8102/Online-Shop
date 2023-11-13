@@ -548,7 +548,7 @@ public class PostDAO extends DBContext {
     }
 
     //add a post into post table and get its ID: ThanhNX
-    public String addPostAndGetID(String content, String userID, String Title) {
+public String addPostAndGetID(String content, String userID, String Title) {
         String postID = "";
         String command = "INSERT INTO [dbo].[Post]\n"
                 + "           ([Title]\n"
@@ -557,7 +557,7 @@ public class PostDAO extends DBContext {
                 + "           ,[UserID]\n"
                 + "           ,[StatusID]\n"
                 + "           ,[View])\n"
-                + "VALUES (?, ?, GETDATE(), ?, 2, 0);\n"
+                + "VALUES (?, ?, GETDATE(), ?, 1, 0);\n"
                 + "SELECT SCOPE_IDENTITY() AS PostID;";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);

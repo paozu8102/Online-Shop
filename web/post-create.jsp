@@ -30,7 +30,7 @@ body{
   background: #1a81ff;
 }
 .container{
-  width: 500px;
+  width: 28%;
   height: 500px;
   overflow: hidden;
   background: #fff;

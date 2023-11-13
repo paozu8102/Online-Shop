@@ -9,32 +9,7 @@
   <%
     String path = request.getContextPath();
   %>
-  <script>
-    //from 11-31: ThanhNX
-    // Function to set the scroll position in session storage
-        function saveScrollPosition() {
-            sessionStorage.setItem('scrollPosition', window.scrollY);
-        }
-
-        // Function to retrieve and restore the scroll position
-        function restoreScrollPosition() {
-            var scrollPosition = sessionStorage.getItem('scrollPosition');
-            if (scrollPosition) {
-                window.scrollTo(0, scrollPosition);
-            }
-        }
-
-        // Execute this function when the page is loaded
-        window.addEventListener('load', function() {
-            restoreScrollPosition();
-        });
-
-        // Execute this function when navigating to other pages
-        function navigateToOtherPage() {
-            // Save the current scroll position before navigating
-            saveScrollPosition();
-        }
-    </script>
+  
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -132,11 +107,6 @@ body {
     opacity: 1; /* Độ mờ tối thiểu */
     background-color: gray;
 }
-
-
-
-
-
 </style>
     <title>Palette Joy - Bring art to your home</title>
     <meta charset="utf-8">
@@ -171,13 +141,16 @@ body {
       <button onclick="topFunction()" id="myBtn" title="Go to top">&#8679;</button>
 <script>
 // Function to save scroll positions for both page and the div
-function saveScrollPositions(commentType) {
+function saveScrollPositions(commentType, position) {
     sessionStorage.setItem('pageScrollPosition', window.scrollY);
     if (commentType === "comment") {
     sessionStorage.setItem('containerScrollPosition', 'none');
     }
-    else{
+    else if(commentType === "delete"){
     sessionStorage.setItem('containerScrollPosition', document.getElementById('commentContainer').scrollTop);
+    }
+    else{
+    sessionStorage.setItem('position', position);
     }
 }
 
@@ -186,15 +159,26 @@ function restoreScrollPositions() {
     var pageScrollPosition = sessionStorage.getItem('pageScrollPosition');
     var containerScrollPosition = sessionStorage.getItem('containerScrollPosition');
     var commentContainer = document.getElementById('commentContainer');
-
+    //scroll to comment section
     if (pageScrollPosition) {
         window.scrollTo(0, pageScrollPosition);
     }
-    
-    if (containerScrollPosition === "none") {
-        commentContainer.scrollTop = commentContainer.scrollHeight;
+    //scroll to comment
+    if(sessionStorage.getItem('position') === "delete"){
+        if (containerScrollPosition === "none") {
+            commentContainer.scrollTop = commentContainer.scrollHeight;
+        }
+        else commentContainer.scrollTop = containerScrollPosition;
     }
-    else commentContainer.scrollTop = containerScrollPosition;
+    else {
+        var position = sessionStorage.getItem('position');
+        var comments = document.getElementById(position);
+        var yourComments = comments.querySelectorAll('.yourComment');
+        var comment = yourComments[yourComments.length-1];
+        var scrollToPosition = comment.offsetTop;
+        commentContainer.scrollTop = scrollToPosition;
+    }
+    sessionStorage.clear();
 }
 
 // Execute this function when the page is loaded
@@ -202,11 +186,6 @@ window.addEventListener('load', function() {
     restoreScrollPositions();
 });
 
-// Execute this function when navigating to other pages
-function navigateToOtherPage() {
-    // Save the current scroll positions before navigating
-    saveScrollPositions();
-}
 
 </script>
 		<div class="py-1 bg-primary">
@@ -434,6 +413,7 @@ function scrollToElement() {
 
 function submitDeleteForm(formId) {
     var form = document.getElementById(formId);
+    saveScrollPositions('delete', 'delete');
     if (confirm('Are you sure you want to delete the comment?')) {
         form.submit();
     }
@@ -495,14 +475,14 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                 </p>
               </div>
             </div>
-
+<!--start comment section-->
             <c:if test="${user eq null}">
                 <h3 class="mb-5" style="margin-top: 40px">You need to log in to comment</h3>
             </c:if>
             <c:if test="${user ne null}">
             <div class="pt-5 mt-5">
               <h3 class="mb-5">${CommentNumber} ${CommentNumber > 1 ? "Comments":"Comment"} </h3>
-            <form action="comment" method="post" onsubmit="saveScrollPositions('comment');">
+            <form action="comment" method="post" onsubmit="saveScrollPositions('comment', 'delete');">
               <input type="hidden" name="action" value="comment">
               <input type="hidden" name="userID" value="${user.getUserID()}">
               <input type="hidden" name="objectID" value="${param.id}">
@@ -517,7 +497,7 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
             <div class="comment-container" id="commentContainer">
                 <c:forEach items="${rootCommentList}" varStatus="loop" var="comment">
               <ul class="comment-list">
-                <li class="comment">
+                  <li  class="comment" id="position${comment.getCommentID()}">
                   <div class="vcard bio">
                     <img src="${rootCommentList[loop.index].getAvatar()}" alt="Image placeholder">
                   </div>
@@ -546,14 +526,14 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                         <p style="display: inline"><a id="hideShow${rootCommentList[loop.index].getCommentID()}" href="javascript:showAndHideReply('rep'+'${rootCommentList[loop.index].getCommentID()}', 'hideShow'+'${rootCommentList[loop.index].getCommentID()}');" class="reply">Hide Reply</a></p>
                     </c:if>
                     <c:if test="${user.getUserID() eq rootCommentList[loop.index].getUserID()}">
-                    <form onsubmit="saveScrollPositions('commentRep');" id="delete${rootCommentList[loop.index].getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
+                    <form onsubmit="saveScrollPositions('delete', 'delete');" id="delete${rootCommentList[loop.index].getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
                         <input type="hidden" name="action" value="commentDelete">
                         <input type="hidden" name="objectID" value="${param.id}">
                         <input type="hidden" name="commentID" value="${rootCommentList[loop.index].getCommentID()}">
                         <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${comment.getCommentID()}');">Delete</a>
                     </form>
                     </c:if>
-                <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep');">
+                <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep', 'position'+'${comment.getCommentID()}');">
                     <div id="replyBox${rootCommentList[loop.index].getCommentID()}" class="reply-box" >
                         <input type="hidden" name="action" value="commentRep">
                         <input type="hidden" name="userID" value="${user.getUserID()}">
@@ -577,7 +557,7 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                       <div class="comment-body">
                           <c:choose>
                               <c:when test="${user.getUserID() eq repComment.getUserID()}">
-                                  <h3>You</h3>
+                                  <h3 class="yourComment">You</h3>
                               </c:when>
                               <c:otherwise>
                                   <h3>${repComment.getUserName()}</h3>
@@ -594,14 +574,14 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                             </c:otherwise>
                         </c:choose>
                         <c:if test="${user.getUserID() eq repComment.getUserID()}">
-                        <form onsubmit="saveScrollPositions('commentRep');" id="delete${repComment.getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
+                        <form onsubmit="saveScrollPositions('delete', 'delete');" id="delete${repComment.getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
                             <input type="hidden" name="action" value="commentDelete">
                             <input type="hidden" name="objectID" value="${param.id}">
                             <input type="hidden" name="commentID" value="${repComment.getCommentID()}">
                             <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${repComment.getCommentID()}');">Delete</a>
                         </form>
                         </c:if>
-                    <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep');">
+                    <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep', 'position'+'${comment.getCommentID()}');">
                         <div class="reply-box" id="replyBox${repComment.getCommentID()}">
                             <input type="hidden" name="action" value="commentRep">
                             <input type="hidden" name="userID" value="${user.getUserID()}">

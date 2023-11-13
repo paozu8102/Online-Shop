@@ -35,9 +35,9 @@ public class CreatePostController extends HttpServlet {
         String content = req.getParameter("content");
         String userID = req.getParameter("userID");
         
-        if (content == null || userID == null || title == null || categoryArray == null) {
-            req.getRequestDispatcher("error.jsp").forward(req, resp);
-        }
+        //if (content == null || userID == null || title == null || categoryArray == null) {
+        //    req.getRequestDispatcher("error.jsp").forward(req, resp);
+        //}
         
         //add post
         String postID = new PostDAO().addPostAndGetID(content, userID, title);

@@ -78,9 +78,9 @@ public class AddUser extends HttpServlet {
         User u = new User(name, phone, email);
         Account c = dao.getAccountByEmail(email);
         if (c != null) {
-            HttpSession session = request.getSession();
+            final HttpSession session = request.getSession();
             session.setAttribute("emailExists", true);
-            Timer timer = new Timer();
+            final Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {

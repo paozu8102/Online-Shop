@@ -1344,6 +1344,52 @@ public class UserDAO extends DBContext {
         }
         return user;
     }
+    //get artist by id: Baomv
+    public User getArtistById(int artistId) {
+        User artist = null;
+        String sql = "SELECT\n"
+                + "    U.UserID,\n"
+                + "    U.UserName,\n"
+                + "    U.Gender,\n"
+                + "    U.PhoneNumber,\n"
+                + "    U.Address,\n"
+                + "    U.Avatar,\n"
+                + "    U.Email,\n"
+                + "    A.Status,\n"
+                + "    A.RoleID\n"
+                + "FROM\n"
+                + "    [User] U\n"
+                + "INNER JOIN\n"
+                + "    Account A ON U.Email = A.Email\n"
+                + "WHERE\n"
+                + "    A.RoleID = 2 AND U.UserID = ?";  // Add a condition to select a specific artist by their ID
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, artistId);  // Set the artistId parameter
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                artist = new User(
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getInt(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7),
+                    rs.getInt(8),
+                    rs.getInt(9)
+                );
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return artist;
+    }
 
 //    method to test: ThanhNX
     public static void main(String[] args) {
