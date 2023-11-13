@@ -93,8 +93,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     String oid = request.getParameter("oid");
     int id = 0; // Default value
-
-    if (oid != null && !oid.isEmpty()) {
+        String status = request.getParameter("status");
+    if (!status.equals("processing") || !status.equals("pending") ) {
+    // Your code here
         try {
             id = Integer.parseInt(oid);
             OrderDAO c = new OrderDAO();
