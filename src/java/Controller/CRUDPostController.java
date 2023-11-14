@@ -5,7 +5,9 @@
 
 package Controller;
 
+import DAO.ImageDAO;
 import DAO.PostDAO;
+import Model.Image;
 import Model.Post;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
@@ -67,8 +70,10 @@ public class CRUDPostController extends HttpServlet {
                 break;
             case "update":
                 Post post = postDAO.getPostById(id);
+                ArrayList<Image> imageList = new ImageDAO().getPostImageByID(id);
                 request.setAttribute("post", post);
                 request.setAttribute("action", "update");
+                request.setAttribute("imageList", imageList);
                 request.getRequestDispatcher("EditPost.jsp").forward(request, response);
                 break;
             case "submitEdit":

@@ -3,6 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/post-create.jsp</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/EditPost.jsp</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/blog-single.jsp</file>
+            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/CRUDPostController.java</file>
+=======
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/AddSetting.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ManageProduct.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/AddProduct.java</file>
@@ -15,6 +21,7 @@
             <file>file:/C:/Users/admin/Documents/master2/src/java/DBcontext/DBContext.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/EditProduct.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/order-management.jsp</file>
+>>>>>>> 890251e6db47d5a95283f55296e1db48dc1286b8
         </group>
     </open-files>
 </project-private>

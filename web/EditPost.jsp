@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -39,6 +40,13 @@
                 border: 1px solid;
                 background: grey;
                 color: white;
+            }
+            
+            .postImage{
+                height: 250px;
+                width: auto;
+                border: solid 1px black;
+                margin-right: 8px;
             }
         </style>
     </head>
@@ -262,6 +270,18 @@
                                                     <td class="border-top-0">View</td>
                                                     <td>${post.getView()}</td>
                                                 </tr>
+                                                <c:if test="${fn:length(imageList) > 0}">
+                                                    <tr>
+                                                    <td class="border-top-0">Images</td>
+                                                    <td>
+                                                        <div style="overflow-x: auto;">
+                                                            <c:forEach items="${imageList}" var="image">
+                                                                <img class="postImage" src="${image.getImageUrl()}">
+                                                            </c:forEach>
+                                                        </div>
+                                                    </td>
+                                                    </tr>
+                                                </c:if>
                                                 <tr>  
                                                     <td colspan="2" style="text-align: center">
                                                         <input class="btn" type="submit" value="Save Changes">
