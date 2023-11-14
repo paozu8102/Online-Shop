@@ -10,6 +10,7 @@ import DAO.ImageDAO;
 import DAO.ProductDAO;
 import DAO.UserDAO;
 import Model.Cart;
+import Model.Comment;
 import Model.Image;
 import Model.Product;
 
@@ -23,6 +24,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -79,6 +81,19 @@ public class DetailControl extends HttpServlet {
             request.setAttribute("boughtProducts", dao.getNumberOfSales(userID));
             request.setAttribute("saleProducts", dao.getTotalProductActiveCountByUserId(userID));
         }
+        
+        //get comment data
+        int commentNumber = dao.getCommentNumberByProductID(id);
+        ArrayList<Comment> rootCommentList = new ArrayList<>();
+        ArrayList<ArrayList<Comment>> repCommentList = new ArrayList<>();
+        if (commentNumber > 0) {
+            rootCommentList = dao.getAllRootCommentByProductID(id);
+            repCommentList = dao.getAllRepFeedback(rootCommentList);
+        }
+        
+        request.setAttribute("CommentNumber", commentNumber);
+        request.setAttribute("rootCommentList", rootCommentList);
+        request.setAttribute("repCommentList", repCommentList);
         request.getRequestDispatcher("product-single.jsp").forward(request, response);
     }
 

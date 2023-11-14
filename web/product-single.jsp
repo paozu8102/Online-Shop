@@ -35,7 +35,39 @@
 </div>
 </nav>
 <!-- END nav -->
+<style>
+    .invisible-text {
+    color: transparent; /* Make the text transparent */
+  }
+  
+.unselectable {
+    user-select: none; /* Prevent text selection */
+  }
+  
+.reply-box {
+    display: none;
+}
 
+.btn:hover {
+    background-color: #82AE46;
+}
+
+.btn{
+    border-style: groove;
+    border-color: #82AE46;
+}
+
+.comment-container {
+        max-height: 400px; /* Set your desired fixed height */
+        overflow-y: scroll; /* Enable vertical scrollbar if necessary */
+        border: 1px solid #ccc; /* Add a border or customize styling as needed */
+        padding: 10px;
+    }
+    
+    #seemore:hover {
+        text-decoration: underline;
+    }
+</style>
 <form name="f" action="" method="post">
     <section class="ftco-section">
         <div class="container">
@@ -208,12 +240,204 @@
                     </div>
                 </c:forEach>
             </div>
+            
+<!--            comment section-->
+            <c:set var="user" value="${sessionScope.user}"/>
+            <c:if test="${user eq null}">
+                <h3 class="mb-5">You need to login to comment</h3>
+            </c:if>
+            <div class="pt-5 mt-5">
+            <c:if test="${user ne null}">
+            <h3 class="mb-5">${CommentNumber} ${CommentNumber > 1 ? "Comments":"Comment"} </h3>
+            <form></form>
+            <form action="feedback" method="post" onsubmit="saveScrollPositions('comment', 'delete');">
+                    <input type="hidden" name="action" value="comment">
+                    <input type="hidden" name="userID" value="${user.getUserID()}">
+                    <input type="hidden" name="objectID" value="${param.pid}">
+              <div style="margin-bottom: 30px;" id="comment">
+                    <textarea name="content" style="width: 100%; font-size: 20px; margin-top: -30px;" class="reply-text" placeholder="Enter your comment here..."></textarea>
+                    <div class="btn-container">
+                        <button style="font-size: 18px" type="submit" class="btn" id="submitBtn${loop.index}">Submit</button>
+                    </div>
+              </div>
+            </form>
+            </c:if>
+            <c:if test="${CommentNumber eq 0}">
+                <h3 class="mb-5">There aren't any comment feedback for this product</h3>
+            </c:if>
+            <c:if test="${CommentNumber > 0}">
+                <div class="comment-container" id="commentContainer">
+                <c:forEach items="${rootCommentList}" varStatus="loop" var="comment">
+              <ul class="comment-list">
+                  <li  class="comment" id="position${comment.getCommentID()}">
+                  <div class="vcard bio">
+                    <img src="${rootCommentList[loop.index].getAvatar()}" alt="Image placeholder">
+                  </div>
+                  <div class="comment-body" id="comment${rootCommentList[loop.index].getCommentID()}">
+                     <c:choose>
+                              <c:when test="${user.getUserID() eq rootCommentList[loop.index].getUserID()}">
+                                  <h3>You</h3>
+                              </c:when>
+                              <c:otherwise>
+                                  <h3>${rootCommentList[loop.index].getUserName()}</h3>
+                              </c:otherwise>
+                     </c:choose>
+                    <div class="meta">${rootCommentList[loop.index].getCommentDate()}</div>
+                    <p>${rootCommentList[loop.index].getCommentContent()}</p>
+                    <p style="display: inline">
+                        <c:choose>
+                            <c:when test="${loop.last && fn:length(repCommentList[loop.index]) == 0}">
+                                <a style="display: inline" href="javascript:showReply('replyBox'+'${comment.getCommentID()}', 'true', '${comment.getUserName()}');" class="reply">Reply</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a style="display: inline" href="javascript:showReply('replyBox'+'${comment.getCommentID()}', 'false', '${comment.getUserName()}');" class="reply">Reply</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </p>
+                    <c:if test="${fn:length(repCommentList[loop.index])>0}">
+                        <p style="display: inline"><a id="hideShow${rootCommentList[loop.index].getCommentID()}" href="javascript:showAndHideReply('rep'+'${rootCommentList[loop.index].getCommentID()}', 'hideShow'+'${rootCommentList[loop.index].getCommentID()}');" class="reply">Hide Reply</a></p>
+                    </c:if>
+                    <c:if test="${user.getUserID() eq rootCommentList[loop.index].getUserID()}">
+                    <form onsubmit="saveScrollPositions('delete', 'delete');" id="delete${rootCommentList[loop.index].getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
+                        <input type="hidden" name="action" value="commentDelete">
+                        <input type="hidden" name="objectID" value="${param.id}">
+                        <input type="hidden" name="commentID" value="${rootCommentList[loop.index].getCommentID()}">
+                        <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${comment.getCommentID()}');">Delete</a>
+                    </form>
+                    </c:if>
+                <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep', 'position'+'${comment.getCommentID()}');">
+                    <div id="replyBox${rootCommentList[loop.index].getCommentID()}" class="reply-box" >
+                        <input type="hidden" name="action" value="commentRep">
+                        <input type="hidden" name="userID" value="${user.getUserID()}">
+                        <input type="hidden" name="objectID" value="${param.id}">
+                        <input type="hidden" name="commentRepID" value="${rootCommentList[loop.index].getCommentID()}">
+                        <textarea name="content" style="width: 100%" class="reply-text" placeholder="Enter your reply here..."></textarea>
+                        <div class="btn-container">
+                            <button type="submit" class="btn" id="submitBtn${loop.index}">Submit</button>
+                            <button type="button" onclick="showReply('replyBox'+'${rootCommentList[loop.index].getCommentID()}', 'false');" class="btn" id="cancelBtn${loop.index}">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+                  </div>
+                  <c:if test="${fn:length(repCommentList[loop.index])>0}">
+                  <c:forEach items="${repCommentList[loop.index]}" var="repComment" varStatus="repIndex">
+                  <ul class="children rep${rootCommentList[loop.index].getCommentID()}">
+                      <li class="comment" id="comment${repComment.getCommentID()}">
+                      <div class="vcard bio">
+                        <img src="${repComment.getAvatar()}" alt="Image placeholder">
+                      </div>
+                      <div class="comment-body">
+                          <c:choose>
+                              <c:when test="${user.getUserID() eq repComment.getUserID()}">
+                                  <h3 class="yourComment">You</h3>
+                              </c:when>
+                              <c:otherwise>
+                                  <h3>${repComment.getUserName()}</h3>
+                              </c:otherwise>
+                          </c:choose>
+                        <div class="meta">${repComment.getCommentDate()}</div>
+                        <p>${repComment.getCommentContent()}</p>
+                        <c:choose>
+                            <c:when test="${repIndex.last && loop.last}">
+                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'true', '${repComment.getUserName()}');" class="reply">Reply</a></p>
+                            </c:when>
+                            <c:otherwise>
+                                <p style="display: inline;"><a href="javascript:showReply('replyBox'+'${repComment.getCommentID()}', 'false', '${repComment.getUserName()}');" class="reply">Reply</a></p>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:if test="${user.getUserID() eq repComment.getUserID()}">
+                        <form onsubmit="saveScrollPositions('delete', 'delete');" id="delete${repComment.getCommentID()}" action="comment" method="post" style="display: inline" class="reply">
+                            <input type="hidden" name="action" value="commentDelete">
+                            <input type="hidden" name="objectID" value="${param.id}">
+                            <input type="hidden" name="commentID" value="${repComment.getCommentID()}">
+                            <a style="cursor: pointer" onclick="submitDeleteForm('delete'+'${repComment.getCommentID()}');">Delete</a>
+                        </form>
+                        </c:if>
+                    <form action="comment" method="post" onsubmit="saveScrollPositions('commentRep', 'position'+'${comment.getCommentID()}');">
+                        <div class="reply-box" id="replyBox${repComment.getCommentID()}">
+                            <input type="hidden" name="action" value="commentRep">
+                            <input type="hidden" name="userID" value="${user.getUserID()}">
+                            <input type="hidden" name="objectID" value="${param.id}">
+                            <input type="hidden" name="commentRepID" value="${rootCommentList[loop.index].getCommentID()}">
+                            <textarea name="content" style="width: 100%" class="reply-text" placeholder="Enter your reply here..."></textarea>
+                          <div class="btn-container">
+                            <button type="submit" class="btn" id="submitBtn${loop.index}">Submit</button>
+                            <button type="button" onclick="showReply('replyBox'+'${repComment.getCommentID()}', 'false', '${repComment.getUserName()}');" class="btn" id="cancelBtn${loop.index}">Cancel</button>
+                          </div>
+                        </div>
+                    </form>
+                      </div>
+                    </li>
+                  </ul>
+                  </c:forEach>
+                  </c:if>  
+                </li>
+              </ul>
+              </c:forEach>
+            </div>
+            </c:if>
+            
+            
+<!--                end of comment section-->
+            </div>
         </div>
         </div>
         </div>
     </section>
+    
 </form>
+                         
 <script>
+    // Function to save scroll positions for both page and the div
+function saveScrollPositions(commentType, position) {
+    sessionStorage.setItem('pageScrollPosition', window.scrollY);
+    if (commentType === "comment") {
+    sessionStorage.setItem('containerScrollPosition', 'none');
+    }
+    else if(commentType === "delete"){
+    sessionStorage.setItem('containerScrollPosition', document.getElementById('commentContainer').scrollTop);
+    }
+    else{
+    sessionStorage.setItem('position', position);
+    }
+}
+
+// Function to retrieve and restore scroll positions for both page and the div
+function restoreScrollPositions() {
+    var pageScrollPosition = sessionStorage.getItem('pageScrollPosition');
+    var containerScrollPosition = sessionStorage.getItem('containerScrollPosition');
+    var commentContainer = document.getElementById('commentContainer');
+    
+    //scroll to comment
+    if(sessionStorage.getItem('containerScrollPosition') !== null){
+        if (containerScrollPosition === "none") {
+            commentContainer.scrollTop = commentContainer.scrollHeight;
+        }
+        else commentContainer.scrollTop = containerScrollPosition;
+    }
+    else {
+        var position = sessionStorage.getItem('position');
+        var comments = document.getElementById(position);
+        var yourComments = comments.querySelectorAll('.comment');
+        var comment = yourComments[yourComments.length-1];
+        var element = document.getElementById(comment.id);
+        element.scrollIntoView();
+    }
+    //scroll to comment section
+    if (pageScrollPosition) {
+        window.scrollTo(0, pageScrollPosition);
+    }
+    sessionStorage.clear();
+}
+
+// Execute this function when the page is loaded
+window.addEventListener('load', function() {
+    restoreScrollPositions();
+});
+
+
+
+
     // script.js
     // script.js
     document.addEventListener("DOMContentLoaded", function () {
@@ -296,6 +520,69 @@
             quantityInput.value = currentValue + 1;
         }
     });
+    
+    //for comment section
+    // Function to save scroll positions for both page and the div
+function saveScrollPositions(commentType, position) {
+    sessionStorage.setItem('pageScrollPosition', window.scrollY);
+    if (commentType === "comment") {
+    sessionStorage.setItem('containerScrollPosition', 'none');
+    }
+    else if(commentType === "delete"){
+    sessionStorage.setItem('containerScrollPosition', document.getElementById('commentContainer').scrollTop);
+    }
+    else{
+    sessionStorage.setItem('position', position);
+    }
+}
+
+function showAndHideReply(idComment, idButton){
+  var elements = document.querySelectorAll('.'+idComment);
+  var y = document.getElementById(idButton);
+  if (y.textContent == "Hide Reply") {
+    y.textContent = "Show Reply";
+  }
+  else if (y.textContent == "Show Reply") {
+    y.textContent = "Hide Reply";
+  }
+  for (var i = 0; i < elements.length; i++) {
+    var x = elements[i];
+    if (x.style.display === "none") {
+    x.style.display = "block";
+    } else {
+    x.style.display = "none";
+  }
+  }
+}
+
+function showReply(replyBoxId, bottom, userName) {
+    var replyBox = document.getElementById(replyBoxId);
+        if (!replyBox.style.display || replyBox.style.display === "none") {
+            replyBox.style.display = "block";
+        } else {
+            replyBox.style.display = "none";
+        }
+    var textarea = replyBox.querySelector("textarea");
+    if (textarea) {
+        textarea.value = "Reply to "+userName+": ";
+    }
+    if (bottom == "true") {
+        scrollToBottom();
+    }
+}
+
+function scrollToBottom() {
+        var commentContainer = document.getElementById('commentContainer');
+        commentContainer.scrollTop = commentContainer.scrollHeight;
+    }   
+
+function submitDeleteForm(formId) {
+    var form = document.getElementById(formId);
+    saveScrollPositions('delete', 'delete');
+    if (confirm('Are you sure you want to delete the comment?')) {
+        form.submit();
+    }
+}
 
 </script>
 <script type="text/javascript">
