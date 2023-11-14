@@ -42,9 +42,40 @@
 <section class="ftco-section ftco-cart">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 ftco-animate">
-                <div class="cart-list">
+          <div style="display: inline-block;">
+    <form action="myorder" method="get" class="search-form" style="margin: 0; padding: 0;">
+        <div class="search-container" style="display: flex;">
+            <input name="txt" type="text" placeholder="Search" style="margin: 0; padding: 10px;">
+            <button type="submit" style="vertical-align: top; border: none; padding: 10px; margin: 0; cursor: pointer;">
+                <i class="icon-search" style="color: white;"></i>
+            </button>
+        </div>
+    </form>
+</div>
 
+
+            <div class="col-md-12 ftco-animate">
+                
+                <div class="cart-list">
+                 
+   <form action="myorder" onsubmit="return validateDate()">
+                                        <table class="table text-nowrap">                                  
+                                            <tr>
+                                                <td>Date: </td>
+                                                <td>From</td>
+                                                <td>
+                                                    <input type="date" name="from" value="${from}">
+                                                </td>
+                                                <td>To</td>
+                                                <td>
+                                                    <input type="date" name="to" value="${to}">
+                                                </td>
+                                                <td colspan="4" style="text-align: center">
+                                                    <input style="padding: 0 3rem; color: black; background-color: white;box-shadow: 1px 2px " type="submit" value="Filter">
+                                                </td>
+                                            </tr>
+                                            </table>
+ </form>
                     <table class="table">
                         <thead class="thead-primary">
                             <tr class="text-center">
@@ -347,6 +378,31 @@
                                 });
 
 
+</script>
+<script>
+    function validateDate() {
+        var fromDate = document.getElementsByName('from')[0].value;
+        var toDate = document.getElementsByName('to')[0].value;
+
+        // Check if both dates are entered
+        if (!fromDate || !toDate) {
+            alert('Please enter both "From" and "To" dates.');
+            return false;
+        }
+
+        // Convert date strings to Date objects for comparison
+        var fromDateObj = new Date(fromDate);
+        var toDateObj = new Date(toDate);
+
+        // Check if the "To" date is greater than or equal to the "From" date
+        if (toDateObj < fromDateObj) {
+            alert('"To" date must be equal to or later than "From" date.');
+            return false;
+        }
+
+        // Validation passed
+        return true;
+    }
 </script>
 
 
