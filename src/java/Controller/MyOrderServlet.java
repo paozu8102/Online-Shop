@@ -40,18 +40,22 @@ public class MyOrderServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
   HttpSession session = request.getSession();
+  OrderDAO o = new OrderDAO();
         Account a = (Account) session.getAttribute("acc");
         User user = (User) session.getAttribute("user");
-        
+           String from = request.getParameter("from");
+        String to = request.getParameter("to");
+          String txtSearch = request.getParameter("txt");
         if (a.getRoleID() != 3) {
     return;
 }
-
+int id = user.getUserID();
         String indexPage = request.getParameter("index");
         if (indexPage == null) {
             indexPage = "1";
 
         }
+        List<ProOrder> list;
         int index = Integer.parseInt(indexPage);
         OrderDAO c = new OrderDAO();
         int count = c.getTotalMyOrder(user.getUserID());
@@ -59,10 +63,23 @@ public class MyOrderServlet extends HttpServlet {
         if (count % 9 != 0) {
             endPage++;
         }
-        List<ProOrder> listO = c.getMyOrder(index);
-        request.setAttribute("listO", listO);
-        request.setAttribute("endP", endPage);
-        request.setAttribute("tag", index);
+         if (txtSearch != null) {
+          list = o.getMyOrderSearch(txtSearch, id);
+        } else if(from != null && to != null){
+            list = o.filterMyOrderByDate(id, from, to);
+             request.setAttribute("from", from);
+              request.setAttribute("to", to);
+        }
+        else {
+
+            list = c.getMyOrder(index, id );
+            request.setAttribute("endP", endPage);
+            request.setAttribute("tag", index);
+        }
+
+         
+        request.setAttribute("listO", list);
+
         request.getRequestDispatcher("myorder.jsp").forward(request, response);
 
     } 

@@ -1305,8 +1305,17 @@ public class ProductDAO extends DBContext {
     //HoangNH
     public int getTotalPriceByUserId(int userId) {
         int totalPrice = 0;
-        String sql = "select SUM(Orders.TotalPrice) as TotalOrderProduct from ((OrderDetail inner join Product on OrderDetail.ProductID = Product.ProductID) inner join Orders on OrderDetail.OrderID = Orders.OrderID)\n"
-                + "where Product.UserID = ? ";
+        String sql = "SELECT\n" +
+"    SUM(Orders.TotalPrice) as TotalOrderProduct\n" +
+"FROM\n" +
+"    OrderDetail\n" +
+"INNER JOIN\n" +
+"    Product ON OrderDetail.ProductID = Product.ProductID\n" +
+"INNER JOIN\n" +
+"    Orders ON OrderDetail.OrderID = Orders.OrderID\n" +
+"WHERE\n" +
+"    Product.UserID = ?\n" +
+"    AND OrderDetail.Status = 'completed';";
 
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);

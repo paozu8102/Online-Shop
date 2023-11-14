@@ -145,7 +145,7 @@ public class OrderDAO extends DBContext {
     }
     //get all inactive setting MinhHC
 
-    public List<ProOrder> getMyOrder(int index) {
+    public List<ProOrder> getMyOrder(int index, int id) {
         List<ProOrder> list = new ArrayList<>();
         String sql = "WITH RankedImages AS (\n"
                 + "    SELECT\n"
@@ -196,12 +196,14 @@ public class OrderDAO extends DBContext {
                 + "    ) AS RD ON OD.ProductID = RD.ProductID\n"
                 + "LEFT JOIN\n"
                 + "    [User] AS U ON RD.UserID = U.UserID\n"
-                + "ORDER BY O.OrderID\n"
+                + "WHERE O.UserID = ?\n"
+                + "ORDER BY O.OrderID Desc\n"
                 + "OFFSET ? ROWS \n"
                 + "FETCH NEXT 9 ROWS ONLY;";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
-            st.setInt(1, (index - 1) * 9);
+            st.setInt(1, id);
+            st.setInt(2, (index - 1) * 9);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 list.add(new ProOrder(rs.getInt("DetailID"),
@@ -351,10 +353,10 @@ public class OrderDAO extends DBContext {
         return list;
     }
 
-    public List<ProOrder> getAllOrderDesc(int userID) {
+    public List<ProOrder> getAllOrderDES(int userID) {
         List<ProOrder> list = new ArrayList<>();
         String sql = "SELECT\n"
-                 + "    OD.DetailID,\n"
+                + "    OD.DetailID,\n"
                 + "    O.OrderID,\n"
                 + "    CAST(O.OrderDate AS DATE) AS date,\n"
                 + "    O.TotalPrice,\n"
@@ -409,10 +411,164 @@ public class OrderDAO extends DBContext {
         return list;
     }
 
+    public List<ProOrder> filterOrderbyDate(int userID, String from, String to) {
+        List<ProOrder> list = new ArrayList<>();
+        String sql = "SELECT\n"
+                + "    OD.DetailID,\n"
+                + "    O.OrderID,\n"
+                + "    CAST(O.OrderDate AS DATE) AS [date],\n"
+                + "    O.TotalPrice,\n"
+                + "    O.CustomerName,\n"
+                + "    O.PhoneNumber,\n"
+                + "    O.Address,\n"
+                + "    OD.ExpDate,\n"
+                + "    OD.DelDate,\n"
+                + "    OD.Price,\n"
+                + "    OD.Status,\n"
+                + "    P.ProductName,\n"
+                + "    OD.Quantity,\n"
+                + "    OD.Price,\n"
+                + "    O.Payment\n"
+                + "FROM\n"
+                + "    Orders AS O\n"
+                + "INNER JOIN\n"
+                + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+                + "INNER JOIN\n"
+                + "    Product AS P ON OD.ProductID = P.ProductID\n"
+                + "WHERE\n"
+                + "    P.UserID = ?\n"
+                + "    AND CAST(O.OrderDate AS DATE) > ?\n"
+                + "    AND CAST(O.OrderDate AS DATE) < ?";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, userID);
+            st.setString(2, from);
+            st.setString(3, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProOrder(rs.getInt("DetailID"),
+                        rs.getInt("OrderID"),
+                        rs.getString("ProductName"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("TotalPrice"),
+                        rs.getString("date"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status"), // Get expDate
+                        rs.getString("ExpDate"),
+                        rs.getString("DelDate"),
+                        rs.getString("Payment")
+                ));
+            }
+        } catch (SQLException e) {
+            // Xử lý ngoại lệ SQL
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Xử lý các ngoại lệ khác
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
+    public List<ProOrder> filterMyOrderByDate(int userID, String from, String to) {
+        List<ProOrder> list = new ArrayList<>();
+       String sql = "WITH RankedImages AS (\n"
+            + "    SELECT\n"
+            + "        I.ObjectID AS ProductID,\n"
+            + "        I.ImageUrl,\n"
+            + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+            + "    FROM\n"
+            + "        [dbo].[Image] AS I\n"
+            + "    WHERE\n"
+            + "        I.TypeID = 1\n"
+            + ")\n"
+            + "\n"
+            + "SELECT\n"
+            + "    OD.DetailID,\n"
+            + "    O.OrderID,\n"
+            + "    O.OrderDate,\n"
+            + "    O.TotalPrice,\n"
+            + "    U.UserName AS ArtistName,\n"
+            + "    O.CustomerName,\n"
+            + "    O.PhoneNumber,\n"
+            + "    O.Address,\n"
+            + "    OD.Status,\n"
+            + "    OD.ProductID AS OrderedProductID,\n"
+            + "    RD.ProductName,\n"
+            + "    RD.ProductImage,\n"
+            + "    OD.Quantity,\n"
+            + "    OD.Price,\n"
+            + "    OD.ExpDate,\n"
+            + "    OD.DelDate,\n"
+            + "    O.Payment\n"
+            + "FROM\n"
+            + "    Orders AS O\n"
+            + "INNER JOIN\n"
+            + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+            + "LEFT JOIN\n"
+            + "    (\n"
+            + "        SELECT\n"
+            + "            P.ProductID,\n"
+            + "            P.ProductName,\n"
+            + "            P.UserID,\n"
+            + "            R.ImageUrl AS ProductImage\n"
+            + "        FROM\n"
+            + "            Product AS P\n"
+            + "        LEFT JOIN\n"
+            + "            RankedImages AS R ON P.ProductID = R.ProductID\n"
+            + "        WHERE\n"
+            + "            R.ImageRank = 1\n"
+            + "    ) AS RD ON OD.ProductID = RD.ProductID\n"
+            + "LEFT JOIN\n"
+            + "    [User] AS U ON RD.UserID = U.UserID\n"
+            + "WHERE O.UserID = ? \n"
+            + "    AND CAST(O.OrderDate AS DATE) > ?\n"
+            + "    AND CAST(O.OrderDate AS DATE) < ?\n" 
+            + "ORDER BY O.OrderID DESC";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, userID);
+            st.setString(2, from);
+               st.setString(3, to);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProOrder(rs.getInt("DetailID"),
+                        rs.getInt("OrderID"),
+                        rs.getString("ProductName"),
+                        rs.getString("ProductImage"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getString("OrderDate"),
+                        rs.getString("ArtistName"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status"),
+                        rs.getString("ExpDate"), // Get expDate
+                        rs.getString("DelDate"), // Get delDate
+                        rs.getString("Payment") // Get payment
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
+        return list;
+    }
+
     public List<ProOrder> getAllOrderSearch(String search, int userID) {
         List<ProOrder> list = new ArrayList<>();
         String sql = "SELECT\n"
-                  + "    OD.DetailID,\n"
+                + "    OD.DetailID,\n"
                 + "    O.OrderID,\n"
                 + "    CAST(O.OrderDate AS DATE) AS date,\n"
                 + "    O.TotalPrice,\n"
@@ -435,7 +591,7 @@ public class OrderDAO extends DBContext {
                 + "    Product AS P ON OD.ProductID = P.ProductID\n"
                 + "WHERE P.UserID = ?\n"
                 + "AND P.ProductName LIKE ?\n"
-                + "ORDER BY O.OrderID\n";
+                + "ORDER BY O.OrderID Desc\n";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             st.setInt(1, userID);
@@ -465,6 +621,94 @@ public class OrderDAO extends DBContext {
             // Xử lý các ngoại lệ khác
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
+        return list;
+    }
+
+    public List<ProOrder> getMyOrderSearch(String search, int id) {
+        List<ProOrder> list = new ArrayList<>();
+        String sql = "WITH RankedImages AS (\n"
+                + "    SELECT\n"
+                + "        I.ObjectID AS ProductID,\n"
+                + "        I.ImageUrl,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY I.ObjectID ORDER BY I.ImageID) AS ImageRank\n"
+                + "    FROM\n"
+                + "        [dbo].[Image] AS I\n"
+                + "    WHERE\n"
+                + "        I.TypeID = 1\n"
+                + ")\n"
+                + "\n"
+                + "SELECT\n"
+                + "    OD.DetailID,\n"
+                + "    O.OrderID,\n"
+                + "    O.OrderDate,\n"
+                + "    O.TotalPrice,\n"
+                + "    U.UserName AS ArtistName,\n"
+                + "    O.CustomerName,\n"
+                + "    O.PhoneNumber,\n"
+                + "    O.Address,\n"
+                + "    OD.Status,\n"
+                + "    OD.ProductID AS OrderedProductID,\n"
+                + "    RD.ProductName,\n"
+                + "    RD.ProductImage,\n"
+                + "    OD.Quantity,\n"
+                + "    OD.Price,\n"
+                + "    OD.ExpDate,\n"
+                + "    OD.DelDate,\n"
+                + "    O.Payment\n"
+                + "FROM\n"
+                + "    Orders AS O\n"
+                + "INNER JOIN\n"
+                + "    OrderDetail AS OD ON O.OrderID = OD.OrderID\n"
+                + "LEFT JOIN\n"
+                + "    (\n"
+                + "        SELECT\n"
+                + "            P.ProductID,\n"
+                + "            P.ProductName,\n"
+                + "            P.UserID,\n"
+                + "            R.ImageUrl AS ProductImage\n"
+                + "        FROM\n"
+                + "            Product AS P\n"
+                + "        LEFT JOIN\n"
+                + "            RankedImages AS R ON P.ProductID = R.ProductID\n"
+                + "        WHERE\n"
+                + "            R.ImageRank = 1\n"
+                + "    ) AS RD ON OD.ProductID = RD.ProductID\n"
+                + "LEFT JOIN\n"
+                + "    [User] AS U ON RD.UserID = U.UserID\n"
+                + "WHERE O.UserID = ? AND RD.ProductName LIKE ?\n"
+                + "ORDER BY O.OrderID Desc";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setInt(1, id);
+            st.setString(2, "%" + search + "%");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new ProOrder(rs.getInt("DetailID"),
+                        rs.getInt("OrderID"),
+                        rs.getString("ProductName"),
+                        rs.getString("ProductImage"),
+                        rs.getInt("Quantity"),
+                        rs.getDouble("Price"),
+                        rs.getString("OrderDate"),
+                        rs.getString("ArtistName"),
+                        rs.getString("CustomerName"),
+                        rs.getString("Address"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Status"),
+                        rs.getString("ExpDate"), // Get expDate
+                        rs.getString("DelDate"), // Get delDate
+                        rs.getString("Payment") // Get payment
+                ));
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+
         return list;
     }
 
@@ -636,7 +880,7 @@ public class OrderDAO extends DBContext {
             st.setInt(3, (index - 1) * 9);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                list.add(new ProOrder(rs.getInt("DetailID"),rs.getInt("OrderID"),
+                list.add(new ProOrder(rs.getInt("DetailID"), rs.getInt("OrderID"),
                         rs.getString("ProductName"),
                         rs.getString("ProductImage"),
                         rs.getInt("Quantity"),

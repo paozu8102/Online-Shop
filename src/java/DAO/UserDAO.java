@@ -521,12 +521,13 @@ public class UserDAO extends DBContext {
     }
 
     public int getTotalCustomer(int id) {
-        String sql = "SELECT COUNT(*) AS CustomerCount\n"
-                + "FROM [User] u\n"
-                + "JOIN Orders o ON u.UserID = o.UserID\n"
-                + "JOIN OrderDetail od ON o.OrderID = od.OrderID\n"
-                + "JOIN Product p ON od.ProductID = p.ProductID\n"
-                + "WHERE p.UserID = ?;";
+       String sql = "SELECT COUNT(DISTINCT u.UserID) AS CustomerCount\n"
+            + "FROM [User] u\n"
+            + "JOIN Orders o ON u.UserID = o.UserID\n"
+            + "JOIN OrderDetail od ON o.OrderID = od.OrderID\n"
+            + "JOIN Product p ON od.ProductID = p.ProductID\n"
+            + "WHERE p.UserID = ?";
+
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             st.setInt(1, id);
@@ -617,7 +618,7 @@ public class UserDAO extends DBContext {
     //Get all User DucLV
     public List<User> getAllCustomer(int id, int index) {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID,\n"
+        String sql = "SELECT  DISTINCT [User].UserID AS ID, [User].UserName AS CustomerName,\n"
                 + "       [User].Email,\n"
                 + "       [User].PhoneNumber AS Mobile,\n"
                 + "       Account.Status\n"
@@ -704,7 +705,7 @@ public class UserDAO extends DBContext {
     public List<User> SearchCustomer(int id, String txtSearch) {
         List<User> list = new ArrayList<>();
 
-        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID, "
+        String sql = "SELECT DISTINCT [User].UserID AS ID, [User].UserName AS CustomerName, "
                 + "[User].Email, [User].PhoneNumber AS Mobile, Account.Status "
                 + "FROM [User] "
                 + "INNER JOIN Orders ON [User].UserID = Orders.UserID "
@@ -744,7 +745,7 @@ public class UserDAO extends DBContext {
 
     public List<User> getAllCustomerCity(int id, String city) {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT [User].UserName AS CustomerName,\n"
+        String sql = "SELECT Distinct [User].UserName AS CustomerName,\n"
                 + "       [User].UserID AS ID,\n"
                 + "       [User].Email,\n"
                 + "       [User].PhoneNumber AS Mobile,\n"
@@ -784,7 +785,7 @@ public class UserDAO extends DBContext {
 //Get all Customer active DucLV
     public List<User> getAllCustomerActive(int id) {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID,\n"
+        String sql = "SELECT Distinct [User].UserName AS CustomerName, [User].UserID AS ID,\n"
                 + "       [User].Email,\n"
                 + "       [User].PhoneNumber AS Mobile,\n"
                 + "       Account.Status\n"
@@ -824,7 +825,7 @@ public class UserDAO extends DBContext {
     //Get all customer blocked DucLV
     public List<User> getAllCustomerBlock(int id) {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID,\n"
+        String sql = "SELECT Distinct [User].UserName AS CustomerName, [User].UserID AS ID,\n"
                 + "       [User].Email,\n"
                 + "       [User].PhoneNumber AS Mobile,\n"
                 + "       Account.Status\n"
@@ -862,7 +863,7 @@ public class UserDAO extends DBContext {
 
  public List<User> getCustomerNameSort(int id, String sort) {
     List<User> list = new ArrayList<>();
-    String sql = "SELECT [User].UserName AS CustomerName, [User].UserID AS ID, "
+    String sql = "SELECT Distinct [User].UserName AS CustomerName, [User].UserID AS ID, "
             + "[User].Email, [User].PhoneNumber AS Mobile, Account.Status "
             + "FROM [User] "
             + "INNER JOIN Orders ON [User].UserID = Orders.UserID "

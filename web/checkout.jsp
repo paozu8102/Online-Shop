@@ -42,7 +42,7 @@
 
 <section class="ftco-section">
     <div class="container">
-         <form id="checkout"  action="checkout" method="post" onsubmit="return handleFormSubmit()">
+         <form id="checkout"  action="checkout" method="post" >
         <div class="row justify-content-center">
             <div class="col-xl-7 ftco-animate">
              
@@ -97,36 +97,37 @@
                         <div class="cart-detail cart-total p-3 p-md-4">
 
                             
-                                <h3 class="mb-4 billing-heading">Billing Details</h3>
-                                <div class="row align-items-end">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Name</label>
-                                            <input  style="display: inline-block; width: 400px; color:black;" type="text" name="customername" class="form-control" value="${user.userName}">
-                                        </div>
-                                    </div>
+                               <h3 class="mb-4 billing-heading">Customer Information</h3>
+<div class="row align-items-end">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="firstname">Name</label>
+            <input style="display: inline-block; width: 400px; color:black;" type="text" name="customername"  id="customername"  class="form-control" value="${user.userName}" required>
+            <!-- You can add 'required' to make the field mandatory -->
+        </div>
+    </div>
 
-                                    <div class="w-100"></div>
+    <div class="w-100"></div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="towncity">Address</label>
-                                   <textarea style="width: 400px; color: black;" name="address" class="form-control">${user.address}</textarea>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="towncity">Address</label>
+            <textarea style="width: 400px; color: black;" id="address" name="address" class="form-control" required>${user.address}</textarea>
+            <!-- 'required' attribute added for mandatory field -->
+        </div>
+    </div>
 
-                                        </div>
-                                    </div>
+    <div class="w-100"></div>
 
-                                    <div class="w-100"></div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="phone">Phone</label>
-                                            <input  style="display: inline-block; width: 400px; color:black; " type="text" name="phone" class="form-control" value="${user.phoneNumber}">
-                                        </div>
-                                    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input style="display: inline-block; width: 400px; color:black; " id="phone" type="text" name="phone" class="form-control" value="${user.phoneNumber}" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
+            <!-- 'required' attribute added for mandatory field, 'pattern' for a 10-digit phone number -->
+        </div>
+    </div>
+</div>
 
-
-
-                                </div>
                             
 
                         </div>
@@ -151,45 +152,115 @@
     </div>
 </section> <!-- .section -->
 <script>
-  paypal.Buttons({
-    createOrder: function(data, actions) {
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: ${total}
-          }
-        }]
-      });
-    },
-    onApprove: function(data, actions) {
-      return actions.order.capture().then(function(details) {
-    document.getElementById('checkout').submit();
-      });
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            // Validate name
+            var nameInput = document.getElementById("customername");
+            if (!validateName(nameInput.value)) {
+                alert("Please enter a valid name.");
+                return actions.reject();
+            }
+
+            // Validate address
+            var addressInput = document.getElementById("address");
+            if (!validateAddress(addressInput.value)) {
+                alert("Please enter a valid address.");
+                return actions.reject();
+            }
+
+            // Validate phone
+            var phoneInput = document.getElementById("phone");
+            if (!validatePhone(phoneInput.value)) {
+                alert("Please enter a valid 10-digit phone number.");
+                return actions.reject();
+            }
+
+            // Proceed with creating the order
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: ${total}
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            // Capture the payment details
+            return actions.order.capture().then(function(details) {
+                document.getElementById('checkout').submit();
+            });
+        }
+    }).render('#paypal-button-container');
+
+    function validateName(name) {
+        // Add your name validation logic here
+        return name.trim() !== "";
     }
-  }).render('#paypal-button-container');
+
+    function validateAddress(address) {
+        // Add your address validation logic here
+        return address.trim() !== "";
+    }
+
+    function validatePhone(phone) {
+        // Add your phone validation logic here
+        var phonePattern = /^[0-9]{10}$/;
+        return phonePattern.test(phone);
+    }
 </script>
+
 <script>
-  // Wait for the document to be fully loaded
-  document.addEventListener("DOMContentLoaded", function() {
-    // Find the "Cash Delivery" button by its ID
-    var cashDeliveryButton = document.getElementById("place-order-button");
+    document.addEventListener("DOMContentLoaded", function() {
+        var cashDeliveryButton = document.getElementById("place-order-button");
 
-    // Add a click event listener to the button
-    cashDeliveryButton.addEventListener("click", function(event) {
-      // Prevent the default behavior of the link (preventing navigation)
-      event.preventDefault();
+        cashDeliveryButton.addEventListener("click", function(event) {
+            event.preventDefault();
 
-      // Set the value of the hidden "payment" input field to "cod"
-      var paymentInput = document.getElementById("payment");
-      if (paymentInput) {
-        paymentInput.value = "cod";
-      }
+            // Validate name
+            var nameInput = document.getElementById("customername");
+            if (!validateName(nameInput.value)) {
+                alert("Please enter a valid name.");
+                return;
+            }
 
-      // Submit the form
-      document.getElementById('checkout').submit();
+            // Validate address
+            var addressInput = document.getElementById("address");
+            if (!validateAddress(addressInput.value)) {
+                alert("Please enter a valid address.");
+                return;
+            }
+
+            // Validate phone
+            var phoneInput = document.getElementById("phone");
+            if (!validatePhone(phoneInput.value)) {
+                alert("Please enter a valid 10-digit phone number.");
+                return;
+            }
+
+            var paymentInput = document.getElementById("payment");
+            if (paymentInput) {
+                paymentInput.value = "cod";
+            }
+
+            document.getElementById('checkout').submit();
+        });
     });
-  });
-</script>
 
+    function validateName(name) {
+        // Add your name validation logic here
+        return name.trim() !== "";
+    }
+
+    function validateAddress(address) {
+        // Add your address validation logic here
+        return address.trim() !== "";
+    }
+
+    function validatePhone(phone) {
+        // Add your phone validation logic here
+        var phonePattern = /^[0-9]{10}$/;
+        return phonePattern.test(phone);
+    }
+</script>
 
 <%@include file="template/footerJS.jsp" %>

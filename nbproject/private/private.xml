@@ -3,25 +3,31 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/post-create.jsp</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/EditPost.jsp</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/web/blog-single.jsp</file>
-            <file>file:/D:/Downloads/Documents/SWP391/SWP391_OnlineShop/online-shop/src/java/Controller/CRUDPostController.java</file>
-=======
-            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/AddSetting.java</file>
-            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ManageProduct.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/customer-management.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/product-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/AddProduct.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ManageOrder.java</file>
-            <file>file:/C:/Users/admin/Documents/master2/web/myorder.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/PostController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/index.jsp</file>
-            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ChangeOrderStatus.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/AddSetting.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/PostController.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/DAO/OrderDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/saler-dashboard.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/SearchCustomer.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/active-product.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/DAO/ProductDAO.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/MyOrderServlet.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/post-management.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/CustomerController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/DBcontext/DBContext.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/EditProduct.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/dashboard.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ManageProduct.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/myorder.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/saler-profile.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ChangeOrderStatus.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/order-management.jsp</file>
->>>>>>> 890251e6db47d5a95283f55296e1db48dc1286b8
+            <file>file:/C:/Users/admin/Documents/master2/web/block-product.jsp</file>
         </group>
     </open-files>
 </project-private>

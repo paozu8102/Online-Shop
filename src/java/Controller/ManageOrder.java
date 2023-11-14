@@ -64,36 +64,40 @@ public class ManageOrder extends HttpServlet {
         OrderDAO o = new OrderDAO();
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
-                ProductDAO c = new ProductDAO();
+                
         List<ProOrder> list;
         String indexPage = request.getParameter("index");
                 String from = request.getParameter("from");
         String to = request.getParameter("to");
         String sortprice = request.getParameter("sortprice");
         String txtSearch = request.getParameter("txt");
-        
+        int id  = u.getUserID();
         if (indexPage == null) {
             indexPage = "1";
 
         }
 
         int index = Integer.parseInt(indexPage);
-        int count = o.getTotalOrderCountByUserId(u.getUserID());
+        int count = o.getTotalOrderCountByUserId(id);
         int endPage = count / 6;
         if (count % 6 != 0) {
             endPage++;
         }
        if ("all".equals(sortprice)) {
-            list = o.getAllOrder(index, u.getUserID());
+            list = o.getAllOrder(index, id);
             request.setAttribute("endP", endPage);
             request.setAttribute("tag", index);
         }else if (txtSearch != null) {
-          list = o.getAllOrderSearch(txtSearch, u.getUserID());
+          list = o.getAllOrderSearch(txtSearch, id);
         }else if ("asc".equals(sortprice)) {
-            list = o.getAllOrderASC(u.getUserID());
+            list = o.getAllOrderASC(id);
         }else if ("desc".equals(sortprice)) {
-            list = o.getAllOrderDesc(u.getUserID());
-        } 
+            list = o.getAllOrderDES(id);
+        } else if(from != null && to != null){
+            list = o.filterOrderbyDate(id, from, to);
+             request.setAttribute("from", from);
+              request.setAttribute("to", to);
+        }
         else {
 
             list = o.getAllOrder(index, u.getUserID());
@@ -103,11 +107,7 @@ public class ManageOrder extends HttpServlet {
         session.setAttribute("listO", list);
         request.getRequestDispatcher("order-management.jsp").forward(request, response);
     }
-     public static void main(String[] args) {
-         OrderDAO o = new OrderDAO();
-         System.out.println(o.getAllOrder(1, 9));
-    }
-
+  
     /** 
      * Handles the HTTP <code>POST</code> method.
      * @param request servlet request

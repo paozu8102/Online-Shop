@@ -8,7 +8,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
+<%
+    String path = request.getContextPath();
+  %>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +21,7 @@
         <meta name="description"
               content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
         <meta name="robots" content="noindex,nofollow">
-        <title>Saler Dashboard</title>
+        <title>Sale Dashboard</title>
         <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
@@ -304,6 +306,7 @@
                                                 <div class="form-group mb-4">
                                                     <button class="btn btn-success mx-1" type="submit" data-toggle="tooltip" data-placement="top" title="Save all">Save changes</button>
                                                     <a class="btn btn-success mx-1" href="change-user-password.jsp" data-toggle="tooltip" data-placement="top" title="Change Password">Change Password</a>
+                                                    <a class="btn btn-success mx-1" href="<%=path%>/PostCreate" data-toggle="tooltip" data-placement="top" title="Create Post">Create A Post</a>
                                                 </div>
                                             </div>
                                         </div>

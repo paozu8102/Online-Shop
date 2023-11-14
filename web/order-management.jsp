@@ -625,7 +625,7 @@ String path = request.getContextPath();
             }
 
         </style>
-        <title>Palette Joy - Bring art to your home</title>
+        <title>Sale Dashboard</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -807,7 +807,7 @@ String path = request.getContextPath();
                                     </form>
                                 </div>
                                 <div>
-                                    <form action="manageorder">
+                                    <form action="manageorder" onsubmit="return validateDate()">
                                         <table class="table text-nowrap">                                  
                                             <tr>
                                                 <td>Date: </td>
@@ -823,7 +823,7 @@ String path = request.getContextPath();
                                                     <input style="padding: 0 3rem; color: black; background-color: white;box-shadow: 1px 2px " type="submit" value="Filter">
                                                 </td>
                                             </tr>
-
+ </form>
                                             <tr>
                                                 <td> 
                                                     <form action="manageorder" method="get">
@@ -839,7 +839,7 @@ String path = request.getContextPath();
                                                 </td>
                                             </tr>
                                         </table>
-                                    </form>
+                                   
                                 </div>
                             </div>
 
@@ -1195,6 +1195,31 @@ processingButton = editOrderModal.find("#processingButton");
                             }
                             ;
                     </script>
+<script>
+    function validateDate() {
+        var fromDate = document.getElementsByName('from')[0].value;
+        var toDate = document.getElementsByName('to')[0].value;
+
+        // Check if both dates are entered
+        if (!fromDate || !toDate) {
+            alert('Please enter both "From" and "To" dates.');
+            return false;
+        }
+
+        // Convert date strings to Date objects for comparison
+        var fromDateObj = new Date(fromDate);
+        var toDateObj = new Date(toDate);
+
+        // Check if the "To" date is greater than or equal to the "From" date
+        if (toDateObj < fromDateObj) {
+            alert('"To" date must be equal to or later than "From" date.');
+            return false;
+        }
+
+        // Validation passed
+        return true;
+    }
+</script>
 
                 </div>
                 <!-- ============================================================== -->
