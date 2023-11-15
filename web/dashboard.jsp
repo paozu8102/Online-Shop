@@ -268,7 +268,7 @@
                                         data: {
                                             labels: ${listTotal.keySet()},
                                             datasets: [{
-                                                    label: '# of Orders',
+                                                    label: 'Number of Orders',
                                                     data: ${listTotal.values()},
                                                     borderWidth: 1
                                                 }]
