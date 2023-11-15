@@ -5,13 +5,17 @@
 package Controller;
 
 import DAO.PostDAO;
+import Model.Cart;
+import Model.Product;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -71,7 +75,19 @@ public class PostController extends HttpServlet {
                 }
             }
         }
+	Cookie[] arr = req.getCookies();
+		String txt = "";
+		if (arr != null) {
+			for (Cookie o : arr) {
+				if (o.getName().equals("cart")) {
+					txt += o.getValue();
 
+				}
+			}
+		}
+		Cart t = new Cart();
+		LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
+		req.setAttribute("cartlist", cartlist);
         req.setAttribute("recentPostList", recentPostList);
         req.setAttribute("postList", postList);
         req.setAttribute("searchKey", searchKey);

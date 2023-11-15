@@ -7,14 +7,18 @@ package Controller;
 
 import DAO.UserDAO;
 import Model.Account;
+import Model.Cart;
+import Model.Product;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -60,6 +64,19 @@ public class UserProfileController extends HttpServlet {
         //hard code 1 user --> login --> user này se la user tren session
         HttpSession session = request.getSession(false);
     User user = (User) session.getAttribute("user");
+    	Cookie[] arr = request.getCookies();
+		String txt = "";
+		if (arr != null) {
+			for (Cookie o : arr) {
+				if (o.getName().equals("cart")) {
+					txt += o.getValue();
+
+				}
+			}
+		}
+		Cart t = new Cart();
+		LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
+		request.setAttribute("cartlist", cartlist);
         request.setAttribute("user", user);
 //        response.getWriter().print(user);
         request.getRequestDispatcher("user-profile.jsp").forward(request, response);

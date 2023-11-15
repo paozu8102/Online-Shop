@@ -107,6 +107,18 @@ public class CheckoutController extends HttpServlet {
 
         response.addCookie(c);
 
+		String txt1 = "";
+		if (arr != null) {
+			for (Cookie o : arr) {
+				if (o.getName().equals("cart")) {
+					txt1 += o.getValue();
+
+				}
+			}
+		}
+		
+		LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
+		request.setAttribute("cartlist", cartlist);
         request.setAttribute("pList", pList);
        
         request.getRequestDispatcher("checkout.jsp").forward(request, response);

@@ -7,15 +7,19 @@ package Controller;
 import DAO.ImageDAO;
 import DAO.PostDAO;
 import DAO.UserDAO;
+import Model.Cart;
 import Model.Comment;
 import Model.Image;
+import Model.Product;
 import Model.User;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -54,7 +58,19 @@ public class PostSingleController extends HttpServlet{
             ArrayList<Map<String, String>> cateAndPostNumList = postDAO.getPostNumberPerCategory();
             ArrayList<Map<String, String>> recentPostList = new PostDAO().getRecentPost(id);
             User postUser = new UserDAO().getUserByPostID(id);
-            
+            	Cookie[] arr = req.getCookies();
+		String txt = "";
+		if (arr != null) {
+			for (Cookie o : arr) {
+				if (o.getName().equals("cart")) {
+					txt += o.getValue();
+
+				}
+			}
+		}
+		Cart t = new Cart();
+		LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
+		req.setAttribute("cartlist", cartlist);
             req.setAttribute("imageList", imageList);
             req.setAttribute("post", postData);
             req.setAttribute("CommentNumber", commentNumber);

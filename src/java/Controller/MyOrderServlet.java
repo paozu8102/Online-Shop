@@ -8,18 +8,22 @@ package Controller;
 import DAO.OrderDAO;
 import DAO.UserDAO;
 import Model.Account;
+import Model.Cart;
 import Model.Order;
 import Model.ProOrder;
+import Model.Product;
 import Model.Setting;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -77,7 +81,19 @@ int id = user.getUserID();
             request.setAttribute("tag", index);
         }
 
-         
+         	Cookie[] arr = request.getCookies();
+		String txt = "";
+		if (arr != null) {
+			for (Cookie co : arr) {
+				if (co.getName().equals("cart")) {
+					txt += co.getValue();
+
+				}
+			}
+		}
+		Cart t = new Cart();
+		LinkedHashMap<Product, Integer> cartlist = t.getCart(txt);
+		request.setAttribute("cartlist", cartlist);
         request.setAttribute("listO", list);
 
         request.getRequestDispatcher("myorder.jsp").forward(request, response);

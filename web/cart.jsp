@@ -1,27 +1,31 @@
 <%@include file="template/header.jsp" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
-<li class="nav-item active dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-    <div class="dropdown-menu" aria-labelledby="dropdown04">
-        <a class="dropdown-item" href="shop">Shop</a>
-        <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
-        <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-        <a class="dropdown-item" href="cart">Cart</a>
-        <a class="dropdown-item" href="checkout.jsp">Checkout</a>
-    </div>
-</li>
-<li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
-<li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
-<li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-<c:if test="${sessionScope.acc==null}"><li class="nav-item active"><a href="login" class="nav-link">Sign In</a></li></c:if>
-<c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>
-    <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
-    <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
-    </c:if>
-<li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[${cartlist.size()}]</a></li>
+<c:if test="${sessionScope.acc.roleID==null}">
+    <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
 
+    <li class="nav-item"><a href="shop" class="nav-link">Shop</a></li>
+
+    <li class="nav-item"><a href="Posts" class="nav-link">Post</a></li>
+
+    <li class="nav-item"><a href="login" class="nav-link">Sign In</a></li>
+
+</c:if>
+<c:if test="${sessionScope.acc.roleID==3}">
+    <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
+
+    <li class="nav-item"><a href="shop" class="nav-link">Shop</a></li>
+
+
+    <li class="nav-item"><a href="Posts" class="nav-link">Post</a></li>
+
+    <li class="nav-item"><a href="UserProfile" class="nav-link">Profile</a></li>
+    <li class="nav-item"><a href="myorder" class="nav-link">My Order</a></li>
+    <li class="nav-item"><a href="logout" class="nav-link">Sign Out</a></li> 
+
+</c:if>
+
+<li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[${cartlist.size()}]</a></li>
 </ul>
 </div>
 </div>

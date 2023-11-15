@@ -33,9 +33,8 @@
 
             // Execute this function when navigating to other pages
             function navigateToOtherPage() {
-                // Save the current scroll position before navigating
-                saveScrollPosition();
-
+            // Save the current scroll position before navigating
+            saveScrollPosition();
         </script>
         <style>
             body {
@@ -399,7 +398,7 @@
             .price-wrap-2 {
                 display: flex;
                 margin-left: 0px;
-                
+
             }
 
             .price-title {
@@ -426,7 +425,7 @@
                 line-height: 1.2em;
                 font-weight: 400;
             }
- .price-wrap #minWidth,
+            .price-wrap #minWidth,
             .price-wrap #maxWidth {
                 width: 30px;
                 text-align: right;
@@ -442,7 +441,7 @@
                 line-height: 1.2em;
                 font-weight: 400;
             }
-             .price-wrap #minHeight,
+            .price-wrap #minHeight,
             .price-wrap #maxHeight {
                 width: 30px;
                 text-align: right;
@@ -509,27 +508,25 @@
     <body class="goto-here">
         <button onclick="topFunction()" id="myBtn" title="Go to top">&#8679;</button>
         <script>
-                //from 91-107 ThanhNX
-                let mybutton = document.getElementById("myBtn");
-
-                // When the user scrolls down 20px from the top of the document, show the button
-                window.onscroll = function () {
+                    //from 91-107 ThanhNX
+                    let mybutton = document.getElementById("myBtn");
+                    // When the user scrolls down 20px from the top of the document, show the button
+                    window.onscroll = function () {
                     scrollFunction()
-                };
-
-                function scrollFunction() {
+                    };
+                    function scrollFunction() {
                     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                        mybutton.style.display = "block";
+                    mybutton.style.display = "block";
                     } else {
-                        mybutton.style.display = "none";
+                    mybutton.style.display = "none";
                     }
-                }
+                    }
 
-                // When the user clicks on the button, scroll to the top of the document
-                function topFunction() {
-                    document.body.scrollTop = 0;
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+            document.body.scrollTop = 0;
                     document.documentElement.scrollTop = 0;
-                }
+            }
         </script>
         <div class="py-1 bg-primary">
             <div class="container">
@@ -562,29 +559,31 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
 
-                        <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
-                        <li class="nav-item active dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown04">
-                                <a class="dropdown-item" href="shop">Shop</a>
-                                <a class="dropdown-item" href="wishlist.jsp">Wishlist</a>
-                                <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                                <a class="dropdown-item" href="cart">Cart</a>
-                                <a class="dropdown-item" href="checkout.jsp">Checkout</a>
-                            </div>
-                        </li>
-                        <li class="nav-item"><a href="about.jsp" class="nav-link">About</a></li>
-                        <li class="nav-item"><a href="blog.jsp" class="nav-link">Blog</a></li>
-                        <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact</a></li>
-                        <c:if test="${sessionScope.acc==null}"><li class="nav-item active"><a href="login" class="nav-link">Sign In</a></li></c:if>
-                        <c:if test="${sessionScope.acc!=null}"><li><a class="getstarted scrollto" href="logout"></a></li>
-                            <li class="nav-item active"><a href="UserProfile" class="nav-link">Profile</a></li>
-                            <li class="nav-item active"><a href="logout" class="nav-link">Sign Out</a></li> 
-                            </c:if>
-                         
+                        <c:if test="${sessionScope.acc.roleID==null}">
+                            <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
+
+                            <li class="nav-item active"><a href="shop" class="nav-link">Shop</a></li>
+
+                            <li class="nav-item"><a href="Posts" class="nav-link">Post</a></li>
+
+                            <li class="nav-item"><a href="login" class="nav-link">Sign In</a></li>
+
+                        </c:if>
+                        <c:if test="${sessionScope.acc.roleID==3}">
+                            <li class="nav-item"><a href="home" class="nav-link">Home</a></li>
+
+                            <li class="nav-item active"><a href="shop" class="nav-link">Shop</a></li>
+
+
+                            <li class="nav-item"><a href="Posts" class="nav-link">Post</a></li>
+
+                            <li class="nav-item"><a href="UserProfile" class="nav-link">Profile</a></li>
+                            <li class="nav-item"><a href="myorder" class="nav-link">My Order</a></li>
+                            <li class="nav-item"><a href="logout" class="nav-link">Sign Out</a></li> 
+
+                        </c:if>
 
                         <li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[${cartlist.size()}]</a></li>
-
                     </ul>
                 </div>
             </div>
@@ -697,7 +696,7 @@
                                                 <input  type="range" min="0" max="1000" value="800" id="upper">
                                             </div>
                                             <div class="price-wrap">
-                                               
+
                                                 <div class="price-container">
                                                     <div class="price-wrap-1">
 
@@ -711,7 +710,7 @@
 
                                                     </div>
                                                 </div>
-                                                 <button type="submit" class="price-title">FILTER</button>
+                                                <button type="submit" class="price-title">FILTER</button>
                                             </div>
                                         </fieldset>
                                     </div>
@@ -734,16 +733,16 @@
                                                 <input type="range" min="0" max="100" value="50" id="widthUpper">
                                             </div>
                                             <div class="price-wrap">
-                                             
-                                              <div class="price-container" > 
+
+                                                <div class="price-container" > 
                                                     <div class="price-wrap-1">
-                                                       
+
                                                         <input name="minwidth" id="minWidth">
-                                                
+
                                                     </div>
                                                     <div class="price-wrap_line">-</div>
                                                     <div class="price-wrap-2">
-                                                        
+
                                                         <input name="maxwidth" id="maxWidth">
                                                         <label for="two">cm</label>
                                                     </div>
@@ -751,31 +750,31 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                                     <h5>Height</h5>
-                                        <fieldset class="filter-price">
-                                           
-                                            <div class="price-field">
-                                                <input type="range" min="0" max="100" value="20" id="heightLower">
-                                                <input type="range" min="0" max="100" value="50" id="heightUpper">
-                                            </div>
-                                            <div class="price-wrap">
-                                                
-                                                <div class="price-container">
-                                                    <div class="price-wrap-1">
-                                                       
-                                                        <input name="minheight" id="minHeight">
-                                                    </div>
-                                                    <div class="price-wrap_line">-</div>
-                                                    <div class="price-wrap-2">
-                                                       
-                                                        <input name="maxheight" id="maxHeight">
-                                                             <label for="two">cm</label>
-                                                    </div>
+                                    <h5>Height</h5>
+                                    <fieldset class="filter-price">
+
+                                        <div class="price-field">
+                                            <input type="range" min="0" max="100" value="20" id="heightLower">
+                                            <input type="range" min="0" max="100" value="50" id="heightUpper">
+                                        </div>
+                                        <div class="price-wrap">
+
+                                            <div class="price-container">
+                                                <div class="price-wrap-1">
+
+                                                    <input name="minheight" id="minHeight">
                                                 </div>
-                                                <button type="submit" class="price-title">FILTER</button>
+                                                <div class="price-wrap_line">-</div>
+                                                <div class="price-wrap-2">
+
+                                                    <input name="maxheight" id="maxHeight">
+                                                    <label for="two">cm</label>
+                                                </div>
                                             </div>
-                                        </fieldset>
-                                    
+                                            <button type="submit" class="price-title">FILTER</button>
+                                        </div>
+                                    </fieldset>
+
                                 </form>
                             </div>
                         </div>
@@ -875,120 +874,101 @@
         <footer class="ftco-footer ftco-section">
             <script>
 
-                    document.getElementById("sortprice").onchange = function () {
-                        this.form.submit();
-                    };
-
-                    document.getElementById("sortname").onchange = function () {
-                        this.form.submit();
-                    }
-                    ;
-
-                    var lowerSlider = document.querySelector('#lower');
-                    var upperSlider = document.querySelector('#upper');
-
-                    document.querySelector('#two').value = upperSlider.value;
-                    document.querySelector('#one').value = lowerSlider.value;
-
-                    var lowerVal = parseInt(lowerSlider.value);
-                    var upperVal = parseInt(upperSlider.value);
-
-                    upperSlider.oninput = function () {
+                document.getElementById("sortprice").onchange = function () {
+                this.form.submit();
+                };
+                        document.getElementById("sortname").onchange = function () {
+                this.form.submit();
+                }
+                ;
+                        var lowerSlider = document.querySelector('#lower');
+                        var upperSlider = document.querySelector('#upper');
+                        document.querySelector('#two').value = upperSlider.value;
+                        document.querySelector('#one').value = lowerSlider.value;
+                        var lowerVal = parseInt(lowerSlider.value);
+                        var upperVal = parseInt(upperSlider.value);
+                        upperSlider.oninput = function () {
                         lowerVal = parseInt(lowerSlider.value);
-                        upperVal = parseInt(upperSlider.value);
-
-                        if (upperVal < lowerVal + 4) {
-                            lowerSlider.value = upperVal - 4;
-                            if (lowerVal === lowerSlider.min) {
-                                upperSlider.value = 4;
-                            }
+                                upperVal = parseInt(upperSlider.value);
+                                if (upperVal < lowerVal + 4) {
+                        lowerSlider.value = upperVal - 4;
+                                if (lowerVal === lowerSlider.min) {
+                        upperSlider.value = 4;
+                        }
                         }
                         document.querySelector('#two').value = this.value;
-                    };
-
-                    lowerSlider.oninput = function () {
+                        };
+                        lowerSlider.oninput = function () {
                         lowerVal = parseInt(lowerSlider.value);
-                        upperVal = parseInt(upperSlider.value);
-                        if (lowerVal > upperVal - 4) {
-                            upperSlider.value = lowerVal + 4;
-                            if (upperVal === upperSlider.max) {
-                                lowerSlider.value = parseInt(upperSlider.max) - 4;
-                            }
+                                upperVal = parseInt(upperSlider.value);
+                                if (lowerVal > upperVal - 4) {
+                        upperSlider.value = lowerVal + 4;
+                                if (upperVal === upperSlider.max) {
+                        lowerSlider.value = parseInt(upperSlider.max) - 4;
+                        }
                         }
                         document.querySelector('#one').value = this.value;
-                    }
-                    ;
-
-
-
+                        }
+                ;
             </script>
-<script>
-    // JavaScript for width range sliders
-    var widthLowerSlider = document.querySelector('#widthLower');
-    var widthUpperSlider = document.querySelector('#widthUpper');
-
-    // JavaScript for height range sliders
-    var heightLowerSlider = document.querySelector('#heightLower');
-    var heightUpperSlider = document.querySelector('#heightUpper');
-
-    // Initialize width inputs
-    document.querySelector('#minWidth').value = widthLowerSlider.value;
-    document.querySelector('#maxWidth').value = widthUpperSlider.value;
-
-    // Initialize height inputs
-    document.querySelector('#minHeight').value = heightLowerSlider.value;
-    document.querySelector('#maxHeight').value = heightUpperSlider.value;
-
-    // Add event listeners for width sliders
-    widthLowerSlider.oninput = function () {
-         lowerVal = parseInt(lowerSlider.value);
-                        upperVal = parseInt(upperSlider.value);
-                        if (lowerVal > upperVal - 4) {
-                            upperSlider.value = lowerVal + 4;
-                            if (upperVal === upperSlider.max) {
-                                lowerSlider.value = parseInt(upperSlider.max) - 4;
-                            }
+            <script>
+                        // JavaScript for width range sliders
+                        var widthLowerSlider = document.querySelector('#widthLower');
+                        var widthUpperSlider = document.querySelector('#widthUpper');
+                        // JavaScript for height range sliders
+                        var heightLowerSlider = document.querySelector('#heightLower');
+                        var heightUpperSlider = document.querySelector('#heightUpper');
+                        // Initialize width inputs
+                        document.querySelector('#minWidth').value = widthLowerSlider.value;
+                        document.querySelector('#maxWidth').value = widthUpperSlider.value;
+                        // Initialize height inputs
+                        document.querySelector('#minHeight').value = heightLowerSlider.value;
+                        document.querySelector('#maxHeight').value = heightUpperSlider.value;
+                        // Add event listeners for width sliders
+                        widthLowerSlider.oninput = function () {
+                        lowerVal = parseInt(lowerSlider.value);
+                                upperVal = parseInt(upperSlider.value);
+                                if (lowerVal > upperVal - 4) {
+                        upperSlider.value = lowerVal + 4;
+                                if (upperVal === upperSlider.max) {
+                        lowerSlider.value = parseInt(upperSlider.max) - 4;
+                        }
                         }
                         document.querySelector('#minWidth').value = this.value;
-    };
-
-    widthUpperSlider.oninput = function () {
-        lowerVal = parseInt(lowerSlider.value);
-                        upperVal = parseInt(upperSlider.value);
-
-                        if (upperVal < lowerVal + 4) {
-                            lowerSlider.value = upperVal - 4;
-                            if (lowerVal === lowerSlider.min) {
-                                upperSlider.value = 4;
-                            }
+                        };
+                        widthUpperSlider.oninput = function () {
+                        lowerVal = parseInt(lowerSlider.value);
+                                upperVal = parseInt(upperSlider.value);
+                                if (upperVal < lowerVal + 4) {
+                        lowerSlider.value = upperVal - 4;
+                                if (lowerVal === lowerSlider.min) {
+                        upperSlider.value = 4;
+                        }
                         }
                         document.querySelector('#maxWidth').value = this.value;
-    };
-
-    // Add event listeners for height sliders
-    heightLowerSlider.oninput = function () {
-         lowerVal = parseInt(lowerSlider.value);
-                        upperVal = parseInt(upperSlider.value);
-                        if (lowerVal > upperVal - 4) {
-                            upperSlider.value = lowerVal + 4;
-                            if (upperVal === upperSlider.max) {
-                                lowerSlider.value = parseInt(upperSlider.max) - 4;
-                            }
+                        };
+                        // Add event listeners for height sliders
+                        heightLowerSlider.oninput = function () {
+                        lowerVal = parseInt(lowerSlider.value);
+                                upperVal = parseInt(upperSlider.value);
+                                if (lowerVal > upperVal - 4) {
+                        upperSlider.value = lowerVal + 4;
+                                if (upperVal === upperSlider.max) {
+                        lowerSlider.value = parseInt(upperSlider.max) - 4;
+                        }
                         }
                         document.querySelector('#minHeight').value = this.value;
-    };
-
-    heightUpperSlider.oninput = function () {
-            lowerVal = parseInt(lowerSlider.value);
-                        upperVal = parseInt(upperSlider.value);
-
-                        if (upperVal < lowerVal + 4) {
-                            lowerSlider.value = upperVal - 4;
-                            if (lowerVal === lowerSlider.min) {
-                                upperSlider.value = 4;
-                            }
+                        };
+                        heightUpperSlider.oninput = function () {
+                        lowerVal = parseInt(lowerSlider.value);
+                                upperVal = parseInt(upperSlider.value);
+                                if (upperVal < lowerVal + 4) {
+                        lowerSlider.value = upperVal - 4;
+                                if (lowerVal === lowerSlider.min) {
+                        upperSlider.value = 4;
+                        }
                         }
                         document.querySelector('#maxHeight').value = this.value;
-    };
-</script>
+                        };
+            </script>
             <%@include file="template/footer.jsp" %>        
