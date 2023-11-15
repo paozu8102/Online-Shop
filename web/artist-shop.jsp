@@ -697,47 +697,6 @@
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto">
 
-<<<<<<< HEAD
-                <c:if test="${sessionScope.acc.roleID==null}">
-    <li class="nav-item active"><a href="home" class="nav-link">Home</a></li>
-
-    <li class="nav-item"><a href="shop" class="nav-link">Shop</a></li>
-
-    <li class="nav-item"><a href="Posts" class="nav-link">Post</a></li>
-
-    <li class="nav-item"><a href="login" class="nav-link">Sign In</a></li>
-
-</c:if>
-<c:if test="${sessionScope.acc.roleID==3}">
-    <li class="nav-item active"><a href="home" class="nav-link">Home</a></li>
-
-    <li class="nav-item"><a href="shop" class="nav-link">Shop</a></li>
-
-
-    <li class="nav-item"><a href="Posts" class="nav-link">Post</a></li>
-
-    <li class="nav-item"><a href="UserProfile" class="nav-link">Profile</a></li>
-    <li class="nav-item"><a href="myorder" class="nav-link">My Order</a></li>
-    <li class="nav-item"><a href="logout" class="nav-link">Sign Out</a></li> 
-
-</c:if>
-
-<li class="nav-item cta cta-colored"><a href="cart" class="nav-link"><span class="icon-shopping_cart"></span>[${cartlist.size()}]</a></li>
-</ul>
-</div>
-</div>
-</nav>
-<!-- END nav -->
-
-<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-            <div class="col-md-9 ftco-animate text-center">
-                <p class="breadcrumbs">
-                    <span class="mr-2"></span> <span>Artist</span>
-                </p>
-                <h1 class="mb-0 bread">Products</h1>
-=======
                         <c:if test="${sessionScope.acc.roleID==null}">
                             <li class="nav-item active"><a href="home" class="nav-link">Home</a></li>
 
@@ -779,7 +738,6 @@
                         <h1 class="mb-0 bread">Products</h1>
                     </div>
                 </div>
->>>>>>> b5f872111d249d0e92021abb0396d27b62583d05
             </div>
         </div>
         <div class="shop-info-wrapper">
