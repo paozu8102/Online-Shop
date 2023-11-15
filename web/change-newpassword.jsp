@@ -111,7 +111,7 @@
         const confirmPassword = document.getElementById('form3Example3c').value;
 
         // Check if the password has at least 8 characters
-        if (newPassword.length < 8 {
+        if (newPassword.length < 8) {
             // Display an error message in the modal
             displayNotification('Password must have at least 8 characters.');
             return;
