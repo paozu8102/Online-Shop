@@ -174,7 +174,7 @@
                         <!-- ============================================================== -->
                         <!-- Logo -->
                         <!-- ============================================================== -->
-                        <a class="navbar-brand" href="statistic" style="text-decoration: none; font-size: 19px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Admin Dashboard</a>
+                        <a class="navbar-brand" href="admin" style="text-decoration: none; font-size: 19px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Admin Dashboard</a>
                         <!-- ============================================================== -->
                         <!-- End Logo -->
                         <!-- ============================================================== -->

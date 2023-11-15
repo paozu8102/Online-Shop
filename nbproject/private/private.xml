@@ -6,6 +6,7 @@
             <file>file:/C:/Users/admin/Documents/master2/web/customer-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/change-user-password.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/signupforsaler.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/UserProfileController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/DashboardController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/AddProduct.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ManageOrder.java</file>
@@ -24,11 +25,13 @@
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/SearchCustomer.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/setting-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/template/header.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/template/footer.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/user-profile.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/active-product.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/MyOrderServlet.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/post-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/CustomerController.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/DBcontext/Capcha.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/EditProduct.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/dashboard.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/HomeController.java</file>
@@ -44,11 +47,14 @@
             <file>file:/C:/Users/admin/Documents/master2/web/blog.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/product-single.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/web/template/footerJS.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/signup.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ShopController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/PostController.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/PostSingleController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/shop.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/DAO/ProductDAO.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/CheckoutController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/edit-product.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/DBcontext/DBContext.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/post-create.jsp</file>

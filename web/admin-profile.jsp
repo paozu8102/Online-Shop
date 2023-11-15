@@ -56,7 +56,7 @@
                         <!-- ============================================================== -->
                         <!-- Logo -->
                         <!-- ============================================================== -->
-                        <a class="navbar-brand" href="dashboard.jsp" style="text-decoration: none; font-size: 24px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Admin Dashboard</a>
+                        <a class="navbar-brand" href="admin" style="text-decoration: none; font-size: 24px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Admin Dashboard</a>
                         <!-- ============================================================== -->
                         <!-- End Logo -->
                         <!-- ============================================================== -->

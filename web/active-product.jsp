@@ -553,7 +553,7 @@
                         <!-- ============================================================== -->
                         <!-- Logo -->
                         <!-- ============================================================== -->
-                        <a class="navbar-brand" href="saler-dashboard.jsp" style="text-decoration: none; font-size: 19px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
+                        <a class="navbar-brand" href="statistic" style="text-decoration: none; font-size: 19px; font-weight: bold; color: #333; font-family: Arial, sans-serif;">Saler Dashboard</a>
                         <!-- ============================================================== -->
                         <!-- End Logo -->
                         <!-- ============================================================== -->

@@ -232,7 +232,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="order-management.jsp" aria-expanded="false">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="manageorder" aria-expanded="false">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <span class="hide-menu">Order Management</span>
                                 </a>
