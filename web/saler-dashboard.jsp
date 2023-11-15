@@ -152,7 +152,7 @@
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <span class="hide-menu">Order Management</span>
                                 </a>
-                             <li class="sidebar-item">
+                            <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="customercontrol" aria-expanded="false">
                                     <i class="fa fa-table"" aria-hidden="true"></i>
                                     <span class="hide-menu">Customer Management</span>
@@ -243,17 +243,6 @@
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                             <div class="white-box">
                                 <h3 class="box-title">Order Statistic</h3>
-                                <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
-                                    <form id="filter" action="statistic">
-                                        <select class="form-select shadow-none row border-top" name="filter" onchange="submit()">
-                                           
-                                            <option value="1" ${filter eq '1' ? 'selected' : ''}>1 Month</option>
-                                            <option value="2" ${filter eq '2' ? 'selected' : ''}>3 Month</option>
-                                            <option value="3" ${filter eq '3' ? 'selected' : ''}>6 Month</option>
-                                            <option value="4" ${filter eq '4' ? 'selected' : ''}>1 Year</option>
-                                        </select>
-                                    </form> 
-                                </div>
                                 <div>
                                     <canvas id="barChart"></canvas>
                                 </div>
@@ -266,15 +255,23 @@
 
 
                                 <script>
+                                    var data1 = []; // For X-axis values
+                                    var data2 = []; // For Y-axis values
+
+                                    <c:forEach items="${listOrder}" var="a">
+                                    data1.push("${a.key}"); // Assuming "a.key" represents X-axis values
+                                    data2.push(${a.value}); // Assuming "a.value" represents Y-axis values
+                                    </c:forEach>
+
                                     const ctx = document.getElementById('barChart');
 
                                     new Chart(ctx, {
                                         type: 'bar',
                                         data: {
-                                            labels: ${listTotal.keySet()},
+                                            labels: data1,
                                             datasets: [{
                                                     label: 'Number of Orders',
-                                                    data: ${listTotal.values()},
+                                                    data: data2,
                                                     borderWidth: 1
                                                 }]
                                         },
@@ -287,10 +284,11 @@
                                         }
                                     });
                                 </script>
+
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- ============================================================== -->
                     <!-- RECENT SALES -->
                     <!-- ============================================================== -->
@@ -301,7 +299,7 @@
                                 <div class="col-md-3 col-sm-4 col-xs-6 ms-auto">
                                     <form  id="revenue" action="statistic">
                                         <select class="form-select shadow-none row border-top" name="revenue" onchange="submit()">
-                                           
+
                                             <option value="1" ${revenue eq '1' ? 'selected' : ''}>1 Month</option>
                                             <option value="2" ${revenue eq '2' ? 'selected' : ''}>3 Month</option>
                                             <option value="3" ${revenue eq '3' ? 'selected' : ''}>6 Month</option>
@@ -319,29 +317,29 @@
                                     }
                                 </script>
                                 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const ctx = document.getElementById('arChart');
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const ctx = document.getElementById('arChart');
 
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ${listTotalRevenue.keySet()},
-                datasets: [{
-                    label: 'Revenue Statistical',
-                    data: ${listTotalRevenue.values()},
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    });
-</script>
+                                        new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                labels: ${listTotalRevenue.keySet()},
+                                                datasets: [{
+                                                        label: 'Revenue Statistical',
+                                                        data: ${listTotalRevenue.values()},
+                                                        borderWidth: 1
+                                                    }]
+                                            },
+                                            options: {
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    });
+                                </script>
 
                             </div>
                         </div>
