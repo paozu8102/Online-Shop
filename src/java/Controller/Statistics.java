@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -81,26 +82,15 @@ public class Statistics extends HttpServlet {
         List<Order> list;
         List<Product> listP;
         List<Comment> listM;
-        String filter = request.getParameter("filter");
-        if (filter == null || filter.isEmpty() || filter.equals("1")) {
-            listTotal = orderDAO.getTotalOrderByMonth();
-        } else if (filter.equals("2")) {
-            listTotal = orderDAO.getTotalOrderBy3Month();
-        } else if (filter.equals("3")) {
-            listTotal = orderDAO.getTotalOrderBy6Month();
-        } else if (filter.equals("4")) {
-            listTotal = orderDAO.getTotalOrderByYear();
+         LinkedHashMap<String, Integer> listOrder = new LinkedHashMap<>();
+       LocalDate currentDate = LocalDate.now();
+        
+        // Lấy tháng từ ngày hiện tại
+        int currentMonth = currentDate.getMonthValue();
+        for (int i = 4; i >= 0; i--) {
+            listOrder.put("Month " + (currentMonth - i), orderDAO.getOrderbyMonth(currentMonth-i, u.getUserID()));
         }
-        String revenue = request.getParameter("revenue");
-        if (revenue == null || revenue.isEmpty() || revenue.equals("1")) {
-            listTotalRevenue = orderDAO.getTotalPriceByMonth();
-        } else if (revenue.equals("2")) {
-            listTotalRevenue = orderDAO.getTotalPriceBy3Months(u.getUserID());
-        } else if (revenue.equals("3")) {
-            listTotalRevenue = orderDAO.getTotalPriceBy6Months();
-        } else if (revenue.equals("4")) {
-            listTotalRevenue = orderDAO.getTotalPriceByYear();
-        }
+        
         
         listM= cM.getAllCommentPrd();
         listP = c.getAllProductNoIndex(u.getUserID());
@@ -113,12 +103,10 @@ public class Statistics extends HttpServlet {
         request.setAttribute("listCountAccount", listCountAccount);
         request.setAttribute("listCountAccount", listCountAccount);
         request.setAttribute("listTotal", listTotal);
-        request.setAttribute("filter", filter);
         request.setAttribute("totalR", totalprice);
         request.setAttribute("totalO", totalorder);
         request.setAttribute("totalP", total);
         request.setAttribute("listP", listP);
-        request.setAttribute("revenue", revenue);
         request.setAttribute("listTotalRevenue", listTotalRevenue);
         request.getRequestDispatcher("saler-dashboard.jsp").forward(request, response);
     }

@@ -51,6 +51,29 @@ public class OrderDAO extends DBContext {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
+    public int getOrderbyMonth(int month, int userID){
+    int totalOrders = 0;
+    String sql =  "SELECT COUNT(*) AS total_orders FROM OrderDetail " +
+                 "INNER JOIN Product ON OrderDetail.ProductID = Product.ProductID " +
+                 "INNER JOIN Orders ON OrderDetail.OrderID = Orders.OrderID " +
+                 "WHERE MONTH(Orders.OrderDate) = ? AND Product.UserID = ? ";
+     try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setString(1,month + "");
+            st.setInt(2, userID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                totalOrders = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+        return totalOrders;
+}
  public void setOrderDelDate(String id) {
         LocalDateTime curDate = LocalDateTime.now();
         String date = curDate.toString();
