@@ -43,7 +43,7 @@ public class DAO extends DBContext {
     public Account getAccount(String email, String pass) {
         String sql = "SELECT [Email]\n"
                 + "      ,[Password]\n"
-                + "      ,[RoleID]\n"
+                + "      ,[RoleID], Status\n"
                 + "  FROM [dbo].[Account]\n"
                 + "  where Email = ? and  [Password] = ?";
         try {
@@ -54,7 +54,9 @@ public class DAO extends DBContext {
             if (rs.next()) {
                 return new Account(rs.getString("Email"),
                         rs.getString("Password"),
+                        rs.getInt("Status"),
                         rs.getInt("RoleID"));
+                
             }
         } catch (SQLException e) {
             // Handle SQL exception

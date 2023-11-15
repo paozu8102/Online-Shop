@@ -84,12 +84,18 @@ public class LoginController extends HttpServlet {
         Account c = ad.getAccount(e, p);
         int userID = ud.cusAccountExist(e, p);
         try {
-                   if (c == null) {
+            
+                  if (c == null) {
             request.setAttribute("mess", "Wrong user name or password!");
             String er = "username: " + e + " and password: " + p + " don't exsited!";
             request.setAttribute("error", er);
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else {
+        }else if(c.getStatus()== 0){
+                request.setAttribute("mess", "Your Account have been banned");
+            String er = "Please contact us for get more infomation";
+            request.setAttribute("error", er);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
             HttpSession session = request.getSession(true);
             User user = (new UserDAO()).getUser(userID);
             session.setAttribute("user", user);

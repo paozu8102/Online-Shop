@@ -9,7 +9,11 @@
         <!-- Font Icon -->
         <link rel="stylesheet"
               href="fonts/material-icon/css/material-design-iconic-font.min.css">
-
+ <style>
+        .text-danger {
+            color: red;
+        }
+    </style>
         <!-- Main css -->
         <link rel="stylesheet" href="css2/style.css">
     </head>
