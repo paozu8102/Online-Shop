@@ -45,6 +45,7 @@ public class ChangeOrderStatus extends HttpServlet {
                 break;
             case "completed":
                 statusOrder = "completed";
+                dao.setOrderDelDate(id);
                 break;
             default:
                 statusOrder = "cancel";

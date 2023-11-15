@@ -51,7 +51,29 @@ public class OrderDAO extends DBContext {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
         }
     }
+ public void setOrderDelDate(String id) {
+        LocalDateTime curDate = LocalDateTime.now();
+        String date = curDate.toString();
 
+         String sql = "UPDATE OrderDetail\n"
+                + "SET DelDate = ?\n"
+                + "WHERE DetailID = ?;";
+
+        try {
+            PreparedStatement st = getConnection().prepareStatement(sql);
+            st.setString(1, date);
+            st.setString(2, id);
+         
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            // Handle SQL exception
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "SQL Exception", e);
+        } catch (Exception e) {
+            // Handle other exceptions
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Exception", e);
+        }
+    }
 //get total my order minhHC
     public int getTotalMyOrder(int cid) {
         String sql = "SELECT COUNT(*) \n"

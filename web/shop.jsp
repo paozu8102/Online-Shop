@@ -33,8 +33,8 @@
 
             // Execute this function when navigating to other pages
             function navigateToOtherPage() {
-            // Save the current scroll position before navigating
-            saveScrollPosition();
+                // Save the current scroll position before navigating
+                saveScrollPosition();
         </script>
         <style>
             body {
@@ -508,25 +508,25 @@
     <body class="goto-here">
         <button onclick="topFunction()" id="myBtn" title="Go to top">&#8679;</button>
         <script>
-                    //from 91-107 ThanhNX
-                    let mybutton = document.getElementById("myBtn");
-                    // When the user scrolls down 20px from the top of the document, show the button
-                    window.onscroll = function () {
+                //from 91-107 ThanhNX
+                let mybutton = document.getElementById("myBtn");
+                // When the user scrolls down 20px from the top of the document, show the button
+                window.onscroll = function () {
                     scrollFunction()
-                    };
-                    function scrollFunction() {
+                };
+                function scrollFunction() {
                     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                    mybutton.style.display = "block";
+                        mybutton.style.display = "block";
                     } else {
-                    mybutton.style.display = "none";
+                        mybutton.style.display = "none";
                     }
-                    }
+                }
 
-            // When the user clicks on the button, scroll to the top of the document
-            function topFunction() {
-            document.body.scrollTop = 0;
+                // When the user clicks on the button, scroll to the top of the document
+                function topFunction() {
+                    document.body.scrollTop = 0;
                     document.documentElement.scrollTop = 0;
-            }
+                }
         </script>
         <div class="py-1 bg-primary">
             <div class="container">
@@ -608,7 +608,7 @@
                     <div class="col-md-10 col-lg-12 mb-5 text-center">
                         <ul class="product-category">
                             <li>
-                                <a href="shop" class="${param.promat == null ? 'active' : ''}">All</a>
+                                <a href="shop" class="${param.promat != 0 ? '' : 'active'}">All</a>
                             </li>
                             <c:forEach items="${listC}" var="c">
                                 <li>
@@ -857,101 +857,94 @@
         <footer class="ftco-footer ftco-section">
             <script>
 
-                document.getElementById("sortprice").onchange = function () {
-                this.form.submit();
-                };
-                        document.getElementById("sortname").onchange = function () {
-                this.form.submit();
-                }
-                ;
-                        var lowerSlider = document.querySelector('#lower');
-                        var upperSlider = document.querySelector('#upper');
-                        document.querySelector('#two').value = upperSlider.value;
-                        document.querySelector('#one').value = lowerSlider.value;
-                        var lowerVal = parseInt(lowerSlider.value);
-                        var upperVal = parseInt(upperSlider.value);
-                        upperSlider.oninput = function () {
-                        lowerVal = parseInt(lowerSlider.value);
-                                upperVal = parseInt(upperSlider.value);
-                                if (upperVal < lowerVal + 4) {
-                        lowerSlider.value = upperVal - 4;
-                                if (lowerVal === lowerSlider.min) {
-                        upperSlider.value = 4;
-                        }
-                        }
-                        document.querySelector('#two').value = this.value;
-                        };
-                        lowerSlider.oninput = function () {
-                        lowerVal = parseInt(lowerSlider.value);
-                                upperVal = parseInt(upperSlider.value);
-                                if (lowerVal > upperVal - 4) {
-                        upperSlider.value = lowerVal + 4;
-                                if (upperVal === upperSlider.max) {
-                        lowerSlider.value = parseInt(upperSlider.max) - 4;
-                        }
-                        }
-                        document.querySelector('#one').value = this.value;
-                        }
-                ;
+                    document.getElementById("sortprice").onchange = function () {
+                        this.form.submit();
+                    };
+                    document.getElementById("sortname").onchange = function () {
+                        this.form.submit();
+                    }
+                    ;
+              var lowerSlider = document.querySelector('#lower');
+var upperSlider = document.querySelector('#upper');
+var lowerInput = document.querySelector('#one');
+var upperInput = document.querySelector('#two');
+
+// Initialize input values
+lowerInput.value = lowerSlider.value;
+upperInput.value = upperSlider.value;
+
+lowerSlider.oninput = function () {
+    // Ensure upper value is greater than lower value
+    if (parseInt(this.value) > parseInt(upperSlider.value)) {
+        upperSlider.value = this.value;
+        upperInput.value = this.value;
+    }
+    lowerInput.value = this.value;
+};
+
+upperSlider.oninput = function () {
+    // Ensure lower value is less than upper value
+    if (parseInt(this.value) < parseInt(lowerSlider.value)) {
+        lowerSlider.value = this.value;
+        lowerInput.value = this.value;
+    }
+    upperInput.value = this.value;
+};
+
+
             </script>
+
+
             <script>
-                        // JavaScript for width range sliders
-                        var widthLowerSlider = document.querySelector('#widthLower');
-                        var widthUpperSlider = document.querySelector('#widthUpper');
-                        // JavaScript for height range sliders
-                        var heightLowerSlider = document.querySelector('#heightLower');
-                        var heightUpperSlider = document.querySelector('#heightUpper');
-                        // Initialize width inputs
-                        document.querySelector('#minWidth').value = widthLowerSlider.value;
-                        document.querySelector('#maxWidth').value = widthUpperSlider.value;
-                        // Initialize height inputs
-                        document.querySelector('#minHeight').value = heightLowerSlider.value;
-                        document.querySelector('#maxHeight').value = heightUpperSlider.value;
-                        // Add event listeners for width sliders
-                        widthLowerSlider.oninput = function () {
-                        lowerVal = parseInt(lowerSlider.value);
-                                upperVal = parseInt(upperSlider.value);
-                                if (lowerVal > upperVal - 4) {
-                        upperSlider.value = lowerVal + 4;
-                                if (upperVal === upperSlider.max) {
-                        lowerSlider.value = parseInt(upperSlider.max) - 4;
-                        }
-                        }
-                        document.querySelector('#minWidth').value = this.value;
-                        };
-                        widthUpperSlider.oninput = function () {
-                        lowerVal = parseInt(lowerSlider.value);
-                                upperVal = parseInt(upperSlider.value);
-                                if (upperVal < lowerVal + 4) {
-                        lowerSlider.value = upperVal - 4;
-                                if (lowerVal === lowerSlider.min) {
-                        upperSlider.value = 4;
-                        }
-                        }
-                        document.querySelector('#maxWidth').value = this.value;
-                        };
-                        // Add event listeners for height sliders
-                        heightLowerSlider.oninput = function () {
-                        lowerVal = parseInt(lowerSlider.value);
-                                upperVal = parseInt(upperSlider.value);
-                                if (lowerVal > upperVal - 4) {
-                        upperSlider.value = lowerVal + 4;
-                                if (upperVal === upperSlider.max) {
-                        lowerSlider.value = parseInt(upperSlider.max) - 4;
-                        }
-                        }
-                        document.querySelector('#minHeight').value = this.value;
-                        };
-                        heightUpperSlider.oninput = function () {
-                        lowerVal = parseInt(lowerSlider.value);
-                                upperVal = parseInt(upperSlider.value);
-                                if (upperVal < lowerVal + 4) {
-                        lowerSlider.value = upperVal - 4;
-                                if (lowerVal === lowerSlider.min) {
-                        upperSlider.value = 4;
-                        }
-                        }
-                        document.querySelector('#maxHeight').value = this.value;
-                        };
+                  // Width sliders
+var widthLowerSlider = document.querySelector('#widthLower');
+var widthUpperSlider = document.querySelector('#widthUpper');
+var minWidthInput = document.querySelector('#minWidth');
+var maxWidthInput = document.querySelector('#maxWidth');
+
+minWidthInput.value = widthLowerSlider.value;
+maxWidthInput.value = widthUpperSlider.value;
+
+widthLowerSlider.oninput = function () {
+    if (parseInt(this.value) > parseInt(widthUpperSlider.value)) {
+        widthUpperSlider.value = this.value;
+        maxWidthInput.value = this.value;
+    }
+    minWidthInput.value = this.value;
+};
+
+widthUpperSlider.oninput = function () {
+    if (parseInt(this.value) < parseInt(widthLowerSlider.value)) {
+        widthLowerSlider.value = this.value;
+        minWidthInput.value = this.value;
+    }
+    maxWidthInput.value = this.value;
+};
+
+// Height sliders
+var heightLowerSlider = document.querySelector('#heightLower');
+var heightUpperSlider = document.querySelector('#heightUpper');
+var minHeightInput = document.querySelector('#minHeight');
+var maxHeightInput = document.querySelector('#maxHeight');
+
+minHeightInput.value = heightLowerSlider.value;
+maxHeightInput.value = heightUpperSlider.value;
+
+heightLowerSlider.oninput = function () {
+    if (parseInt(this.value) > parseInt(heightUpperSlider.value)) {
+        heightUpperSlider.value = this.value;
+        maxHeightInput.value = this.value;
+    }
+    minHeightInput.value = this.value;
+};
+
+heightUpperSlider.oninput = function () {
+    if (parseInt(this.value) < parseInt(heightLowerSlider.value)) {
+        heightLowerSlider.value = this.value;
+        minHeightInput.value = this.value;
+    }
+    maxHeightInput.value = this.value;
+};
+
             </script>
             <%@include file="template/footer.jsp" %>        

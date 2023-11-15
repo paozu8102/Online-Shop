@@ -123,7 +123,7 @@ public class ProductDAO extends DBContext {
     //get 8 latest product in DB: ThanhNX
     public ArrayList<Product> getLatestProduct() {
         ArrayList<Product> homeProduct = new ArrayList<>();
-        String command = "SELECT TOP 8 * FROM Product";
+        String command = "SELECT TOP 8 * FROM Product WHERE Status = 1";
         try {
             PreparedStatement ps = getConnection().prepareStatement(command);
             ResultSet rs = ps.executeQuery();
@@ -1337,7 +1337,7 @@ public class ProductDAO extends DBContext {
     //HoangNH
     //get total product DucLV
     public int getTotalProduct() {
-        String sql = "select count(*) from Product";
+        String sql = "select count(*) from Product where status =1";
         try {
             PreparedStatement st = getConnection().prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -1486,6 +1486,7 @@ public class ProductDAO extends DBContext {
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
                 + "    AND RC.CategoryRank = 1\n"
+                + "AND P.Status = 1\n"
                 + "ORDER BY P.ProductID\n"
                 + "OFFSET ? ROWS \n"
                 + "FETCH NEXT 15 ROWS ONLY";
@@ -1859,6 +1860,7 @@ public class ProductDAO extends DBContext {
                 + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
+                 + "AND P.Status = 1\n"
                 + "    AND RC.CategoryRank = 1\n"
                 + "    AND P.ProductName LIKE ?";
 
@@ -1941,6 +1943,7 @@ public class ProductDAO extends DBContext {
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
                 + "    AND RC.CategoryRank = 1\n"
+                 + "AND P.Status = 1\n"
                 + "ORDER BY P.Price ASC  -- Sort by Price in ascending order";
 
         try {
@@ -2023,6 +2026,7 @@ public class ProductDAO extends DBContext {
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
                 + "    AND RC.CategoryRank = 1\n"
+                 + "AND P.Status = 1\n"
                 + "ORDER BY P.Price Desc  -- Sort by Price in ascending order";
 
         try {
@@ -2105,6 +2109,7 @@ public class ProductDAO extends DBContext {
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
                 + "    AND RC.CategoryRank = 1\n"
+                 + "AND P.Status = 1\n"
                 + "ORDER BY P.ProductName ASC  -- Sort by ProductName in ascending order;";
 
         try {
@@ -2187,6 +2192,7 @@ public class ProductDAO extends DBContext {
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
                 + "    AND RC.CategoryRank = 1\n"
+                 + "AND P.Status = 1\n"
                 + "ORDER BY P.ProductName Desc  -- Sort by ProductName in ascending order;";
 
         try {
@@ -2352,6 +2358,7 @@ public class ProductDAO extends DBContext {
                 + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
+                 + "AND P.Status = 1\n"
                 + "	AND RC.CategoryID = ?;";
 
         try {
@@ -2434,6 +2441,7 @@ public class ProductDAO extends DBContext {
                 + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
+                 + "AND P.Status = 1\n"
                 + "	AND RC.CategoryID = ?;";
 
         try {
@@ -2516,6 +2524,7 @@ public class ProductDAO extends DBContext {
                 + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
+                 + "AND P.Status = 1\n"
                 + "    AND RC.CategoryRank = 1\n AND P.Discount > ?\n"
                 + "    AND P.Discount <= ?;";
 
@@ -2599,6 +2608,7 @@ public class ProductDAO extends DBContext {
                 + "    RankedCategories AS RC ON P.ProductID = RC.ProductID\n"
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
+                 + "AND P.Status = 1\n"
                 + "    AND RC.CategoryRank = 1\n AND P.Price >= ?\n"
                 + "    AND P.Price <= ?;";
 
@@ -2683,6 +2693,7 @@ public class ProductDAO extends DBContext {
                 + "WHERE\n"
                 + "    R.ImageRank = 1\n"
                 + "    AND RC.CategoryRank = 1\n AND P.Width >= ?\n"
+                 + "AND P.Status = 1\n"
                 + "    AND P.Width <= ?  AND P.Height >= ?\n"
                 + "    AND P.Height <= ?;";
 
@@ -2989,6 +3000,7 @@ public class ProductDAO extends DBContext {
                     ") AS od ON P.ProductID = od.ProductID\n" +
                     "WHERE\n" +
                     "    R.ImageRank = 1\n" +
+                      "AND P.Status = 1\n" +
                     "    AND RC.CategoryRank = 1\n";
 
             // Add other filtering conditions based on your parameters

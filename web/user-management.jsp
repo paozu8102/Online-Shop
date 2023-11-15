@@ -387,10 +387,11 @@
 
                                         </tr>
                                         </thead>
-
+                                       
+ <c:forEach items="${listU}" var="o" varStatus="loop" >
                                         <tbody>
-                                                 <c:forEach items="${listU}" var="o">
-                                        <form action="userstatus" method="post">
+                                                
+                                       <form id="userStatusForm${loop.index}" action="userstatus" method="post">
                                             <tr class="text-center">
                                             <input type="hidden" name="email" value="${o.email}">
                                             <input type="hidden" name="status" value="${o.status}">
@@ -410,21 +411,25 @@
                                                 </a>
 
 
-                                                <button type="submit" style="background-color: white !important; color: ${o.status == 0 ? 'green' : 'red'} !important;">
-                                                    ${o.status == 0 ? 'Active' : 'Block'}
-                                                </button>
-
+                                                <c:if test="${o.roleID ne 1}">
+                <!-- Add a confirmation dialog before form submission -->
+               <button type="button" style="background-color: white !important; color: ${o.status == 0 ? 'green' : 'red'} !important;" onclick="confirmUserStatus(${loop.index})">
+                    ${o.status == 0 ? 'Active' : 'Block'}
+                </button>
+            </c:if>
 
                                             </td>
 
 
                                             </tr>
-                                        </form>
+                                       
 
+ </form>
 
-
-                                    </c:forEach>
+                                    
                                         </tbody>
+                                        </c:forEach>
+                                        
                                     </table>
                                 </div>
 
@@ -682,6 +687,11 @@ if (gender === 1) {
             $('#Active').prop('checked', false);
             $('#Blocked').prop('checked', true);
         }
+         if (role === 'Admin') {
+            $('#editUser input[type="submit"]').hide();
+        } else {
+            $('#editUser input[type="submit"]').show();
+        }
     });
 </script>
 
@@ -716,11 +726,16 @@ $('#addUser').on('hidden.bs.modal', function () {
                     this.form.submit();
                 };
             </script>
-        
-        
-        <script>
+            <script>
+                function confirmUserStatus(index) {
+                    var result = confirm("Are you sure you want to block/unblock this user?");
+                    if (result) {
+                        document.getElementById("userStatusForm" + index).submit();
+                    }
+                }
+            </script>
 
-               
+        <script>
 
                 document.getElementById("sortname").onchange = function () {
                     this.form.submit();

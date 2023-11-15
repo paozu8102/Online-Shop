@@ -37,6 +37,7 @@
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/HomeController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/user-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/change-newpassword.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ChangeUserStatus.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/myorder.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/order-management.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/admin-profile.jsp</file>
@@ -52,6 +53,7 @@
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ShopController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/PostController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/PostSingleController.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/DAO/accountDAO.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/shop.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/DAO/ProductDAO.java</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/CheckoutController.java</file>
@@ -61,6 +63,7 @@
             <file>file:/C:/Users/admin/Documents/master2/web/EditSlider.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/EditPost.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/term.jsp</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ArtistShopController.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/cart.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/ManageProduct.java</file>
@@ -69,6 +72,7 @@
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/SalerProfile.java</file>
             <file>file:/C:/Users/admin/Documents/master2/web/block-product.jsp</file>
             <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/Statistics.java</file>
+            <file>file:/C:/Users/admin/Documents/master2/src/java/Controller/SettingControl.java</file>
         </group>
     </open-files>
 </project-private>

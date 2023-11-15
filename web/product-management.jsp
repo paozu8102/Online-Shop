@@ -756,8 +756,8 @@
                                         </thead>
 
                                         <tbody>
-                                            <c:forEach items="${listP}" var="i">
-                                            <form action="productstatus" method="post">
+                                            <c:forEach items="${listP}" var="i" varStatus="loop" >
+                                            <form id="userStatusForm${loop.index}" action="productstatus" method="post">
                                                 <tr>
                                                 <input type="hidden" name="id" value="${i.productID}">
                                                 <input type="hidden" name="status" value="${i.status}">
@@ -777,7 +777,7 @@
                                                     </a>
 
 
-                                                    <button type="submit" style="background-color: white !important; color: ${i.status == 0 ? 'green' : 'red'} !important;">
+                                                    <button type="button" style="background-color: white !important; color: ${i.status == 0 ? 'green' : 'red'} !important;" onclick="confirmProductStatus(${loop.index})">
                                                         ${i.status == 0 ? 'Active' : 'Block'}
                                                     </button>
 
@@ -1049,6 +1049,16 @@
                 }
 
         </script>
+<script>
+    function confirmProductStatus(index) {
+        var result = confirm("Are you sure you want to block/unblock this Product?");
+        if (result) {
+            document.getElementById("userStatusForm" + index).submit();
+        } else {
+            return;
+        }
+    }
+</script>
 
         <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap tether Core JavaScript -->
