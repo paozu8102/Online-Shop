@@ -32,6 +32,10 @@
         <servlet-name>CreatePostServlet</servlet-name>
         <servlet-class>Controller.CreatePostController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <servlet-class>Controller.ProductFeedback</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ThanhServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -64,7 +68,10 @@
         <servlet-name>CreatePostServlet</servlet-name>
         <url-pattern>/PostCreate</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <url-pattern>/feedback</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

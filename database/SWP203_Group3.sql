@@ -1,4 +1,4 @@
-﻿
+﻿CREATE DATABASE SWP391_Group3
 GO
 USE SWP391_Group3;
 GO
@@ -92,9 +92,9 @@ FOREIGN KEY (UserID) REFERENCES [User](UserID),
 FOREIGN KEY (StatusID) REFERENCES PostStatus(StatusID)
 )
 
---change in the Post table 
-ALTER TABLE Post
-ADD PostType INT DEFAULT 0;
+------change in the Post table 
+----ALTER TABLE Post
+----ADD PostType INT DEFAULT 0;
 
 
 CREATE TABLE Product(
@@ -165,7 +165,8 @@ INSERT INTO [dbo].[ObjectType]
      VALUES ('Product Material'),
 		    ('Post'),
 			('Product Topic'),
-			('Slider');
+			('Slider'),
+			('Product');
 
 CREATE TABLE ProductCategory(
 ProductID INT NOT NULL ,
@@ -422,7 +423,12 @@ INSERT INTO [dbo].[Comment]
 			(2, 1, 2, N'Haizza, this pic is exactly what im looking for for life', '2023-09-10'),
 			(3, 1, 3, N'I love style of this pic, where have they been the whole time?', '2023-03-10'),
 			(4, 1, 4, N'Wow, this pic is amazing, look at this, you cant convince me this is truly art', '2023-04-14'),
-			(5, 1, 5, N'Thank you customer for supporting us the whole time. Your support is our motivation to be creative', '2023-05-05')
+			(5, 1, 5, N'Thank you customer for supporting us the whole time. Your support is our motivation to be creative', '2023-05-05'),
+			(10, 5, 5, N'This picture is amazing, i need the address', '2023-04-14'), 
+			(4, 5, 5, N'Where can i get one of this? It fit perfectly with my room', '2023-05-15'),
+			(3, 5, 5, N'What a masterpiece, i mean how can you make the color like that?', '2023-06-16'),
+			(2, 5, 5, N'Wow, aint no way this is from a amateur artist, is there an auction for this?', '2023-07-17'),
+			(5, 5, 5, N'PM me please, i want pictures like this, a lot, please create more', '2023-08-18')
 
 --change datatype of comment table
 ALTER TABLE Comment
@@ -629,7 +635,14 @@ INSERT INTO [dbo].[Comment]
 		   (4, (SELECT o.TypeID FROM ObjectType o WHERE o.TypeName = 'Post'),
 		   1, 'Ooh, so much helpful information', '2023-04-15', NULL),
 		   (5, (SELECT o.TypeID FROM ObjectType o WHERE o.TypeName = 'Post'),
-		   1, 'I want more post like this', '2023-04-16', NULL)
+		   1, 'I want more post like this', '2023-04-16', NULL),
+		   (1, 5, 5, 'Indeed this pic is amazing', '2023-04-24', 6),
+		   (2, 5, 5, 'hmm, i doubt about that, its not good enough for me', '2023-04-24', 6),
+		   (1, 5, 5, 'i think for an amateur artist, it is good', '2023-04-25', 6),
+		   (10, 5, 5, 'nah, dont agree', '2023-05-01', 6),
+		   (4, 5, 5, 'i like ur opinion', '2023-05-20', 7),
+		   (3, 5, 5, 'hmm, this could be better but its ok', '2023-05-21', 7),
+		   (10, 5, 5, 'i love it too, wanna share it? :>', '2023-12-12', 9)
 
 
 

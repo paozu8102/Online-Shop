@@ -6,6 +6,7 @@ package DAO;
 
 import DBcontext.DBContext;
 import Model.Category;
+import Model.Comment;
 import Model.Product;
 import Model.Setting;
 import java.math.BigDecimal;
@@ -23,7 +24,102 @@ import java.util.logging.Logger;
  * @author Nhat Anh
  */
 public class ProductDAO extends DBContext {
+    
+    //get all replied comment by a list of root comment: ThanhNX
+    public ArrayList<ArrayList<Comment>> getAllRepFeedback(ArrayList<Comment> rootCommentList) {
+        ArrayList<ArrayList<Comment>> repCommentList = new ArrayList<>();
+        String command = "SELECT u.UserID,\n"
+                + "	   u.Avatar,\n"
+                + "	   u.UserName,\n"
+                + "	   c.CommentID,\n"
+                + "	   CONVERT(varchar, c.CommentDate, 103) + ' ' + CONVERT(varchar, c.CommentDate, 108) CommentDate,\n"
+                + "	   c.CommentContent\n"
+                + "FROM Comment c JOIN [User] u\n"
+                + "ON c.UserID = u.UserID\n"
+                + "JOIN ObjectType o\n"
+                + "ON c.TypeID = o.TypeID\n"
+                + "WHERE c.CommentRepID = ?\n"
+                + "	  AND o.TypeName = 'Product'\n"
+                + "ORDER BY c.CommentDate";
+        for (int i = 0; i < rootCommentList.size(); i++) {
+            try {
+                ArrayList<Comment> repComments = new ArrayList<>();
+                PreparedStatement st = getConnection().prepareStatement(command);
+                st.setString(1, String.valueOf(rootCommentList.get(i).getCommentID()));
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    Comment comment = new Comment();
+                    comment.setUserID(rs.getInt("UserID"));
+                    comment.setAvatar(rs.getString("Avatar"));
+                    comment.setUserName(rs.getString("UserName"));
+                    comment.setCommentID(rs.getInt("CommentID"));
+                    comment.setCommentDate(rs.getString("CommentDate"));
+                    comment.setCommentContent(rs.getString("CommentContent"));
+                    repComments.add(comment);
+                }
+                repCommentList.add(repComments);
+            } catch (Exception e) {
+            }
+        }
+        return repCommentList;
+    }
+    
+    //get all root feedback: ThanhNX
+    public ArrayList<Comment> getAllRootCommentByProductID(String id) {
+        ArrayList<Comment> rootCommentList = new ArrayList<>();
+        String command = "SELECT u.UserID,\n"
+                + "	   u.Avatar,\n"
+                + "	   u.UserName,\n"
+                + "	   c.CommentID,\n"
+                + "	   CONVERT(varchar, c.CommentDate, 103) + ' ' + CONVERT(varchar, c.CommentDate, 108) CommentDate,\n"
+                + "	   c.CommentContent\n"
+                + "FROM Comment c JOIN [User] u\n"
+                + "ON c.UserID = u.UserID\n"
+                + "JOIN ObjectType o\n"
+                + "ON c.TypeID = o.TypeID\n"
+                + "WHERE c.CommentRepID IS NULL \n"
+                + "	  AND o.TypeName = 'Product'\n"
+                + "	  AND c.ObjectID = ?\n"
+                + "ORDER BY c.CommentDate";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(command);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Comment comment = new Comment();
+                comment.setUserID(rs.getInt("UserID"));
+                comment.setAvatar(rs.getString("Avatar"));
+                comment.setUserName(rs.getString("UserName"));
+                comment.setCommentID(rs.getInt("CommentID"));
+                comment.setCommentDate(rs.getString("CommentDate"));
+                comment.setCommentContent(rs.getString("CommentContent"));
+                rootCommentList.add(comment);
+            }
+        } catch (Exception e) {
+        }
+        return rootCommentList;
+    }
 
+    //get number comment of a product: ThanhNX
+    public int getCommentNumberByProductID(String id) {
+        int CommentNumber = 0;
+        String command = "SELECT COUNT(*) AS CommentNumber\n"
+                + "FROM Comment c JOIN ObjectType o\n"
+                + "ON c.TypeID = o.TypeID JOIN Product p\n"
+                + "ON p.ProductID = c.ObjectID\n"
+                + "WHERE o.TypeName = 'Product' AND p.ProductID = ?;";
+        try {
+            PreparedStatement st = getConnection().prepareStatement(command);
+            st.setString(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                CommentNumber = rs.getInt("CommentNumber");
+            }
+        } catch (Exception e) {
+        }
+        return CommentNumber;
+    }
+    
     //get 8 latest product in DB: ThanhNX
     public ArrayList<Product> getLatestProduct() {
         ArrayList<Product> homeProduct = new ArrayList<>();

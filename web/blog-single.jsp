@@ -159,12 +159,9 @@ function restoreScrollPositions() {
     var pageScrollPosition = sessionStorage.getItem('pageScrollPosition');
     var containerScrollPosition = sessionStorage.getItem('containerScrollPosition');
     var commentContainer = document.getElementById('commentContainer');
-    //scroll to comment section
-    if (pageScrollPosition) {
-        window.scrollTo(0, pageScrollPosition);
-    }
+    
     //scroll to comment
-    if(sessionStorage.getItem('position') === "delete"){
+    if(sessionStorage.getItem('containerScrollPosition') !== null){
         if (containerScrollPosition === "none") {
             commentContainer.scrollTop = commentContainer.scrollHeight;
         }
@@ -173,10 +170,14 @@ function restoreScrollPositions() {
     else {
         var position = sessionStorage.getItem('position');
         var comments = document.getElementById(position);
-        var yourComments = comments.querySelectorAll('.yourComment');
+        var yourComments = comments.querySelectorAll('.comment');
         var comment = yourComments[yourComments.length-1];
-        var scrollToPosition = comment.offsetTop;
-        commentContainer.scrollTop = scrollToPosition;
+        var element = document.getElementById(comment.id);
+        element.scrollIntoView();
+    }
+    //scroll to comment section
+    if (pageScrollPosition) {
+        window.scrollTo(0, pageScrollPosition);
     }
     sessionStorage.clear();
 }
@@ -397,23 +398,7 @@ function showReply(replyBoxId, bottom, userName) {
 function scrollToBottom() {
         var commentContainer = document.getElementById('commentContainer');
         commentContainer.scrollTop = commentContainer.scrollHeight;
-    }
-    
-function getUrlParam(paramName) {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has(paramName)) {
-        return urlParams.get(paramName);
-    }
-    return null; // Return null if the parameter doesn't exist
-}
-
-function scrollToElement() {
-  var element = document.getElementById(getUrlParam('goto'));
-  if (element) {
-    element.scrollIntoView();
-    }
-  
-}
+    }   
 
 function submitDeleteForm(formId) {
     var form = document.getElementById(formId);
@@ -423,9 +408,6 @@ function submitDeleteForm(formId) {
     }
 }
 
-// Call the function when the page loads
-window.addEventListener("load", scrollToElement);
-document.addEventListener("DOMContentLoaded", scrollToElement);
 </script>
 
 <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
@@ -561,7 +543,7 @@ document.addEventListener("DOMContentLoaded", scrollToElement);
                       <div class="comment-body">
                           <c:choose>
                               <c:when test="${user.getUserID() eq repComment.getUserID()}">
-                                  <h3 class="yourComment">You</h3>
+                                  <h3 class="yourComment" id="${repComment.getCommentID()}">You</h3>
                               </c:when>
                               <c:otherwise>
                                   <h3>${repComment.getUserName()}</h3>

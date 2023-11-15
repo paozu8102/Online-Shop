@@ -132,6 +132,8 @@ public class PostDAO extends DBContext {
         return CommentNumber;
     }
 
+    
+
     //get all root comment: ThanhNX
     public ArrayList<Comment> getAllRootCommentByPostID(String id) {
         ArrayList<Comment> rootCommentList = new ArrayList<>();
@@ -548,7 +550,7 @@ public class PostDAO extends DBContext {
     }
 
     //add a post into post table and get its ID: ThanhNX
-public String addPostAndGetID(String content, String userID, String Title) {
+    public String addPostAndGetID(String content, String userID, String Title) {
         String postID = "";
         String command = "INSERT INTO [dbo].[Post]\n"
                 + "           ([Title]\n"
@@ -594,6 +596,6 @@ public String addPostAndGetID(String content, String userID, String Title) {
             System.out.println(test3.get(i));
         }
 
-        System.out.println("day la id: " + new PostDAO().addPostAndGetID("huhu", "8", "title huihu"));
+        System.out.println(new ProductDAO().getCommentNumberByProductID("5"));
     }
 }
