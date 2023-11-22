@@ -250,7 +250,7 @@
                                     Filter
                                 </h4>
                                 <div>
-                                    <form action="managepost">
+                                    <form action="managepost" id="form" >
                                         <input type="hidden" name="searchID" value="${searchID}">
                                         <table class="table text-nowrap">
                                             <tr>
@@ -268,11 +268,11 @@
                                             <tr>
                                                 <td>Date: </td>
                                                 <td>
-                                                    <input type="date" name="from" value="${from}">
+                                                    <input id="dateinput1" type="date" name="from" value="${from}">
                                                 </td>
                                                 <td>To</td>
                                                 <td>
-                                                    <input type="date" name="to" value="${to}">
+                                                    <input id="dateinput2" type="date" name="to" value="${to}">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -286,7 +286,7 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2" style="text-align: center">
-                                                    <input style="padding: 0 3rem; color: #3e5569; " type="submit" value="Filter">
+                                                    <input onclick="checkDatesAndSubmit(); return false;" style="padding: 0 3rem; color: #3e5569; " type="submit" value="Filter">
                                                 </td>
                                             </tr>
                                         </table>
@@ -426,7 +426,28 @@
                                             function submit() {
                                                 document.getElementById('search').submit();
                                             }
+                                            
         </script>
+        <script>
+    function checkDatesAndSubmit() {
+    var dateInput1 = new Date(document.getElementById("dateinput1").value);
+    var dateInput2 = new Date(document.getElementById("dateinput2").value);
+    var currentDate = new Date(); // Ngày hiện tại
+
+    if (dateInput1 > dateInput2) {
+        // First date is after the second date, show an alert
+        alert("From date cannot be after To date.");
+    } else if (dateInput1 > currentDate) {
+        // Ngày bắt đầu là ngày trong tương lai, show an alert
+        alert("From date cannot be a future date.");
+    } else {
+        // Dates are valid, submit the form
+        var form = document.getElementById("form");
+        form.submit();
+    }
+}
+
+</script>
     </body>
 
 </html>
